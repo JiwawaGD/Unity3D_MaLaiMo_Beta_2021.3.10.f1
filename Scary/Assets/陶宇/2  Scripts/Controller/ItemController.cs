@@ -5,16 +5,19 @@ public class ItemController : MonoBehaviour
 {
     [Header("¹CÀ¸¨Æ¥ó")] public GameEventID eventID;
 
-    GameManager gameManager;
-
     public bool b_isActive;
-    [HideInInspector] public bool b_isOutline;
-    [HideInInspector] public Outline outline;
+
+    Outline outline;
+    GameManager gameManager;
+    GameObject InteractiveItem;
+    Transform tfInteractiveItem;
 
     void Awake()
     {
         outline = GetComponent<Outline>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        InteractiveItem = gameObject.transform.GetChild(0).gameObject;
+        tfInteractiveItem = InteractiveItem.transform;
     }
 
     void Start()
@@ -25,11 +28,19 @@ public class ItemController : MonoBehaviour
 
     public void LightOn(bool _open)
     {
-        outline.OutlineWidth = _open ? 10 : 0;
+        outline.OutlineWidth = _open ? 4 : 0;
     }
 
     public void SendGameEvent()
     {
         gameManager.GameEvent(eventID);
+    }
+
+    public void ShowInteractionPrompt(bool show)
+    {
+        InteractiveItem.SetActive(show);
+
+        if (show)
+            tfInteractiveItem.LookAt(Camera.main.transform);
     }
 }
