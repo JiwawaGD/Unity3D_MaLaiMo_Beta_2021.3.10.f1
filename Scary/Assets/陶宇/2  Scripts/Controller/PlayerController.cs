@@ -57,12 +57,13 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        RayHitCheck();
+
         if (!GameManager.m_bInUIView)
         {
             if (Input.GetKeyDown(KeyCode.F6))
                 SetCursor();
 
-            RayHitCheck();
         }
         else
         {
@@ -139,14 +140,13 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(tfPlayerCamera.position,     // Origin 
             tfPlayerCamera.forward,                      // Direction
             out hit,                                     // RaycastHit
-            m_fRayLength))                                // RayLength
+            m_fRayLength))                               // RayLength
         {
             current_Item = hit.transform.gameObject.GetComponent<ItemController>();
 
             if (hit.transform.gameObject.layer == m_iInteractiveLayer && current_Item.b_isActive)
             {
-                current_Item.LightOn(true);
-                current_Item.ShowInteractionPrompt(true);
+                current_Item.HintState(true);
 
                 last_Item = current_Item;
 
@@ -157,10 +157,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             if (last_Item)
-            {
-                last_Item.LightOn(false);
-                last_Item.ShowInteractionPrompt(false);
-            }
+                last_Item.HintState(false);
         }
     }
 }

@@ -46,8 +46,7 @@ public class GameManager : MonoBehaviour
         switch (_eventID)
         {
             case GameEventID.Close_UI:
-                m_bInUIView = false;
-                UIState(UIItemID.Empty, m_bInUIView);
+                UIState(UIItemID.Empty, false);
                 break;
             case GameEventID.S1_Move_To_Indoor:
                 tf_player.position = tfIndoorPos.position;
@@ -59,14 +58,14 @@ public class GameManager : MonoBehaviour
                 tfRollingDoor.position += new Vector3(0, 4, 0);
                 break;
             case GameEventID.S1_Photo_Frame:
-                m_bInUIView = true;
-                UIState(UIItemID.S1_Photo_Frame, m_bInUIView);
+                UIState(UIItemID.S1_Photo_Frame, true);
                 break;
         }
     }
 
     public void UIState(UIItemID r_ItemID, bool r_bEnable)
     {
+        m_bInUIView = r_bEnable;
         playerCtrlr.m_bCanControl = !r_bEnable;
         playerCtrlr.SetCursor();
 

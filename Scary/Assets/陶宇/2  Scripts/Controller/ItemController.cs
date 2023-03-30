@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(Outline))]
+[RequireComponent(typeof(Outline),typeof(BoxCollider))]
 public class ItemController : MonoBehaviour
 {
     [Header("¹CÀ¸¨Æ¥ó")] public GameEventID eventID;
@@ -11,24 +12,22 @@ public class ItemController : MonoBehaviour
     GameManager gameManager;
     GameObject InteractiveItem;
     Transform tfInteractiveItem;
+    Transform tfPlayerCamera;
 
     void Awake()
     {
         outline = GetComponent<Outline>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        InteractiveItem = gameObject.transform.GetChild(0).gameObject;
+        InteractiveItem = gameObject.transform.GetChild(0).GetChild(0).gameObject;
         tfInteractiveItem = InteractiveItem.transform;
     }
 
     void Start()
     {
+        gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
+        InteractiveItem.GetComponent<Image>().enabled = false;
         outline.OutlineMode = Outline.Mode.OutlineVisible;
         outline.OutlineWidth = 0;
-    }
-
-    public void LightOn(bool _open)
-    {
-        outline.OutlineWidth = _open ? 4 : 0;
     }
 
     public void SendGameEvent()
@@ -36,11 +35,18 @@ public class ItemController : MonoBehaviour
         gameManager.GameEvent(eventID);
     }
 
-    public void ShowInteractionPrompt(bool show)
+    public void HintState(bool r_bShow)
     {
-        InteractiveItem.SetActive(show);
+        outline.OutlineWidth = r_bShow ? 4 : 0;
 
-        if (show)
-            tfInteractiveItem.LookAt(Camera.main.transform);
+        InteractiveItem.GetComponent<Image>().enabled = r_bShow;
+
+        if (r_bShow)
+        {
+            if (tfPlayerCamera == null)
+                tfPlayerCamera = GameObject.Find("Player Camera").transform;
+
+            tfInteractiveItem.LookAt(tfPlayerCamera);
+        }
     }
 }
