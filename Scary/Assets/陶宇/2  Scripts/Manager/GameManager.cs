@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     Image imgUIDisplay;
     Text txtTitle;
     Text txtIntroduce;
+    Text txtExitHint;
     [SerializeField] [Header("UI 圖片庫")] Sprite[] UISprite;
 
     Transform tf_player;
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour
         imgUIDisplay = goCanvas.transform.GetChild(1).GetComponent<Image>();
         txtTitle = goCanvas.transform.GetChild(2).GetComponent<Text>();
         txtIntroduce = goCanvas.transform.GetChild(3).GetComponent<Text>();
+        txtExitHint = goCanvas.transform.GetChild(4).GetComponent<Text>();
     }
 
     void Start()
@@ -48,17 +50,17 @@ public class GameManager : MonoBehaviour
             case GameEventID.Close_UI:
                 UIState(UIItemID.Empty, false);
                 break;
-            case GameEventID.S1_Move_To_Indoor:
-                tf_player.position = tfIndoorPos.position;
-                break;
-            case GameEventID.S1_Move_To_OutDoor:
-                tf_player.position = tfOutdoorPos.position;
-                break;
-            case GameEventID.S1_RollingDoor_Up:
-                tfRollingDoor.position += new Vector3(0, 4, 0);
-                break;
             case GameEventID.S1_Photo_Frame:
                 UIState(UIItemID.S1_Photo_Frame, true);
+                break;
+            case GameEventID.S1_Grandma_Door_Open:
+                GameObject goDoor = GameObject.Find("Grandma Door");
+                Animator aniDoor = goDoor.transform.GetChild(0).GetComponent<Animator>();
+                aniDoor.SetTrigger("DoorOpen");
+                goDoor.transform.GetChild(0).GetComponent<ItemController>().HintState(false);
+                goDoor.transform.GetChild(0).GetComponent<ItemController>().b_isActive = false;
+                goDoor = null;
+                aniDoor = null;
                 break;
         }
     }
@@ -70,8 +72,9 @@ public class GameManager : MonoBehaviour
         playerCtrlr.SetCursor();
 
         goCanvas.SetActive(r_bEnable);
-        imgUIBackGround.color = r_bEnable ? new Color(0, 0, 0, 0.9f) : new Color(0, 0, 0, 0);
+        imgUIBackGround.color = r_bEnable ? new Color(0, 0, 0, 0.95f) : new Color(0, 0, 0, 0);
         imgUIDisplay.color = r_bEnable ? new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0);
+        txtExitHint.text = r_bEnable ? "按 Q 離開此畫面" : "";
 
         int iItemID = (int)r_ItemID;
 
