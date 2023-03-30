@@ -38,11 +38,8 @@ public enum GameEventID
     Close_UI = 0,
 
     // S1 : Scene_1
-    S1_Move_To_Indoor,
-    S1_Move_To_OutDoor,
-    S1_RollingDoor_Up,
-    S1_RollingDoor_Jump,
     S1_Photo_Frame,
+    S1_Grandma_Door_Open,
 }
 
 public enum UIItemID
