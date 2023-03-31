@@ -42,9 +42,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GameEvent(GameEventID.Close_UI);
-        ShowEnterGame(false);
 
-        ExitBtn.onClick.AddListener(()=> ButtonFunction(ButtonEventID.UI_Back));
+        ExitBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.UI_Back));
     }
 
     public void GameEvent(GameEventID _eventID)
@@ -59,17 +58,18 @@ public class GameManager : MonoBehaviour
                 UIState(UIItemID.S1_Photo_Frame, true);
                 break;
             case GameEventID.S1_Grandma_Door_Open:
-                GameObject goDoor = GameObject.Find("Grandma Door");
-                Animator aniDoor = goDoor.transform.GetChild(0).GetComponent<Animator>();
-                aniDoor.SetTrigger("DoorOpen");
-                goDoor.transform.GetChild(0).GetComponent<ItemController>().HintState(false);
-                goDoor.transform.GetChild(0).GetComponent<ItemController>().b_isActive = false;
-                goDoor = null;
-                aniDoor = null;
+                ProcessAnimator("Grandma Door", "DoorOpen");
                 break;
             case GameEventID.S1_Lotus_Paper:
                 UIState(UIItemID.S1_Lotus_Paper, true);
                 ShowEnterGame(true);
+                break;
+            case GameEventID.S1_Grandma_Dead_Body:
+                UIState(UIItemID.S1_Grandma_Dead_Body, true);
+                break;
+            case GameEventID.S1_White_Tent:
+                UIState(UIItemID.S1_White_Tent, true);
+                ProcessAnimator("FoldingScreen_Ani", "White Tent Open");
                 break;
         }
     }
@@ -92,6 +92,17 @@ public class GameManager : MonoBehaviour
         txtIntroduce.text = GlobalDeclare.UIIntroduce[iItemID];
     }
 
+    public void ProcessAnimator(string r_sObject, string r_sTriggerName)
+    {
+        GameObject obj = GameObject.Find(r_sObject);
+        Animator ani = obj.transform.GetComponent<Animator>();
+        ani.SetTrigger(r_sTriggerName);
+        obj.transform.GetComponent<ItemController>().HintState(false);
+        obj.transform.GetComponent<ItemController>().b_isActive = false;
+        obj = null;
+        ani = null;
+    }
+
     public void ShowEnterGame(bool r_bEnable)
     {
         EnterGameBtn.gameObject.SetActive(r_bEnable);
@@ -104,10 +115,10 @@ public class GameManager : MonoBehaviour
         switch (_eventID)
         {
             case ButtonEventID.UI_Back:
-                UIState(UIItemID.Empty, false);
+                GameEvent(GameEventID.Close_UI);
                 break;
             case ButtonEventID.Enter_Game:
-                UIState(UIItemID.Empty, false);
+                GameEvent(GameEventID.Close_UI);
                 break;
             default:
                 break;
