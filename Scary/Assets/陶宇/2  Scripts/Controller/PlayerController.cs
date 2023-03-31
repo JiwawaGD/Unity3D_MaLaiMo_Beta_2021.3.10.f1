@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     Vector3 v3_MoveValue;
     Vector3 v3_MovePos;
 
+    [SerializeField]
     Transform tfPlayerCamera;
     Transform tfTransform;
     Rigidbody rig;
@@ -63,12 +64,6 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F6))
                 SetCursor();
-
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Q))
-                gameManager.SendMessage("GameEvent", GameEventID.Close_UI);
         }
     }
 

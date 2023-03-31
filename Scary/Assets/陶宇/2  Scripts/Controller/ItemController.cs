@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(Outline), typeof(BoxCollider))]
 public class ItemController : MonoBehaviour
@@ -22,7 +21,7 @@ public class ItemController : MonoBehaviour
     void Start()
     {
         InteractiveItem.SetActive(false);
-        outline.OutlineMode = Outline.Mode.OutlineVisible;
+        outline.OutlineMode = Outline.Mode.OutlineAll;
         outline.OutlineWidth = 0;
     }
 

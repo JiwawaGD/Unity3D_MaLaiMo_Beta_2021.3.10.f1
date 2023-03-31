@@ -14,19 +14,18 @@ public class GameManager : MonoBehaviour
     Image imgUIDisplay;
     Text txtTitle;
     Text txtIntroduce;
-    Text txtExitHint;
+    Button ExitBtn;
+    Text txtEnterGameHint;
+    Button EnterGameBtn;
     [SerializeField] [Header("UI 圖片庫")] Sprite[] UISprite;
 
-    Transform tf_player;
-
     public static bool m_bInUIView = false;
+    public static bool m_bIsEnterGameView = false;
 
     void Awake()
     {
         if (playerCtrlr == null)
             playerCtrlr = GameObject.Find("Player").GetComponent<PlayerController>();
-
-        tf_player = playerCtrlr.transform;
 
         if (goCanvas == null)
             goCanvas = GameObject.Find("UI Canvas");
@@ -35,12 +34,17 @@ public class GameManager : MonoBehaviour
         imgUIDisplay = goCanvas.transform.GetChild(1).GetComponent<Image>();
         txtTitle = goCanvas.transform.GetChild(2).GetComponent<Text>();
         txtIntroduce = goCanvas.transform.GetChild(3).GetComponent<Text>();
-        txtExitHint = goCanvas.transform.GetChild(4).GetComponent<Text>();
+        ExitBtn = goCanvas.transform.GetChild(4).GetComponent<Button>();
+        txtEnterGameHint = goCanvas.transform.GetChild(5).GetComponent<Text>();
+        EnterGameBtn = goCanvas.transform.GetChild(6).GetComponent<Button>();
     }
 
     void Start()
     {
-        goCanvas.SetActive(false);
+        GameEvent(GameEventID.Close_UI);
+        ShowEnterGame(false);
+
+        ExitBtn.onClick.AddListener(()=> ButtonFunction(ButtonEventID.UI_Back));
     }
 
     public void GameEvent(GameEventID _eventID)
@@ -49,6 +53,7 @@ public class GameManager : MonoBehaviour
         {
             case GameEventID.Close_UI:
                 UIState(UIItemID.Empty, false);
+                ShowEnterGame(false);
                 break;
             case GameEventID.S1_Photo_Frame:
                 UIState(UIItemID.S1_Photo_Frame, true);
@@ -62,6 +67,10 @@ public class GameManager : MonoBehaviour
                 goDoor = null;
                 aniDoor = null;
                 break;
+            case GameEventID.S1_Lotus_Paper:
+                UIState(UIItemID.S1_Lotus_Paper, true);
+                ShowEnterGame(true);
+                break;
         }
     }
 
@@ -72,14 +81,36 @@ public class GameManager : MonoBehaviour
         playerCtrlr.SetCursor();
 
         goCanvas.SetActive(r_bEnable);
+        ExitBtn.gameObject.SetActive(r_bEnable);
         imgUIBackGround.color = r_bEnable ? new Color(0, 0, 0, 0.95f) : new Color(0, 0, 0, 0);
         imgUIDisplay.color = r_bEnable ? new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0);
-        txtExitHint.text = r_bEnable ? "按 Q 離開此畫面" : "";
 
         int iItemID = (int)r_ItemID;
 
         imgUIDisplay.sprite = UISprite[iItemID];
         txtTitle.text = GlobalDeclare.UITitle[iItemID];
         txtIntroduce.text = GlobalDeclare.UIIntroduce[iItemID];
+    }
+
+    public void ShowEnterGame(bool r_bEnable)
+    {
+        EnterGameBtn.gameObject.SetActive(r_bEnable);
+        txtEnterGameHint.gameObject.SetActive(r_bEnable);
+        txtEnterGameHint.text = r_bEnable ? "---- 是否進入遊戲 ----" : "";
+    }
+
+    public void ButtonFunction(ButtonEventID _eventID)
+    {
+        switch (_eventID)
+        {
+            case ButtonEventID.UI_Back:
+                UIState(UIItemID.Empty, false);
+                break;
+            case ButtonEventID.Enter_Game:
+                UIState(UIItemID.Empty, false);
+                break;
+            default:
+                break;
+        }
     }
 }

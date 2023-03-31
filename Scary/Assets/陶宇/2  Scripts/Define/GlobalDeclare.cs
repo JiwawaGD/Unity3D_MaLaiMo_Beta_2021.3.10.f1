@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class GlobalDeclare
 {
     public enum ItemMessage
@@ -17,12 +15,18 @@ public class GlobalDeclare
     {
         "",
         "阿嬤的相框",
+        "折蓮花專用紙"
     };
 
     public readonly static string[] UIIntroduce = new string[]
     {
         "",
         "阿夜阿嬤飛上天",
+        "摺紙蓮花源自觀世音菩薩所乘之蓮座衍生而來，\r\n" +
+        "往生親人乘坐著蓮花，在往西方極樂世界的路途中，\r\n" +
+        "能走得更加安穩與平順。\r\n" +
+        "在世的人摺紙蓮花給往生的先人，\r\n" +
+        "能夠消除業障，渡化其冤親債主，脫離苦難。",
     };
 }
 
@@ -40,6 +44,7 @@ public enum GameEventID
     // S1 : Scene_1
     S1_Photo_Frame,
     S1_Grandma_Door_Open,
+    S1_Lotus_Paper,
 }
 
 public enum UIItemID
@@ -48,4 +53,11 @@ public enum UIItemID
 
     // S1 : Scene_1
     S1_Photo_Frame,
+    S1_Lotus_Paper,
+}
+
+public enum ButtonEventID
+{
+    UI_Back,
+    Enter_Game,
 }
