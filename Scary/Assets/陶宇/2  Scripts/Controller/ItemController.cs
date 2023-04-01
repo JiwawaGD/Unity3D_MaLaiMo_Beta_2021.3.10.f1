@@ -52,7 +52,7 @@ public class ItemController : MonoBehaviour
 
     public void HintState(bool r_bShow)
     {
-        outline.OutlineWidth = r_bShow ? 4 : 0;
+        outline.OutlineWidth = r_bShow ? 6 : 0;
 
         InteractiveItem.SetActive(r_bShow);
 
