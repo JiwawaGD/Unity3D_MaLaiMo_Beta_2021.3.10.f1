@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_White_Tent:
                 UIState(UIItemID.S1_White_Tent, true);
-                ProcessAnimator("FoldingScreen_Ani", "White Tent Open");
+                ProcessAnimator("White Tent Temp", "White Tent Open");
                 break;
         }
     }
