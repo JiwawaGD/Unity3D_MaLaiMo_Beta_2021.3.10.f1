@@ -22,8 +22,7 @@ public class PlayerController : MonoBehaviour
     Vector3 v3_MoveValue;
     Vector3 v3_MovePos;
 
-    [SerializeField]
-    Transform tfPlayerCamera;
+    public Transform tfPlayerCamera;
     Transform tfTransform;
     Rigidbody rig;
     RaycastHit hit;

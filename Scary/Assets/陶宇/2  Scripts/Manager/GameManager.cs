@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     public static bool m_bInUIView = false;
     public static bool m_bIsEnterGameView = false;
+    public static bool m_bInCGAnimate = false;
 
     void Awake()
     {
@@ -53,9 +54,15 @@ public class GameManager : MonoBehaviour
             case GameEventID.Close_UI:
                 UIState(UIItemID.Empty, false);
                 ShowEnterGame(false);
+
+                if (m_bInCGAnimate)
+                    ProcessPlayerAnimator(GlobalDeclare.GetPlayerAnimateType().ToString());
+
                 break;
             case GameEventID.S1_Photo_Frame:
                 UIState(UIItemID.S1_Photo_Frame, true);
+                m_bInCGAnimate = true;
+                GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Player_Turn_After_Photo_Frame);
                 break;
             case GameEventID.S1_Grandma_Door_Open:
                 ProcessAnimator("Grandma Door", "DoorOpen");
@@ -101,6 +108,14 @@ public class GameManager : MonoBehaviour
         obj.transform.GetComponent<ItemController>().b_isActive = false;
         obj = null;
         ani = null;
+    }
+
+    public void ProcessPlayerAnimator(string r_sAnimationName)
+    {
+        //playerCtrlr.tfPlayerCamera.localEulerAngles = new Vector3(0, 0, 0);
+
+        Animation am = playerCtrlr.GetComponent<Animation>();
+        am.Play(r_sAnimationName);
     }
 
     public void ShowEnterGame(bool r_bEnable)

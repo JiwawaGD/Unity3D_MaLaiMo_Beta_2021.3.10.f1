@@ -1,5 +1,26 @@
 public class GlobalDeclare
 {
+    public class PlayerState
+    {
+        public static PlayerAnimateType aniType;
+
+        public PlayerState()
+        {
+            aniType = PlayerAnimateType.Empty;
+        }
+    }
+
+    public static void SetPlayerAnimateType(PlayerAnimateType r_AniType)
+    {
+        PlayerState.aniType = r_AniType;
+    }
+
+    public static PlayerAnimateType GetPlayerAnimateType()
+    {
+        return PlayerState.aniType;
+    }
+
+
     public enum ItemMessage
     {
         test_box,
@@ -73,4 +94,11 @@ public enum ButtonEventID
 {
     UI_Back,
     Enter_Game,
+}
+
+public enum PlayerAnimateType
+{
+    Empty,
+    Player_Wake_Up,
+    Player_Turn_After_Photo_Frame,
 }
