@@ -81,6 +81,8 @@ public enum GameEventID
     S1_Lotus_Paper,
     S1_Grandma_Dead_Body,
     S1_White_Tent,
+    S1_Photo_Frame_Light_On,
+    S1_Grandma_Rush,
 }
 
 public enum UIItemID

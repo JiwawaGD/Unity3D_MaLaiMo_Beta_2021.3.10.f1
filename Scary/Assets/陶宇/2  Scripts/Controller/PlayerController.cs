@@ -86,6 +86,18 @@ public class PlayerController : MonoBehaviour
         View();
     }
 
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.layer == LayerMask.NameToLayer("GameEventTrigger"))
+        {
+            if (GameManager.m_bPhotoFrameLightOn)
+                gameManager.SendMessage("GameEvent", GameEventID.S1_Photo_Frame_Light_On);
+
+            if (GameManager.m_bGrandmaRush)
+                gameManager.SendMessage("GameEvent", GameEventID.S1_Grandma_Rush);
+        }
+    }
+
     void InitValue()
     {
         m_fUDSensitivity = 110;

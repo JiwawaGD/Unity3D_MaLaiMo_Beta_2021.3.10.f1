@@ -19,9 +19,22 @@ public class GameManager : MonoBehaviour
     Button EnterGameBtn;
     [SerializeField] [Header("UI ¹Ï¤ù®w")] Sprite[] UISprite;
 
+    Transform tfGrandmaGhost;
+
+    public int m_iGrandmaRushCount;
+
+    #region Light Zone
+    public GameObject goPhotoFrameLight;
+    #endregion
+
+    #region Boolean Zone
     public static bool m_bInUIView = false;
     public static bool m_bIsEnterGameView = false;
     public static bool m_bInCGAnimate = false;
+
+    public static bool m_bPhotoFrameLightOn = false;
+    public static bool m_bGrandmaRush = false;
+    #endregion
 
     void Awake()
     {
@@ -66,11 +79,11 @@ public class GameManager : MonoBehaviour
                 tfPlayer.rotation = Quaternion.Euler(0, 180, 0);
                 tfPlayer.GetChild(0).rotation = Quaternion.Euler(0, 180, 0);
 
-                Transform tfGrandmaGhost = GameObject.Find("Grandma_Ghost").transform;
+                tfGrandmaGhost = GameObject.Find("Grandma_Ghost").transform;
                 ParticleSystem psMist_Partical = GameObject.Find("Mist_Partical").GetComponent<ParticleSystem>();
                 tfGrandmaGhost.Translate(0f, 100f, 0f);
                 psMist_Partical.Play();
-
+                m_bGrandmaRush = true;
                 m_bInCGAnimate = true;
                 GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Player_Turn_After_Photo_Frame);
                 break;
@@ -83,10 +96,25 @@ public class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Grandma_Dead_Body:
                 UIState(UIItemID.S1_Grandma_Dead_Body, true);
+                m_bPhotoFrameLightOn = true;
                 break;
             case GameEventID.S1_White_Tent:
                 UIState(UIItemID.S1_White_Tent, true);
                 ProcessAnimator("White Tent Temp", "White Tent Open");
+                break;
+            case GameEventID.S1_Photo_Frame_Light_On:
+                goPhotoFrameLight.SetActive(true);
+                m_bPhotoFrameLightOn = false;
+                break;
+            case GameEventID.S1_Grandma_Rush:
+
+                InvokeRepeating(nameof(GrandMaRush), 0f, 0.05f);
+
+                if (m_iGrandmaRushCount >= 10)
+                    CancelInvoke(nameof(GrandMaRush));
+
+                m_bGrandmaRush = false;
+
                 break;
         }
     }
@@ -145,8 +173,12 @@ public class GameManager : MonoBehaviour
             case ButtonEventID.Enter_Game:
                 GameEvent(GameEventID.Close_UI);
                 break;
-            default:
-                break;
         }
+    }
+
+    public void GrandMaRush()
+    {
+        tfGrandmaGhost.Translate(0f, 0f, 0.6f);
+        m_iGrandmaRushCount++;
     }
 }
