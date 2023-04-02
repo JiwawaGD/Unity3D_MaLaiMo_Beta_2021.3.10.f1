@@ -61,6 +61,16 @@ public class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Photo_Frame:
                 UIState(UIItemID.S1_Photo_Frame, true);
+                Transform tfPlayer = playerCtrlr.transform;
+                tfPlayer.position = new Vector3(-4.5f, 0.8f, 1f);
+                tfPlayer.rotation = Quaternion.Euler(0, 180, 0);
+                tfPlayer.GetChild(0).rotation = Quaternion.Euler(0, 180, 0);
+
+                Transform tfGrandmaGhost = GameObject.Find("Grandma_Ghost").transform;
+                ParticleSystem psMist_Partical = GameObject.Find("Mist_Partical").GetComponent<ParticleSystem>();
+                tfGrandmaGhost.Translate(0f, 100f, 0f);
+                psMist_Partical.Play();
+
                 m_bInCGAnimate = true;
                 GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Player_Turn_After_Photo_Frame);
                 break;
@@ -112,10 +122,10 @@ public class GameManager : MonoBehaviour
 
     public void ProcessPlayerAnimator(string r_sAnimationName)
     {
-        //playerCtrlr.tfPlayerCamera.localEulerAngles = new Vector3(0, 0, 0);
-
         Animation am = playerCtrlr.GetComponent<Animation>();
         am.Play(r_sAnimationName);
+        m_bInCGAnimate = false;
+        GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Empty);
     }
 
     public void ShowEnterGame(bool r_bEnable)

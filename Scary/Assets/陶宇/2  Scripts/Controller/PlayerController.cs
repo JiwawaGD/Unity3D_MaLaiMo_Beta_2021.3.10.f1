@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     readonly Vector3 v3_zero = Vector3.zero;
 
     float m_fDeltatime;
-    float m_fLookRotation;
+   public float m_fLookRotation;
 
     [HideInInspector] public bool m_bCursorShow;
     [HideInInspector] public bool m_bCanControl;
@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     Transform tfTransform;
     Rigidbody rig;
     RaycastHit hit;
+    Animation ani;
 
     ItemController current_Item;
     ItemController last_Item;
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         rig = GetComponent<Rigidbody>();
+        ani = GetComponent<Animation>();
         tfTransform = transform;
 
         if (tfPlayerCamera == null)
@@ -73,6 +75,12 @@ public class PlayerController : MonoBehaviour
 
         if (!m_bCanControl)
             return;
+
+        if (ani.isPlaying)
+        {
+            m_fLookRotation = 0;
+            return;
+        }
 
         Move();
         View();
