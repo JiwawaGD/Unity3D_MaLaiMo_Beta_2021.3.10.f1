@@ -107,8 +107,9 @@ public class GameManager : MonoBehaviour
                 m_bPhotoFrameLightOn = false;
                 break;
             case GameEventID.S1_Grandma_Rush:
-
                 InvokeRepeating(nameof(GrandMaRush), 0f, 0.05f);
+                Animator AniGrandma = tfGrandmaGhost.GetComponent<Animator>();
+                AniGrandma.SetBool("Grandma_Attack", true);
 
                 if (m_iGrandmaRushCount >= 10)
                     CancelInvoke(nameof(GrandMaRush));
