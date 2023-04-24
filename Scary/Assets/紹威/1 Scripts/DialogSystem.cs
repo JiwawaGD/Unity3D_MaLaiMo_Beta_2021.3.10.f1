@@ -21,9 +21,9 @@ public class DialogSystem : MonoBehaviour
     {
         GetTextFormFile(textAsset);
         textLable.text = textList[index];
-        StartCoroutine(AddTextAfterDelay(10f));
+        StartCoroutine(AddTextAfterDelay(18f));
 
-        StartCoroutine(DestroyTextAfterDelay(20f));
+        StartCoroutine(DestroyTextAfterDelay(21f));
     }
 
     // Update is called once per frame
