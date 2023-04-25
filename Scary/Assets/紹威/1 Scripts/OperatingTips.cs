@@ -38,7 +38,7 @@ public class OperatingTips : MonoBehaviour
             }
         }
     }
-    IEnumerator FabeIn()
+    public IEnumerator FabeIn()
     {
         isFading = true;
 
@@ -63,7 +63,7 @@ public class OperatingTips : MonoBehaviour
         isFading = false;
     }
 
-    IEnumerator FadeOut()
+    public IEnumerator FadeOut()
     {
         isFading = true;
 
