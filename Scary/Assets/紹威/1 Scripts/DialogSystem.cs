@@ -63,7 +63,7 @@ public class DialogSystem : MonoBehaviour
         isInside = false;
         if (!isFading)
         {
-            StartCoroutine(FadeOut());
+            //StartCoroutine(FadeOut());
             textLable.text = "";
         }
     }
@@ -73,7 +73,7 @@ public class DialogSystem : MonoBehaviour
         isInside = true;
         if (!isFading)
         {
-            StartCoroutine(FabeIn());
+            //StartCoroutine(FabeIn());
             index++;
             textLable.text = textList[index];
             StartCoroutine(DestroyTextAfterDelay(2f));
