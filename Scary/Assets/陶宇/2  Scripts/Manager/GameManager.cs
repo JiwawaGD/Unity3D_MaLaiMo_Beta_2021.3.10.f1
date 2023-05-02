@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_White_Tent:
                 UIState(UIItemID.S1_White_Tent, true);
-                ProcessAnimator("White Tent Temp", "White Tent Open");
+                ProcessAnimator("Filial_piety_curtain", "Filial_piety_curtain Open");
                 break;
             case GameEventID.S1_Photo_Frame_Light_On:
                 goPhotoFrameLight.SetActive(true);
@@ -110,12 +110,7 @@ public class GameManager : MonoBehaviour
                 InvokeRepeating(nameof(GrandMaRush), 0f, 0.05f);
                 Animator AniGrandma = tfGrandmaGhost.GetComponent<Animator>();
                 AniGrandma.SetBool("Grandma_Attack", true);
-
-                if (m_iGrandmaRushCount >= 10)
-                    CancelInvoke(nameof(GrandMaRush));
-
                 m_bGrandmaRush = false;
-
                 break;
         }
     }
@@ -181,5 +176,8 @@ public class GameManager : MonoBehaviour
     {
         tfGrandmaGhost.Translate(0f, 0f, 0.6f);
         m_iGrandmaRushCount++;
+
+        if (m_iGrandmaRushCount >= 10)
+            CancelInvoke(nameof(GrandMaRush));
     }
 }
