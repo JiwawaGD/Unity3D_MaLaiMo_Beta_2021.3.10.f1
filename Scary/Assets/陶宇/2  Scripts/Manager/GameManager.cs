@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -174,10 +175,13 @@ public class GameManager : MonoBehaviour
 
     public void GrandMaRush()
     {
-        tfGrandmaGhost.Translate(0f, 0f, 0.6f);
+        tfGrandmaGhost.Translate(0f, 0f, 0.3f);
         m_iGrandmaRushCount++;
 
-        if (m_iGrandmaRushCount >= 10)
+        if (m_iGrandmaRushCount >= 20)
+        {
             CancelInvoke(nameof(GrandMaRush));
+            SceneManager.LoadScene(0);
+        }
     }
 }
