@@ -85,6 +85,7 @@ public partial class GameManager : MonoBehaviour
                 ParticleSystem psMist_Partical = GameObject.Find("Mist_Partical").GetComponent<ParticleSystem>();
                 tfGrandmaGhost.Translate(0f, 100f, 0f);
                 psMist_Partical.Play();
+
                 m_bGrandmaRush = true;
                 m_bInCGAnimate = true;
                 GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Player_Turn_After_Photo_Frame);
