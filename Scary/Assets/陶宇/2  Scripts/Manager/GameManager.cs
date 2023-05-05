@@ -59,6 +59,7 @@ public partial class GameManager : MonoBehaviour
         GameEvent(GameEventID.Close_UI);
 
         ExitBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.UI_Back));
+        EnterGameBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.Enter_Game));
     }
 
     public void GameEvent(GameEventID _eventID)
@@ -170,6 +171,9 @@ public partial class GameManager : MonoBehaviour
                 break;
             case ButtonEventID.Enter_Game:
                 GameEvent(GameEventID.Close_UI);
+                playerCtrlr.m_bCanControl = false;
+                playerCtrlr.tfPlayerCamera.gameObject.SetActive(false);
+                SceneManager.LoadScene(2, LoadSceneMode.Additive);
                 break;
         }
     }
@@ -187,5 +191,12 @@ public partial class GameManager : MonoBehaviour
             imgUIBackGround.color = new Color(0, 0, 0, 0.95f);
             Invoke(nameof(IvkShowGrandmaFaceUI), 2f);
         }
+    }
+
+    public void ExitLotusGame()
+    {
+        playerCtrlr.m_bCanControl = true;
+        playerCtrlr.tfPlayerCamera.gameObject.SetActive(true);
+        SceneManager.UnloadSceneAsync(2);
     }
 }
