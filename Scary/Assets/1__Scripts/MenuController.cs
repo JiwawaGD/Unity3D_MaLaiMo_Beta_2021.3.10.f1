@@ -20,10 +20,10 @@ public class MenuController : MonoBehaviour
 
         if (bLoadSceneAsync)
         {
-            //StartCoroutine(nameof(LoadSceneAsync));
-            //Btn_StartGame.onClick.AddListener(() => AsyncActivate());
+            StartCoroutine(nameof(LoadSceneAsync));
+            Btn_StartGame.onClick.AddListener(() => AsyncActivate());
 
-            Btn_StartGame.onClick.AddListener(() => LoadScene(iNextSceneID));
+            //Btn_StartGame.onClick.AddListener(() => LoadScene(iNextSceneID));
         }
         else
         {
@@ -43,20 +43,12 @@ public class MenuController : MonoBehaviour
 
         while (async.progress < 0.9f)
         {
-            if (async.progress > 0.3f)
-            {
-                aniSubtitle_1.Play();
-            }
-
             yield return new WaitForEndOfFrame();
         }
-
-        Debug.Log("Load Scene Finish");
     }
 
     void AsyncActivate()
     {
-        Debug.Log("1233333");
         async.allowSceneActivation = true;
     }
 }

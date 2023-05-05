@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public partial class GameManager : MonoBehaviour
 {
     [SerializeField] [Header("ª±®a")] PlayerController playerCtrlr;
 
@@ -102,13 +102,16 @@ public class GameManager : MonoBehaviour
             case GameEventID.S1_White_Tent:
                 UIState(UIItemID.S1_White_Tent, true);
                 ProcessAnimator("Filial_piety_curtain", "Filial_piety_curtain Open");
+                BoxCollider curtain = GameObject.Find("Filial_piety_curtain").GetComponent<BoxCollider>();
+                curtain.enabled = false;
                 break;
             case GameEventID.S1_Photo_Frame_Light_On:
                 goPhotoFrameLight.SetActive(true);
                 m_bPhotoFrameLightOn = false;
                 break;
             case GameEventID.S1_Grandma_Rush:
-                InvokeRepeating(nameof(GrandMaRush), 0f, 0.05f);
+                InvokeRepeating(nameof(GrandMaRush), 0f, 0.025f);
+                playerCtrlr.m_bCanControl = false;
                 Animator AniGrandma = tfGrandmaGhost.GetComponent<Animator>();
                 AniGrandma.SetBool("Grandma_Attack", true);
                 m_bGrandmaRush = false;
@@ -124,7 +127,7 @@ public class GameManager : MonoBehaviour
 
         goCanvas.SetActive(r_bEnable);
         ExitBtn.gameObject.SetActive(r_bEnable);
-        imgUIBackGround.color = r_bEnable ? new Color(0, 0, 0, 0.95f) : new Color(0, 0, 0, 0);
+        imgUIBackGround.color = r_bEnable ? new Color(0, 0, 0, 1) : new Color(0, 0, 0, 0);
         imgUIDisplay.color = r_bEnable ? new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0);
 
         int iItemID = (int)r_ItemID;
@@ -141,8 +144,6 @@ public class GameManager : MonoBehaviour
         ani.SetTrigger(r_sTriggerName);
         obj.transform.GetComponent<ItemController>().HintState(false);
         obj.transform.GetComponent<ItemController>().b_isActive = false;
-        obj = null;
-        ani = null;
     }
 
     public void ProcessPlayerAnimator(string r_sAnimationName)
@@ -178,10 +179,13 @@ public class GameManager : MonoBehaviour
         tfGrandmaGhost.Translate(0f, 0f, 0.3f);
         m_iGrandmaRushCount++;
 
-        if (m_iGrandmaRushCount >= 20)
+        if (m_iGrandmaRushCount >= 10)
         {
             CancelInvoke(nameof(GrandMaRush));
-            SceneManager.LoadScene(0);
+            playerCtrlr.m_bCanControl = true;
+            goCanvas.SetActive(true);
+            imgUIBackGround.color = new Color(0, 0, 0, 0.95f);
+            Invoke(nameof(IvkShowGrandmaFaceUI), 2f);
         }
     }
 }

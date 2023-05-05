@@ -13,8 +13,7 @@ public class PlayerController : MonoBehaviour
     readonly int m_iInteractiveLayer = 10;
     readonly Vector3 v3_zero = Vector3.zero;
 
-    float m_fDeltatime;
-   public float m_fLookRotation;
+    float m_fLookRotation;
 
     [HideInInspector] public bool m_bCursorShow;
     [HideInInspector] public bool m_bCanControl;
@@ -105,16 +104,14 @@ public class PlayerController : MonoBehaviour
 
         m_bCursorShow = true;
         m_bCanControl = true;
-
-        m_fDeltatime = Time.deltaTime;
     }
 
     void View()
     {
         // 左右轉
-        tfTransform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * m_fRLSensitivity * m_fDeltatime);
+        tfTransform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * m_fRLSensitivity * Time.deltaTime);
 
-        m_fLookRotation += Input.GetAxis("Mouse Y") * m_fUDSensitivity * m_fDeltatime;
+        m_fLookRotation += Input.GetAxis("Mouse Y") * m_fUDSensitivity * Time.deltaTime;
         m_fLookRotation = Mathf.Clamp(m_fLookRotation, -75, 75);
 
         // 上下轉
@@ -125,8 +122,8 @@ public class PlayerController : MonoBehaviour
     {
         v3_MoveValue = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
-        v3_MovePos.x = v3_MoveValue.x * m_fDeltatime * m_fMoveSpeed;
-        v3_MovePos.z = v3_MoveValue.z * m_fDeltatime * m_fMoveSpeed;
+        v3_MovePos.x = v3_MoveValue.x * Time.deltaTime * m_fMoveSpeed;
+        v3_MovePos.z = v3_MoveValue.z * Time.deltaTime * m_fMoveSpeed;
 
         v3_MovePos = tfTransform.right * v3_MovePos.x + tfTransform.forward * v3_MovePos.z;
 
