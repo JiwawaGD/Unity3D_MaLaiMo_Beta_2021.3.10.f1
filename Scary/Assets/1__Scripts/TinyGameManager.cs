@@ -7,7 +7,7 @@ public partial class GameManager : MonoBehaviour
         imgUIBackGround.color = new Color(1, 1, 1, 1);
         Sprite GrandmaFaceSprite = Resources.Load<Sprite>("Sprites/GrandmaFace");
         imgUIBackGround.sprite = GrandmaFaceSprite;
-        Invoke(nameof(IvkShowEndView), 3f);
+        Invoke(nameof(IvkShowEndView), 5f);
     }
 
     public void IvkShowEndView()

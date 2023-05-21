@@ -9,6 +9,7 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("戶內傳送點")] Transform tfIndoorPos;
     [SerializeField] [Header("戶外傳送點")] Transform tfOutdoorPos;
     [SerializeField] [Header("鐵捲門物件")] Transform tfRollingDoor;
+    [SerializeField] [Header("UI 圖片庫")] Sprite[] UISprite;
 
     GameObject goCanvas;
     Image imgUIBackGround;
@@ -18,7 +19,6 @@ public partial class GameManager : MonoBehaviour
     Button ExitBtn;
     Text txtEnterGameHint;
     Button EnterGameBtn;
-    [SerializeField] [Header("UI 圖片庫")] Sprite[] UISprite;
 
     Transform tfGrandmaGhost;
 
@@ -31,7 +31,8 @@ public partial class GameManager : MonoBehaviour
     #region Boolean Zone
     public static bool m_bInUIView = false;
     public static bool m_bIsEnterGameView = false;
-    public static bool m_bInCGAnimate = false;
+    public static bool m_bShowPlayerAnimate = false;
+    public static bool m_bShowItemAnimate = false;
 
     public static bool m_bPhotoFrameLightOn = false;
     public static bool m_bGrandmaRush = false;
@@ -70,8 +71,11 @@ public partial class GameManager : MonoBehaviour
                 UIState(UIItemID.Empty, false);
                 ShowEnterGame(false);
 
-                if (m_bInCGAnimate)
+                if (m_bShowPlayerAnimate)
                     ProcessPlayerAnimator(GlobalDeclare.GetPlayerAnimateType().ToString());
+
+                if (m_bShowItemAnimate)
+                    ProcessAnimator(GlobalDeclare.GetItemAniObject(), GlobalDeclare.GetItemAniName());
 
                 break;
             case GameEventID.S1_Photo_Frame:
@@ -87,7 +91,7 @@ public partial class GameManager : MonoBehaviour
                 psMist_Partical.Play();
 
                 m_bGrandmaRush = true;
-                m_bInCGAnimate = true;
+                m_bShowPlayerAnimate = true;
                 GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Player_Turn_After_Photo_Frame);
                 break;
             case GameEventID.S1_Grandma_Door_Open:
@@ -103,7 +107,9 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_White_Tent:
                 UIState(UIItemID.S1_White_Tent, true);
-                ProcessAnimator("Filial_piety_curtain", "Filial_piety_curtain Open");
+                m_bShowItemAnimate = true;
+                GlobalDeclare.SetItemAniObject("Filial_piety_curtain");
+                GlobalDeclare.SetItemAniName("Filial_piety_curtain Open");
                 BoxCollider curtain = GameObject.Find("Filial_piety_curtain").GetComponent<BoxCollider>();
                 curtain.enabled = false;
                 break;
@@ -141,18 +147,25 @@ public partial class GameManager : MonoBehaviour
 
     public void ProcessAnimator(string r_sObject, string r_sTriggerName)
     {
+        if (r_sObject.Contains("null") || r_sTriggerName.Contains("null"))
+            return;
+
         GameObject obj = GameObject.Find(r_sObject);
         Animator ani = obj.transform.GetComponent<Animator>();
         ani.SetTrigger(r_sTriggerName);
         obj.transform.GetComponent<ItemController>().HintState(false);
         obj.transform.GetComponent<ItemController>().b_isActive = false;
+
+        GlobalDeclare.SetItemAniObject("Empty");
+        GlobalDeclare.SetItemAniName("Empty");
+        m_bShowItemAnimate = false;
     }
 
     public void ProcessPlayerAnimator(string r_sAnimationName)
     {
         Animation am = playerCtrlr.GetComponent<Animation>();
         am.Play(r_sAnimationName);
-        m_bInCGAnimate = false;
+        m_bShowPlayerAnimate = false;
         GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Empty);
     }
 
@@ -190,7 +203,7 @@ public partial class GameManager : MonoBehaviour
             playerCtrlr.m_bCanControl = true;
             goCanvas.SetActive(true);
             imgUIBackGround.color = new Color(0, 0, 0, 0.95f);
-            Invoke(nameof(IvkShowGrandmaFaceUI), 2f);
+            Invoke(nameof(IvkShowGrandmaFaceUI), 1f);
         }
     }
 

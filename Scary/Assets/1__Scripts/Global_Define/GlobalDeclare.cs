@@ -1,4 +1,4 @@
-public class GlobalDeclare
+public partial class GlobalDeclare
 {
     public class PlayerState
     {
@@ -18,12 +18,6 @@ public class GlobalDeclare
     public static PlayerAnimateType GetPlayerAnimateType()
     {
         return PlayerState.aniType;
-    }
-
-
-    public enum ItemMessage
-    {
-        test_box,
     }
 
     public readonly static string[] StoryMessage = new string[]
