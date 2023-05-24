@@ -9,14 +9,14 @@ public class PlayerController : MonoBehaviour
 
     // Const value
     readonly float m_fMoveSpeed = 90f;
-    readonly float m_fRayLength = 2f;
+    readonly float m_fRayLength = 1.5f;
     readonly int m_iInteractiveLayer = 10;
     readonly Vector3 v3_zero = Vector3.zero;
 
     float m_fLookRotation;
 
-    [HideInInspector] public bool m_bCursorShow;
-    [HideInInspector] public bool m_bCanControl;
+    public bool m_bCursorShow;
+    public bool m_bCanControl;
 
     Vector3 v3_MoveValue;
     Vector3 v3_MovePos;
@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     ItemController current_Item;
     ItemController last_Item;
     GameManager gameManager;
+
+    public bool m_bRayOnItem;
 
     void Awake()
     {
@@ -64,6 +66,14 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F6))
                 SetCursor();
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                gameManager.SendMessage("GameEvent", GameEventID.Close_UI);
+                SetCursor();
+            }
         }
     }
 
@@ -148,14 +158,16 @@ public class PlayerController : MonoBehaviour
     // Ray check for item interact
     void RayHitCheck()
     {
-        if (Physics.Raycast(tfPlayerCamera.position,     // Origin 
-            tfPlayerCamera.forward,                      // Direction
-            out hit,                                     // RaycastHit
-            m_fRayLength))                               // RayLength
+        m_bRayOnItem = Physics.Raycast(tfPlayerCamera.position,     // Origin 
+                                       tfPlayerCamera.forward,      // Direction
+                                       out hit,                     // RaycastHit
+                                       m_fRayLength);               // RayLength
+
+        if (m_bRayOnItem && hit.transform.gameObject.layer == m_iInteractiveLayer)
         {
             current_Item = hit.transform.gameObject.GetComponent<ItemController>();
 
-            if (hit.transform.gameObject.layer == m_iInteractiveLayer && current_Item.b_isActive)
+            if (current_Item.b_isActive)
             {
                 current_Item.HintState(true);
 
@@ -163,6 +175,10 @@ public class PlayerController : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.E))
                     current_Item.SendGameEvent();
+            }
+            else if (last_Item)
+            {
+                last_Item.HintState(false);
             }
         }
         else

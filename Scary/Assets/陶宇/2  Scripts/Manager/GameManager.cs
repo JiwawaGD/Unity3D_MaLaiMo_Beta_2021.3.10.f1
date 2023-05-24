@@ -36,6 +36,7 @@ public partial class GameManager : MonoBehaviour
 
     public static bool m_bPhotoFrameLightOn = false;
     public static bool m_bGrandmaRush = false;
+    public static bool m_bReturnToBegin = false;
     #endregion
 
     void Awake()
@@ -61,6 +62,11 @@ public partial class GameManager : MonoBehaviour
 
         ExitBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.UI_Back));
         EnterGameBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.Enter_Game));
+    }
+
+    void Update()
+    {
+        KeyboardCheck();
     }
 
     public void GameEvent(GameEventID _eventID)
@@ -212,5 +218,18 @@ public partial class GameManager : MonoBehaviour
         playerCtrlr.m_bCanControl = true;
         playerCtrlr.tfPlayerCamera.gameObject.SetActive(true);
         SceneManager.UnloadSceneAsync(2);
+    }
+
+    public void KeyboardCheck()
+    {
+        if (m_bReturnToBegin)
+        {
+            if (Input.GetKeyDown(KeyCode.F10))
+            {
+                playerCtrlr.SetCursor();
+                SceneManager.LoadScene(0);
+                m_bReturnToBegin = false;
+            }
+        }
     }
 }

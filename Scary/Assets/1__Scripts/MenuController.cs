@@ -22,8 +22,6 @@ public class MenuController : MonoBehaviour
         {
             StartCoroutine(nameof(LoadSceneAsync));
             Btn_StartGame.onClick.AddListener(() => AsyncActivate());
-
-            //Btn_StartGame.onClick.AddListener(() => LoadScene(iNextSceneID));
         }
         else
         {

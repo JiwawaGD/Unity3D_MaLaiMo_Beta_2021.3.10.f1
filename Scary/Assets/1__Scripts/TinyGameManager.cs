@@ -15,5 +15,6 @@ public partial class GameManager : MonoBehaviour
         imgUIBackGround.color = new Color(1, 1, 1, 1);
         Sprite EndViewSprite = Resources.Load<Sprite>("Sprites/EndView");
         imgUIBackGround.sprite = EndViewSprite;
+        m_bReturnToBegin = true;
     }
 }
