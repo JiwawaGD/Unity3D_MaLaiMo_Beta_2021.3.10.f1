@@ -15,8 +15,9 @@ public class PlayerController : MonoBehaviour
 
     float m_fLookRotation;
 
-    public bool m_bCursorShow;
-    public bool m_bCanControl;
+    [HideInInspector] public bool m_bCursorShow;
+    [HideInInspector] public bool m_bCanControl;
+    [HideInInspector] public bool m_bRayOnItem;
 
     Vector3 v3_MoveValue;
     Vector3 v3_MovePos;
@@ -31,7 +32,6 @@ public class PlayerController : MonoBehaviour
     ItemController last_Item;
     GameManager gameManager;
 
-    public bool m_bRayOnItem;
 
     void Awake()
     {
@@ -70,10 +70,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             if (Input.GetKeyDown(KeyCode.Escape))
-            {
                 gameManager.SendMessage("GameEvent", GameEventID.Close_UI);
-                SetCursor();
-            }
         }
     }
 
@@ -109,7 +106,7 @@ public class PlayerController : MonoBehaviour
 
     void InitValue()
     {
-        m_fUDSensitivity = 110;
+        m_fUDSensitivity = 115;
         m_fRLSensitivity = 90;
 
         m_bCursorShow = true;
@@ -158,7 +155,7 @@ public class PlayerController : MonoBehaviour
     // Ray check for item interact
     void RayHitCheck()
     {
-        m_bRayOnItem = Physics.Raycast(tfPlayerCamera.position,     // Origin 
+        m_bRayOnItem = Physics.Raycast(tfPlayerCamera.position,     // Origin
                                        tfPlayerCamera.forward,      // Direction
                                        out hit,                     // RaycastHit
                                        m_fRayLength);               // RayLength
