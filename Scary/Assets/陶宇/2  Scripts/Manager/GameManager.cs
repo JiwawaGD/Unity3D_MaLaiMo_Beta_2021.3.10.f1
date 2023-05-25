@@ -211,10 +211,10 @@ public partial class GameManager : MonoBehaviour
         if (m_iGrandmaRushCount >= 10)
         {
             CancelInvoke(nameof(GrandMaRush));
-            playerCtrlr.m_bCanControl = true;
+            playerCtrlr.m_bCanControl = false;
             goCanvas.SetActive(true);
             imgUIBackGround.color = new Color(0, 0, 0, 0.95f);
-            Invoke(nameof(IvkShowGrandmaFaceUI), 1f);
+            Invoke(nameof(IvkShowGrandmaFaceUI), 0.5f);
         }
     }
 

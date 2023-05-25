@@ -16,5 +16,6 @@ public partial class GameManager : MonoBehaviour
         Sprite EndViewSprite = Resources.Load<Sprite>("Sprites/EndView");
         imgUIBackGround.sprite = EndViewSprite;
         m_bReturnToBegin = true;
+        playerCtrlr.m_bCanControl = true;
     }
 }
