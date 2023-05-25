@@ -162,6 +162,7 @@ public class LotusGameController : MonoBehaviour
                 {
                     GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
                     gm.SendMessage("ExitLotusGame");
+                    GlobalDeclare.bLotusGameComplete = true;
                     return false;
                 }
                 return false;

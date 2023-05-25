@@ -21,6 +21,7 @@ public partial class GameManager : MonoBehaviour
     Button EnterGameBtn;
 
     Transform tfGrandmaGhost;
+    Scene currentScene;
 
     public int m_iGrandmaRushCount;
 
@@ -54,6 +55,8 @@ public partial class GameManager : MonoBehaviour
         ExitBtn = goCanvas.transform.GetChild(4).GetComponent<Button>();
         txtEnterGameHint = goCanvas.transform.GetChild(5).GetComponent<Text>();
         EnterGameBtn = goCanvas.transform.GetChild(6).GetComponent<Button>();
+
+        currentScene = SceneManager.GetActiveScene();
     }
 
     void Start()
@@ -82,6 +85,8 @@ public partial class GameManager : MonoBehaviour
 
                 if (m_bShowItemAnimate)
                     ProcessAnimator(GlobalDeclare.GetItemAniObject(), GlobalDeclare.GetItemAniName());
+
+                GameStateCheck();
 
                 break;
             case GameEventID.S1_Photo_Frame:
@@ -230,6 +235,15 @@ public partial class GameManager : MonoBehaviour
                 SceneManager.LoadScene(0);
                 m_bReturnToBegin = false;
             }
+        }
+    }
+
+    public void GameStateCheck()
+    {
+        if (!GlobalDeclare.bLotusGameComplete && currentScene.name == "Grandma House")
+        {
+            ItemController LotusItem = GameObject.Find("Lotus Paper").GetComponent<ItemController>();
+            LotusItem.b_isActive = true;
         }
     }
 }
