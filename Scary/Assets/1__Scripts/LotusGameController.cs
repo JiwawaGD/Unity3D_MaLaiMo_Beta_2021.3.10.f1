@@ -3,171 +3,100 @@ using UnityEngine.UI;
 
 public class LotusGameController : MonoBehaviour
 {
-    public GameObject[] goLotusPaper;
-    public Animator[] aniLotusPaper;
+    public GameObject[] goLotusPaper = new GameObject[7];
+    public Animator[] aniLotusPaper = new Animator[7];
     public int iAllLotusState = 7;
     public int iCurrentState;
     public Text HingMsg;
 
-    public bool[] bLotusPaperState_1;
-    public int iLotusState_1 = 1;
+    public bool[] bLotusPaperState = new bool[7];
 
-    public bool[] bLotusPaperState_2;
-    public int iLotusState_2 = 1;
-
-    public bool[] bLotusPaperState_3;
-    public int iLotusState_3 = 1;
-
-    public bool[] bLotusPaperState_4;
-    public int iLotusState_4 = 1;
-
-    public bool[] bLotusPaperState_5;
-    public int iLotusState_5 = 1;
-
-    public bool[] bLotusPaperState_6;
-    public int iLotusState_6 = 1;
-
-    public bool[] bLotusPaperState_7;
-    public int iLotusState_7 = 1;
+    void Start()
+    {
+        for (int i = 0; i < iAllLotusState; i++)
+        {
+            aniLotusPaper[i] = goLotusPaper[i].GetComponent<Animator>();
+            bLotusPaperState[i] = false;
+        }
+    }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
-            Lotus_State1();
-
-        if (Input.GetKeyDown(KeyCode.D))
-            Lotus_State2();
-
-        if (Input.GetKeyDown(KeyCode.F))
-            Lotus_State3();
-
-        if (Input.GetKeyDown(KeyCode.G))
-            Lotus_State4();
-
-        if (Input.GetKeyDown(KeyCode.H))
-            Lotus_State5();
-
-        if (Input.GetKeyDown(KeyCode.J))
-            Lotus_State6();
-
-        if (Input.GetKeyDown(KeyCode.K))
-            Lotus_State7();
+        switch (iCurrentState)
+        {
+            case 0:
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    ProcessLotusAnimator(aniLotusPaper[0], "State_1", ref bLotusPaperState[0]);
+                }
+                break;
+            case 1:
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    ProcessLotusAnimator(aniLotusPaper[1], "State_2", ref bLotusPaperState[1]);
+                }
+                break;
+            case 2:
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    ProcessLotusAnimator(aniLotusPaper[2], "State_3", ref bLotusPaperState[2]);
+                }
+                break;
+            case 3:
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    ProcessLotusAnimator(aniLotusPaper[3], "State_4", ref bLotusPaperState[3]);
+                }
+                break;
+            case 4:
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    ProcessLotusAnimator(aniLotusPaper[4], "State_5", ref bLotusPaperState[4]);
+                }
+                break;
+            case 5:
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    ProcessLotusAnimator(aniLotusPaper[5], "State_6", ref bLotusPaperState[5]);
+                }
+                break;
+            case 6:
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    ProcessLotusAnimator(aniLotusPaper[6], "State_7-1", ref bLotusPaperState[6]);
+                }
+                break;
+            default:
+                break;
+        }
 
         if (Input.GetKeyDown(KeyCode.P))
         {
             if (NextState(iCurrentState))
             {
                 iCurrentState++;
-
-                for (int index = 0; index < iAllLotusState; index++)
-                {
-                    goLotusPaper[index].SetActive(false);
-                }
-
-                goLotusPaper[iCurrentState].SetActive(true);
             }
         }
     }
 
-    void Lotus_State1()
+    void ProcessLotusAnimator(Animator LotusObj, string sTriggerName, ref bool bLotusState)
     {
-        aniLotusPaper[0].SetTrigger("Lotus_1.1");
-        bLotusPaperState_1[0] = true;
-    }
+        LotusObj.SetTrigger(sTriggerName);
 
-    void Lotus_State2()
-    {
-        aniLotusPaper[1].SetTrigger("Lotus_2.1");
-        bLotusPaperState_2[0] = true;
-    }
+        AnimatorStateInfo info = LotusObj.GetCurrentAnimatorStateInfo(0);
 
-    void Lotus_State3()
-    {
-        aniLotusPaper[2].SetTrigger("Lotus_3.1");
-        bLotusPaperState_3[0] = true;
-    }
-
-    void Lotus_State4()
-    {
-        aniLotusPaper[3].SetTrigger("Lotus_4.1");
-        bLotusPaperState_4[0] = true;
-    }
-
-    void Lotus_State5()
-    {
-        aniLotusPaper[4].SetTrigger("Lotus_5.1");
-        bLotusPaperState_5[0] = true;
-    }
-
-    void Lotus_State6()
-    {
-        aniLotusPaper[5].SetTrigger("Lotus_6.1");
-        bLotusPaperState_6[0] = true;
-    }
-
-    void Lotus_State7()
-    {
-        aniLotusPaper[6].SetTrigger("Lotus_7.1");
-        bLotusPaperState_7[0] = true;
+        if (info.IsName(sTriggerName) && info.normalizedTime > 0.99f)
+        {
+            bLotusState = true;
+        }
     }
 
     bool NextState(int iCurrentState)
     {
-        switch (iCurrentState)
+        if (bLotusPaperState[iCurrentState])
         {
-            case 0:
-                if (bLotusPaperState_1[0])
-                {
-                    HingMsg.text = "按 : D 播放動畫";
-                    return true;
-                }
-                return false;
-            case 1:
-                if (bLotusPaperState_2[0])
-                {
-                    HingMsg.text = "按 : F 播放動畫";
-                    return true;
-                }
-                return false;
-            case 2:
-                if (bLotusPaperState_3[0])
-                {
-                    HingMsg.text = "按 : G 播放動畫";
-                    return true;
-                }
-                return false;
-            case 3:
-                if (bLotusPaperState_4[0])
-                {
-                    HingMsg.text = "按 : H 播放動畫";
-                    return true;
-                }
-                return false;
-            case 4:
-                if (bLotusPaperState_5[0])
-                {
-                    HingMsg.text = "按 : J 播放動畫";
-                    return true;
-                }
-                return false;
-            case 5:
-                if (bLotusPaperState_6[0])
-                {
-                    HingMsg.text = "按 : K 播放動畫";
-                    return true;
-                }
-                return false;
-            case 6:
-                if (bLotusPaperState_7[0])
-                {
-                    GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-                    gm.SendMessage("ExitLotusGame");
-                    GlobalDeclare.bLotusGameComplete = true;
-                    return false;
-                }
-                return false;
-            default:
-                return false;
+            return true;
         }
+        return false;
     }
 }
