@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,9 +9,9 @@ using static System.Net.Mime.MediaTypeNames;
 
 public class DialogSystem : MonoBehaviour
 {
-    [Header("UI¥»¨­")] public TMP_Text textLable;
+    [Header("UIæœ¬èº«")] public TMP_Text textLable;
 
-    [Header("¹ï¸Ü¸}¥»")] public TextAsset textAsset;
+    [Header("å°è©±è…³æœ¬")] public TextAsset textAsset;
 
     public float fadeInTime = 1f;
     public float fadeOutTime = 1f;
@@ -59,7 +59,7 @@ public class DialogSystem : MonoBehaviour
     private IEnumerator DestroyTextAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        // 5 ¬í«á§R°£¤å¦r
+        // 5 ç§’å¾Œåˆªé™¤æ–‡å­—
         isInside = false;
         if (!isFading)
         {

@@ -1,49 +1,49 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using Fungus;
 using System.Xml;
 
 public class FungusToXml : MonoBehaviour
 {
-    public Flowchart fungusFlowchart; // ??Fungus¬yµ{ªºFlowchart?¥ó
-    public string xmlFilePath; // XML¤å¥ó«O¦s¸ô?
+    public Flowchart fungusFlowchart; // å°æ‡‰Fungusæµç¨‹çš„Flowchartçµ„ä»¶
+    public string xmlFilePath; // XMLæ–‡ä»¶ä¿å­˜è·¯å¾‘
 
     private void Start()
     {
-        // ?¥ÎFungus¬yµ{ªºExecute¤èªk?©l?¦æ¬yµ{
+        // èª¿ç”¨Fungusæµç¨‹çš„Executeæ–¹æ³•å§‹ç›´è¡Œæµç¨‹
         fungusFlowchart.ExecuteBlock("Start");
     }
 
     private void Update()
     {
-        // ?¬dFungus¬yµ{¬O§_§¹¦¨
+        // æª¢æŸ¥Fungusæµç¨‹æ˜¯å¦å®Œæˆ
         if (fungusFlowchart.HasExecutingBlocks() == false)
         {
-            // ?¨úFungus¤¤ªº?¥X¤å¥»
+            // ç²å–Fungusä¸­çš„è¼¸å‡ºæ–‡æœ¬
             string outputText = fungusFlowchart.GetStringVariable("OutputText");
 
-            // ?¤å¥»«O¦s¨ìXML¤å¥ó¤¤
+            // å°‡æ–‡æœ¬ä¿å­˜åˆ°XMLæ–‡ä»¶ä¸­
             SaveTextToXml(outputText);
 
-            // ¥i?¡G¦b§¹¦¨¦Z???¥Îµ{§Ç©Î?¦æ¨ä¥L¾Ş§@
+            // å¯é¸ï¼šåœ¨å®Œæˆå¾Œé—œé–‰åº”ç”¨ç¨‹åºæˆ–æ‰§è¡Œå…¶ä»–æ“ä½œ
             // ...
         }
     }
 
     private void SaveTextToXml(string text)
     {
-        // ?«ØXML¤å??¶H
+        // å‰µå»ºXMLæ–‡æª”å°è±¡
         XmlDocument xmlDoc = new XmlDocument();
 
-        // ?«Ø®Ú??
+        // å‰µå»ºæ ¹ç¯€é»
         XmlNode rootNode = xmlDoc.CreateElement("Data");
         xmlDoc.AppendChild(rootNode);
 
-        // ?«Ø¤å¥»??
+        // å‰µå»ºæ–‡æœ¬ç¯€é»
         XmlNode textNode = xmlDoc.CreateElement("Text");
         textNode.InnerText = text;
         rootNode.AppendChild(textNode);
 
-        // «O¦sXML¤å¥ó
+        // ä¿å­˜XMLæ–‡ä»¶
         xmlDoc.Save(xmlFilePath);
     }
 }

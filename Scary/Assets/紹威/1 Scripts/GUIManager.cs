@@ -1,10 +1,10 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GUIManager : MonoBehaviour
 {
-    [Header("¤å¦rÄ²µo¦ì¸m")][SerializeField] private Collider[] PosTraget;
+    [Header("æ–‡å­—è§¸ç™¼ä½ç½®")][SerializeField] private Collider[] PosTraget;
     public LayerMask PosTragetLayerMask;
     // Start is called before the first frame update
     private void Awake()
@@ -16,7 +16,7 @@ public class GUIManager : MonoBehaviour
         
     }
     /// <summary>
-    /// ´M§ä³õ´º¤¤»İ­nªº¦ì¸m
+    /// å°‹æ‰¾å ´æ™¯ä¸­éœ€è¦çš„ä½ç½®
     /// </summary>
     void FollowTarget()
     {       
