@@ -114,6 +114,8 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Grandma_Dead_Body:
                 UIState(UIItemID.S1_Grandma_Dead_Body, true);
+                ItemController PhotoFrame = GameObject.Find("Photo Frame").GetComponent<ItemController>();
+                PhotoFrame.b_isActive = true;
                 m_bPhotoFrameLightOn = true;
                 break;
             case GameEventID.S1_White_Tent:

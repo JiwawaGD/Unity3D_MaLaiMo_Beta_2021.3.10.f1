@@ -3,19 +3,53 @@ using UnityEngine.UI;
 
 public class LotusGameController : MonoBehaviour
 {
-    public GameObject[] goLotusPaper = new GameObject[7];
-    public Animator[] aniLotusPaper = new Animator[7];
+    public GameObject[] LotusPaperObj;
+    public Animator[] LotusPaperAni;
+    public bool[] bLotusPaperState;
+
     public int iAllLotusState = 7;
     public int iCurrentState;
-    public Text HingMsg;
+    public int iAniState = 6;
 
-    public bool[] bLotusPaperState = new bool[7];
+    readonly string[] sAniTriggerName = new string[30]
+    {
+        "State_1",
+        "State_2",
+        "State_3",
+        "State_4",
+        "State_5",
+        "State_6",
+        "State_7-1",
+        "State_7-2",
+        "State_7-3",
+        "State_7-4",
+        "State_7-5",
+        "State_7-6",
+        "State_7-7",
+        "State_7-8",
+        "State_7-9",
+        "State_7-10",
+        "State_7-11",
+        "State_7-12",
+        "State_7-13",
+        "State_7-14",
+        "State_7-15",
+        "State_7-16",
+        "State_7-17",
+        "State_7-18",
+        "State_7-19",
+        "State_7-20",
+        "State_7-21",
+        "State_7-22",
+        "State_7-23",
+        "State_7-24",
+    };
 
     void Start()
     {
         for (int i = 0; i < iAllLotusState; i++)
         {
-            aniLotusPaper[i] = goLotusPaper[i].GetComponent<Animator>();
+            LotusPaperAni[i] = LotusPaperObj[i].GetComponent<Animator>();
             bLotusPaperState[i] = false;
         }
     }
@@ -26,69 +60,56 @@ public class LotusGameController : MonoBehaviour
         {
             case 0:
                 if (Input.GetKeyDown(KeyCode.A))
-                {
-                    ProcessLotusAnimator(aniLotusPaper[0], "State_1", ref bLotusPaperState[0]);
-                }
+                    LotusPaperAni[0].SetTrigger(sAniTriggerName[0]);
+
                 break;
             case 1:
                 if (Input.GetKeyDown(KeyCode.A))
-                {
-                    ProcessLotusAnimator(aniLotusPaper[1], "State_2", ref bLotusPaperState[1]);
-                }
+                    LotusPaperAni[1].SetTrigger(sAniTriggerName[1]);
+
                 break;
             case 2:
                 if (Input.GetKeyDown(KeyCode.A))
-                {
-                    ProcessLotusAnimator(aniLotusPaper[2], "State_3", ref bLotusPaperState[2]);
-                }
+                    LotusPaperAni[2].SetTrigger(sAniTriggerName[2]);
+
                 break;
             case 3:
                 if (Input.GetKeyDown(KeyCode.A))
-                {
-                    ProcessLotusAnimator(aniLotusPaper[3], "State_4", ref bLotusPaperState[3]);
-                }
+                    LotusPaperAni[3].SetTrigger(sAniTriggerName[3]);
+
                 break;
             case 4:
                 if (Input.GetKeyDown(KeyCode.A))
-                {
-                    ProcessLotusAnimator(aniLotusPaper[4], "State_5", ref bLotusPaperState[4]);
-                }
+                    LotusPaperAni[4].SetTrigger(sAniTriggerName[4]);
+
                 break;
             case 5:
                 if (Input.GetKeyDown(KeyCode.A))
-                {
-                    ProcessLotusAnimator(aniLotusPaper[5], "State_6", ref bLotusPaperState[5]);
-                }
+                    LotusPaperAni[5].SetTrigger(sAniTriggerName[5]);
+
                 break;
             case 6:
                 if (Input.GetKeyDown(KeyCode.A))
                 {
-                    ProcessLotusAnimator(aniLotusPaper[6], "State_7-1", ref bLotusPaperState[6]);
+                    LotusPaperAni[6].SetTrigger(sAniTriggerName[iAniState]);
+                    iAniState++;
                 }
                 break;
             default:
                 break;
         }
 
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) && NextState(iCurrentState))
         {
-            if (NextState(iCurrentState))
-            {
-                iCurrentState++;
-            }
+            iCurrentState++;
+
+            for (int i = 0; i < iAllLotusState; i++)
+                LotusPaperObj[i].transform.position = new Vector3(0, 0, 1);
+
+            LotusPaperObj[iCurrentState].transform.position = Vector3.zero;
         }
-    }
 
-    void ProcessLotusAnimator(Animator LotusObj, string sTriggerName, ref bool bLotusState)
-    {
-        LotusObj.SetTrigger(sTriggerName);
-
-        AnimatorStateInfo info = LotusObj.GetCurrentAnimatorStateInfo(0);
-
-        if (info.IsName(sTriggerName) && info.normalizedTime > 0.99f)
-        {
-            bLotusState = true;
-        }
+        CheckLotusState();
     }
 
     bool NextState(int iCurrentState)
@@ -98,5 +119,22 @@ public class LotusGameController : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    void CheckLotusState()
+    {
+        for (int index = 0; index < iAllLotusState; index++)
+        {
+            if (!bLotusPaperState[index])
+                CheckLotusAni(LotusPaperAni[index], sAniTriggerName[index], ref bLotusPaperState[index]);
+        }
+    }
+
+    void CheckLotusAni(Animator LotusAni, string sAniName, ref bool bLotusState)
+    {
+        AnimatorStateInfo LotusState = LotusAni.GetCurrentAnimatorStateInfo(0);
+
+        if (LotusState.IsName(sAniName) && LotusState.normalizedTime >= 1.0f)
+            bLotusState = true;
     }
 }
