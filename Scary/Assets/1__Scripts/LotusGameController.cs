@@ -9,6 +9,7 @@ public class LotusGameController : MonoBehaviour
 
     public int iAllLotusState = 7;
     public int iCurrentState;
+    [Range(6, 30)]
     public int iAniState = 6;
 
     readonly string[] sAniTriggerName = new string[30]
@@ -102,6 +103,14 @@ public class LotusGameController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P) && NextState(iCurrentState))
         {
             iCurrentState++;
+
+            if (iCurrentState == 7)
+            {
+                GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+                gm.SendMessage("ExitLotusGame");
+                GlobalDeclare.bLotusGameComplete = true;
+                return;
+            }
 
             for (int i = 0; i < iAllLotusState; i++)
                 LotusPaperObj[i].transform.position = new Vector3(0, 0, 1);

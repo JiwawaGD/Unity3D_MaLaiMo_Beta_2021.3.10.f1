@@ -217,6 +217,7 @@ public partial class GameManager : MonoBehaviour
                 GameEvent(GameEventID.Close_UI);
                 break;
             case ButtonEventID.Enter_Game:
+                GlobalDeclare.bLotusGameComplete = true;
                 GameEvent(GameEventID.Close_UI);
                 playerCtrlr.m_bCanControl = false;
                 playerCtrlr.tfPlayerCamera.gameObject.SetActive(false);
