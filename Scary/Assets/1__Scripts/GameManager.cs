@@ -141,6 +141,11 @@ public partial class GameManager : MonoBehaviour
                 AniGrandma.SetBool("Grandma_Attack", true);
                 m_bGrandmaRush = false;
                 break;
+            case GameEventID.S1_Light_Switch:
+                ItemController GrandmaDoor = GameObject.Find("Door/Grandma Door").GetComponent<ItemController>();
+                GrandmaDoor.b_isActive = true;   
+                ProcessDialog("Flowchart_1");
+                break;
         }
     }
 
@@ -192,7 +197,7 @@ public partial class GameManager : MonoBehaviour
             return;
 
         GameObject dialog = GameObject.Find(sDialogObjName);
-        dialog.SetActive(true);
+        dialog.gameObject.SetActive(true);
         m_bShowDialog = false;
         GlobalDeclare.SetDialogObjName("Empty");
     }

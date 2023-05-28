@@ -97,6 +97,7 @@ public enum GameEventID
     S1_White_Tent,
     S1_Photo_Frame_Light_On,
     S1_Grandma_Rush,
+    S1_Light_Switch,
 }
 
 public enum UIItemID
