@@ -56,6 +56,26 @@
         "又男喪闔左扉，女喪闔右扉，九條與門扉須圍闔至出殯為止。\r\n" +
         "今者以黃布代替白布，旨在隔離內外，防人惡之。"
     };
+
+    public class DialogState
+    {
+        public static string sDialogObjName;
+
+        public DialogState()
+        {
+            sDialogObjName = "Empty";
+        }
+    }
+
+    public static void SetDialogObjName(string r_sName)
+    {
+        DialogState.sDialogObjName = r_sName;
+    }
+
+    public static string GetDialogObjName()
+    {
+        return DialogState.sDialogObjName;
+    }
 }
 
 public enum StoryID

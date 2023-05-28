@@ -34,6 +34,7 @@ public partial class GameManager : MonoBehaviour
     public static bool m_bIsEnterGameView = false;
     public static bool m_bShowPlayerAnimate = false;
     public static bool m_bShowItemAnimate = false;
+    public static bool m_bShowDialog = false;
 
     public static bool m_bPhotoFrameLightOn = false;
     public static bool m_bGrandmaRush = false;
@@ -85,6 +86,9 @@ public partial class GameManager : MonoBehaviour
 
                 if (m_bShowItemAnimate)
                     ProcessAnimator(GlobalDeclare.GetItemAniObject(), GlobalDeclare.GetItemAniName());
+
+                if (m_bShowDialog)
+                    ProcessDialog(GlobalDeclare.GetDialogObjName());
 
                 GameStateCheck();
 
@@ -180,6 +184,17 @@ public partial class GameManager : MonoBehaviour
         am.Play(r_sAnimationName);
         m_bShowPlayerAnimate = false;
         GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Empty);
+    }
+
+    public void ProcessDialog(string sDialogObjName)
+    {
+        if (sDialogObjName.Contains("Empty"))
+            return;
+
+        GameObject dialog = GameObject.Find(sDialogObjName);
+        dialog.SetActive(true);
+        m_bShowDialog = false;
+        GlobalDeclare.SetDialogObjName("Empty");
     }
 
     public void ShowEnterGame(bool r_bEnable)
