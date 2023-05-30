@@ -1,5 +1,8 @@
 ﻿public partial class GlobalDeclare
 {
+    public static bool bLotusGameComplete = false;
+    public static bool bCanControl = true;
+
     public class PlayerState
     {
         public static PlayerAnimateType aniType;
@@ -18,6 +21,58 @@
     public static PlayerAnimateType GetPlayerAnimateType()
     {
         return PlayerState.aniType;
+    }
+
+    public class ItemAnimate
+    {
+        public static string aniObject;
+        public static string aniName;
+
+        public ItemAnimate()
+        {
+            aniObject = "Empty";
+            aniName = "Empty";
+        }
+    }
+
+    public static void SetItemAniObject(string r_AniObject)
+    {
+        ItemAnimate.aniObject = r_AniObject;
+    }
+
+    public static string GetItemAniObject()
+    {
+        return ItemAnimate.aniObject;
+    }
+
+    public static void SetItemAniName(string r_AniName)
+    {
+        ItemAnimate.aniName = r_AniName;
+    }
+
+    public static string GetItemAniName()
+    {
+        return ItemAnimate.aniName;
+    }
+
+    public class DialogState
+    {
+        public static string sDialogObjName;
+
+        public DialogState()
+        {
+            sDialogObjName = "Empty";
+        }
+    }
+
+    public static void SetDialogObjName(string r_sName)
+    {
+        DialogState.sDialogObjName = r_sName;
+    }
+
+    public static string GetDialogObjName()
+    {
+        return DialogState.sDialogObjName;
     }
 
     public readonly static string[] StoryMessage = new string[]
@@ -56,26 +111,6 @@
         "又男喪闔左扉，女喪闔右扉，九條與門扉須圍闔至出殯為止。\r\n" +
         "今者以黃布代替白布，旨在隔離內外，防人惡之。"
     };
-
-    public class DialogState
-    {
-        public static string sDialogObjName;
-
-        public DialogState()
-        {
-            sDialogObjName = "Empty";
-        }
-    }
-
-    public static void SetDialogObjName(string r_sName)
-    {
-        DialogState.sDialogObjName = r_sName;
-    }
-
-    public static string GetDialogObjName()
-    {
-        return DialogState.sDialogObjName;
-    }
 }
 
 public enum StoryID

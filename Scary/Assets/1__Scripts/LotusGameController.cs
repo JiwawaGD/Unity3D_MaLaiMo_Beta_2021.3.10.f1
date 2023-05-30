@@ -9,8 +9,8 @@ public class LotusGameController : MonoBehaviour
 
     public int iAllLotusState = 7;
     public int iCurrentState;
-    [Range(6, 30)]
-    public int iAniState = 6;
+    [Range(5, 30)]
+    public int iAniState = 30;
 
     readonly string[] sAniTriggerName = new string[30]
     {
@@ -20,30 +20,30 @@ public class LotusGameController : MonoBehaviour
         "State_4",
         "State_5",
         "State_6",
-        "State_7-1",
-        "State_7-2",
-        "State_7-3",
-        "State_7-4",
-        "State_7-5",
-        "State_7-6",
-        "State_7-7",
-        "State_7-8",
-        "State_7-9",
-        "State_7-10",
-        "State_7-11",
-        "State_7-12",
-        "State_7-13",
-        "State_7-14",
-        "State_7-15",
-        "State_7-16",
-        "State_7-17",
-        "State_7-18",
-        "State_7-19",
-        "State_7-20",
-        "State_7-21",
-        "State_7-22",
-        "State_7-23",
         "State_7-24",
+        "State_7-23",
+        "State_7-22",
+        "State_7-21",
+        "State_7-20",
+        "State_7-19",
+        "State_7-18",
+        "State_7-17",
+        "State_7-16",
+        "State_7-15",
+        "State_7-14",
+        "State_7-13",
+        "State_7-12",
+        "State_7-11",
+        "State_7-10",
+        "State_7-9",
+        "State_7-8",
+        "State_7-7",
+        "State_7-6",
+        "State_7-5",
+        "State_7-4",
+        "State_7-3",
+        "State_7-2",
+        "State_7-1",
     };
 
     void Start()
@@ -92,8 +92,11 @@ public class LotusGameController : MonoBehaviour
             case 6:
                 if (Input.GetKeyDown(KeyCode.A))
                 {
+                    if (iAniState == 5)
+                        break;
+
                     LotusPaperAni[6].SetTrigger(sAniTriggerName[iAniState]);
-                    iAniState++;
+                    iAniState--;
                 }
                 break;
             default:

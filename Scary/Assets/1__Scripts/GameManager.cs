@@ -5,12 +5,17 @@ using UnityEngine.UI;
 public partial class GameManager : MonoBehaviour
 {
     [SerializeField][Header("玩家")] PlayerController playerCtrlr;
-
     [SerializeField][Header("戶內傳送點")] Transform tfIndoorPos;
     [SerializeField][Header("戶外傳送點")] Transform tfOutdoorPos;
     [SerializeField][Header("鐵捲門物件")] Transform tfRollingDoor;
     [SerializeField][Header("UI 圖片庫")] Sprite[] UISprite;
 
+    public int m_iGrandmaRushCount;
+
+    Transform tfGrandmaGhost;
+    Scene currentScene;
+
+    #region Canvas Zone
     GameObject goCanvas;
     Image imgUIBackGround;
     Image imgUIDisplay;
@@ -19,17 +24,13 @@ public partial class GameManager : MonoBehaviour
     Button ExitBtn;
     Text txtEnterGameHint;
     Button EnterGameBtn;
-
-    Transform tfGrandmaGhost;
-    Scene currentScene;
-
-    public int m_iGrandmaRushCount;
+    #endregion
 
     #region Light Zone
     public GameObject goPhotoFrameLight;
     #endregion
 
-    #region Boolean Zone
+    #region Static Boolean Zone
     public static bool m_bInUIView = false;
     public static bool m_bIsEnterGameView = false;
     public static bool m_bShowPlayerAnimate = false;
