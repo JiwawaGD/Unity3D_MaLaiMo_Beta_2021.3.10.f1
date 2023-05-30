@@ -4,13 +4,16 @@ using UnityEngine.UI;
 public class LotusGameController : MonoBehaviour
 {
     public GameObject[] LotusPaperObj;
-    public Animator[] LotusPaperAni;
-    public bool[] bLotusPaperState;
+    Animator[] LotusPaperAni;
+    bool[] bLotusPaperState;
 
-    public int iAllLotusState = 7;
-    public int iCurrentState;
-    [Range(5, 30)]
-    public int iAniState = 30;
+    int iAllLotusState = 7;
+    int iCurrentState;
+
+    [Range(5, 29)]
+    int iAniState = 29;
+
+    public Shadow hintMessageShadow;
 
     readonly string[] sAniTriggerName = new string[30]
     {
@@ -48,10 +51,22 @@ public class LotusGameController : MonoBehaviour
 
     void Start()
     {
+        LotusPaperAni = new Animator[7];
+        bLotusPaperState = new bool[7];
+
         for (int i = 0; i < iAllLotusState; i++)
         {
             LotusPaperAni[i] = LotusPaperObj[i].GetComponent<Animator>();
             bLotusPaperState[i] = false;
+        }
+
+        iAllLotusState = 7;
+        iCurrentState = 0;
+        iAniState = 29;
+
+        if (hintMessageShadow == null)
+        {
+            hintMessageShadow = GameObject.Find("Canvas/HintMsg").GetComponent<Shadow>();
         }
     }
 
@@ -119,6 +134,7 @@ public class LotusGameController : MonoBehaviour
                 LotusPaperObj[i].transform.position = new Vector3(0, 0, 1);
 
             LotusPaperObj[iCurrentState].transform.position = Vector3.zero;
+            hintMessageShadow.enabled = false;
         }
 
         CheckLotusState();
@@ -147,6 +163,9 @@ public class LotusGameController : MonoBehaviour
         AnimatorStateInfo LotusState = LotusAni.GetCurrentAnimatorStateInfo(0);
 
         if (LotusState.IsName(sAniName) && LotusState.normalizedTime >= 1.0f)
+        {
             bLotusState = true;
+            hintMessageShadow.GetComponent<Shadow>().enabled = true;
+        }
     }
 }
