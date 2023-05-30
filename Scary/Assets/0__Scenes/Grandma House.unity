@@ -1337,8 +1337,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 255
-  m_fontColor: {r: 1, g: 0, b: 0, a: 0}
+    rgba: 22
+  m_fontColor: {r: 0.08627451, g: 0, b: 0, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1444,6 +1444,18 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 61249840e736efa499376fce440b5698, type: 3}
   - {fileID: 21300000, guid: b6207e225727519439bd0813ffdf58c5, type: 3}
   - {fileID: 21300000, guid: ba863014167a0dc4fbd8496b9f786d53, type: 3}
+  flowchartObjects:
+  - {fileID: 1712147487}
+  - {fileID: 554690063}
+  - {fileID: 1558766690}
+  - {fileID: 2111479490}
+  - {fileID: 576545068}
+  - {fileID: 1449475820}
+  - {fileID: 1295782181}
+  - {fileID: 1749723590}
+  - {fileID: 1470715920}
+  - {fileID: 1908449669}
+  - {fileID: 241345562}
   m_iGrandmaRushCount: 0
   goPhotoFrameLight: {fileID: 2006070695}
 --- !u!4 &110714931
@@ -1474,7 +1486,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 394904063187042278, guid: 8ca7370b03a6f8f47a4a0fa3f696b7b4, type: 3}
       propertyPath: blockViewHeight
-      value: 686
+      value: 654
       objectReference: {fileID: 0}
     - target: {fileID: 394904063187042278, guid: 8ca7370b03a6f8f47a4a0fa3f696b7b4, type: 3}
       propertyPath: selectedBlocks.Array.size
@@ -1579,15 +1591,15 @@ PrefabInstance:
     - target: {fileID: 394904063187042296, guid: 8ca7370b03a6f8f47a4a0fa3f696b7b4, type: 3}
       propertyPath: commandList.Array.data[5]
       value: 
-      objectReference: {fileID: 1712147500}
+      objectReference: {fileID: 1712147501}
     - target: {fileID: 394904063187042296, guid: 8ca7370b03a6f8f47a4a0fa3f696b7b4, type: 3}
       propertyPath: commandList.Array.data[6]
       value: 
-      objectReference: {fileID: 1712147501}
+      objectReference: {fileID: 1712147504}
     - target: {fileID: 394904063187042296, guid: 8ca7370b03a6f8f47a4a0fa3f696b7b4, type: 3}
       propertyPath: commandList.Array.data[7]
       value: 
-      objectReference: {fileID: 1712147504}
+      objectReference: {fileID: 1712147500}
     - target: {fileID: 394904063187042296, guid: 8ca7370b03a6f8f47a4a0fa3f696b7b4, type: 3}
       propertyPath: commandList.Array.data[8]
       value: 
@@ -18208,8 +18220,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 255
-  m_fontColor: {r: 1, g: 0, b: 0, a: 0}
+    rgba: 22
+  m_fontColor: {r: 0.08627451, g: 0, b: 0, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -18594,8 +18606,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 255
-  m_fontColor: {r: 1, g: 0, b: 0, a: 0}
+    rgba: 22
+  m_fontColor: {r: 0.08627451, g: 0, b: 0, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -18729,8 +18741,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 255
-  m_fontColor: {r: 1, g: 0, b: 0, a: 0}
+    rgba: 22
+  m_fontColor: {r: 0.08627451, g: 0, b: 0, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -18955,7 +18967,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 2111479497}
+  selectedFlowchart: {fileID: 1712147519}
 --- !u!4 &824346683
 Transform:
   m_ObjectHideFlags: 1
@@ -23640,8 +23652,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 255
-  m_fontColor: {r: 1, g: 0, b: 0, a: 0}
+    rgba: 22
+  m_fontColor: {r: 0.08627451, g: 0, b: 0, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -28107,8 +28119,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 255
-  m_fontColor: {r: 1, g: 0, b: 0, a: 0}
+    rgba: 22
+  m_fontColor: {r: 0.08627451, g: 0, b: 0, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -31471,7 +31483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 7
   indentLevel: 0
-  storyText: "\u9019\u88E1\u597D\u6697{w=3}"
+  storyText: "\u9019\u88E1\u597D\u6697{w=1}"
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -31522,7 +31534,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1712147487}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
@@ -31724,6 +31736,17 @@ MonoBehaviour:
     booleanRef: {fileID: 0}
     booleanVal: 0
   targetGameObjectOLD: {fileID: 0}
+--- !u!114 &1712147519 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 394904063187042278, guid: 8ca7370b03a6f8f47a4a0fa3f696b7b4, type: 3}
+  m_PrefabInstance: {fileID: 111523311}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1712147487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1715111022
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36284,8 +36307,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 255
-  m_fontColor: {r: 1, g: 0, b: 0, a: 0}
+    rgba: 22
+  m_fontColor: {r: 0.08627451, g: 0, b: 0, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -38702,17 +38725,6 @@ MonoBehaviour:
     booleanRef: {fileID: 0}
     booleanVal: 1
   targetGameObjectOLD: {fileID: 0}
---- !u!114 &2111479497 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8560528058527758938, guid: 3dc19e5025773e7448b019961db8da95, type: 3}
-  m_PrefabInstance: {fileID: 2111479488}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2111479490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2119244731
 PrefabInstance:
   m_ObjectHideFlags: 0

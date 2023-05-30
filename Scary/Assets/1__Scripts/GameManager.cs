@@ -1,14 +1,16 @@
+using Fungus;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public partial class GameManager : MonoBehaviour
 {
-    [SerializeField] [Header("玩家")] PlayerController playerCtrlr;
-    [SerializeField] [Header("戶內傳送點")] Transform tfIndoorPos;
-    [SerializeField] [Header("戶外傳送點")] Transform tfOutdoorPos;
-    [SerializeField] [Header("鐵捲門物件")] Transform tfRollingDoor;
-    [SerializeField] [Header("UI 圖片庫")] Sprite[] UISprite;
+    [SerializeField][Header("玩家")] PlayerController playerCtrlr;
+    [SerializeField][Header("戶內傳送點")] Transform tfIndoorPos;
+    [SerializeField][Header("戶外傳送點")] Transform tfOutdoorPos;
+    [SerializeField][Header("鐵捲門物件")] Transform tfRollingDoor;
+    [SerializeField][Header("UI 圖片庫")] Sprite[] UISprite;
+    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
 
     public int m_iGrandmaRushCount;
 
@@ -112,7 +114,7 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Grandma_Door_Open:
                 ProcessAnimator("Grandma Door", "DoorOpen");
-                ProcessDialog("Flowchart (7)");
+                flowchartObjects[11].gameObject.SetActive(true);
                 break;
             case GameEventID.S1_Lotus_Paper:
                 UIState(UIItemID.S1_Lotus_Paper, true);
@@ -123,8 +125,10 @@ public partial class GameManager : MonoBehaviour
                 ItemController PhotoFrame = GameObject.Find("Photo Frame").GetComponent<ItemController>();
                 PhotoFrame.b_isActive = true;
                 m_bPhotoFrameLightOn = true;
-                m_bShowDialog = true;
-                GlobalDeclare.SetDialogObjName("Flowchart (4)");
+                //m_bShowDialog = true;
+                //GlobalDeclare.SetDialogObjName("Flowchart (4)");
+                flowchartObjects[6].gameObject.SetActive(true);
+
                 break;
             case GameEventID.S1_White_Tent:
                 UIState(UIItemID.S1_White_Tent, true);
@@ -137,8 +141,9 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Photo_Frame_Light_On:
                 goPhotoFrameLight.SetActive(true);
                 m_bPhotoFrameLightOn = false;
-                m_bShowDialog = true;
-                GlobalDeclare.SetDialogObjName("Flowchart (6)");
+                //m_bShowDialog = true;
+                //GlobalDeclare.SetDialogObjName("Flowchart (6)");
+                flowchartObjects[9].gameObject.SetActive(true);
                 break;
             case GameEventID.S1_Grandma_Rush:
                 InvokeRepeating(nameof(GrandMaRush), 0f, 0.025f);
@@ -150,7 +155,8 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Light_Switch:
                 ItemController GrandmaDoor = GameObject.Find("Door/Grandma Door").GetComponent<ItemController>();
                 GrandmaDoor.b_isActive = true;
-                ProcessDialog("Flowchart (1-1)");
+                //ProcessDialog("Flowchart (1-1)");
+                flowchartObjects[3].gameObject.SetActive(true);
                 break;
         }
     }
@@ -260,7 +266,9 @@ public partial class GameManager : MonoBehaviour
         GameObject LotusDestory = GameObject.Find("Lotus Paper");
         LotusDestory.transform.position = new Vector3(-5f, -2f, -2f);
 
-        ProcessDialog("Flowchart (3)");
+        //ProcessDialog("Flowchart (3)");
+        flowchartObjects[5].gameObject.SetActive(true);
+
     }
 
     public void KeyboardCheck()
