@@ -4,11 +4,11 @@ using UnityEngine.UI;
 
 public partial class GameManager : MonoBehaviour
 {
-    [SerializeField][Header("玩家")] PlayerController playerCtrlr;
-    [SerializeField][Header("戶內傳送點")] Transform tfIndoorPos;
-    [SerializeField][Header("戶外傳送點")] Transform tfOutdoorPos;
-    [SerializeField][Header("鐵捲門物件")] Transform tfRollingDoor;
-    [SerializeField][Header("UI 圖片庫")] Sprite[] UISprite;
+    [SerializeField] [Header("玩家")] PlayerController playerCtrlr;
+    [SerializeField] [Header("戶內傳送點")] Transform tfIndoorPos;
+    [SerializeField] [Header("戶外傳送點")] Transform tfOutdoorPos;
+    [SerializeField] [Header("鐵捲門物件")] Transform tfRollingDoor;
+    [SerializeField] [Header("UI 圖片庫")] Sprite[] UISprite;
 
     public int m_iGrandmaRushCount;
 
@@ -252,6 +252,14 @@ public partial class GameManager : MonoBehaviour
         playerCtrlr.m_bCanControl = true;
         playerCtrlr.tfPlayerCamera.gameObject.SetActive(true);
         SceneManager.UnloadSceneAsync(2);
+
+        Object LotusObj = Resources.Load<GameObject>("Prefabs/Lotus_state_Final");
+        GameObject LotusGO = Instantiate(LotusObj) as GameObject;
+        LotusGO.transform.position = new Vector3(-5.2f, 0.6f, -2.4f);
+
+        GameObject LotusDestory = GameObject.Find("Lotus Paper");
+        LotusDestory.transform.position = new Vector3(-5f, -2f, -2f);
+
         ProcessDialog("Flowchart (3)");
     }
 
