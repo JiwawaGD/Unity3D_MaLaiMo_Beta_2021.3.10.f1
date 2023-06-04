@@ -8,14 +8,17 @@ public class MenuController : MonoBehaviour
     public bool bLoadSceneAsync;
     public int iNextSceneID;
 
-    Button Btn_StartGame;
+    [SerializeField] Button Btn_StartGame;
+
     AsyncOperation async = null;
+    public GameObject TineLineAniObj;
     public Animation aniSubtitle_1;
     public Animation aniSubtitle_2;
 
     void Start()
     {
-        if (Btn_StartGame == null)
+        
+        if (Btn_StartGame == null )
             Btn_StartGame = GameObject.Find("Canvas/EnterGame").GetComponent<Button>();
 
         if (bLoadSceneAsync)
@@ -27,6 +30,7 @@ public class MenuController : MonoBehaviour
         {
             Btn_StartGame.onClick.AddListener(() => LoadScene(iNextSceneID));
         }
+
     }
 
     void LoadScene(int r_iSceneIndex)
