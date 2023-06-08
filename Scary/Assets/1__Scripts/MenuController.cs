@@ -46,7 +46,6 @@ public class MenuController : MonoBehaviour
         //{
         //    Btn_StartGame.onClick.AddListener(() => LoadScene(iNextSceneID));
         //}
-
     }
 
     void LoadScene(int r_iSceneIndex)
@@ -59,6 +58,8 @@ public class MenuController : MonoBehaviour
         HideAllBtn();
         GameObject SettingView = Btn_GameSetting.gameObject.transform.parent.GetChild(1).gameObject;
         SettingView.SetActive(true);
+        //GameSettingController settingCtlr = Btn_GameSetting.gameObject.transform.parent.GetChild(0).GetComponent<GameSettingController>();
+        //settingCtlr.SendMessage("");
     }
 
     void ShowTeam()
