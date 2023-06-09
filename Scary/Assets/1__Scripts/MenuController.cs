@@ -14,7 +14,6 @@ public class MenuController : MonoBehaviour
     [SerializeField] Button Btn_TeamReturn;
     [SerializeField] Button Btn_EndGame;
 
-    AsyncOperation async = null;
     public GameObject TineLineAniObj;
 
     void Start()
@@ -36,16 +35,6 @@ public class MenuController : MonoBehaviour
         Btn_Team.onClick.AddListener(() => ShowTeam());
         Btn_TeamReturn.onClick.AddListener(TeamReturn);
         Btn_EndGame.onClick.AddListener(() => EndGame());
-
-        //if (bLoadSceneAsync)
-        //{
-        //    StartCoroutine(nameof(LoadSceneAsync));
-        //    Btn_StartGame.onClick.AddListener(() => AsyncActivate());
-        //}
-        //else
-        //{
-        //    Btn_StartGame.onClick.AddListener(() => LoadScene(iNextSceneID));
-        //}
     }
 
     void LoadScene(int r_iSceneIndex)
@@ -65,9 +54,9 @@ public class MenuController : MonoBehaviour
     void ShowTeam()
     {
         HideAllBtn();
+        Btn_TeamReturn = GameObject.Find("Canvas/Team/View/Return").GetComponent<Button>();
         GameObject TeamView = Btn_Team.gameObject.transform.parent.GetChild(1).gameObject;
         TeamView.SetActive(true);
-        Btn_TeamReturn = GameObject.Find("Canvas/Team/View/Return").GetComponent<Button>();
     }
 
     void TeamReturn()
@@ -83,7 +72,7 @@ public class MenuController : MonoBehaviour
         Application.Quit();
     }
 
-    void ShowAllBtn()
+    public void ShowAllBtn()
     {
         Btn_EnterGame.gameObject.SetActive(true);
         Btn_GameSetting.gameObject.SetActive(true);
@@ -91,27 +80,11 @@ public class MenuController : MonoBehaviour
         Btn_EndGame.gameObject.SetActive(true);
     }
 
-    void HideAllBtn()
+    public void HideAllBtn()
     {
         Btn_EnterGame.gameObject.SetActive(false);
         Btn_GameSetting.gameObject.SetActive(false);
         Btn_Team.gameObject.SetActive(false);
         Btn_EndGame.gameObject.SetActive(false);
     }
-
-    //IEnumerator LoadSceneAsync()
-    //{
-    //    async = SceneManager.LoadSceneAsync(iNextSceneID);
-    //    async.allowSceneActivation = false;
-
-    //    while (async.progress < 0.9f)
-    //    {
-    //        yield return new WaitForEndOfFrame();
-    //    }
-    //}
-
-    //void AsyncActivate()
-    //{
-    //    async.allowSceneActivation = true;
-    //}
 }

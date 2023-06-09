@@ -1,8 +1,6 @@
 ﻿public partial class GlobalDeclare
 {
-    public static bool bLotusGameComplete = false;
-    public static bool bCanControl = true;
-
+    #region 玩家狀態
     public class PlayerState
     {
         public static PlayerAnimateType aniType;
@@ -22,7 +20,9 @@
     {
         return PlayerState.aniType;
     }
+    #endregion
 
+    #region 物件動畫
     public class ItemAnimate
     {
         public static string aniObject;
@@ -54,7 +54,9 @@
     {
         return ItemAnimate.aniName;
     }
+    #endregion
 
+    #region 對話物件
     public class DialogState
     {
         public static string sDialogObjName;
@@ -74,6 +76,7 @@
     {
         return DialogState.sDialogObjName;
     }
+    #endregion
 
     public readonly static string[] StoryMessage = new string[]
     {
@@ -121,50 +124,4 @@
         "九條與門扉須圍闔至出殯為止。\r\n" +
         "今者以黃布代替白布，旨在隔離內外，防人惡之。"
     };
-}
-
-public enum StoryID
-{
-    // S1 : Scene_1 
-    S1_0_0,
-    S1_0_1,
-}
-
-public enum GameEventID
-{
-    Close_UI = 0,
-
-    // S1 : Scene_1
-    S1_Photo_Frame,
-    S1_Grandma_Door_Open,
-    S1_Lotus_Paper,
-    S1_Grandma_Dead_Body,
-    S1_White_Tent,
-    S1_Photo_Frame_Light_On,
-    S1_Grandma_Rush,
-    S1_Light_Switch,
-}
-
-public enum UIItemID
-{
-    Empty = 0,
-
-    // S1 : Scene_1
-    S1_Photo_Frame,
-    S1_Lotus_Paper,
-    S1_Grandma_Dead_Body,
-    S1_White_Tent,
-}
-
-public enum ButtonEventID
-{
-    UI_Back,
-    Enter_Game,
-}
-
-public enum PlayerAnimateType
-{
-    Empty,
-    Player_Wake_Up,
-    Player_Turn_After_Photo_Frame,
 }
