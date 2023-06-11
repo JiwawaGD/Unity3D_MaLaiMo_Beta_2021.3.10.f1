@@ -14,6 +14,7 @@ public class GameSettingController : MonoBehaviour
     float fMusic;
     float fVolume;
     float fQuality;
+    float fSensitivity;
 
     void Start()
     {
@@ -36,11 +37,17 @@ public class GameSettingController : MonoBehaviour
         fQuality = QualityDropDown.value;
     }
 
+    public void SetSensitivity()
+    {
+        //fSensitivity = VolumeSlider.value; ;
+    }
+
     public void SettingSave()
     {
         GlobalDeclare.fQuality = fQuality;
         GlobalDeclare.fMusic = fMusic;
         GlobalDeclare.fVolume = fVolume;
+        GlobalDeclare.fSensitivity = fSensitivity;
 
         GameObject SettingView = gameObject.transform.GetChild(1).gameObject;
         SettingView.SetActive(false);

@@ -4,6 +4,7 @@ public partial class GlobalDeclare
     public static float fMusic;
     public static float fVolume;
     public static float fQuality;
+    public static float fSensitivity;
     #endregion
 
     public static bool bLotusGameComplete = false;
