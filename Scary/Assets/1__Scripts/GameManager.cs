@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public partial class GameManager : MonoBehaviour
 {
-    [SerializeField][Header("玩家")] PlayerController playerCtrlr;
-    [SerializeField][Header("戶內傳送點")] Transform tfIndoorPos;
-    [SerializeField][Header("戶外傳送點")] Transform tfOutdoorPos;
-    [SerializeField][Header("鐵捲門物件")] Transform tfRollingDoor;
-    [SerializeField][Header("UI 圖片庫")] Sprite[] UISprite;
-    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField] [Header("玩家")] PlayerController playerCtrlr;
+    [SerializeField] [Header("戶內傳送點")] Transform tfIndoorPos;
+    [SerializeField] [Header("戶外傳送點")] Transform tfOutdoorPos;
+    [SerializeField] [Header("鐵捲門物件")] Transform tfRollingDoor;
+    [SerializeField] [Header("UI 圖片庫")] Sprite[] UISprite;
+    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
 
     public int m_iGrandmaRushCount;
 
@@ -125,8 +125,6 @@ public partial class GameManager : MonoBehaviour
                 ItemController PhotoFrame = GameObject.Find("Photo Frame").GetComponent<ItemController>();
                 PhotoFrame.b_isActive = true;
                 m_bPhotoFrameLightOn = true;
-                //m_bShowDialog = true;
-                //GlobalDeclare.SetDialogObjName("Flowchart (4)");
                 flowchartObjects[6].gameObject.SetActive(true);
 
                 break;
@@ -141,8 +139,6 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Photo_Frame_Light_On:
                 goPhotoFrameLight.SetActive(true);
                 m_bPhotoFrameLightOn = false;
-                //m_bShowDialog = true;
-                //GlobalDeclare.SetDialogObjName("Flowchart (6)");
                 flowchartObjects[9].gameObject.SetActive(true);
                 break;
             case GameEventID.S1_Grandma_Rush:
@@ -153,10 +149,23 @@ public partial class GameManager : MonoBehaviour
                 m_bGrandmaRush = false;
                 break;
             case GameEventID.S1_Light_Switch:
+                flowchartObjects[3].gameObject.SetActive(true);
+                break;
+            case GameEventID.S1_Flashlight:
+                Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
+                playerFlashlight.enabled = true;
+                GameObject FlashLight = GameObject.Find("flashlight");
+                Destroy(FlashLight);
+                break;
+            case GameEventID.S1_DrawerWithKey:
+                BoxCollider DrawerCollider = GameObject.Find("grandpa_desk/DrawerWithKey").GetComponent<BoxCollider>();
+                DrawerCollider.enabled = false;
+                ProcessAnimator("grandpa_desk/DrawerWithKey", "DrawerWithKey_Open");
+                Invoke(nameof(IvkShowDoorKey), 0.5f);
+                break;
+            case GameEventID.S1_GrandmaRoomKey:
                 ItemController GrandmaDoor = GameObject.Find("Door/Grandma Door").GetComponent<ItemController>();
                 GrandmaDoor.b_isActive = true;
-                //ProcessDialog("Flowchart (1-1)");
-                flowchartObjects[3].gameObject.SetActive(true);
                 break;
         }
     }

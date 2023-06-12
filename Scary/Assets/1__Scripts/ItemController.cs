@@ -47,6 +47,8 @@ public class ItemController : MonoBehaviour
         gameManager.GameEvent(eventID);
 
         HintState(false);
+
+        RevealMemory();
     }
 
     public void HintState(bool r_bShow)
@@ -62,5 +64,11 @@ public class ItemController : MonoBehaviour
 
             tfInteractiveItem.LookAt(tfPlayerCamera);
         }
+    }
+
+    public void RevealMemory()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Default");
+        b_isActive = false;
     }
 }

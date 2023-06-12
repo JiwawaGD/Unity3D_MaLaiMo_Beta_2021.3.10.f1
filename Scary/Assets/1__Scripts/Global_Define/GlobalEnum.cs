@@ -18,6 +18,9 @@ public enum GameEventID
     S1_Photo_Frame_Light_On,
     S1_Grandma_Rush,
     S1_Light_Switch,
+    S1_Flashlight,
+    S1_DrawerWithKey,
+    S1_GrandmaRoomKey,
 }
 
 public enum UIItemID
