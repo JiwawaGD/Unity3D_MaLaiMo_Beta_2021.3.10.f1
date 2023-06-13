@@ -19,16 +19,16 @@ public class MenuController : MonoBehaviour
     void Start()
     {
         if (Btn_EnterGame == null)
-            Btn_EnterGame = GameObject.Find("Canvas/EnterGame").GetComponent<Button>();
+            Btn_EnterGame = GameObject.Find("MenuCanvas/EnterGame").GetComponent<Button>();
 
         if (Btn_GameSetting == null)
-            Btn_GameSetting = GameObject.Find("Canvas/Setting/SettingBtn").GetComponent<Button>();
+            Btn_GameSetting = GameObject.Find("MenuCanvas/Setting/SettingBtn").GetComponent<Button>();
 
         if (Btn_Team == null)
-            Btn_Team = GameObject.Find("Canvas/Team/TeamBtn").GetComponent<Button>();
+            Btn_Team = GameObject.Find("MenuCanvas/Team/TeamBtn").GetComponent<Button>();
 
         if (Btn_EndGame == null)
-            Btn_EndGame = GameObject.Find("Canvas/EndGame").GetComponent<Button>();
+            Btn_EndGame = GameObject.Find("MenuCanvas/EndGame").GetComponent<Button>();
 
         Btn_EnterGame.onClick.AddListener(() => LoadScene(iNextSceneID));
         Btn_GameSetting.onClick.AddListener(() => ShowGameSetting());
@@ -47,14 +47,12 @@ public class MenuController : MonoBehaviour
         HideAllBtn();
         GameObject SettingView = Btn_GameSetting.gameObject.transform.parent.GetChild(1).gameObject;
         SettingView.SetActive(true);
-        //GameSettingController settingCtlr = Btn_GameSetting.gameObject.transform.parent.GetChild(0).GetComponent<GameSettingController>();
-        //settingCtlr.SendMessage("");
     }
 
     void ShowTeam()
     {
         HideAllBtn();
-        Btn_TeamReturn = GameObject.Find("Canvas/Team/View/Return").GetComponent<Button>();
+        Btn_TeamReturn = GameObject.Find("MenuCanvas/Team/View/Return Btn").GetComponent<Button>();
         GameObject TeamView = Btn_Team.gameObject.transform.parent.GetChild(1).gameObject;
         TeamView.SetActive(true);
     }
