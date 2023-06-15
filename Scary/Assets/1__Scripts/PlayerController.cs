@@ -164,7 +164,7 @@ public class PlayerController : MonoBehaviour
         {
             current_Item = hit.transform.gameObject.GetComponent<ItemController>();
 
-            if (current_Item.b_isActive)
+            if (current_Item.bActive)
             {
                 current_Item.HintState(true);
 

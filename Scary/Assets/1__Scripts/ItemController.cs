@@ -1,11 +1,13 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Outline), typeof(BoxCollider))]
 public class ItemController : MonoBehaviour
 {
-    [Header("�C���ƥ�")] public GameEventID eventID;
+    [Header("遊戲事件")] 
+    public GameEventID eventID;
 
-    public bool b_isActive;
+    public bool bAlwaysActive; // 是否可以無限觸發
+    public bool bActive;       // 是否可以觸發
 
     Outline outline;
     GameManager gameManager;
@@ -48,7 +50,7 @@ public class ItemController : MonoBehaviour
 
         HintState(false);
 
-        RevealMemory();
+        ItemDisable();
     }
 
     public void HintState(bool r_bShow)
@@ -66,9 +68,12 @@ public class ItemController : MonoBehaviour
         }
     }
 
-    public void RevealMemory()
+    public void ItemDisable()
     {
+        if (bAlwaysActive)
+            return;
+
         gameObject.layer = LayerMask.NameToLayer("Default");
-        b_isActive = false;
+        bActive = false;
     }
 }

@@ -123,7 +123,7 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Grandma_Dead_Body:
                 UIState(UIItemID.S1_Grandma_Dead_Body, true);
                 ItemController PhotoFrame = GameObject.Find("Photo Frame").GetComponent<ItemController>();
-                PhotoFrame.b_isActive = true;
+                PhotoFrame.bActive = true;
                 m_bPhotoFrameLightOn = true;
                 flowchartObjects[6].gameObject.SetActive(true);
 
@@ -165,7 +165,7 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_GrandmaRoomKey:
                 ItemController GrandmaDoor = GameObject.Find("Door/Grandma Door").GetComponent<ItemController>();
-                GrandmaDoor.b_isActive = true;
+                GrandmaDoor.bActive = true;
                 break;
         }
     }
@@ -197,7 +197,7 @@ public partial class GameManager : MonoBehaviour
         Animator ani = obj.transform.GetComponent<Animator>();
         ani.SetTrigger(r_sTriggerName);
         obj.transform.GetComponent<ItemController>().HintState(false);
-        obj.transform.GetComponent<ItemController>().b_isActive = false;
+        obj.transform.GetComponent<ItemController>().bActive = false;
 
         GlobalDeclare.SetItemAniObject("Empty");
         GlobalDeclare.SetItemAniName("Empty");
@@ -298,7 +298,7 @@ public partial class GameManager : MonoBehaviour
         if (!GlobalDeclare.bLotusGameComplete && currentScene.name == "Grandma House")
         {
             ItemController LotusItem = GameObject.Find("Lotus Paper").GetComponent<ItemController>();
-            LotusItem.b_isActive = true;
+            LotusItem.bActive = true;
         }
     }
 }
