@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public partial class GameManager : MonoBehaviour
 {
-    [SerializeField] [Header("玩家")] PlayerController playerCtrlr;
-    [SerializeField] [Header("戶內傳送點")] Transform tfIndoorPos;
-    [SerializeField] [Header("戶外傳送點")] Transform tfOutdoorPos;
-    [SerializeField] [Header("鐵捲門物件")] Transform tfRollingDoor;
-    [SerializeField] [Header("UI 圖片庫")] Sprite[] UISprite;
-    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField][Header("玩家")] PlayerController playerCtrlr;
+    [SerializeField][Header("戶內傳送點")] Transform tfIndoorPos;
+    [SerializeField][Header("戶外傳送點")] Transform tfOutdoorPos;
+    [SerializeField][Header("鐵捲門物件")] Transform tfRollingDoor;
+    [SerializeField][Header("UI 圖片庫")] Sprite[] UISprite;
+    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
 
     public int m_iGrandmaRushCount;
 
@@ -18,14 +18,22 @@ public partial class GameManager : MonoBehaviour
     Scene currentScene;
 
     #region Canvas Zone
-    GameObject goCanvas;
-    Image imgUIBackGround;
-    Image imgUIDisplay;
-    Text txtTitle;
-    Text txtIntroduce;
-    Button ExitBtn;
-    Text txtEnterGameHint;
-    Button EnterGameBtn;
+    [SerializeField] GameObject goCanvas;
+    [SerializeField] Image imgUIBackGround;
+    [SerializeField] Image imgUIDisplay;
+    //[SerializeField] Image titleImg;
+    [SerializeField] Text txtTitle;
+
+    [SerializeField] Image imgInstructions;
+    [SerializeField] Text txtInstructions;
+    //[SerializeField] Image imgScendInstructions;
+
+    //[SerializeField] Image imgIntroduceBackground;
+    [SerializeField] Text txtIntroduce;
+
+    [SerializeField] Button ExitBtn;
+    [SerializeField] Text txtEnterGameHint;
+    [SerializeField] Button EnterGameBtn;
     #endregion
 
     #region Light Zone
@@ -54,11 +62,20 @@ public partial class GameManager : MonoBehaviour
 
         imgUIBackGround = goCanvas.transform.GetChild(0).GetComponent<Image>();
         imgUIDisplay = goCanvas.transform.GetChild(1).GetComponent<Image>();
+        //titleImg = goCanvas.transform.GetChild(2).GetComponent<Image>();
         txtTitle = goCanvas.transform.GetChild(2).GetComponent<Text>();
-        txtIntroduce = goCanvas.transform.GetChild(3).GetComponent<Text>();
-        ExitBtn = goCanvas.transform.GetChild(4).GetComponent<Button>();
-        txtEnterGameHint = goCanvas.transform.GetChild(5).GetComponent<Text>();
-        EnterGameBtn = goCanvas.transform.GetChild(6).GetComponent<Button>();
+
+        imgInstructions = goCanvas.transform.GetChild(3).GetComponent<Image>();
+        txtInstructions = goCanvas.transform.GetChild(3).GetComponentInChildren<Text>();
+        //imgScendInstructions = goCanvas.transform.GetChild(2).GetComponentInChildren<Image>();
+
+        //imgIntroduceBackground = goCanvas.transform.GetChild(4).GetComponent<Image>();
+        txtIntroduce = goCanvas.transform.GetChild(4).GetComponentInChildren<Text>();
+
+        ExitBtn = goCanvas.transform.GetChild(5).GetComponent<Button>();
+
+        txtEnterGameHint = goCanvas.transform.GetChild(6).GetComponent<Text>();
+        EnterGameBtn = goCanvas.transform.GetChild(7).GetComponent<Button>();
 
         currentScene = SceneManager.GetActiveScene();
     }
@@ -74,6 +91,10 @@ public partial class GameManager : MonoBehaviour
     void Update()
     {
         KeyboardCheck();
+        //if (m_bInUIView && Input.GetKeyDown(KeyCode.N))
+        //{
+        //    imgIntroduceBackground.gameObject.SetActive(true);
+        //}
     }
 
     public void GameEvent(GameEventID _eventID)
@@ -114,7 +135,6 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Grandma_Door_Open:
                 ProcessAnimator("Grandma Door", "DoorOpen");
-                flowchartObjects[11].gameObject.SetActive(true);
                 break;
             case GameEventID.S1_Lotus_Paper:
                 UIState(UIItemID.S1_Lotus_Paper, true);
@@ -129,11 +149,12 @@ public partial class GameManager : MonoBehaviour
 
                 break;
             case GameEventID.S1_White_Tent:
-                UIState(UIItemID.S1_White_Tent, true);
+                //UIState(UIItemID.S1_White_Tent, true);
                 m_bShowItemAnimate = true;
                 GlobalDeclare.SetItemAniObject("Filial_piety_curtain");
                 GlobalDeclare.SetItemAniName("Filial_piety_curtain Open");
                 BoxCollider curtain = GameObject.Find("Filial_piety_curtain").GetComponent<BoxCollider>();
+                ProcessAnimator("Filial_piety_curtain", "Filial_piety_curtain Open");
                 curtain.enabled = false;
                 break;
             case GameEventID.S1_Photo_Frame_Light_On:
@@ -149,7 +170,7 @@ public partial class GameManager : MonoBehaviour
                 m_bGrandmaRush = false;
                 break;
             case GameEventID.S1_Light_Switch:
-                flowchartObjects[3].gameObject.SetActive(true);
+                flowchartObjects[2].gameObject.SetActive(true);
                 break;
             case GameEventID.S1_Flashlight:
                 Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
@@ -166,6 +187,7 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_GrandmaRoomKey:
                 ItemController GrandmaDoor = GameObject.Find("Door/Grandma Door").GetComponent<ItemController>();
                 GrandmaDoor.bActive = true;
+                flowchartObjects[3].gameObject.SetActive(true);
                 break;
         }
     }
@@ -178,14 +200,21 @@ public partial class GameManager : MonoBehaviour
 
         goCanvas.SetActive(r_bEnable);
         ExitBtn.gameObject.SetActive(r_bEnable);
-        imgUIBackGround.color = r_bEnable ? new Color(0, 0, 0, 1) : new Color(0, 0, 0, 0);
+        imgUIBackGround.color = r_bEnable ? new Color(0, 0, 0, .02f) : new Color(0, 0, 0, 0);
         imgUIDisplay.color = r_bEnable ? new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0);
-
+        imgInstructions.color = r_bEnable ? new Color(0, 0, 0, 1) : new Color(0, 0, 0, 0);
         int iItemID = (int)r_ItemID;
 
         imgUIDisplay.sprite = UISprite[iItemID];
         txtTitle.text = GlobalDeclare.UITitle[iItemID];
+ 
         txtIntroduce.text = GlobalDeclare.UIIntroduce[iItemID];
+        txtInstructions.text = GlobalDeclare.TxtInstructionsmage[iItemID];
+
+        //titleImg.color = r_bEnable ? new Color(63, 0, 0, .18f) : new Color(63, 0, 0, 0);
+        //imgScendInstructions.color = r_bEnable ? new Color(255, 255, 255, 1) : new Color(255, 255, 255, 0);
+        //imgIntroduceBackground.color = r_bEnable ? new Color(108, 106, 106, 1) : new Color(108, 106, 106, 0);
+        //imgIntroduceBackground.gameObject.SetActive(false);
     }
 
     public void ProcessAnimator(string r_sObject, string r_sTriggerName)

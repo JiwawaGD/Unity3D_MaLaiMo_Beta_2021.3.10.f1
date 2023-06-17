@@ -92,6 +92,14 @@
         "阿嬤",
         "孝簾",
     };
+    public readonly static string[] TxtInstructionsmage = new string[]
+    {
+        "",
+        "A/D 旋轉\r\n      E    轉背面\r\nEsc 返回",
+        "A/D 旋轉\r\nEsc 返回",
+        "A/D 旋轉\r\nEsc 返回",
+        "A/D 旋轉\r\nEsc 返回",
+    };
 
     public readonly static string[] UIIntroduce = new string[]
     {
@@ -124,4 +132,5 @@
         "九條與門扉須圍闔至出殯為止。\r\n" +
         "今者以黃布代替白布，旨在隔離內外，防人惡之。"
     };
+
 }

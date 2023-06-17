@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 394904063187042279}
   - component: {fileID: 394904063187042278}
-  - component: {fileID: 394904063187042297}
   - component: {fileID: 394904063187042296}
   - component: {fileID: 394904063187042299}
   - component: {fileID: 394904063187042276}
@@ -76,19 +75,6 @@ MonoBehaviour:
   hideCommands: []
   luaEnvironment: {fileID: 0}
   luaBindingName: flowchart
---- !u!65 &394904063187042297
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 394904063187042301}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.68, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &394904063187042296
 MonoBehaviour:
   m_ObjectHideFlags: 0
