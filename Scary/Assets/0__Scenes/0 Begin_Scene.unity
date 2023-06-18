@@ -1309,7 +1309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 191903997186392631, guid: 1c7b877ceda3dc94c9819f6622c63e52, type: 3}
       propertyPath: m_Value
-      value: 0.0001
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 191903997186392631, guid: 1c7b877ceda3dc94c9819f6622c63e52, type: 3}
       propertyPath: m_MinValue
@@ -1417,7 +1417,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 191903997859477060, guid: 1c7b877ceda3dc94c9819f6622c63e52, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 191903997859477060, guid: 1c7b877ceda3dc94c9819f6622c63e52, type: 3}
       propertyPath: m_MinValue
@@ -1658,6 +1658,18 @@ PrefabInstance:
     - target: {fileID: 6267663174047195698, guid: 1c7b877ceda3dc94c9819f6622c63e52, type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6702935712677434490, guid: 1c7b877ceda3dc94c9819f6622c63e52, type: 3}
+      propertyPath: m_Value
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6702935712677434490, guid: 1c7b877ceda3dc94c9819f6622c63e52, type: 3}
+      propertyPath: m_MinValue
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 6702935712677434490, guid: 1c7b877ceda3dc94c9819f6622c63e52, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetSensitivity
       objectReference: {fileID: 0}
     - target: {fileID: 7131857578446874031, guid: 1c7b877ceda3dc94c9819f6622c63e52, type: 3}
       propertyPath: m_Color.b

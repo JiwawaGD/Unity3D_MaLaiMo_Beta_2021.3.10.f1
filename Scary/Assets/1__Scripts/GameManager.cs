@@ -5,11 +5,8 @@ using UnityEngine.UI;
 
 public partial class GameManager : MonoBehaviour
 {
-    [SerializeField][Header("ª±®a")] PlayerController playerCtrlr;
-    [SerializeField][Header("¤á¤º¶Ç°eÂI")] Transform tfIndoorPos;
-    [SerializeField][Header("¤á¥~¶Ç°eÂI")] Transform tfOutdoorPos;
-    [SerializeField][Header("ÅK±²ªùª«¥ó")] Transform tfRollingDoor;
-    [SerializeField][Header("UI ¹Ï¤ù®w")] Sprite[] UISprite;
+    [SerializeField][Header("ç©å®¶")] PlayerController playerCtrlr;
+    [SerializeField][Header("UI åœ–ç‰‡åº«")] Sprite[] UISprite;
     [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
 
     public int m_iGrandmaRushCount;
@@ -105,25 +102,30 @@ public partial class GameManager : MonoBehaviour
                 UIState(UIItemID.Empty, false);
                 ShowEnterGame(false);
 
+                // UI è¿”å›å¾ŒåŸ·è¡Œç©å®¶å‹•ç•«
                 if (m_bShowPlayerAnimate)
                     ProcessPlayerAnimator(GlobalDeclare.GetPlayerAnimateType().ToString());
 
+                // UI è¿”å›å¾ŒåŸ·è¡Œ Item å‹•ç•«
                 if (m_bShowItemAnimate)
                     ProcessAnimator(GlobalDeclare.GetItemAniObject(), GlobalDeclare.GetItemAniName());
 
+                // UI è¿”å›å¾ŒåŸ·è¡Œ Fungus å°è©±
                 if (m_bShowDialog)
                     ProcessDialog(GlobalDeclare.GetDialogObjName());
 
                 GameStateCheck();
-
                 break;
             case GameEventID.S1_Photo_Frame:
                 UIState(UIItemID.S1_Photo_Frame, true);
+
+                // Set player transform
                 Transform tfPlayer = playerCtrlr.transform;
                 tfPlayer.position = new Vector3(-4.5f, 0.8f, 1f);
                 tfPlayer.rotation = Quaternion.Euler(0, 180, 0);
                 tfPlayer.GetChild(0).rotation = Quaternion.Euler(0, 180, 0);
 
+                // Show grandma
                 tfGrandmaGhost = GameObject.Find("Grandma_Ghost").transform;
                 ParticleSystem psMist_Partical = GameObject.Find("Mist_Partical").GetComponent<ParticleSystem>();
                 tfGrandmaGhost.Translate(0f, 100f, 0f);
@@ -146,7 +148,6 @@ public partial class GameManager : MonoBehaviour
                 PhotoFrame.bActive = true;
                 m_bPhotoFrameLightOn = true;
                 flowchartObjects[6].gameObject.SetActive(true);
-
                 break;
             case GameEventID.S1_White_Tent:
                 //UIState(UIItemID.S1_White_Tent, true);
@@ -256,7 +257,7 @@ public partial class GameManager : MonoBehaviour
     {
         EnterGameBtn.gameObject.SetActive(r_bEnable);
         txtEnterGameHint.gameObject.SetActive(r_bEnable);
-        txtEnterGameHint.text = r_bEnable ? "---- ¬O§_¶i¤J¹CÀ¸ ----" : "";
+        txtEnterGameHint.text = r_bEnable ? "---- æ˜¯å¦é€²å…¥éŠæˆ² ----" : "";
     }
 
     public void ButtonFunction(ButtonEventID _eventID)
@@ -306,7 +307,6 @@ public partial class GameManager : MonoBehaviour
 
         //ProcessDialog("Flowchart (3)");
         flowchartObjects[5].gameObject.SetActive(true);
-
     }
 
     public void KeyboardCheck()

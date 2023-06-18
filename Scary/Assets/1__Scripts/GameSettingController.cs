@@ -19,12 +19,13 @@ public class GameSettingController : MonoBehaviour
     [SerializeField] Slider SensitivitySlider;
     [SerializeField] Dropdown QualityDropDown;
 
-    [SerializeField] MenuController MenuCtlr;
+    [SerializeField] MenuController MenuCtrlr;
+    [SerializeField] PlayerController PlayerCtrlr;
 
     float fMusic;
     float fSoundEffect;
-    float fQuality;
     float fSensitivity;
+    float fQuality;
 
     void Start()
     {
@@ -47,7 +48,7 @@ public class GameSettingController : MonoBehaviour
 
     public void SetSensitivity()
     {
-        fSensitivity = SensitivitySlider.value; ;
+        fSensitivity = SensitivitySlider.value;
     }
 
     public void SetPictureQuality()
@@ -57,18 +58,18 @@ public class GameSettingController : MonoBehaviour
 
     void SettingSave()
     {
-        GlobalDeclare.fQuality = fQuality;
         GlobalDeclare.fMusic = fMusic;
         GlobalDeclare.fSoundEffect = fSoundEffect;
         GlobalDeclare.fSensitivity = fSensitivity;
+        GlobalDeclare.fQuality = fQuality;
 
         GameObject SettingView = gameObject.transform.GetChild(1).gameObject;
         SettingView.SetActive(false);
 
-        if (MenuCtlr != null)
+        if (MenuCtrlr != null)
         {
-            MenuCtlr = GameObject.Find("MenuController").GetComponent<MenuController>();
-            MenuCtlr.ShowAllBtn();
+            MenuCtrlr = GameObject.Find("MenuController").GetComponent<MenuController>();
+            MenuCtrlr.ShowAllBtn();
         }
     }
 
@@ -77,10 +78,10 @@ public class GameSettingController : MonoBehaviour
         GameObject SettingView = gameObject.transform.GetChild(1).gameObject;
         SettingView.SetActive(false);
 
-        if (MenuCtlr != null)
+        if (MenuCtrlr != null)
         {
-            MenuCtlr = GameObject.Find("MenuController").GetComponent<MenuController>();
-            MenuCtlr.ShowAllBtn();
+            MenuCtrlr = GameObject.Find("MenuController").GetComponent<MenuController>();
+            MenuCtrlr.ShowAllBtn();
         }
     }
 
