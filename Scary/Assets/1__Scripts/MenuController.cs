@@ -1,20 +1,16 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
-    public bool bLoadSceneAsync;
     [SerializeField] int iNextSceneID;
 
-    [SerializeField] Button Btn_EnterGame;
-    [SerializeField] Button Btn_GameSetting;
-    [SerializeField] Button Btn_Team;
-    [SerializeField] Button Btn_TeamReturn;
-    [SerializeField] Button Btn_EndGame;
-
-    public GameObject TineLineAniObj;
+    [SerializeField] [Header("進入遊戲 按鈕")] Button Btn_EnterGame;
+    [SerializeField] [Header("遊戲設定 按鈕")] Button Btn_GameSetting;
+    [SerializeField] [Header("製作人員 按鈕")] Button Btn_Team;
+    [SerializeField] [Header("離開按鈕")] Button Btn_EndGame;
 
     void Start()
     {
@@ -33,7 +29,6 @@ public class MenuController : MonoBehaviour
         Btn_EnterGame.onClick.AddListener(() => LoadScene(iNextSceneID));
         Btn_GameSetting.onClick.AddListener(() => ShowGameSetting());
         Btn_Team.onClick.AddListener(() => ShowTeam());
-        Btn_TeamReturn.onClick.AddListener(TeamReturn);
         Btn_EndGame.onClick.AddListener(() => EndGame());
     }
 
@@ -52,17 +47,8 @@ public class MenuController : MonoBehaviour
     void ShowTeam()
     {
         HideAllBtn();
-        Btn_TeamReturn = GameObject.Find("MenuCanvas/Team/View/Return Btn").GetComponent<Button>();
         GameObject TeamView = Btn_Team.gameObject.transform.parent.GetChild(1).gameObject;
         TeamView.SetActive(true);
-    }
-
-    void TeamReturn()
-    {
-        ShowAllBtn();
-        Btn_TeamReturn = null;
-        GameObject TeamView = Btn_Team.gameObject.transform.parent.GetChild(1).gameObject;
-        TeamView.SetActive(false);
     }
 
     void EndGame()

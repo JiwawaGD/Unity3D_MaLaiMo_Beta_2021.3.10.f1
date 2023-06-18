@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     // Can be setted by player
     float m_fUDSensitivity;
     float m_fRLSensitivity;
+    public float fSensitivityAmplifier;
 
     // Const value
     readonly float m_fMoveSpeed = 90f;
@@ -106,8 +107,13 @@ public class PlayerController : MonoBehaviour
 
     void InitValue()
     {
-        m_fUDSensitivity = 115;
-        m_fRLSensitivity = 90;
+        m_fUDSensitivity = 230;
+        m_fRLSensitivity = 180;
+
+        fSensitivityAmplifier = GlobalDeclare.fSensitivity;
+
+        if (fSensitivityAmplifier == 0)
+            fSensitivityAmplifier = 0.5f;
 
         m_bCursorShow = true;
         m_bCanControl = true;
@@ -115,13 +121,13 @@ public class PlayerController : MonoBehaviour
 
     void View()
     {
-        // •™•k¬‡
-        tfTransform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * m_fRLSensitivity * Time.deltaTime);
+        // Â∑¶Âè≥ËΩâ
+        tfTransform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * m_fRLSensitivity * fSensitivityAmplifier * Time.deltaTime);
 
-        m_fLookRotation += Input.GetAxis("Mouse Y") * m_fUDSensitivity * Time.deltaTime;
+        m_fLookRotation += Input.GetAxis("Mouse Y") * m_fUDSensitivity * fSensitivityAmplifier * Time.deltaTime;
         m_fLookRotation = Mathf.Clamp(m_fLookRotation, -75, 75);
 
-        // §W§U¬‡
+        // ‰∏ä‰∏ãËΩâ
         tfPlayerCamera.localEulerAngles = -Vector3.right * m_fLookRotation;
     }
 

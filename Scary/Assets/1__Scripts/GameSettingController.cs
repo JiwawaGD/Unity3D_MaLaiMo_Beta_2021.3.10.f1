@@ -71,6 +71,11 @@ public class GameSettingController : MonoBehaviour
             MenuCtrlr = GameObject.Find("MenuController").GetComponent<MenuController>();
             MenuCtrlr.ShowAllBtn();
         }
+
+        if (PlayerCtrlr != null)
+        {
+            PlayerCtrlr.fSensitivityAmplifier = fSensitivity;
+        }
     }
 
     void SettingReturn()
