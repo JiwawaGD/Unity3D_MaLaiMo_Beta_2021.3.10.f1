@@ -389,6 +389,7 @@ GameObject:
   m_Component:
   - component: {fileID: 213418225}
   - component: {fileID: 213418226}
+  - component: {fileID: 213418227}
   m_Layer: 0
   m_Name: MenuController
   m_TagString: Untagged
@@ -418,7 +419,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 213418223}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8b92414ebd8b8b4aa8def23c07a2b02, type: 3}
   m_Name: 
@@ -429,6 +430,20 @@ MonoBehaviour:
   TineLineAniObj: {fileID: 0}
   aniSubtitle_1: {fileID: 0}
   aniSubtitle_2: {fileID: 0}
+--- !u!114 &213418227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213418223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b93570a84d9614147b993720a5836af6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDuration: 1
+  iNextSceneID: 2
 --- !u!1 &241812661
 GameObject:
   m_ObjectHideFlags: 0

@@ -874,7 +874,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventID: 5
   bAlwaysActive: 0
-  bActive: 0
+  bActive: 1
 --- !u!65 &71742525
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1316,6 +1316,10 @@ MonoBehaviour:
   - {fileID: 1470715920}
   - {fileID: 1908449669}
   - {fileID: 241345562}
+  audioClip:
+  - {fileID: 8300000, guid: dcefd0bfb3aa3934cb9cb72e1f25f9c9, type: 3}
+  audioSources:
+  - {fileID: 7531463202181120728}
   m_iGrandmaRushCount: 0
   goCanvas: {fileID: 0}
   imgUIBackGround: {fileID: 0}
@@ -14009,19 +14013,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: -8.0433607e+30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: -1.1933793e-36
+      value: 0.18359375
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: -2.2542298e-14
+      value: 58
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: -425811970
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091553, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_RootOrder
@@ -16164,15 +16168,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 5.398621e-11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 4.5904e-41
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 1.435e-42
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_BoundingSphereOverride.z
@@ -16262,19 +16266,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: -4.8163444e-20
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 0
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: -4.8163444e-20
+      value: 0.3359375
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 6.35e-43
+      value: 0.04296875
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091553, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_RootOrder
@@ -22408,6 +22412,7 @@ GameObject:
   - component: {fileID: 1141666456}
   - component: {fileID: 1141666461}
   - component: {fileID: 1141666455}
+  - component: {fileID: 1141666462}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -22427,6 +22432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 333ed4a7af5f4e341b746f032f28cd01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walkingSound: {fileID: 8300000, guid: 088c8ec833b154945b8a21cebbdb9055, type: 3}
   fSensitivityAmplifier: 0
   m_bCursorShow: 0
   m_bCanControl: 0
@@ -22545,6 +22551,102 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!82 &1141666462
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141666454}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &1145221312 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3709258971796315125, guid: 4429ab7b8dab58143b8ce5fa236e1661, type: 3}
@@ -24142,7 +24244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventID: 3
   bAlwaysActive: 0
-  bActive: 0
+  bActive: 1
 --- !u!65 &1268483913
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25794,7 +25896,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventID: 1
   bAlwaysActive: 0
-  bActive: 0
+  bActive: 1
 --- !u!65 &1377386538
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25964,19 +26066,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4726870510449167233, guid: 14bc304b1bde95a469b66a3198c4177f, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 0
+      value: 3.2169536e+21
       objectReference: {fileID: 0}
     - target: {fileID: 4726870510449167233, guid: 14bc304b1bde95a469b66a3198c4177f, type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 0.24609375
+      value: 7.3158363e+28
       objectReference: {fileID: 0}
     - target: {fileID: 4726870510449167233, guid: 14bc304b1bde95a469b66a3198c4177f, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 10
+      value: 2.2106864e+32
       objectReference: {fileID: 0}
     - target: {fileID: 4726870510449167233, guid: 14bc304b1bde95a469b66a3198c4177f, type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 4
+      value: 7.9316175e+34
       objectReference: {fileID: 0}
     - target: {fileID: 4726870510449167246, guid: 14bc304b1bde95a469b66a3198c4177f, type: 3}
       propertyPath: m_RootOrder
@@ -38733,7 +38835,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventID: 11
   bAlwaysActive: 0
-  bActive: 0
+  bActive: 1
 --- !u!65 &543450653323266119
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -39273,7 +39375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventID: 8
   bAlwaysActive: 0
-  bActive: 0
+  bActive: 1
 --- !u!65 &1565509770454225463
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -39676,6 +39778,7 @@ GameObject:
   - component: {fileID: 7531463202181120727}
   - component: {fileID: 7531463202181120726}
   - component: {fileID: 7531463202181120725}
+  - component: {fileID: 7531463202181120728}
   m_Layer: 0
   m_Name: Grandma Door
   m_TagString: Untagged
@@ -40096,19 +40199,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3535911348332591220, guid: 6e439922f182f5a46a4eed8f5043d6d3, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 0
+      value: 2.7259467e+20
       objectReference: {fileID: 0}
     - target: {fileID: 3535911348332591220, guid: 6e439922f182f5a46a4eed8f5043d6d3, type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 6.36e-43
+      value: 3.0262028e+29
       objectReference: {fileID: 0}
     - target: {fileID: 3535911348332591220, guid: 6e439922f182f5a46a4eed8f5043d6d3, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 5.9e-44
+      value: 1.5936923e-10
       objectReference: {fileID: 0}
     - target: {fileID: 3535911348332591220, guid: 6e439922f182f5a46a4eed8f5043d6d3, type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 6.36e-43
+      value: 7.272793e+22
       objectReference: {fileID: 0}
     - target: {fileID: 5913287339654687164, guid: 6e439922f182f5a46a4eed8f5043d6d3, type: 3}
       propertyPath: m_Name
@@ -40577,6 +40680,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 7386399850892162117, guid: 4d0b69072fa92a145960c4d586febabd, type: 3}
+      propertyPath: bActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d0b69072fa92a145960c4d586febabd, type: 3}
 --- !u!1 &4280104688476929095
@@ -40789,19 +40896,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4726870510449167233, guid: 14bc304b1bde95a469b66a3198c4177f, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 3.9e-44
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4726870510449167233, guid: 14bc304b1bde95a469b66a3198c4177f, type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 14
+      value: 0.0859375
       objectReference: {fileID: 0}
     - target: {fileID: 4726870510449167233, guid: 14bc304b1bde95a469b66a3198c4177f, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: -1.8064598e-38
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 4726870510449167233, guid: 14bc304b1bde95a469b66a3198c4177f, type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 6.36e-43
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4726870510449167246, guid: 14bc304b1bde95a469b66a3198c4177f, type: 3}
       propertyPath: m_RootOrder
@@ -42109,7 +42216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventID: 2
   bAlwaysActive: 0
-  bActive: 0
+  bActive: 1
 --- !u!65 &7531463202181120726
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -42141,6 +42248,102 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!82 &7531463202181120728
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2270890333292960132}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.461
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 2.33
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &7588003309242195874
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42287,19 +42490,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7772764471847378127, guid: 5661c313d2d5f9543962305a4d66ee08, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: -4.1677262e-38
+      value: 3e-45
       objectReference: {fileID: 0}
     - target: {fileID: 7772764471847378127, guid: 5661c313d2d5f9543962305a4d66ee08, type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: -1.9522045e+21
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 7772764471847378127, guid: 5661c313d2d5f9543962305a4d66ee08, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 8.4657076e+17
+      value: 1e-45
       objectReference: {fileID: 0}
     - target: {fileID: 7772764471847378127, guid: 5661c313d2d5f9543962305a4d66ee08, type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 3.295637e-39
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5661c313d2d5f9543962305a4d66ee08, type: 3}
@@ -42381,19 +42584,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7222159006748266874, guid: daef2200afd758c43816ec9057b4c7f1, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 1.8058254e+17
+      value: -1.7688468e+24
       objectReference: {fileID: 0}
     - target: {fileID: 7222159006748266874, guid: daef2200afd758c43816ec9057b4c7f1, type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 1
+      value: 5.06e-43
       objectReference: {fileID: 0}
     - target: {fileID: 7222159006748266874, guid: daef2200afd758c43816ec9057b4c7f1, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 9.6312225e-32
+      value: -2.0076332
       objectReference: {fileID: 0}
     - target: {fileID: 7222159006748266874, guid: daef2200afd758c43816ec9057b4c7f1, type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 6234.7124
+      value: 5.04e-43
       objectReference: {fileID: 0}
     - target: {fileID: 8932668605775997541, guid: daef2200afd758c43816ec9057b4c7f1, type: 3}
       propertyPath: m_Name

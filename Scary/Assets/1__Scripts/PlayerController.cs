@@ -3,6 +3,11 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+    private AudioSource audioSource;
+    public AudioClip walkingSound;
+
+    private bool isWalking = false;
+
     // Can be setted by player
     float m_fUDSensitivity;
     float m_fRLSensitivity;
@@ -36,6 +41,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         rig = GetComponent<Rigidbody>();
         ani = GetComponent<Animation>();
         tfTransform = transform;
@@ -88,7 +94,20 @@ public class PlayerController : MonoBehaviour
             m_fLookRotation = 0;
             return;
         }
-
+        if (isWalking)
+        {
+            if (!audioSource.isPlaying)
+            {
+                PlayWalkingSound();
+            }
+        }
+        else
+        {
+            if (audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
+        }
         Move();
         View();
     }
@@ -117,6 +136,10 @@ public class PlayerController : MonoBehaviour
 
         m_bCursorShow = true;
         m_bCanControl = true;
+
+        audioSource.volume = 1f;
+        audioSource.loop = false; // 設置是否循環播放音效
+
     }
 
     void View()
@@ -141,9 +164,15 @@ public class PlayerController : MonoBehaviour
         v3_MovePos = tfTransform.right * v3_MovePos.x + tfTransform.forward * v3_MovePos.z;
 
         if (v3_MovePos != v3_zero)
+        {
             rig.velocity = v3_MovePos;
+            isWalking = true;
+        }
         else
+        {
+            isWalking = false;
             rig.velocity = v3_zero;
+        }
     }
 
     public void SetCursor()
@@ -190,4 +219,31 @@ public class PlayerController : MonoBehaviour
                 last_Item.HintState(false);
         }
     }
+    private void PlaySound(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
+    }
+
+    private void PlayWalkingSound()
+    {
+        PlaySound(walkingSound);
+    }
+
+    //private void PlayBreathingSound()
+    //{
+    //    PlaySound(breathingSound);
+    //}
+
+    //private void PlayFootstepSound()
+    //{
+    //    PlaySound(footstepSound);
+    //}
+
+
+    //private void PlayRunningSound()
+    //{
+    //    PlaySound(runningSound);
+    //}
+
 }

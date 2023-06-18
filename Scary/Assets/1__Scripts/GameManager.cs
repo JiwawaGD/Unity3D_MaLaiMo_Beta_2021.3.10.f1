@@ -8,6 +8,8 @@ public partial class GameManager : MonoBehaviour
     [SerializeField][Header("玩家")] PlayerController playerCtrlr;
     [SerializeField][Header("UI 圖片庫")] Sprite[] UISprite;
     [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField][Header("音效撥放清單")] AudioClip[] audioClip;
+    [SerializeField][Header("音效撥放器")]AudioSource[] audioSources;
 
     public int m_iGrandmaRushCount;
 
@@ -137,6 +139,7 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Grandma_Door_Open:
                 ProcessAnimator("Grandma Door", "DoorOpen");
+                audioSources[0].PlayOneShot(audioClip[0]);
                 break;
             case GameEventID.S1_Lotus_Paper:
                 UIState(UIItemID.S1_Lotus_Paper, true);
