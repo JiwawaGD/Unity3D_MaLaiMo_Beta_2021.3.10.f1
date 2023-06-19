@@ -23,6 +23,11 @@ public enum GameEventID
     S1_GrandmaRoomKey,
 }
 
+public enum ActivateItemID
+{
+    Light_Switch,
+}
+
 public enum UIItemID
 {
     Empty = 0,

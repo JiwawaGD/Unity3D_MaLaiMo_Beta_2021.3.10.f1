@@ -5,16 +5,18 @@ using UnityEngine.UI;
 
 public partial class GameManager : MonoBehaviour
 {
-    [SerializeField][Header("玩家")] PlayerController playerCtrlr;
-    [SerializeField][Header("UI 圖片庫")] Sprite[] UISprite;
-    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
-    [SerializeField][Header("音效撥放清單")] AudioClip[] audioClip;
-    [SerializeField][Header("音效撥放器")]AudioSource[] audioSources;
+    [SerializeField] [Header("玩家")] PlayerController playerCtrlr;
+    [SerializeField] [Header("UI 圖片庫")] Sprite[] UISprite;
+    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField] [Header("音效撥放清單")] AudioClip[] audioClip;
+    [SerializeField] [Header("音效撥放器")] AudioSource[] audioSources;
 
     public int m_iGrandmaRushCount;
 
     Transform tfGrandmaGhost;
     Scene currentScene;
+
+    ItemController TempItem;
 
     #region Canvas Zone
     [SerializeField] GameObject goCanvas;
@@ -85,15 +87,16 @@ public partial class GameManager : MonoBehaviour
 
         ExitBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.UI_Back));
         EnterGameBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.Enter_Game));
+
+        ActivateHint(ActivateItemID.Light_Switch);
     }
 
     void Update()
     {
         KeyboardCheck();
+
         //if (m_bInUIView && Input.GetKeyDown(KeyCode.N))
-        //{
         //    imgIntroduceBackground.gameObject.SetActive(true);
-        //}
     }
 
     public void GameEvent(GameEventID _eventID)
@@ -196,6 +199,18 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
+    // 顯示眼睛 Hint 圖示
+    public void ActivateHint(ActivateItemID _ItemID)
+    {
+        switch (_ItemID)
+        {
+            case ActivateItemID.Light_Switch:
+                TempItem = GameObject.Find("light_switch").GetComponent<ItemController>();
+                TempItem.SetHintable(true);
+                break;
+        }
+    }
+
     public void UIState(UIItemID r_ItemID, bool r_bEnable)
     {
         m_bInUIView = r_bEnable;
@@ -211,7 +226,7 @@ public partial class GameManager : MonoBehaviour
 
         imgUIDisplay.sprite = UISprite[iItemID];
         txtTitle.text = GlobalDeclare.UITitle[iItemID];
- 
+
         txtIntroduce.text = GlobalDeclare.UIIntroduce[iItemID];
         txtInstructions.text = GlobalDeclare.TxtInstructionsmage[iItemID];
 
@@ -229,7 +244,7 @@ public partial class GameManager : MonoBehaviour
         GameObject obj = GameObject.Find(r_sObject);
         Animator ani = obj.transform.GetComponent<Animator>();
         ani.SetTrigger(r_sTriggerName);
-        obj.transform.GetComponent<ItemController>().HintState(false);
+        obj.transform.GetComponent<ItemController>().SetHintable(false);
         obj.transform.GetComponent<ItemController>().bActive = false;
 
         GlobalDeclare.SetItemAniObject("Empty");

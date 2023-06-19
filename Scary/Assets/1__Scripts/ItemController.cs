@@ -1,18 +1,26 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Outline), typeof(BoxCollider))]
+[RequireComponent(typeof(BoxCollider))]
 public class ItemController : MonoBehaviour
 {
-    [Header("遊戲事件")] 
+    [Header("遊戲事件")]
     public GameEventID eventID;
 
-    public bool bAlwaysActive; // 是否可以無限觸發
-    public bool bActive;       // 是否可以觸發
+    [Header("是否可以無限觸發(裝飾物件)")]
+    public bool bAlwaysActive;
 
-    Outline outline;
+    [Header("是否可以觸發(劇情物件)")]
+    public bool bActive;
+
+    #region UI
+    GameObject HintObj;     // 眼睛 UI
+    Transform tfHint;
+
+    GameObject InteractObj; // 提示可互動 UI
+    Transform tfInteract;
+    #endregion
+
     GameManager gameManager;
-    GameObject InteractiveItem;
-    Transform tfInteractiveItem;
     Transform tfPlayerCamera;
 
     void Awake()
@@ -22,53 +30,63 @@ public class ItemController : MonoBehaviour
 
     void Start()
     {
-        InteractiveItem.SetActive(false);
-        outline.OutlineMode = Outline.Mode.OutlineAll;
-        outline.OutlineWidth = 0;
+        Initialize();
     }
 
-    public void GetFields()
+    void GetFields()
     {
-        if (outline == null)
-            outline = GetComponent<Outline>();
+        if (HintObj == null)
+            HintObj = gameObject.transform.GetChild(0).GetChild(0).gameObject;
+
+        if (tfHint == null)
+            tfHint = HintObj.transform;
+
+        if (InteractObj == null)
+            InteractObj = gameObject.transform.GetChild(0).GetChild(1).gameObject;
+
+        if (tfInteract == null)
+            tfInteract = InteractObj.transform;
 
         if (gameManager == null)
             gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-        if (InteractiveItem == null)
-            InteractiveItem = gameObject.transform.GetChild(0).gameObject;
+        if (tfPlayerCamera == null)
+            tfPlayerCamera = GameObject.Find("Player Camera").transform;
+    }
 
-        if (tfInteractiveItem == null)
-            tfInteractiveItem = InteractiveItem.transform;
-
+    void Initialize()
+    {
+        //HintObj.SetActive(false);
+        //InteractObj.SetActive(false);
         gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
+    }
+
+    public void SetItemInteractive(bool r_bShow)
+    {
+        InteractObj.SetActive(r_bShow);
+
+        if (r_bShow)
+        {
+            tfHint.LookAt(tfPlayerCamera);
+            tfInteract.LookAt(tfPlayerCamera);
+        }
+    }
+
+    public void SetHintable(bool r_bShow)
+    {
+        HintObj.SetActive(r_bShow);
     }
 
     public void SendGameEvent()
     {
         gameManager.GameEvent(eventID);
 
-        HintState(false);
+        SetItemInteractive(false);
 
         ItemDisable();
     }
 
-    public void HintState(bool r_bShow)
-    {
-        outline.OutlineWidth = r_bShow ? 6 : 0;
-
-        InteractiveItem.SetActive(r_bShow);
-
-        if (r_bShow)
-        {
-            if (tfPlayerCamera == null)
-                tfPlayerCamera = GameObject.Find("Player Camera").transform;
-
-            tfInteractiveItem.LookAt(tfPlayerCamera);
-        }
-    }
-
-    public void ItemDisable()
+    void ItemDisable()
     {
         if (bAlwaysActive)
             return;

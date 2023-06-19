@@ -94,20 +94,18 @@ public class PlayerController : MonoBehaviour
             m_fLookRotation = 0;
             return;
         }
+
         if (isWalking)
         {
             if (!audioSource.isPlaying)
-            {
                 PlayWalkingSound();
-            }
         }
         else
         {
             if (audioSource.isPlaying)
-            {
                 audioSource.Stop();
-            }
         }
+
         Move();
         View();
     }
@@ -170,8 +168,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            isWalking = false;
             rig.velocity = v3_zero;
+            isWalking = false;
         }
     }
 
@@ -201,7 +199,7 @@ public class PlayerController : MonoBehaviour
 
             if (current_Item.bActive)
             {
-                current_Item.HintState(true);
+                current_Item.SetItemInteractive(true);
 
                 last_Item = current_Item;
 
@@ -210,22 +208,23 @@ public class PlayerController : MonoBehaviour
             }
             else if (last_Item)
             {
-                last_Item.HintState(false);
+                last_Item.SetItemInteractive(false);
             }
         }
         else
         {
             if (last_Item)
-                last_Item.HintState(false);
+                last_Item.SetItemInteractive(false);
         }
     }
-    private void PlaySound(AudioClip clip)
+
+    void PlaySound(AudioClip clip)
     {
         audioSource.clip = clip;
         audioSource.Play();
     }
 
-    private void PlayWalkingSound()
+    void PlayWalkingSound()
     {
         PlaySound(walkingSound);
     }
@@ -240,10 +239,8 @@ public class PlayerController : MonoBehaviour
     //    PlaySound(footstepSound);
     //}
 
-
     //private void PlayRunningSound()
     //{
     //    PlaySound(runningSound);
     //}
-
 }
