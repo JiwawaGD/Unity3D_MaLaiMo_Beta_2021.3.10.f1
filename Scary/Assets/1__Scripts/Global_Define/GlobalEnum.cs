@@ -1,10 +1,3 @@
-public enum StoryID
-{
-    // S1 : Scene_1 
-    S1_0_0,
-    S1_0_1,
-}
-
 public enum GameEventID
 {
     Close_UI = 0,
@@ -23,9 +16,20 @@ public enum GameEventID
     S1_GrandmaRoomKey,
 }
 
-public enum ActivateItemID
+public enum HintItemID
 {
-    Light_Switch,
+    Empty = 0,
+
+    // S1 : Scene_1
+    S1_Light_Switch,
+    S1_Grandma_Room_Door,
+    S1_Flashlight,
+    S1_Desk_Drawer,
+    S1_Grandma_Room_Key,
+    S1_Filial_Piety_Curtain,
+    S1_Lie_Grandma_Body,
+    S1_Rice_Funeral,
+    S1_Lotus_Paper,
 }
 
 public enum UIItemID

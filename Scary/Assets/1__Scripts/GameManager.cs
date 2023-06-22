@@ -88,7 +88,7 @@ public partial class GameManager : MonoBehaviour
         ExitBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.UI_Back));
         EnterGameBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.Enter_Game));
 
-        ActivateHint(ActivateItemID.Light_Switch);
+        ShowHint(HintItemID.S1_Light_Switch);
     }
 
     void Update()
@@ -99,9 +99,9 @@ public partial class GameManager : MonoBehaviour
         //    imgIntroduceBackground.gameObject.SetActive(true);
     }
 
-    public void GameEvent(GameEventID _eventID)
+    public void GameEvent(GameEventID r_eventID)
     {
-        switch (_eventID)
+        switch (r_eventID)
         {
             case GameEventID.Close_UI:
                 UIState(UIItemID.Empty, false);
@@ -200,12 +200,44 @@ public partial class GameManager : MonoBehaviour
     }
 
     // 顯示眼睛 Hint 圖示
-    public void ActivateHint(ActivateItemID _ItemID)
+    public void ShowHint(HintItemID _ItemID)
     {
         switch (_ItemID)
         {
-            case ActivateItemID.Light_Switch:
+            case HintItemID.S1_Light_Switch:
                 TempItem = GameObject.Find("light_switch").GetComponent<ItemController>();
+                TempItem.SetHintable(true);
+                break;
+            case HintItemID.S1_Grandma_Room_Door:
+                TempItem = GameObject.Find("light_switch").GetComponent<ItemController>();
+                TempItem.SetHintable(true);
+                break;
+            case HintItemID.S1_Flashlight:
+                TempItem = GameObject.Find("light_switch").GetComponent<ItemController>();
+                TempItem.SetHintable(true);
+                break;
+            case HintItemID.S1_Desk_Drawer:
+                TempItem = GameObject.Find("light_switch").GetComponent<ItemController>();
+                TempItem.SetHintable(true);
+                break;
+            case HintItemID.S1_Grandma_Room_Key:
+                TempItem = GameObject.Find("light_switch").GetComponent<ItemController>();
+                TempItem.SetHintable(true);
+                break;
+            case HintItemID.S1_Filial_Piety_Curtain:
+                TempItem = GameObject.Find("light_switch").GetComponent<ItemController>();
+                TempItem.SetHintable(true);
+                break;
+            case HintItemID.S1_Lie_Grandma_Body:
+                TempItem = GameObject.Find("light_switch").GetComponent<ItemController>();
+                TempItem.SetHintable(true);
+                break;
+            case HintItemID.S1_Rice_Funeral:
+                TempItem = GameObject.Find("light_switch").GetComponent<ItemController>();
+                TempItem.SetHintable(true);
+                break;
+            case HintItemID.S1_Lotus_Paper:
+                TempItem = GameObject.Find("Lotus_Paper").GetComponent<ItemController>();
                 TempItem.SetHintable(true);
                 break;
         }
@@ -342,7 +374,7 @@ public partial class GameManager : MonoBehaviour
 
     public void GameStateCheck()
     {
-        if (!GlobalDeclare.bLotusGameComplete && currentScene.name == "Grandma House")
+        if (!GlobalDeclare.bLotusGameComplete && currentScene.name == "2 Grandma House")
         {
             ItemController LotusItem = GameObject.Find("Lotus Paper").GetComponent<ItemController>();
             LotusItem.bActive = true;

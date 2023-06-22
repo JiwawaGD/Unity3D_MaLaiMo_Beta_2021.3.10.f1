@@ -56,8 +56,8 @@ public class ItemController : MonoBehaviour
 
     void Initialize()
     {
-        //HintObj.SetActive(false);
-        //InteractObj.SetActive(false);
+        HintObj.SetActive(false);
+        InteractObj.SetActive(false);
         gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
     }
 
@@ -80,17 +80,17 @@ public class ItemController : MonoBehaviour
     public void SendGameEvent()
     {
         gameManager.GameEvent(eventID);
-
-        SetItemInteractive(false);
-
         ItemDisable();
     }
 
     void ItemDisable()
     {
+        SetItemInteractive(false);
+
         if (bAlwaysActive)
             return;
 
+        SetHintable(false);
         gameObject.layer = LayerMask.NameToLayer("Default");
         bActive = false;
     }
