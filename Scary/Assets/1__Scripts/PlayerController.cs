@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
         if (fSensitivityAmplifier == 0)
             fSensitivityAmplifier = 0.5f;
 
-        m_bCursorShow = true;
+        m_bCursorShow = false;
         m_bCanControl = true;
 
         audioSource.volume = 1f;

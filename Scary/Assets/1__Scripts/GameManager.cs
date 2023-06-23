@@ -11,7 +11,7 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("音效撥放清單")] AudioClip[] audioClip;
     [SerializeField] [Header("音效撥放器")] AudioSource[] audioSources;
 
-    public int m_iGrandmaRushCount;
+    int m_iGrandmaRushCount;
 
     Transform tfGrandmaGhost;
     Scene currentScene;
@@ -28,7 +28,6 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] Image imgInstructions;
     [SerializeField] Text txtInstructions;
     //[SerializeField] Image imgScendInstructions;
-
     //[SerializeField] Image imgIntroduceBackground;
     [SerializeField] Text txtIntroduce;
 
@@ -205,35 +204,35 @@ public partial class GameManager : MonoBehaviour
         switch (_ItemID)
         {
             case HintItemID.S1_Light_Switch:
-                TempItem = GameObject.Find("light_switch").GetComponent<ItemController>();
+                TempItem = GameObject.Find("Light_Switch").GetComponent<ItemController>();
                 TempItem.SetHintable(true);
                 break;
             case HintItemID.S1_Grandma_Room_Door:
-                TempItem = GameObject.Find("light_switch").GetComponent<ItemController>();
+                TempItem = GameObject.Find("Grandma_Room_Door").GetComponent<ItemController>();
                 TempItem.SetHintable(true);
                 break;
             case HintItemID.S1_Flashlight:
-                TempItem = GameObject.Find("light_switch").GetComponent<ItemController>();
+                TempItem = GameObject.Find("Flashlight").GetComponent<ItemController>();
                 TempItem.SetHintable(true);
                 break;
             case HintItemID.S1_Desk_Drawer:
-                TempItem = GameObject.Find("light_switch").GetComponent<ItemController>();
+                TempItem = GameObject.Find("Desk_Drawer").GetComponent<ItemController>();
                 TempItem.SetHintable(true);
                 break;
             case HintItemID.S1_Grandma_Room_Key:
-                TempItem = GameObject.Find("light_switch").GetComponent<ItemController>();
+                TempItem = GameObject.Find("Grandma_Room_Key").GetComponent<ItemController>();
                 TempItem.SetHintable(true);
                 break;
             case HintItemID.S1_Filial_Piety_Curtain:
-                TempItem = GameObject.Find("light_switch").GetComponent<ItemController>();
+                TempItem = GameObject.Find("Filial_Piety_Curtain").GetComponent<ItemController>();
                 TempItem.SetHintable(true);
                 break;
             case HintItemID.S1_Lie_Grandma_Body:
-                TempItem = GameObject.Find("light_switch").GetComponent<ItemController>();
+                TempItem = GameObject.Find("Lie_Grandma_Body").GetComponent<ItemController>();
                 TempItem.SetHintable(true);
                 break;
             case HintItemID.S1_Rice_Funeral:
-                TempItem = GameObject.Find("light_switch").GetComponent<ItemController>();
+                TempItem = GameObject.Find("Rice_Funeral").GetComponent<ItemController>();
                 TempItem.SetHintable(true);
                 break;
             case HintItemID.S1_Lotus_Paper:
@@ -361,6 +360,14 @@ public partial class GameManager : MonoBehaviour
 
     public void KeyboardCheck()
     {
+        if (!m_bInUIView)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                // 呼叫 GameSetting;
+            }
+        }
+
         if (m_bReturnToBegin)
         {
             if (Input.GetKeyDown(KeyCode.F10))
@@ -376,7 +383,7 @@ public partial class GameManager : MonoBehaviour
     {
         if (!GlobalDeclare.bLotusGameComplete && currentScene.name == "2 Grandma House")
         {
-            ItemController LotusItem = GameObject.Find("Lotus Paper").GetComponent<ItemController>();
+            ItemController LotusItem = GameObject.Find("Lotus_Paper").GetComponent<ItemController>();
             LotusItem.bActive = true;
         }
     }
