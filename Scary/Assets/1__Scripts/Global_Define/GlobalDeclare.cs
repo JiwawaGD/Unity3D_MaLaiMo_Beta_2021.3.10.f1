@@ -92,6 +92,7 @@
         "阿嬤",
         "孝簾",
     };
+
     public readonly static string[] TxtInstructionsmage = new string[]
     {
         "",
@@ -132,5 +133,4 @@
         "九條與門扉須圍闔至出殯為止。\r\n" +
         "今者以黃布代替白布，旨在隔離內外，防人惡之。"
     };
-
 }
