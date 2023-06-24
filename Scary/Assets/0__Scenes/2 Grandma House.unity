@@ -14290,6 +14290,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_BoundingSphereOverride.w
       value: 0
       objectReference: {fileID: 0}
@@ -16605,7 +16609,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_Intensity
-      value: 1.5
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_AreaSize.x
@@ -39100,19 +39104,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3535911348332591220, guid: 6e439922f182f5a46a4eed8f5043d6d3, type: 3}
       propertyPath: m_Color.b
-      value: 0.15686275
+      value: 0.21502315
       objectReference: {fileID: 0}
     - target: {fileID: 3535911348332591220, guid: 6e439922f182f5a46a4eed8f5043d6d3, type: 3}
       propertyPath: m_Color.g
-      value: 0.21568628
+      value: 0.3018868
       objectReference: {fileID: 0}
     - target: {fileID: 3535911348332591220, guid: 6e439922f182f5a46a4eed8f5043d6d3, type: 3}
       propertyPath: m_Color.r
-      value: 0.19958913
+      value: 0.21999602
       objectReference: {fileID: 0}
     - target: {fileID: 3535911348332591220, guid: 6e439922f182f5a46a4eed8f5043d6d3, type: 3}
       propertyPath: m_Intensity
-      value: 0.9
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3535911348332591220, guid: 6e439922f182f5a46a4eed8f5043d6d3, type: 3}
       propertyPath: m_Lightmapping
@@ -39120,19 +39124,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3535911348332591220, guid: 6e439922f182f5a46a4eed8f5043d6d3, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 2.7259467e+20
+      value: -7.703531e+24
       objectReference: {fileID: 0}
     - target: {fileID: 3535911348332591220, guid: 6e439922f182f5a46a4eed8f5043d6d3, type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 3.0262028e+29
+      value: 1.05e-43
       objectReference: {fileID: 0}
     - target: {fileID: 3535911348332591220, guid: 6e439922f182f5a46a4eed8f5043d6d3, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 1.5936923e-10
+      value: 5.21649e-11
       objectReference: {fileID: 0}
     - target: {fileID: 3535911348332591220, guid: 6e439922f182f5a46a4eed8f5043d6d3, type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 7.272793e+22
+      value: 1.1482605e+27
       objectReference: {fileID: 0}
     - target: {fileID: 5913287339654687164, guid: 6e439922f182f5a46a4eed8f5043d6d3, type: 3}
       propertyPath: m_Name
@@ -39144,7 +39148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6724311417160043328, guid: 6e439922f182f5a46a4eed8f5043d6d3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.56917
+      value: 5.051
       objectReference: {fileID: 0}
     - target: {fileID: 6724311417160043328, guid: 6e439922f182f5a46a4eed8f5043d6d3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -39152,7 +39156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6724311417160043328, guid: 6e439922f182f5a46a4eed8f5043d6d3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.125
+      value: 10.446
       objectReference: {fileID: 0}
     - target: {fileID: 6724311417160043328, guid: 6e439922f182f5a46a4eed8f5043d6d3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -39739,7 +39743,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4726870510449167233, guid: 14bc304b1bde95a469b66a3198c4177f, type: 3}
       propertyPath: m_Intensity
-      value: 0.8
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4726870510449167233, guid: 14bc304b1bde95a469b66a3198c4177f, type: 3}
       propertyPath: m_AreaSize.x
@@ -41240,6 +41244,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Living room back light
       objectReference: {fileID: 0}
+    - target: {fileID: 7772764471847378125, guid: 5661c313d2d5f9543962305a4d66ee08, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7772764471847378126, guid: 5661c313d2d5f9543962305a4d66ee08, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -41409,6 +41417,10 @@ PrefabInstance:
     - target: {fileID: 8932668605775997541, guid: daef2200afd758c43816ec9057b4c7f1, type: 3}
       propertyPath: m_Name
       value: Kitchen back light
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932668605775997541, guid: daef2200afd758c43816ec9057b4c7f1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: daef2200afd758c43816ec9057b4c7f1, type: 3}
