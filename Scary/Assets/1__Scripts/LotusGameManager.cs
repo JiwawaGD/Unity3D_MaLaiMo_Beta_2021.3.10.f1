@@ -231,10 +231,10 @@ public class LotusGameManager : MonoBehaviour
             23 => new Vector2(0, -400),    // S
             24 => new Vector2(-500, 0),    // A
             25 => new Vector2(0, 400),     // W
-            26 => new Vector2(300, 300),     // W
-            27 => new Vector2(300, -300),     // D
-            28 => new Vector2(-300, -300),    // S
-            29 => new Vector2(-300, 300),    // A
+            26 => new Vector2(300, 300),   // W
+            27 => new Vector2(300, -300),  // D
+            28 => new Vector2(-300, -300), // S
+            29 => new Vector2(-300, 300),  // A
             _ => new Vector2(0, 0),
         };
     }

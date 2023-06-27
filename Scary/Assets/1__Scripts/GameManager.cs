@@ -140,7 +140,7 @@ public partial class GameManager : MonoBehaviour
                 GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Player_Turn_After_Photo_Frame);
                 break;
             case GameEventID.S1_Grandma_Door_Open:
-                ProcessAnimator("Grandma Door", "DoorOpen");
+                ProcessAnimator("Grandma_Room_Door", "DoorOpen");
                 audioSources[0].PlayOneShot(audioClip[0]);
                 break;
             case GameEventID.S1_Lotus_Paper:
@@ -149,7 +149,7 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Grandma_Dead_Body:
                 UIState(UIItemID.S1_Grandma_Dead_Body, true);
-                ItemController PhotoFrame = GameObject.Find("Photo Frame").GetComponent<ItemController>();
+                ItemController PhotoFrame = GameObject.Find("Photo_Frame").GetComponent<ItemController>();
                 PhotoFrame.bActive = true;
                 m_bPhotoFrameLightOn = true;
                 flowchartObjects[6].gameObject.SetActive(true);
@@ -157,10 +157,10 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_White_Tent:
                 //UIState(UIItemID.S1_White_Tent, true);
                 m_bShowItemAnimate = true;
-                GlobalDeclare.SetItemAniObject("Filial_piety_curtain");
+                GlobalDeclare.SetItemAniObject("Filial_Piety_Curtain");
                 GlobalDeclare.SetItemAniName("Filial_piety_curtain Open");
                 BoxCollider curtain = GameObject.Find("Filial_piety_curtain").GetComponent<BoxCollider>();
-                ProcessAnimator("Filial_piety_curtain", "Filial_piety_curtain Open");
+                ProcessAnimator("Filial_Piety_Curtain", "Filial_piety_curtain Open");
                 curtain.enabled = false;
                 break;
             case GameEventID.S1_Photo_Frame_Light_On:
@@ -181,17 +181,17 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Flashlight:
                 Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
                 playerFlashlight.enabled = true;
-                GameObject FlashLight = GameObject.Find("flashlight");
+                GameObject FlashLight = GameObject.Find("Flashlight");
                 Destroy(FlashLight);
                 break;
             case GameEventID.S1_DrawerWithKey:
                 BoxCollider DrawerCollider = GameObject.Find("grandpa_desk/DrawerWithKey").GetComponent<BoxCollider>();
                 DrawerCollider.enabled = false;
-                ProcessAnimator("grandpa_desk/DrawerWithKey", "DrawerWithKey_Open");
+                ProcessAnimator("grandpa_desk/Desk_Drawer", "DrawerWithKey_Open");
                 Invoke(nameof(IvkShowDoorKey), 0.5f);
                 break;
             case GameEventID.S1_GrandmaRoomKey:
-                ItemController GrandmaDoor = GameObject.Find("Door/Grandma Door").GetComponent<ItemController>();
+                ItemController GrandmaDoor = GameObject.Find("Door/Grandma_Room_Door").GetComponent<ItemController>();
                 GrandmaDoor.bActive = true;
                 flowchartObjects[3].gameObject.SetActive(true);
                 break;
@@ -321,7 +321,7 @@ public partial class GameManager : MonoBehaviour
                 GameEvent(GameEventID.Close_UI);
                 playerCtrlr.m_bCanControl = false;
                 playerCtrlr.tfPlayerCamera.gameObject.SetActive(false);
-                SceneManager.LoadScene(2, LoadSceneMode.Additive);
+                SceneManager.LoadScene(3, LoadSceneMode.Additive);
                 break;
         }
     }
@@ -345,13 +345,13 @@ public partial class GameManager : MonoBehaviour
     {
         playerCtrlr.m_bCanControl = true;
         playerCtrlr.tfPlayerCamera.gameObject.SetActive(true);
-        SceneManager.UnloadSceneAsync(2);
+        SceneManager.UnloadSceneAsync(3);
 
         Object LotusObj = Resources.Load<GameObject>("Prefabs/Lotus_state_Final");
         GameObject LotusGO = Instantiate(LotusObj) as GameObject;
         LotusGO.transform.position = new Vector3(-5.2f, 0.6f, -2.4f);
 
-        GameObject LotusDestory = GameObject.Find("Lotus Paper");
+        GameObject LotusDestory = GameObject.Find("Lotus_Paper");
         LotusDestory.transform.position = new Vector3(-5f, -2f, -2f);
 
         //ProcessDialog("Flowchart (3)");
