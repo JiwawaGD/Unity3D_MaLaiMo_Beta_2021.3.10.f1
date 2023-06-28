@@ -56,6 +56,8 @@ public class ItemController : MonoBehaviour
 
     void Initialize()
     {
+        HintObj.SetActive(false);
+        InteractObj.SetActive(false);
         gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
     }
 

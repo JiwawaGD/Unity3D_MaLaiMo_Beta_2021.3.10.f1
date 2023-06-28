@@ -21,7 +21,7 @@ public partial class GameManager : MonoBehaviour
 
     public void IvkShowDoorKey()
     {
-        GameObject GrandmaRoomKey = GameObject.Find("Grandma_Room_Key");
+        GameObject GrandmaRoomKey = GameObject.Find("grandma_roomkey");
         GrandmaRoomKey.transform.position = new Vector3(-6.8f, 0.8f, -14f);
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-    public AudioSource audioSource;
+    private AudioSource audioSource;
     public AudioClip walkingSound;
 
     private bool isWalking = false;
@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
         if (isWalking)
         {
             if (!audioSource.isPlaying)
-                AUDManager.instance.PlayerWalkSFX(audioSource);
+                PlayWalkingSound();
         }
         else
         {
