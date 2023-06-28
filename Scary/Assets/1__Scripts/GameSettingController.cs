@@ -49,6 +49,10 @@ public class GameSettingController : MonoBehaviour
     public void SetSensitivity()
     {
         fSensitivity = SensitivitySlider.value;
+        if (PlayerCtrlr != null)
+        {
+            PlayerCtrlr.fSensitivityAmplifier = fSensitivity;
+        }
     }
 
     public void SetPictureQuality()
@@ -68,7 +72,6 @@ public class GameSettingController : MonoBehaviour
 
         if (MenuCtrlr != null)
         {
-            MenuCtrlr = GameObject.Find("MenuController").GetComponent<MenuController>();
             MenuCtrlr.ShowAllBtn();
         }
 
@@ -76,6 +79,7 @@ public class GameSettingController : MonoBehaviour
         {
             PlayerCtrlr.fSensitivityAmplifier = fSensitivity;
         }
+        AUDManager.instance.LoadVolume();
     }
 
     void SettingReturn()
@@ -85,7 +89,6 @@ public class GameSettingController : MonoBehaviour
 
         if (MenuCtrlr != null)
         {
-            MenuCtrlr = GameObject.Find("MenuController").GetComponent<MenuController>();
             MenuCtrlr.ShowAllBtn();
         }
     }

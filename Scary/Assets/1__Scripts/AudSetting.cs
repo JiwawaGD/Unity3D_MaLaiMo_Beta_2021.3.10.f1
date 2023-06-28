@@ -8,13 +8,23 @@ public class AudSetting : MonoBehaviour
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
 
-    const string MIXER_MUSIC = "MusicVolume";
-    const string MIXER_SFX = "SFXVolume";
+    public const string MIXER_MUSIC = "MusicVolume";
+    public const string MIXER_SFX = "SFXVolume";
 
     private void Awake()
     {
         musicSlider.onValueChanged.AddListener(SetMusicVolume);
         sfxSlider.onValueChanged.AddListener(SetSFXVolume);
+    }
+    private void Start()
+    {
+        musicSlider.value = PlayerPrefs.GetFloat(AUDManager.MUSIC_KEY, 1f);
+        sfxSlider.value = PlayerPrefs.GetFloat(AUDManager.SFX_KEY, 1f);
+    }
+    private void OnDisable()
+    {
+        PlayerPrefs.SetString(AUDManager.MUSIC_KEY, musicSlider.value.ToString());
+        PlayerPrefs.SetString(AUDManager.SFX_KEY, sfxSlider.value.ToString());
     }
     void SetMusicVolume(float value)
     {
