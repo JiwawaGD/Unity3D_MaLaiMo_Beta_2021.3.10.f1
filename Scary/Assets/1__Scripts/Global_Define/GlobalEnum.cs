@@ -16,6 +16,7 @@ public enum GameEventID
     S1_Desk_Drawer,
     S1_GrandmaRoomKey,
     S1_Rice_Funeral,
+    S1_Rice_Funeral_Spilled,
 }
 
 public enum HintItemID
@@ -33,6 +34,8 @@ public enum HintItemID
     S1_Rice_Funeral,
     S1_Lotus_Paper,
     S1_Grandma_Room_Door_Lock,
+    S1_Rice_Funeral_Spilled,
+    S1_Photo_Frame,
 }
 
 public enum UIItemID
