@@ -1,7 +1,6 @@
-using Fungus;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public partial class GameManager : MonoBehaviour
 {
@@ -10,6 +9,7 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
     [SerializeField] [Header("音效撥放清單")] AudioClip[] audioClip;
     [SerializeField] [Header("音效撥放器")] AudioSource[] audioSources;
+    [SerializeField] [Header("GM 欄位腳本")] GMField gmField;
 
     int m_iGrandmaRushCount;
 
@@ -88,6 +88,7 @@ public partial class GameManager : MonoBehaviour
         EnterGameBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.Enter_Game));
 
         ShowHint(HintItemID.S1_Light_Switch);
+        ShowHint(HintItemID.S1_Grandma_Room_Door_Lock);
     }
 
     void Update()
@@ -177,6 +178,7 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Light_Switch:
                 flowchartObjects[2].gameObject.SetActive(true);
+                ShowHint(HintItemID.S1_Flashlight);
                 break;
             case GameEventID.S1_Flashlight:
                 Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
@@ -184,16 +186,23 @@ public partial class GameManager : MonoBehaviour
                 GameObject FlashLight = GameObject.Find("Flashlight");
                 Destroy(FlashLight);
                 break;
-            case GameEventID.S1_DrawerWithKey:
-                BoxCollider DrawerCollider = GameObject.Find("grandpa_desk/DrawerWithKey").GetComponent<BoxCollider>();
+            case GameEventID.S1_Desk_Drawer:
+                BoxCollider DrawerCollider = GameObject.Find("grandpa_desk/Desk_Drawer").GetComponent<BoxCollider>();
                 DrawerCollider.enabled = false;
                 ProcessAnimator("grandpa_desk/Desk_Drawer", "DrawerWithKey_Open");
                 Invoke(nameof(IvkShowDoorKey), 0.5f);
+                ShowHint(HintItemID.S1_Grandma_Room_Key);
                 break;
             case GameEventID.S1_GrandmaRoomKey:
-                ItemController GrandmaDoor = GameObject.Find("Door/Grandma_Room_Door").GetComponent<ItemController>();
-                GrandmaDoor.bActive = true;
+                ShowHint(HintItemID.S1_Grandma_Room_Door);
                 flowchartObjects[3].gameObject.SetActive(true);
+                GameObject GrandmaRoomKeyObj = GameObject.Find("Grandma_Room_Key");
+                Destroy(GrandmaRoomKeyObj);
+                break;
+            case GameEventID.S1_Grandma_Room_Door_Lock:
+                // 門鎖著的處理
+                Debug.Log("Door Lock");
+                ShowHint(HintItemID.S1_Desk_Drawer);
                 break;
         }
     }
@@ -210,18 +219,24 @@ public partial class GameManager : MonoBehaviour
             case HintItemID.S1_Grandma_Room_Door:
                 TempItem = GameObject.Find("Grandma_Room_Door").GetComponent<ItemController>();
                 TempItem.SetHintable(true);
+                TempItem.bActive = true;
+                TempItem.gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
+                TempItem.eventID = GameEventID.S1_Grandma_Door_Open;
                 break;
             case HintItemID.S1_Flashlight:
                 TempItem = GameObject.Find("Flashlight").GetComponent<ItemController>();
                 TempItem.SetHintable(true);
+                TempItem.bActive = true;
                 break;
             case HintItemID.S1_Desk_Drawer:
                 TempItem = GameObject.Find("Desk_Drawer").GetComponent<ItemController>();
                 TempItem.SetHintable(true);
+                TempItem.bActive = true;
                 break;
             case HintItemID.S1_Grandma_Room_Key:
                 TempItem = GameObject.Find("Grandma_Room_Key").GetComponent<ItemController>();
                 TempItem.SetHintable(true);
+                TempItem.bActive = true;
                 break;
             case HintItemID.S1_Filial_Piety_Curtain:
                 TempItem = GameObject.Find("Filial_Piety_Curtain").GetComponent<ItemController>();
@@ -238,6 +253,11 @@ public partial class GameManager : MonoBehaviour
             case HintItemID.S1_Lotus_Paper:
                 TempItem = GameObject.Find("Lotus_Paper").GetComponent<ItemController>();
                 TempItem.SetHintable(true);
+                break;
+            case HintItemID.S1_Grandma_Room_Door_Lock:
+                TempItem = GameObject.Find("Grandma_Room_Door").GetComponent<ItemController>();
+                TempItem.SetHintable(true);
+                TempItem.bActive = true;
                 break;
         }
     }
