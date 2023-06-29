@@ -9,7 +9,7 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
     [SerializeField] [Header("音效撥放清單")] AudioClip[] audioClip;
     [SerializeField] [Header("音效撥放器")] AudioSource[] audioSources;
-    [SerializeField] [Header("GM 欄位腳本")] GMField gmField;
+    //[SerializeField] [Header("GM 欄位腳本")] GMField gmField;
 
     int m_iGrandmaRushCount;
 
