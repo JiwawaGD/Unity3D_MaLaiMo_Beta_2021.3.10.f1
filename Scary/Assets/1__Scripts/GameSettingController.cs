@@ -22,8 +22,6 @@ public class GameSettingController : MonoBehaviour
     [SerializeField] MenuController MenuCtrlr;
     [SerializeField] PlayerController PlayerCtrlr;
 
-    AUDManager audManager;
-
     float fMusic;
     float fSoundEffect;
     float fSensitivity;
@@ -78,7 +76,6 @@ public class GameSettingController : MonoBehaviour
         {
             PlayerCtrlr.fSensitivityAmplifier = fSensitivity;
         }
-        audManager.LoadVolume();
     }
 
     void SettingReturn()
