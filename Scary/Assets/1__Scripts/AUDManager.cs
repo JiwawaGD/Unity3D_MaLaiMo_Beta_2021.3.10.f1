@@ -100,10 +100,10 @@ public class AUDManager : MonoBehaviour
         }
     }
 
-    public void OpenTheDrawerSFX(AudioSource audioSource)
+    public void OpenTheDrawerSFX()
     {
         //AudioClip clip = drawer_Opening_Sound;
-        audioSource.PlayOneShot(drawer_Opening_Sound);
+        doorSound.PlayOneShot(drawer_Opening_Sound);
     }
     public void PlayerWalkSFX(AudioSource audioSource)
     {

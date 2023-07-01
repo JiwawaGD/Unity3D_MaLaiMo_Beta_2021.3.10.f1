@@ -143,6 +143,7 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Grandma_Door_Open:
                 ProcessAnimator("Grandma_Room_Door", "DoorOpen");
+                AUDManager.instance.OpenTheDrawerSFX();
                 ShowHint(HintItemID.S1_Filial_Piety_Curtain);
                 audioSources[0].PlayOneShot(audioClip[0]);
                 break;
