@@ -6,9 +6,10 @@ public class AUDManager : MonoBehaviour
     [SerializeField] AudioMixer audioMixer;
     public static AUDManager instance;
 
-    [SerializeField] AudioSource mainAudioSource;
+    //[SerializeField] AudioSource mainAudioSource;
 
-    [SerializeField, Header("人物/物品聲音效")] AudioSource characterAndObjectSound;
+    [SerializeField, Header("玩家聲音效")] AudioSource PlayerSound;
+    [SerializeField, Header("人物/物品聲音效")] AudioSource grandmaSound;
     #region 人物/物品聲    
     [SerializeField, Tooltip("奶奶開始向前")] public AudioClip grandma_Starts_Walking;
     [SerializeField, Tooltip("奶奶詭異聲")] public AudioClip grandma_StrangeVoice;
@@ -102,14 +103,37 @@ public class AUDManager : MonoBehaviour
 
     public void OpenTheDrawerSFX()
     {
-        //AudioClip clip = drawer_Opening_Sound;
         doorSound.PlayOneShot(drawer_Opening_Sound);
     }
-    public void PlayerWalkSFX(AudioSource audioSource)
+    public void PlayerWalkSFX()
     {
-        AudioClip clip = walking;
-        audioSource.PlayOneShot(clip);
+        PlayerSound.PlayOneShot(walking);
     }
+    public void PlayerDoorOpenSFX()
+    {
+        doorSound.PlayOneShot(door_Opening);
+    }
+    public void PlayerLotusPaperSFX()
+    {
+        PlayerSound.PlayOneShot(gold_Paper[Random.Range(0,2)]);
+    }
+    public void PlayerLightSwitchSFX()
+    {
+        roomSound[0].PlayOneShot(light_Switch_Sound);
+    }
+    public void PlayerFlashlighSFX()
+    {
+        PlayerSound.PlayOneShot(light_Switch_Sound);
+    }
+    public void PlayerGrandmaRushSFX()
+    {
+        grandmaSound.PlayOneShot(grandma_Starts_Walking);
+    }
+    public void PlayerGameEventSFX()
+    {
+        PlayerSound.PlayOneShot(ui_Context);
+    }
+
 
     /// <summary>
     /// 存取紀錄

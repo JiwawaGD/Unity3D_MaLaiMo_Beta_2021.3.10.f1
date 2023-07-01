@@ -107,14 +107,17 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.Close_UI:
                 UIState(UIItemID.Empty, false);
                 ShowEnterGame(false);
+                AUDManager.instance.PlayerGameEventSFX();
 
                 // UI 返回後執行玩家動畫
                 if (m_bShowPlayerAnimate)
                     ProcessPlayerAnimator(GlobalDeclare.GetPlayerAnimateType().ToString());
+                AUDManager.instance.PlayerGameEventSFX();
 
                 // UI 返回後執行 Item 動畫
                 if (m_bShowItemAnimate)
                     ProcessAnimator(GlobalDeclare.GetItemAniObject(), GlobalDeclare.GetItemAniName());
+                AUDManager.instance.PlayerGameEventSFX();
 
                 // UI 返回後執行 Fungus 對話
                 if (m_bShowDialog)
@@ -143,13 +146,15 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Grandma_Door_Open:
                 ProcessAnimator("Grandma_Room_Door", "DoorOpen");
-                AUDManager.instance.OpenTheDrawerSFX();
+                AUDManager.instance.PlayerDoorOpenSFX();
                 ShowHint(HintItemID.S1_Filial_Piety_Curtain);
                 audioSources[0].PlayOneShot(audioClip[0]);
                 break;
             case GameEventID.S1_Lotus_Paper:
                 UIState(UIItemID.S1_Lotus_Paper, true);
                 ShowEnterGame(true);
+                AUDManager.instance.PlayerLotusPaperSFX();
+
                 break;
             case GameEventID.S1_Grandma_Dead_Body:
                 UIState(UIItemID.S1_Grandma_Dead_Body, true);
@@ -178,6 +183,7 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Grandma_Rush:
                 InvokeRepeating(nameof(GrandMaRush), 0f, 0.025f);
+                AUDManager.instance.PlayerGrandmaRushSFX();
                 playerCtrlr.m_bCanControl = false;
                 Animator AniGrandma = tfGrandmaGhost.GetComponent<Animator>();
                 AniGrandma.SetBool("Grandma_Attack", true);
@@ -185,11 +191,13 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Light_Switch:
                 flowchartObjects[2].gameObject.SetActive(true);
+                AUDManager.instance.PlayerLightSwitchSFX();
                 ShowHint(HintItemID.S1_Flashlight);
                 break;
             case GameEventID.S1_Flashlight:
                 Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
                 playerFlashlight.enabled = true;
+                AUDManager.instance.PlayerFlashlighSFX();
                 GameObject FlashLight = GameObject.Find("Flashlight");
                 Destroy(FlashLight);
                 break;
@@ -198,6 +206,7 @@ public partial class GameManager : MonoBehaviour
                 DrawerCollider.enabled = false;
                 ProcessAnimator("grandpa_desk/Desk_Drawer", "DrawerWithKey_Open");
                 Invoke(nameof(IvkShowDoorKey), 0.5f);
+                AUDManager.instance.OpenTheDrawerSFX();
                 ShowHint(HintItemID.S1_Grandma_Room_Key);
                 break;
             case GameEventID.S1_GrandmaRoomKey:
