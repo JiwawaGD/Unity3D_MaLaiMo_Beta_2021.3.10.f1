@@ -6,7 +6,7 @@ public class AUDManager : MonoBehaviour
     [SerializeField] AudioMixer audioMixer;
     public static AUDManager instance;
 
-    //[SerializeField] AudioSource mainAudioSource;
+    [SerializeField] AudioSource mainAudioSource;
 
     [SerializeField, Header("玩家聲音效")] AudioSource PlayerSound;
     [SerializeField, Header("人物/物品聲音效")] AudioSource grandmaSound;
@@ -115,7 +115,7 @@ public class AUDManager : MonoBehaviour
     }
     public void PlayerLotusPaperSFX()
     {
-        PlayerSound.PlayOneShot(gold_Paper[Random.Range(0,2)]);
+        mainAudioSource.PlayOneShot(gold_Paper[Random.Range(0,2)]);
     }
     public void PlayerLightSwitchSFX()
     {
