@@ -23,5 +23,6 @@ public partial class GameManager : MonoBehaviour
     {
         GameObject GrandmaRoomKey = GameObject.Find("Grandma_Room_Key");
         GrandmaRoomKey.transform.position = new Vector3(-6.8f, 0.8f, -14f);
+        ShowHint(HintItemID.S1_Grandma_Room_Key);
     }
 }

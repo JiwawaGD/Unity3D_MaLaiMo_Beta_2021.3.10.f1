@@ -217,9 +217,8 @@ public partial class GameManager : MonoBehaviour
                 BoxCollider DrawerCollider = GameObject.Find("grandpa_desk/Desk_Drawer").GetComponent<BoxCollider>();
                 DrawerCollider.enabled = false;
                 ProcessAnimator("grandpa_desk/Desk_Drawer", "DrawerWithKey_Open");
-                Invoke(nameof(IvkShowDoorKey), 0.5f);
+                Invoke(nameof(IvkShowDoorKey), 1.2f);
                 AUDManager.instance.OpenTheDrawerSFX();
-                ShowHint(HintItemID.S1_Grandma_Room_Key);
                 break;
             case GameEventID.S1_GrandmaRoomKey:
                 ShowHint(HintItemID.S1_Grandma_Room_Door);
