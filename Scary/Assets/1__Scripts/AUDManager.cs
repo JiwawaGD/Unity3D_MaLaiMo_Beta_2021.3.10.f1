@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.Audio;
 
 public class AUDManager : MonoBehaviour
@@ -10,85 +10,83 @@ public class AUDManager : MonoBehaviour
     [SerializeField] AudioSource ScendAudioSource;
     [SerializeField] GameObject playerObj;
 
-    [SerializeField, Header("ª±®aÁn­µ®Ä")] AudioSource PlayerSound;
-    [SerializeField, Header("¤Hª«/ª««~Án­µ®Ä")] AudioSource grandmaSound;
-    #region ¤Hª«/ª««~Án    
-    [SerializeField, Tooltip("¥¤¥¤¶}©l¦V«e")] public AudioClip grandma_Starts_Walking;
-    [SerializeField, Tooltip("¥¤¥¤¸Ş²§Án")] public AudioClip grandma_StrangeVoice;
-    [SerializeField, Tooltip("§á°Ê¨­Åéªº­µ®Ä")] public AudioClip body_Twisting_Sound;
-    [SerializeField, Tooltip("¼Ò½k¤£²Mªº¤HÁn­µ")] public AudioClip muffled_Vocals;
-    //[SerializeField,Tooltip("¸}¨BÁn")] 
+    [SerializeField, Header("ç©å®¶è²éŸ³æ•ˆ")] AudioSource PlayerSound;
+    [SerializeField, Header("äººç‰©/ç‰©å“è²éŸ³æ•ˆ")] AudioSource grandmaSound;
+    #region äººç‰©/ç‰©å“è²    
+    [SerializeField, Tooltip("å¥¶å¥¶é–‹å§‹å‘å‰")] public AudioClip grandma_Starts_Walking;
+    [SerializeField, Tooltip("å¥¶å¥¶è©­ç•°è²")] public AudioClip grandma_StrangeVoice;
+    [SerializeField, Tooltip("æ‰­å‹•èº«é«”çš„éŸ³æ•ˆ")] public AudioClip body_Twisting_Sound;
+    [SerializeField, Tooltip("æ¨¡ç³Šä¸æ¸…çš„äººè²éŸ³")] public AudioClip muffled_Vocals;
+    //[SerializeField,Tooltip("è…³æ­¥è²")] 
     public AudioClip walking;
-    [SerializeField, Tooltip("ºò±i©I§lÁn")] public AudioClip strained_Breathing;
-    [SerializeField, Tooltip("¤â¹qµ©¶}ÃöÁn")] public AudioClip flashlight_Switch_Sound;
-    [SerializeField, Tooltip("°­¼v¥X²{Án")] public AudioClip ghosting_Sound;
-    [SerializeField, Tooltip("°­¼v­µ®Ä")] public AudioClip ghost_Sound;
-    [SerializeField, Tooltip("°­»î°k¶]")] public AudioClip ghost_Escape;
-    [SerializeField, Tooltip("ªùÁ_°­¼v")] public AudioClip ghostIn_The_Door;
+    [SerializeField, Tooltip("ç·Šå¼µå‘¼å¸è²")] public AudioClip strained_Breathing;
+    [SerializeField, Tooltip("æ‰‹é›»ç­’é–‹é—œè²")] public AudioClip flashlight_Switch_Sound;
+    [SerializeField, Tooltip("é¬¼å½±å‡ºç¾è²")] public AudioClip ghosting_Sound;
+    [SerializeField, Tooltip("é¬¼å½±éŸ³æ•ˆ")] public AudioClip ghost_Sound;
+    [SerializeField, Tooltip("é¬¼é­‚é€ƒè·‘")] public AudioClip ghost_Escape;
+    [SerializeField, Tooltip("é–€ç¸«é¬¼å½±")] public AudioClip ghostIn_The_Door;
     #endregion  
 
-    [SerializeField, Header("©Ğ¶¡")] AudioSource[] roomSound;
-    #region ©Ğ¶¡  
-    [SerializeField, Tooltip("¶}Ãö¿O")] AudioClip light_Switch_Sound;
-    [SerializeField, Tooltip("©â±P")] AudioClip drawer_Opening_Sound;
-    [SerializeField, Tooltip("§É")] AudioClip getting_Out_Of_Bed;
-    [SerializeField, Tooltip("¦çÂd")] AudioClip The_Sound_Of_Opening_Wardrobes_And_Doors;
+    [SerializeField, Header("æˆ¿é–“")] AudioSource[] roomSound;
+    #region æˆ¿é–“  
+    [SerializeField, Tooltip("é–‹é—œç‡ˆ")] AudioClip light_Switch_Sound;
+    [SerializeField, Tooltip("æŠ½å±œ")] AudioClip drawer_Opening_Sound;
+    [SerializeField, Tooltip("åºŠ")] AudioClip getting_Out_Of_Bed;
+    [SerializeField, Tooltip("è¡£æ«ƒ")] AudioClip The_Sound_Of_Opening_Wardrobes_And_Doors;
     #endregion
 
-    [SerializeField, Header("«ÈÆU")] AudioSource[] livingRoomSound;
-    #region «ÈÆU
-    [SerializeField, Tooltip("ª÷¯È")] AudioClip[] gold_Paper;
-    [SerializeField, Tooltip("®ÉÄÁ")] AudioClip clock;
-    [SerializeField, Tooltip("¿ûµ^")] AudioClip piano;
-    [SerializeField, Tooltip("§µÃ®")] AudioClip filial_Piety_Curtain;
-    [SerializeField, Tooltip("¦òºq")] AudioClip buddhist_Song;
-    [SerializeField, Tooltip("¦òºq¤¤Â_")] AudioClip buddhist_Song_Stop;
+    [SerializeField, Header("å®¢å»³")] AudioSource[] livingRoomSound;
+    #region å®¢å»³
+    [SerializeField, Tooltip("é‡‘ç´™")] AudioClip[] gold_Paper;
+    [SerializeField, Tooltip("æ™‚é˜")] AudioClip clock;
+    [SerializeField, Tooltip("é‹¼ç´")] AudioClip piano;
+    [SerializeField, Tooltip("å­ç°¾")] AudioClip filial_Piety_Curtain;
+    [SerializeField, Tooltip("ä½›æ­Œ")] AudioClip buddhist_Song;
+    [SerializeField, Tooltip("ä½›æ­Œä¸­æ–·")] AudioClip buddhist_Song_Stop;
     #endregion
 
-    [SerializeField, Header("«ÈÆU¥[¼p©Ğ")] AudioSource livingRoomPlusKitchen;
-    #region «ÈÆU&¼p©Ğ
-    [SerializeField, Tooltip("ÄúÀë¿U¿N")] AudioClip candle_Burning;
-    [SerializeField, Tooltip("ÄúÀë§jÅ§º¶Án")] AudioClip candle_Blowing_Sound;
+    [SerializeField, Header("å®¢å»³åŠ å»šæˆ¿")] AudioSource livingRoomPlusKitchen;
+    #region å®¢å»³&å»šæˆ¿
+    [SerializeField, Tooltip("è Ÿç‡­ç‡ƒç‡’")] AudioClip candle_Burning;
+    [SerializeField, Tooltip("è Ÿç‡­å¹è¥²ç†„è²")] AudioClip candle_Blowing_Sound;
     #endregion
 
-    [SerializeField, Header("ªù")] AudioSource doorSound;
-    #region «ÈÆU+´Z©Ò
-    [SerializeField, Tooltip("ªù¸ÑÂêÁn")] AudioClip door_Unlock_Sound;
-    [SerializeField, Tooltip("ÃöªùÁn")] AudioClip door_Slam;
-    [SerializeField, Tooltip("¶}ªùÁn")] AudioClip door_Opening;
+    [SerializeField, Header("é–€")] AudioSource doorSound;
+    #region å®¢å»³+å»æ‰€
+    [SerializeField, Tooltip("é–€è§£é–è²")] AudioClip door_Unlock_Sound;
+    [SerializeField, Tooltip("é—œé–€è²")] AudioClip door_Slam;
+    [SerializeField, Tooltip("é–‹é–€è²")] AudioClip door_Opening;
     #endregion
 
-    [SerializeField, Header("¼p©Ğ")] AudioSource footRiceSound;
-    #region ¼p©Ğ
-    [SerializeField, Tooltip("¸}§À¶º")] AudioClip sound_Of_Something_Falling;
+    [SerializeField, Header("å»šæˆ¿")] AudioSource footRiceSound;
+    #region å»šæˆ¿
+    [SerializeField, Tooltip("è…³å°¾é£¯")] AudioClip sound_Of_Something_Falling;
     #endregion
 
-    [SerializeField, Header("´Z©Ò")] AudioSource bathroomSound;
-    #region ´Z©Ò
-    [SerializeField, Tooltip("¤ôºwÁn")] AudioClip dripping_Sound;
-    [SerializeField, Tooltip("°­¤â§ìª±®aÁn")] AudioClip ghost_Hand_Catch_Player_Sound;
-    [SerializeField, Tooltip("¼Y¸¨Án")] AudioClip falling_Sound;
-    [SerializeField, Tooltip("¼Y¸¨«á¶Âµe­±")] AudioClip black_Screen_After_Fall;
-    [SerializeField, Tooltip("Âà¤ôÀsÀYÁn")] AudioClip turn_The_Tap;
+    [SerializeField, Header("å»æ‰€")] AudioSource bathroomSound;
+    #region å»æ‰€
+    [SerializeField, Tooltip("æ°´æ»´è²")] AudioClip dripping_Sound;
+    [SerializeField, Tooltip("é¬¼æ‰‹æŠ“ç©å®¶è²")] AudioClip ghost_Hand_Catch_Player_Sound;
+    [SerializeField, Tooltip("å¢œè½è²")] AudioClip falling_Sound;
+    [SerializeField, Tooltip("å¢œè½å¾Œé»‘ç•«é¢")] AudioClip black_Screen_After_Fall;
+    [SerializeField, Tooltip("è½‰æ°´é¾é ­è²")] AudioClip turn_The_Tap;
     #endregion
 
-    [SerializeField, Header("Àô¹Ò/¨ä¥L")] AudioSource environmentOtherSound;
-    #region Àô¹Ò&¨ä¥L
-    [SerializeField, Tooltip("¥Õ¾¸­µ")] AudioClip white_Noise;
-    [SerializeField, Tooltip("¿ï³æ­I´º­µ¼Ö")] AudioClip menu_Background_Music;
-    [SerializeField, Tooltip("®£©Æ¥Õ¾¸­µ")] AudioClip horror_White_Noise;
-    [SerializeField, Tooltip("¹CÀ¸¶}©l")] AudioClip games_Start;
-    [SerializeField, Tooltip("®£©Æ¶}©l")] AudioClip horror_Start;
-    [SerializeField, Tooltip("°ª­µ¤p´£µ^Án")] AudioClip soprano_Violin;
-    [SerializeField, Tooltip("¶i¤J³õ´ºÁn")] AudioClip enter_Scene_Sound;
-    [SerializeField, Tooltip("UI¤º¤å")] AudioClip ui_Context;
-    [SerializeField, Tooltip("¼Y¸¨Âà¶Âµe­±Án")] AudioClip falling_To_Black_Screen_Sound;
-
+    [SerializeField, Header("ç’°å¢ƒ/å…¶ä»–")] AudioSource environmentOtherSound;
+    #region ç’°å¢ƒ&å…¶ä»–
+    [SerializeField, Tooltip("ç™½å™ªéŸ³")] AudioClip white_Noise;
+    [SerializeField, Tooltip("é¸å–®èƒŒæ™¯éŸ³æ¨‚")] AudioClip menu_Background_Music;
+    [SerializeField, Tooltip("ææ€–ç™½å™ªéŸ³")] AudioClip horror_White_Noise;
+    [SerializeField, Tooltip("éŠæˆ²é–‹å§‹")] AudioClip games_Start;
+    [SerializeField, Tooltip("ææ€–é–‹å§‹")] AudioClip horror_Start;
+    [SerializeField, Tooltip("é«˜éŸ³å°æç´è²")] AudioClip soprano_Violin;
+    [SerializeField, Tooltip("é€²å…¥å ´æ™¯è²")] AudioClip enter_Scene_Sound;
+    [SerializeField, Tooltip("UIå…§æ–‡")] AudioClip ui_Context;
+    [SerializeField, Tooltip("å¢œè½è½‰é»‘ç•«é¢è²")] AudioClip falling_To_Black_Screen_Sound;
     #endregion
 
     public const string MUSIC_KEY = "musicVolume";
     public const string SFX_KEY = "sfxVolume";
-
 
     private void Awake()
     {
@@ -96,7 +94,7 @@ public class AUDManager : MonoBehaviour
         Transform childTransform = transform.Find("SecondAudioSource");
         if (childTransform != null)
         {
-            // ¨Ï¥Î GetComponent ¤èªkÀò¨ú¤lª«¥ó¤Wªº AudioSource ¤¸¥ó
+            // ä½¿ç”¨ GetComponent æ–¹æ³•ç²å–å­ç‰©ä»¶ä¸Šçš„ AudioSource å…ƒä»¶
             ScendAudioSource = childTransform.GetComponent<AudioSource>();
         }
         if (instance == null)
@@ -114,46 +112,54 @@ public class AUDManager : MonoBehaviour
     {
         mainAudioSource.PlayOneShot(drawer_Opening_Sound);
     }
+
     //public void PlayerWalkSFX()
     //{
     //    ScendAudioSource.PlayOneShot(walking);
     //}
+
     public void PlayerDoorOpenSFX()
     {
         mainAudioSource.PlayOneShot(door_Opening);
     }
+
     public void PlayerDoorLockSFX()
     {
         mainAudioSource.PlayOneShot(door_Unlock_Sound);
     }
+
     public void PlayerLotusPaperSFX()
     {
         mainAudioSource.PlayOneShot(gold_Paper[Random.Range(0, 2)]);
     }
+
     public void PlayerLightSwitchSFX()
     {
         mainAudioSource.PlayOneShot(light_Switch_Sound);
     }
+
     public void PlayerFlashlighSFX()
     {
         mainAudioSource.PlayOneShot(flashlight_Switch_Sound);
     }
+
     public void PlayerGrandmaRushSFX()
     {
         mainAudioSource.PlayOneShot(grandma_Starts_Walking);
     }
+
     public void PlayerGameEventSFX()
     {
         mainAudioSource.PlayOneShot(ui_Context);
     }
+
     public void PlayerWhiteTentSFX()
     {
         mainAudioSource.PlayOneShot(filial_Piety_Curtain);
     }
 
-
     /// <summary>
-    /// ¦s¨ú¬ö¿ı
+    /// å­˜å–ç´€éŒ„
     /// </summary>
     public void LoadVolume()
     {
@@ -163,5 +169,4 @@ public class AUDManager : MonoBehaviour
         audioMixer.SetFloat(AudSetting.MIXER_MUSIC, Mathf.Log10(musicVolume) * 20);
         audioMixer.SetFloat(AudSetting.MIXER_SFX, Mathf.Log10(sfxVolume) * 20);
     }
-
 }

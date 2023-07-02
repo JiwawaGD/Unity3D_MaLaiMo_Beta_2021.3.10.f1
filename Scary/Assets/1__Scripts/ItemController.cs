@@ -22,6 +22,7 @@ public class ItemController : MonoBehaviour
 
     GameManager gameManager;
     Transform tfPlayerCamera;
+    bool bShowHint;
 
     void Awake()
     {
@@ -31,6 +32,12 @@ public class ItemController : MonoBehaviour
     void Start()
     {
         Initialize();
+    }
+
+    void FixedUpdate()
+    {
+        if (bShowHint)
+            tfHint.LookAt(tfPlayerCamera);
     }
 
     void GetFields()
@@ -65,14 +72,16 @@ public class ItemController : MonoBehaviour
 
         if (r_bShow)
         {
-            tfHint.LookAt(tfPlayerCamera);
+            //tfHint.LookAt(tfPlayerCamera);
             tfInteract.LookAt(tfPlayerCamera);
         }
     }
 
     public void SetHintable(bool r_bShow)
     {
+        gameObject.layer = r_bShow ? LayerMask.NameToLayer("InteractiveItem") : LayerMask.NameToLayer("Default");
         HintObj.SetActive(r_bShow);
+        bShowHint = r_bShow;
     }
 
     public void SendGameEvent()

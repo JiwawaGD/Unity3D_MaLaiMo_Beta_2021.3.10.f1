@@ -4,9 +4,9 @@ using UnityEngine.SceneManagement;
 
 public partial class GameManager : MonoBehaviour
 {
-    [SerializeField][Header("玩家")] PlayerController playerCtrlr;
-    [SerializeField][Header("UI 圖片庫")] Sprite[] UISprite;
-    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField] [Header("玩家")] PlayerController playerCtrlr;
+    [SerializeField] [Header("UI 圖片庫")] Sprite[] UISprite;
+    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
     [Header("Flowchart")] public GameObject settingObjects;
     //[SerializeField] [Header("音效撥放清單")] AudioClip[] audioClip;
     //[SerializeField] [Header("音效撥放器")] AudioSource[] audioSources;
@@ -56,6 +56,9 @@ public partial class GameManager : MonoBehaviour
     private bool isMouseEnabled = false;
     #endregion
 
+    bool bTriggerFlashlight = false;
+    bool bTriggerGrandmaDoorLock = false;
+
     void Awake()
     {
         if (playerCtrlr == null)
@@ -93,6 +96,7 @@ public partial class GameManager : MonoBehaviour
 
         ShowHint(HintItemID.S1_Light_Switch);
         ShowHint(HintItemID.S1_Grandma_Room_Door_Lock);
+        ShowHint(HintItemID.S1_Lotus_Paper);
     }
 
     void Update()
@@ -136,7 +140,6 @@ public partial class GameManager : MonoBehaviour
                 UIState(UIItemID.S1_Photo_Frame, true);
                 flowchartObjects[9].gameObject.SetActive(true);
 
-
                 // Set player transform
                 Transform tfPlayer = playerCtrlr.transform;
                 tfPlayer.position = new Vector3(-4.5f, 0.8f, 1f);
@@ -156,13 +159,12 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Grandma_Door_Open:
                 ProcessAnimator("Grandma_Room_Door", "DoorOpen");
                 AUDManager.instance.PlayerDoorOpenSFX();
-                ShowHint(HintItemID.S1_Filial_Piety_Curtain);
+                ShowHint(HintItemID.S1_Rice_Funeral);
                 break;
             case GameEventID.S1_Lotus_Paper:
                 UIState(UIItemID.S1_Lotus_Paper, true);
                 ShowEnterGame(true);
                 AUDManager.instance.PlayerLotusPaperSFX();
-
                 break;
             case GameEventID.S1_Grandma_Dead_Body:
                 UIState(UIItemID.S1_Grandma_Dead_Body, true);
@@ -203,6 +205,8 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S1_Flashlight);
                 break;
             case GameEventID.S1_Flashlight:
+                bTriggerFlashlight = true;
+                ShowHint(HintItemID.S1_Desk_Drawer);
                 Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
                 playerFlashlight.enabled = true;
                 AUDManager.instance.PlayerLightSwitchSFX();
@@ -224,7 +228,7 @@ public partial class GameManager : MonoBehaviour
                 Destroy(GrandmaRoomKeyObj);
                 break;
             case GameEventID.S1_Grandma_Room_Door_Lock:
-                // 門鎖著的處理
+                bTriggerGrandmaDoorLock = true;
                 ShowHint(HintItemID.S1_Desk_Drawer);
                 flowchartObjects[1].gameObject.SetActive(true);
                 AUDManager.instance.PlayerDoorLockSFX();
@@ -236,6 +240,9 @@ public partial class GameManager : MonoBehaviour
                 m_bPlayLotusEnable = true;
                 flowchartObjects[8].gameObject.SetActive(true);
                 break;
+            case GameEventID.S1_Rice_Funeral:
+                ShowHint(HintItemID.S1_Filial_Piety_Curtain);
+                break;
         }
     }
 
@@ -246,66 +253,49 @@ public partial class GameManager : MonoBehaviour
         {
             case HintItemID.S1_Light_Switch:
                 TempItem = GameObject.Find("Light_Switch").GetComponent<ItemController>();
-                TempItem.SetHintable(true);
                 break;
             case HintItemID.S1_Grandma_Room_Door:
                 TempItem = GameObject.Find("Grandma_Room_Door").GetComponent<ItemController>();
-                TempItem.SetHintable(true);
-                TempItem.bActive = true;
                 TempItem.gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
                 TempItem.eventID = GameEventID.S1_Grandma_Door_Open;
                 break;
             case HintItemID.S1_Flashlight:
                 TempItem = GameObject.Find("Flashlight").GetComponent<ItemController>();
-                TempItem.SetHintable(true);
-                TempItem.bActive = true;
                 break;
             case HintItemID.S1_Desk_Drawer:
+                if (!bTriggerGrandmaDoorLock || !bTriggerFlashlight)
+                    return;
+
                 TempItem = GameObject.Find("Desk_Drawer").GetComponent<ItemController>();
-                TempItem.SetHintable(true);
-                TempItem.bActive = true;
                 break;
             case HintItemID.S1_Grandma_Room_Key:
                 TempItem = GameObject.Find("Grandma_Room_Key").GetComponent<ItemController>();
-                TempItem.SetHintable(true);
-                TempItem.bActive = true;
                 break;
             case HintItemID.S1_Filial_Piety_Curtain:
                 TempItem = GameObject.Find("Filial_Piety_Curtain").GetComponent<ItemController>();
-                TempItem.SetHintable(true);
-                TempItem.bActive = true;
                 break;
             case HintItemID.S1_Lie_Grandma_Body:
                 TempItem = GameObject.Find("Lie_Grandma_Body").GetComponent<ItemController>();
-                TempItem.SetHintable(true);
-                TempItem.bActive = true;
                 break;
             case HintItemID.S1_Rice_Funeral:
                 TempItem = GameObject.Find("Rice_Funeral").GetComponent<ItemController>();
-
-                TempItem.SetHintable(true);
                 break;
             case HintItemID.S1_Lotus_Paper:
                 TempItem = GameObject.Find("Lotus_Paper").GetComponent<ItemController>();
-                TempItem.SetHintable(true);
-                TempItem.bActive = true;
                 break;
             case HintItemID.S1_Grandma_Room_Door_Lock:
                 TempItem = GameObject.Find("Grandma_Room_Door").GetComponent<ItemController>();
-                TempItem.SetHintable(true);
-                TempItem.bActive = true;
                 break;
             case HintItemID.S1_Rice_Funeral_Spilled:
                 TempItem = GameObject.Find("Rice_Funeral_Spilled").GetComponent<ItemController>();
-                TempItem.SetHintable(true);
-                TempItem.bActive = true;
                 break;
             case HintItemID.S1_Photo_Frame:
                 TempItem = GameObject.Find("Photo_Frame").GetComponent<ItemController>();
-                TempItem.SetHintable(true);
-                TempItem.bActive = true;
                 break;
         }
+
+        TempItem.bActive = true;
+        TempItem.SetHintable(true);
     }
 
     public void UIState(UIItemID r_ItemID, bool r_bEnable)
@@ -451,6 +441,7 @@ public partial class GameManager : MonoBehaviour
             }
         }
     }
+
     public void MouseCheck()
     {
         if (Input.GetMouseButtonDown(0))
@@ -459,6 +450,7 @@ public partial class GameManager : MonoBehaviour
             // 可以使用 EventSystem 或 Raycasting 等方法進行 UI 按鈕的選擇處理
         }
     }
+
     public void PauseGame()
     {
         isPaused = true;
@@ -474,14 +466,14 @@ public partial class GameManager : MonoBehaviour
         settingObjects.SetActive(false);
         isMouseEnabled = false;
     }
+
     public void GameStateCheck()
     {
         if (!GlobalDeclare.bLotusGameComplete &&
              m_bPlayLotusEnable &&
              currentScene.name == "2 Grandma House")
         {
-            ItemController LotusItem = GameObject.Find("Lotus_Paper").GetComponent<ItemController>();
-            LotusItem.bActive = true;
+            ShowHint(HintItemID.S1_Lotus_Paper);
         }
     }
 }
