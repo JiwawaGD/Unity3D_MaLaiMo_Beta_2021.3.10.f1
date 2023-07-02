@@ -71,10 +71,7 @@ public class ItemController : MonoBehaviour
         InteractObj.SetActive(r_bShow);
 
         if (r_bShow)
-        {
-            //tfHint.LookAt(tfPlayerCamera);
             tfInteract.LookAt(tfPlayerCamera);
-        }
     }
 
     public void SetHintable(bool r_bShow)

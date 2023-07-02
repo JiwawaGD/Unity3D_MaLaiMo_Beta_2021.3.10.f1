@@ -11,11 +11,13 @@ public class LotusGameManager : MonoBehaviour
     [SerializeField] [Header("提示按鈕 - 物件")] GameObject HintObj;
     [SerializeField] [Header("上下左右 - 圖片")] Sprite[] HintSprite;
 
+    int iAllLotusCount;
+    bool bIsAnimating;
+
     Image HintImg;
     RectTransform HintRectTf;
-    int iAllLotusCount;
-    AnimatorStateInfo LotusState;
     Transform TfLotus;
+    AnimatorStateInfo LotusState;
 
     readonly string[] strLotusAniTriggerName = new string[30]
 {
@@ -70,6 +72,9 @@ public class LotusGameManager : MonoBehaviour
 
     void Update()
     {
+        if (bIsAnimating)
+            return;
+
         if (Input.GetKeyDown(KeyCode.W))
             PlayLotusAni(KeyCode.W);
 
@@ -214,7 +219,6 @@ public class LotusGameManager : MonoBehaviour
                 else if (bLotusState[27])
                 {
                     StartCoroutine(ProcessAnimator(HintSprite[2], LotusPaperAni[6], LotusPaperAniClip[27], strLotusAniTriggerName[27], 27));
-
                 }
                 break;
             default:
@@ -224,6 +228,7 @@ public class LotusGameManager : MonoBehaviour
 
     IEnumerator ProcessAnimator(Sprite sprite, Animator ani, AnimationClip clip, string strTriggerName, int iStateIndex)
     {
+        bIsAnimating = true;
         HintObj.SetActive(false);
         HintImg.sprite = sprite;
 
@@ -251,6 +256,7 @@ public class LotusGameManager : MonoBehaviour
         {
             bLotusState[iStateIndex] = false;
             bLotusState[iStateIndex + 1] = true;
+            bIsAnimating = false;
         }
 
         for (int index = 1; index < 7; index++)
