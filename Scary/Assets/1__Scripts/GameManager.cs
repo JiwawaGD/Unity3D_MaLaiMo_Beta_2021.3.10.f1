@@ -7,9 +7,8 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("玩家")] PlayerController playerCtrlr;
     [SerializeField] [Header("UI 圖片庫")] Sprite[] UISprite;
     [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
-    [Header("Flowchart")] public GameObject settingObjects;
-    //[SerializeField] [Header("音效撥放清單")] AudioClip[] audioClip;
-    //[SerializeField] [Header("音效撥放器")] AudioSource[] audioSources;
+    [SerializeField] [Header("音效撥放清單")] AudioClip[] audioClip;
+    [SerializeField] [Header("音效撥放器")] AudioSource[] audioSources;
     //[SerializeField] [Header("GM 欄位腳本")] GMField gmField;
 
     int m_iGrandmaRushCount;
@@ -52,8 +51,6 @@ public partial class GameManager : MonoBehaviour
     public static bool m_bGrandmaRush = false;
     public static bool m_bReturnToBegin = false;
     public static bool m_bPlayLotusEnable = false;
-    private bool isPaused = false;
-    private bool isMouseEnabled = false;
     #endregion
 
     void Awake()
@@ -99,10 +96,6 @@ public partial class GameManager : MonoBehaviour
     {
         KeyboardCheck();
 
-        if (isPaused && isMouseEnabled)
-        {
-            MouseCheck();
-        }
         //if (m_bInUIView && Input.GetKeyDown(KeyCode.N))
         //    imgIntroduceBackground.gameObject.SetActive(true);
     }
@@ -134,8 +127,6 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Photo_Frame:
                 UIState(UIItemID.S1_Photo_Frame, true);
-                flowchartObjects[9].gameObject.SetActive(true);
-
 
                 // Set player transform
                 Transform tfPlayer = playerCtrlr.transform;
@@ -156,7 +147,8 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Grandma_Door_Open:
                 ProcessAnimator("Grandma_Room_Door", "DoorOpen");
                 AUDManager.instance.PlayerDoorOpenSFX();
-                ShowHint(HintItemID.S1_Filial_Piety_Curtain);               
+                ShowHint(HintItemID.S1_Filial_Piety_Curtain);
+                audioSources[0].PlayOneShot(audioClip[0]);
                 break;
             case GameEventID.S1_Lotus_Paper:
                 UIState(UIItemID.S1_Lotus_Paper, true);
@@ -183,11 +175,11 @@ public partial class GameManager : MonoBehaviour
                 BoxCollider curtain = GameObject.Find("Filial_Piety_Curtain").GetComponent<BoxCollider>();
                 curtain.enabled = false;
                 ShowHint(HintItemID.S1_Lie_Grandma_Body);
-                AUDManager.instance.PlayerWhiteTentSFX();
                 break;
             case GameEventID.S1_Photo_Frame_Light_On:
                 goPhotoFrameLight.SetActive(true);
                 m_bPhotoFrameLightOn = false;
+                flowchartObjects[9].gameObject.SetActive(true);
                 break;
             case GameEventID.S1_Grandma_Rush:
                 InvokeRepeating(nameof(GrandMaRush), 0f, 0.025f);
@@ -205,7 +197,7 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Flashlight:
                 Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
                 playerFlashlight.enabled = true;
-                AUDManager.instance.PlayerLightSwitchSFX();
+                AUDManager.instance.PlayerFlashlighSFX();
                 GameObject FlashLight = GameObject.Find("Flashlight");
                 Destroy(FlashLight);
                 break;
@@ -226,15 +218,12 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Grandma_Room_Door_Lock:
                 // 門鎖著的處理
                 ShowHint(HintItemID.S1_Desk_Drawer);
-                flowchartObjects[1].gameObject.SetActive(true);
-                AUDManager.instance.PlayerDoorLockSFX();
                 break;
             case GameEventID.S1_Rice_Funeral_Spilled:
                 // 查看腳尾飯後的行為
                 // 1. 亮蠟燭
                 ShowHint(HintItemID.S1_Lotus_Paper);
                 m_bPlayLotusEnable = true;
-                flowchartObjects[8].gameObject.SetActive(true);
                 break;
         }
     }
@@ -282,7 +271,6 @@ public partial class GameManager : MonoBehaviour
                 break;
             case HintItemID.S1_Rice_Funeral:
                 TempItem = GameObject.Find("Rice_Funeral").GetComponent<ItemController>();
-                
                 TempItem.SetHintable(true);
                 break;
             case HintItemID.S1_Lotus_Paper:
@@ -432,12 +420,9 @@ public partial class GameManager : MonoBehaviour
     {
         if (!m_bInUIView)
         {
-            if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                if (isPaused)
-                    ResumeGame();
-                else
-                    PauseGame();
+                // 呼叫 GameSetting;
             }
         }
 
@@ -451,29 +436,7 @@ public partial class GameManager : MonoBehaviour
             }
         }
     }
-    public void MouseCheck()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            // 在此處理滑鼠點擊事件
-            // 可以使用 EventSystem 或 Raycasting 等方法進行 UI 按鈕的選擇處理
-        }
-    }
-    public void PauseGame()
-    {
-        isPaused = true;
-        Time.timeScale = 0f;
-        settingObjects.SetActive(true);
-        isMouseEnabled = true;
-    }
 
-    public void ResumeGame()
-    {
-        isPaused = false;
-        Time.timeScale = 1f;
-        settingObjects.SetActive(false);
-        isMouseEnabled = false;
-    }
     public void GameStateCheck()
     {
         if (!GlobalDeclare.bLotusGameComplete && 

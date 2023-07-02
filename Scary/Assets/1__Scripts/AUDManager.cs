@@ -6,7 +6,7 @@ public class AUDManager : MonoBehaviour
     [SerializeField] AudioMixer audioMixer;
     public static AUDManager instance;
 
-    [SerializeField] AudioSource mainAudioSource;
+    //[SerializeField] AudioSource mainAudioSource;
 
     [SerializeField, Header("玩家聲音效")] AudioSource PlayerSound;
     [SerializeField, Header("人物/物品聲音效")] AudioSource grandmaSound;
@@ -113,13 +113,9 @@ public class AUDManager : MonoBehaviour
     {
         doorSound.PlayOneShot(door_Opening);
     }
-    public void PlayerDoorLockSFX()
-    {
-        doorSound.PlayOneShot(door_Unlock_Sound);
-    }
     public void PlayerLotusPaperSFX()
     {
-        mainAudioSource.PlayOneShot(gold_Paper[Random.Range(0,2)]);
+        PlayerSound.PlayOneShot(gold_Paper[Random.Range(0,2)]);
     }
     public void PlayerLightSwitchSFX()
     {
@@ -127,19 +123,15 @@ public class AUDManager : MonoBehaviour
     }
     public void PlayerFlashlighSFX()
     {
-        PlayerSound.PlayOneShot(flashlight_Switch_Sound);
+        PlayerSound.PlayOneShot(light_Switch_Sound);
     }
     public void PlayerGrandmaRushSFX()
     {
-        mainAudioSource.PlayOneShot(grandma_Starts_Walking);
+        grandmaSound.PlayOneShot(grandma_Starts_Walking);
     }
     public void PlayerGameEventSFX()
     {
-        mainAudioSource.PlayOneShot(ui_Context);
-    }
-    public void PlayerWhiteTentSFX()
-    {
-        mainAudioSource.PlayOneShot(filial_Piety_Curtain);
+        PlayerSound.PlayOneShot(ui_Context);
     }
 
 
