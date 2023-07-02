@@ -46,13 +46,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 88c61dedb8caf8f46b728b2ce730f7a0, type: 2}
-  mainAudioSource: {fileID: 0}
-  characterAndObjectSound: {fileID: 0}
+  mainAudioSource: {fileID: 8675690754418267872}
+  PlayerSound: {fileID: 0}
+  grandmaSound: {fileID: 0}
   grandma_Starts_Walking: {fileID: 8300000, guid: 24b12ccbac2f8b245a102825231387e7, type: 3}
   grandma_StrangeVoice: {fileID: 8300000, guid: a1c7fd3d2d73fb24999456f118c6c2aa, type: 3}
   body_Twisting_Sound: {fileID: 8300000, guid: 5f9b764a02971174d886a7fbf9e49c5b, type: 3}
   muffled_Vocals: {fileID: 8300000, guid: a1c7fd3d2d73fb24999456f118c6c2aa, type: 3}
-  walking: {fileID: 8300000, guid: 3ffec30b393790e4abef3d762c608022, type: 3}
+  walking: {fileID: 8300000, guid: 1d8afc93ffdcdf34db457675071eac8f, type: 3}
   strained_Breathing: {fileID: 8300000, guid: 9dcecf450d1929c44b21adb085185f94, type: 3}
   flashlight_Switch_Sound: {fileID: 8300000, guid: 047a78039ee04a342b92e80bfe23ba88, type: 3}
   ghosting_Sound: {fileID: 8300000, guid: 8affcdb9452f2214986653a3033898b9, type: 3}
@@ -89,7 +90,7 @@ MonoBehaviour:
   door_Opening: {fileID: 8300000, guid: 220e65188d7ba8746aadd2e07d22adef, type: 3}
   footRiceSound: {fileID: 0}
   sound_Of_Something_Falling: {fileID: 8300000, guid: f65c0c3bb10690443ac5185dad489d2b, type: 3}
-  bathroomSound: {fileID: 0}
+  bathroomSound: {fileID: 8675690754418267872}
   dripping_Sound: {fileID: 8300000, guid: c0e595f15014d9249a68590e275b0a2a, type: 3}
   ghost_Hand_Catch_Player_Sound: {fileID: 8300000, guid: f4f0806db5e0365498b02e8dab0bece4, type: 3}
   falling_Sound: {fileID: 8300000, guid: 2a0793638220f544893948230bda99fc, type: 3}
@@ -114,7 +115,7 @@ AudioSource:
   m_GameObject: {fileID: 8675690754418267873}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8153407402028975484, guid: 88c61dedb8caf8f46b728b2ce730f7a0, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

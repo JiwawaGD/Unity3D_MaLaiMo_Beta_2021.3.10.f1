@@ -103,15 +103,15 @@ public class AUDManager : MonoBehaviour
 
     public void OpenTheDrawerSFX()
     {
-        doorSound.PlayOneShot(drawer_Opening_Sound);
+        mainAudioSource.PlayOneShot(drawer_Opening_Sound);
     }
     public void PlayerWalkSFX()
     {
-        PlayerSound.PlayOneShot(walking);
+        mainAudioSource.PlayOneShot(walking);
     }
     public void PlayerDoorOpenSFX()
     {
-        doorSound.PlayOneShot(door_Opening);
+        mainAudioSource.PlayOneShot(door_Opening);
     }
     public void PlayerDoorLockSFX()
     {
@@ -123,11 +123,15 @@ public class AUDManager : MonoBehaviour
     }
     public void PlayerLightSwitchSFX()
     {
-        roomSound[0].PlayOneShot(light_Switch_Sound);
+        mainAudioSource.PlayOneShot(light_Switch_Sound);
     }
     public void PlayerFlashlighSFX()
     {
+<<<<<<< Updated upstream
         PlayerSound.PlayOneShot(flashlight_Switch_Sound);
+=======
+        mainAudioSource.PlayOneShot(light_Switch_Sound);
+>>>>>>> Stashed changes
     }
     public void PlayerGrandmaRushSFX()
     {
@@ -136,10 +140,13 @@ public class AUDManager : MonoBehaviour
     public void PlayerGameEventSFX()
     {
         mainAudioSource.PlayOneShot(ui_Context);
+<<<<<<< Updated upstream
     }
     public void PlayerWhiteTentSFX()
     {
         mainAudioSource.PlayOneShot(filial_Piety_Curtain);
+=======
+>>>>>>> Stashed changes
     }
 
 
