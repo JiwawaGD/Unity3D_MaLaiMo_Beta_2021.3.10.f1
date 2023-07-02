@@ -77,8 +77,8 @@ public class GameSettingController : MonoBehaviour
         if (PlayerCtrlr != null)
         {
             PlayerCtrlr.fSensitivityAmplifier = fSensitivity;
-        }
         AUDManager.LoadVolume();
+        }
     }
 
     void SettingReturn()
