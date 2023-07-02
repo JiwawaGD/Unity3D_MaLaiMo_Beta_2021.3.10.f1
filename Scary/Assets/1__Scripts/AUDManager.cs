@@ -7,6 +7,8 @@ public class AUDManager : MonoBehaviour
     public static AUDManager instance;
 
     [SerializeField] AudioSource mainAudioSource;
+    [SerializeField] AudioSource ScendAudioSource;
+    [SerializeField] GameObject playerObj;
 
     [SerializeField, Header("玩家聲音效")] AudioSource PlayerSound;
     [SerializeField, Header("人物/物品聲音效")] AudioSource grandmaSound;
@@ -90,6 +92,13 @@ public class AUDManager : MonoBehaviour
 
     private void Awake()
     {
+        mainAudioSource = GetComponent<AudioSource>();
+        Transform childTransform = transform.Find("SecondAudioSource");
+        if (childTransform != null)
+        {
+            // 使用 GetComponent 方法獲取子物件上的 AudioSource 元件
+            ScendAudioSource = childTransform.GetComponent<AudioSource>();
+        }
         if (instance == null)
         {
             instance = this;
@@ -103,19 +112,19 @@ public class AUDManager : MonoBehaviour
 
     public void OpenTheDrawerSFX()
     {
-        doorSound.PlayOneShot(drawer_Opening_Sound);
+        mainAudioSource.PlayOneShot(drawer_Opening_Sound);
     }
-    public void PlayerWalkSFX()
-    {
-        PlayerSound.PlayOneShot(walking);
-    }
+    //public void PlayerWalkSFX()
+    //{
+    //    ScendAudioSource.PlayOneShot(walking);
+    //}
     public void PlayerDoorOpenSFX()
     {
-        doorSound.PlayOneShot(door_Opening);
+        mainAudioSource.PlayOneShot(door_Opening);
     }
     public void PlayerDoorLockSFX()
     {
-        doorSound.PlayOneShot(door_Unlock_Sound);
+        mainAudioSource.PlayOneShot(door_Unlock_Sound);
     }
     public void PlayerLotusPaperSFX()
     {
@@ -123,11 +132,11 @@ public class AUDManager : MonoBehaviour
     }
     public void PlayerLightSwitchSFX()
     {
-        roomSound[0].PlayOneShot(light_Switch_Sound);
+        mainAudioSource.PlayOneShot(light_Switch_Sound);
     }
     public void PlayerFlashlighSFX()
     {
-        PlayerSound.PlayOneShot(flashlight_Switch_Sound);
+        mainAudioSource.PlayOneShot(flashlight_Switch_Sound);
     }
     public void PlayerGrandmaRushSFX()
     {

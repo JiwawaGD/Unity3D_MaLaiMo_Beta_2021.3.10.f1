@@ -1,5 +1,133 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &196795234
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 196795236}
+  - component: {fileID: 196795235}
+  m_Layer: 0
+  m_Name: SecondAudioSource
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &196795236
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 196795234}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8675690754418267886}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &196795235
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 196795234}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -8153407402028975484, guid: 88c61dedb8caf8f46b728b2ce730f7a0, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &8675690754418267873
 GameObject:
   m_ObjectHideFlags: 0
@@ -29,7 +157,8 @@ Transform:
   m_LocalPosition: {x: 15.095265, y: -11.25108, z: -15.771606}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 196795236}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46,13 +175,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 88c61dedb8caf8f46b728b2ce730f7a0, type: 2}
-  mainAudioSource: {fileID: 0}
-  characterAndObjectSound: {fileID: 0}
+  mainAudioSource: {fileID: 8675690754418267872}
+  ScendAudioSource: {fileID: 196795235}
+  PlayerSound: {fileID: 0}
+  grandmaSound: {fileID: 0}
   grandma_Starts_Walking: {fileID: 8300000, guid: 24b12ccbac2f8b245a102825231387e7, type: 3}
   grandma_StrangeVoice: {fileID: 8300000, guid: a1c7fd3d2d73fb24999456f118c6c2aa, type: 3}
   body_Twisting_Sound: {fileID: 8300000, guid: 5f9b764a02971174d886a7fbf9e49c5b, type: 3}
   muffled_Vocals: {fileID: 8300000, guid: a1c7fd3d2d73fb24999456f118c6c2aa, type: 3}
-  walking: {fileID: 8300000, guid: 3ffec30b393790e4abef3d762c608022, type: 3}
+  walking: {fileID: 8300000, guid: 03267178543da5a40a905e3879a3d279, type: 3}
   strained_Breathing: {fileID: 8300000, guid: 9dcecf450d1929c44b21adb085185f94, type: 3}
   flashlight_Switch_Sound: {fileID: 8300000, guid: 047a78039ee04a342b92e80bfe23ba88, type: 3}
   ghosting_Sound: {fileID: 8300000, guid: 8affcdb9452f2214986653a3033898b9, type: 3}
@@ -89,7 +220,7 @@ MonoBehaviour:
   door_Opening: {fileID: 8300000, guid: 220e65188d7ba8746aadd2e07d22adef, type: 3}
   footRiceSound: {fileID: 0}
   sound_Of_Something_Falling: {fileID: 8300000, guid: f65c0c3bb10690443ac5185dad489d2b, type: 3}
-  bathroomSound: {fileID: 0}
+  bathroomSound: {fileID: 8675690754418267872}
   dripping_Sound: {fileID: 8300000, guid: c0e595f15014d9249a68590e275b0a2a, type: 3}
   ghost_Hand_Catch_Player_Sound: {fileID: 8300000, guid: f4f0806db5e0365498b02e8dab0bece4, type: 3}
   falling_Sound: {fileID: 8300000, guid: 2a0793638220f544893948230bda99fc, type: 3}

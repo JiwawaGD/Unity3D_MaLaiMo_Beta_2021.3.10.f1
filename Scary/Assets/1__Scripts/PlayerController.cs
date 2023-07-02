@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
         if (isWalking)
         {
             if (!audioSource.isPlaying)
-                AUDManager.instance.PlayerWalkSFX();
+                PlayWalkingSound();
         }
         else
         {
@@ -217,6 +217,14 @@ public class PlayerController : MonoBehaviour
                 last_Item.SetItemInteractive(false);
         }
     }
-
+    void PlaySound(AudioClip clip)
+    { 
+        audioSource.clip =clip;
+        audioSource.Play();
+    }
+    void PlayWalkingSound()
+    {
+        PlaySound(walkingSound);
+    }
     
 }
