@@ -431,7 +431,7 @@ public partial class GameManager : MonoBehaviour
 
         if (m_bReturnToBegin)
         {
-            if (Input.GetKeyDown(KeyCode.F10))
+            if (Input.GetKeyDown(KeyCode.L))
             {
                 playerCtrlr.SetCursor();
                 SceneManager.LoadScene(0);
