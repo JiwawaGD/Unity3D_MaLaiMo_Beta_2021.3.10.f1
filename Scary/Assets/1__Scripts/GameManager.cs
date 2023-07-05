@@ -154,6 +154,9 @@ public partial class GameManager : MonoBehaviour
                 m_bGrandmaRush = true;
                 m_bShowPlayerAnimate = true;
                 GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Player_Turn_After_Photo_Frame);
+
+                GameObject LieGrandmaObj = GameObject.Find("Lie_Grandma_Body");
+                Destroy(LieGrandmaObj);
                 break;
             case GameEventID.S1_Grandma_Door_Open:
                 ProcessAnimator("Grandma_Room_Door", "DoorOpen");
