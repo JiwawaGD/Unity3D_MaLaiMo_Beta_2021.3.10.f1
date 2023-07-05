@@ -52,10 +52,10 @@ public partial class GameManager : MonoBehaviour
     public static bool m_bGrandmaRush = false;
     public static bool m_bReturnToBegin = false;
     public static bool m_bPlayLotusEnable = false;
-    private bool isPaused = false;
-    private bool isMouseEnabled = false;
     #endregion
 
+    bool isPaused = false;
+    bool isMouseEnabled = false;
     bool bTriggerFlashlight = false;
     bool bTriggerGrandmaDoorLock = false;
 
@@ -416,16 +416,17 @@ public partial class GameManager : MonoBehaviour
         flowchartObjects[5].gameObject.SetActive(true);
     }
 
-    public void KeyboardCheck()
+    void KeyboardCheck()
     {
-        if (!m_bInUIView)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
+            if (m_bInUIView)
             {
-                if (isPaused)
-                    ResumeGame();
-                else
-                    PauseGame();
+                GameEvent(GameEventID.Close_UI);
+            }
+            else
+            {
+                SetGameState();
             }
         }
 
@@ -440,7 +441,7 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-    public void MouseCheck()
+    void MouseCheck()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -449,20 +450,13 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-    public void PauseGame()
+    void SetGameState()
     {
-        isPaused = true;
-        Time.timeScale = 0f;
-        settingObjects.SetActive(true);
-        isMouseEnabled = true;
-    }
-
-    public void ResumeGame()
-    {
-        isPaused = false;
-        Time.timeScale = 1f;
-        settingObjects.SetActive(false);
-        isMouseEnabled = false;
+        playerCtrlr.SetCursor();
+        isPaused = !isPaused;
+        Time.timeScale = isPaused ? 0f : 1f;
+        settingObjects.SetActive(isPaused);
+        isMouseEnabled = isPaused;
     }
 
     public void GameStateCheck()

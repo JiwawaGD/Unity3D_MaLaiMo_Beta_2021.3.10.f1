@@ -74,11 +74,6 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F6))
                 SetCursor();
         }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-                gameManager.SendMessage("GameEvent", GameEventID.Close_UI);
-        }
     }
 
     void FixedUpdate()
