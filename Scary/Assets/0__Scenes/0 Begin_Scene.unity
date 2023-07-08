@@ -883,86 +883,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2018822797}
   m_CullTransparentMesh: 1
---- !u!1 &2038298552
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2038298553}
-  - component: {fileID: 2038298555}
-  - component: {fileID: 2038298554}
-  m_Layer: 5
-  m_Name: Name
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2038298553
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2038298552}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 76341656172625725}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 201}
-  m_SizeDelta: {x: 500, y: 300}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2038298554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2038298552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 36
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 2
-    m_MaxSize: 40
-    m_Alignment: 5
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: "\u738B\u8C4A\u6DEF\r\n\u8CF4\u5E1B\u6DB5"
---- !u!222 &2038298555
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2038298552}
-  m_CullTransparentMesh: 1
 --- !u!1001 &76341656172625724
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1172,7 +1092,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1580969003899388191, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
       propertyPath: m_Text
-      value: "DEJAVU \u5275\u59CB\u4EBA\n\u5357\u5C71\u4EBA\u58FD\u8944\u7406"
+      value: "DEJAVU \u5275\u59CB\u4EBA  -  \u738B\u8C4A\u6DEF\r\n\n\u5357\u5C71\u4EBA\u58FD\u8944\u7406 
+        -  \u8CF4\u5E1B\u6DB5"
       objectReference: {fileID: 0}
     - target: {fileID: 1580969003899388191, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
       propertyPath: m_FontData.m_Alignment
@@ -1308,11 +1229,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
---- !u!224 &76341656172625725 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 9065134066268437474, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
-  m_PrefabInstance: {fileID: 76341656172625724}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &265032861285723192
 PrefabInstance:
   m_ObjectHideFlags: 0

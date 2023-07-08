@@ -86,6 +86,18 @@ public class LotusGameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.D))
             PlayLotusAni(KeyCode.D);
+
+        if (Input.GetKeyDown(KeyCode.Q))
+            PlayLotusAni(KeyCode.Q);
+
+        if (Input.GetKeyDown(KeyCode.E))
+            PlayLotusAni(KeyCode.E);
+
+        if (Input.GetKeyDown(KeyCode.C))
+            PlayLotusAni(KeyCode.C);
+
+        if (Input.GetKeyDown(KeyCode.Z))
+            PlayLotusAni(KeyCode.Z);
     }
 
     void PlayLotusAni(KeyCode r_key)
@@ -103,28 +115,15 @@ public class LotusGameManager : MonoBehaviour
                 }
                 else if (bLotusState[9])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[3], LotusPaperAni[6], LotusPaperAniClip[9], strLotusAniTriggerName[9], 9));
-                    //TfLotus.Rotate(0, -45, 0);
-                }
-                else if (bLotusState[13])
-                {
-                    StartCoroutine(ProcessAnimator(HintSprite[3], LotusPaperAni[6], LotusPaperAniClip[13], strLotusAniTriggerName[13], 13));
+                    StartCoroutine(ProcessAnimator(HintSprite[6], LotusPaperAni[6], LotusPaperAniClip[9], strLotusAniTriggerName[9], 9));
                 }
                 else if (bLotusState[17])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[3], LotusPaperAni[6], LotusPaperAniClip[17], strLotusAniTriggerName[17], 17));
-                }
-                else if (bLotusState[21])
-                {
-                    StartCoroutine(ProcessAnimator(HintSprite[3], LotusPaperAni[6], LotusPaperAniClip[21], strLotusAniTriggerName[21], 21));
+                    StartCoroutine(ProcessAnimator(HintSprite[6], LotusPaperAni[6], LotusPaperAniClip[17], strLotusAniTriggerName[17], 17));
                 }
                 else if (bLotusState[25])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[0], LotusPaperAni[6], LotusPaperAniClip[25], strLotusAniTriggerName[25], 25));
-                }
-                else if (bLotusState[26])
-                {
-                    StartCoroutine(ProcessAnimator(HintSprite[3], LotusPaperAni[6], LotusPaperAniClip[26], strLotusAniTriggerName[26], 26));
+                    StartCoroutine(ProcessAnimator(HintSprite[5], LotusPaperAni[6], LotusPaperAniClip[25], strLotusAniTriggerName[25], 25));
                 }
                 break;
             case KeyCode.A:
@@ -136,25 +135,13 @@ public class LotusGameManager : MonoBehaviour
                 {
                     StartCoroutine(ProcessAnimator(HintSprite[0], LotusPaperAni[6], LotusPaperAniClip[8], strLotusAniTriggerName[8], 8));
                 }
-                else if (bLotusState[12])
-                {
-                    StartCoroutine(ProcessAnimator(HintSprite[0], LotusPaperAni[6], LotusPaperAniClip[12], strLotusAniTriggerName[12], 12));
-                }
                 else if (bLotusState[16])
                 {
                     StartCoroutine(ProcessAnimator(HintSprite[0], LotusPaperAni[6], LotusPaperAniClip[16], strLotusAniTriggerName[16], 16));
                 }
-                else if (bLotusState[20])
-                {
-                    StartCoroutine(ProcessAnimator(HintSprite[0], LotusPaperAni[6], LotusPaperAniClip[20], strLotusAniTriggerName[20], 20));
-                }
                 else if (bLotusState[24])
                 {
                     StartCoroutine(ProcessAnimator(HintSprite[0], LotusPaperAni[6], LotusPaperAniClip[24], strLotusAniTriggerName[24], 24));
-                }
-                else if (bLotusState[29])
-                {
-                    StartCoroutine(ProcessAnimator(HintSprite[1], LotusPaperAni[6], LotusPaperAniClip[29], strLotusAniTriggerName[29], 29));
                 }
                 break;
             case KeyCode.S:
@@ -170,25 +157,13 @@ public class LotusGameManager : MonoBehaviour
                 {
                     StartCoroutine(ProcessAnimator(HintSprite[1], LotusPaperAni[6], LotusPaperAniClip[7], strLotusAniTriggerName[7], 7));
                 }
-                else if (bLotusState[11])
-                {
-                    StartCoroutine(ProcessAnimator(HintSprite[1], LotusPaperAni[6], LotusPaperAniClip[11], strLotusAniTriggerName[11], 11));
-                }
                 else if (bLotusState[15])
                 {
                     StartCoroutine(ProcessAnimator(HintSprite[1], LotusPaperAni[6], LotusPaperAniClip[15], strLotusAniTriggerName[15], 15));
                 }
-                else if (bLotusState[19])
-                {
-                    StartCoroutine(ProcessAnimator(HintSprite[1], LotusPaperAni[6], LotusPaperAniClip[19], strLotusAniTriggerName[19], 19));
-                }
                 else if (bLotusState[23])
                 {
                     StartCoroutine(ProcessAnimator(HintSprite[1], LotusPaperAni[6], LotusPaperAniClip[23], strLotusAniTriggerName[23], 23));
-                }
-                else if (bLotusState[28])
-                {
-                    StartCoroutine(ProcessAnimator(HintSprite[1], LotusPaperAni[6], LotusPaperAniClip[28], strLotusAniTriggerName[28], 28));
                 }
                 break;
             case KeyCode.D:
@@ -200,25 +175,69 @@ public class LotusGameManager : MonoBehaviour
                 {
                     StartCoroutine(ProcessAnimator(HintSprite[2], LotusPaperAni[6], LotusPaperAniClip[6], strLotusAniTriggerName[6], 6));
                 }
-                else if (bLotusState[10])
-                {
-                    StartCoroutine(ProcessAnimator(HintSprite[2], LotusPaperAni[6], LotusPaperAniClip[10], strLotusAniTriggerName[10], 10));
-                }
                 else if (bLotusState[14])
                 {
                     StartCoroutine(ProcessAnimator(HintSprite[2], LotusPaperAni[6], LotusPaperAniClip[14], strLotusAniTriggerName[14], 14));
-                }
-                else if (bLotusState[18])
-                {
-                    StartCoroutine(ProcessAnimator(HintSprite[2], LotusPaperAni[6], LotusPaperAniClip[18], strLotusAniTriggerName[18], 18));
                 }
                 else if (bLotusState[22])
                 {
                     StartCoroutine(ProcessAnimator(HintSprite[2], LotusPaperAni[6], LotusPaperAniClip[22], strLotusAniTriggerName[22], 22));
                 }
+                break;
+            case KeyCode.Q:
+                if (bLotusState[12])
+                {
+                    StartCoroutine(ProcessAnimator(HintSprite[5], LotusPaperAni[6], LotusPaperAniClip[12], strLotusAniTriggerName[12], 12));
+                }
+                else if (bLotusState[20])
+                {
+                    StartCoroutine(ProcessAnimator(HintSprite[5], LotusPaperAni[6], LotusPaperAniClip[20], strLotusAniTriggerName[20], 20));
+                }
+                else if (bLotusState[29])
+                {
+                    StartCoroutine(ProcessAnimator(HintSprite[5], LotusPaperAni[6], LotusPaperAniClip[29], strLotusAniTriggerName[29], 29));
+                }
+                break;
+            case KeyCode.E:
+                if (bLotusState[13])
+                {
+                    StartCoroutine(ProcessAnimator(HintSprite[3], LotusPaperAni[6], LotusPaperAniClip[13], strLotusAniTriggerName[13], 13));
+                }
+                else if (bLotusState[21])
+                {
+                    StartCoroutine(ProcessAnimator(HintSprite[3], LotusPaperAni[6], LotusPaperAniClip[21], strLotusAniTriggerName[21], 21));
+                }
+                else if (bLotusState[26])
+                {
+                    StartCoroutine(ProcessAnimator(HintSprite[6], LotusPaperAni[6], LotusPaperAniClip[26], strLotusAniTriggerName[26], 26));
+                }
+                break;
+            case KeyCode.C:
+                if (bLotusState[10])
+                {
+                    StartCoroutine(ProcessAnimator(HintSprite[7], LotusPaperAni[6], LotusPaperAniClip[10], strLotusAniTriggerName[10], 10));
+                }
+                else if (bLotusState[18])
+                {
+                    StartCoroutine(ProcessAnimator(HintSprite[7], LotusPaperAni[6], LotusPaperAniClip[18], strLotusAniTriggerName[18], 18));
+                }
                 else if (bLotusState[27])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[2], LotusPaperAni[6], LotusPaperAniClip[27], strLotusAniTriggerName[27], 27));
+                    StartCoroutine(ProcessAnimator(HintSprite[7], LotusPaperAni[6], LotusPaperAniClip[27], strLotusAniTriggerName[27], 27));
+                }
+                break;
+            case KeyCode.Z:
+                if (bLotusState[11])
+                {
+                    StartCoroutine(ProcessAnimator(HintSprite[4], LotusPaperAni[6], LotusPaperAniClip[11], strLotusAniTriggerName[11], 11));
+                }
+                else if (bLotusState[19])
+                {
+                    StartCoroutine(ProcessAnimator(HintSprite[4], LotusPaperAni[6], LotusPaperAniClip[19], strLotusAniTriggerName[19], 19));
+                }
+                else if (bLotusState[28])
+                {
+                    StartCoroutine(ProcessAnimator(HintSprite[4], LotusPaperAni[6], LotusPaperAniClip[28], strLotusAniTriggerName[28], 28));
                 }
                 break;
             default:
@@ -272,6 +291,14 @@ public class LotusGameManager : MonoBehaviour
         HintObj.SetActive(true);
     }
 
+    void RotateLotus()
+    {
+        for (int iCount = 0; iCount < 10; iCount++)
+        {
+            TfLotus.Rotate(0, -4.5f, 0);
+        }
+    }
+
     Vector2 UIHintPosition(int iStateIndex)
     {
         return iStateIndex switch
@@ -286,26 +313,26 @@ public class LotusGameManager : MonoBehaviour
             7 => new Vector2(0, -400),     // S
             8 => new Vector2(-500, 0),     // A
             9 => new Vector2(0, 400),      // W
-            10 => new Vector2(300, -300),  // D
-            11 => new Vector2(-300, -300), // S
-            12 => new Vector2(-300, 300),  // A
-            13 => new Vector2(300, 300),   // W
+            10 => new Vector2(300, -300),  // C
+            11 => new Vector2(-300, -300), // Z
+            12 => new Vector2(-300, 300),  // Q
+            13 => new Vector2(300, 300),   // E
             14 => new Vector2(500, 0),     // D
             15 => new Vector2(0, -400),    // S
             16 => new Vector2(-500, 0),    // A
             17 => new Vector2(0, 400),     // W
-            18 => new Vector2(300, -300),  // D
-            19 => new Vector2(-300, -300), // S
-            20 => new Vector2(-300, 300),  // A
-            21 => new Vector2(300, 300),   // W
+            18 => new Vector2(300, -300),  // C
+            19 => new Vector2(-300, -300), // Z
+            20 => new Vector2(-300, 300),  // Q
+            21 => new Vector2(300, 300),   // E
             22 => new Vector2(500, 0),     // D
             23 => new Vector2(0, -400),    // S
             24 => new Vector2(-500, 0),    // A
             25 => new Vector2(0, 400),     // W
-            26 => new Vector2(300, 300),   // W
-            27 => new Vector2(300, -300),  // D
-            28 => new Vector2(-300, -300), // S
-            29 => new Vector2(-300, 300),  // A
+            26 => new Vector2(300, 300),   // E
+            27 => new Vector2(300, -300),  // C
+            28 => new Vector2(-300, -300), // Z
+            29 => new Vector2(-300, 300),  // Q
             _ => new Vector2(0, 0),
         };
     }
