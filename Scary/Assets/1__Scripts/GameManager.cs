@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
+
 
 public partial class GameManager : MonoBehaviour
 {
-    [SerializeField] [Header("玩家")] PlayerController playerCtrlr;
-    [SerializeField] [Header("UI 圖片庫")] Sprite[] UISprite;
-    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField][Header("玩家")] PlayerController playerCtrlr;
+    [SerializeField][Header("UI 圖片庫")] Sprite[] UISprite;
+    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
     [Header("Flowchart")] public GameObject settingObjects;
     //[SerializeField] [Header("音效撥放清單")] AudioClip[] audioClip;
     //[SerializeField] [Header("音效撥放器")] AudioSource[] audioSources;
@@ -58,6 +60,7 @@ public partial class GameManager : MonoBehaviour
     bool isMouseEnabled = false;
     bool bTriggerFlashlight = false;
     bool bTriggerGrandmaDoorLock = false;
+    public bool isUIOpen = false;
 
     void Awake()
     {
@@ -106,6 +109,10 @@ public partial class GameManager : MonoBehaviour
         {
             MouseCheck();
         }
+        //if (Input.GetKeyDown(KeyCode.E) && isUIOpen && )
+        //{
+        //    ButtonFunction(ButtonEventID.Enter_Game);
+        //}
         //if (m_bInUIView && Input.GetKeyDown(KeyCode.N))
         //    imgIntroduceBackground.gameObject.SetActive(true);
     }
@@ -167,6 +174,10 @@ public partial class GameManager : MonoBehaviour
                 UIState(UIItemID.S1_Lotus_Paper, true);
                 ShowEnterGame(true);
                 AUDManager.instance.PlayerLotusPaperSFX();
+                //if (r_bEnable && isUIOpen && Input.GetKeyDown(KeyCode.E))
+                //{
+                //    ButtonFunction(ButtonEventID.Enter_Game);
+                //}
                 break;
             case GameEventID.S1_Grandma_Dead_Body:
                 UIState(UIItemID.S1_Grandma_Dead_Body, true);
@@ -361,9 +372,14 @@ public partial class GameManager : MonoBehaviour
 
     public void ShowEnterGame(bool r_bEnable)
     {
+        isUIOpen = r_bEnable;
         EnterGameBtn.gameObject.SetActive(r_bEnable);
         txtEnterGameHint.gameObject.SetActive(r_bEnable);
         txtEnterGameHint.text = r_bEnable ? "---- 是否進入遊戲 ----" : "";
+        if (r_bEnable && isUIOpen && Input.GetKeyDown(KeyCode.E))
+        {
+            ButtonFunction(ButtonEventID.Enter_Game);
+        }
     }
 
     public void ButtonFunction(ButtonEventID _eventID)

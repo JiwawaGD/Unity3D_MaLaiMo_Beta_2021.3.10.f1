@@ -18416,7 +18416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 1295782213}
+  selectedFlowchart: {fileID: 1712147518}
 --- !u!4 &824346683
 Transform:
   m_ObjectHideFlags: 1
@@ -22935,6 +22935,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 550945054}
     - target: {fileID: 8675690754418267887, guid: 59ee06cf8da02a64291664fe1b114e1d, type: 3}
+      propertyPath: door_Unlock_Sound
+      value: 
+      objectReference: {fileID: 8300000, guid: 7acff2edd62b5f648ac7016779fe40cd, type: 3}
+    - target: {fileID: 8675690754418267887, guid: 59ee06cf8da02a64291664fe1b114e1d, type: 3}
       propertyPath: environmentOtherSound
       value: 
       objectReference: {fileID: 137471116}
@@ -24484,17 +24488,6 @@ MonoBehaviour:
     floatRef: {fileID: 0}
     floatVal: 0.2
   durationOLD: 0
---- !u!114 &1295782213 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3646994954826697439, guid: 2d455781c83ae9946b797d78080592fd, type: 3}
-  m_PrefabInstance: {fileID: 342487448}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1295782181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1298119497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30405,7 +30398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 4
   indentLevel: 0
-  storyText: "\r{w=13}"
+  storyText: "\r{w=3.4}"
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -30730,6 +30723,17 @@ MonoBehaviour:
     booleanRef: {fileID: 0}
     booleanVal: 0
   targetGameObjectOLD: {fileID: 0}
+--- !u!114 &1712147518 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 394904063187042278, guid: 8ca7370b03a6f8f47a4a0fa3f696b7b4, type: 3}
+  m_PrefabInstance: {fileID: 111523311}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1712147487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1715111022
 PrefabInstance:
   m_ObjectHideFlags: 0

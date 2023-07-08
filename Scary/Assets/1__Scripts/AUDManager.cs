@@ -17,8 +17,7 @@ public class AUDManager : MonoBehaviour
     [SerializeField, Tooltip("奶奶詭異聲")] public AudioClip grandma_StrangeVoice;
     [SerializeField, Tooltip("扭動身體的音效")] public AudioClip body_Twisting_Sound;
     [SerializeField, Tooltip("模糊不清的人聲音")] public AudioClip muffled_Vocals;
-    //[SerializeField,Tooltip("腳步聲")] 
-    public AudioClip walking;
+    [SerializeField,Tooltip("腳步聲")] public AudioClip walking;
     [SerializeField, Tooltip("緊張呼吸聲")] public AudioClip strained_Breathing;
     [SerializeField, Tooltip("手電筒開關聲")] public AudioClip flashlight_Switch_Sound;
     [SerializeField, Tooltip("鬼影出現聲")] public AudioClip ghosting_Sound;
@@ -32,7 +31,8 @@ public class AUDManager : MonoBehaviour
     [SerializeField, Tooltip("開關燈")] AudioClip light_Switch_Sound;
     [SerializeField, Tooltip("抽屜")] AudioClip drawer_Opening_Sound;
     [SerializeField, Tooltip("床")] AudioClip getting_Out_Of_Bed;
-    [SerializeField, Tooltip("衣櫃")] AudioClip The_Sound_Of_Opening_Wardrobes_And_Doors;
+    [SerializeField, Tooltip("衣櫃")] AudioClip the_Sound_Of_Opening_Wardrobes_And_Doors;
+    [SerializeField, Tooltip("鑰匙")] AudioClip tet_Sound_Of_Get_The_Key;
     #endregion
 
     [SerializeField, Header("客廳")] AudioSource[] livingRoomSound;
@@ -113,10 +113,10 @@ public class AUDManager : MonoBehaviour
         mainAudioSource.PlayOneShot(drawer_Opening_Sound);
     }
 
-    //public void PlayerWalkSFX()
-    //{
-    //    ScendAudioSource.PlayOneShot(walking);
-    //}
+    public void GetTheKeySFX()
+    {
+        ScendAudioSource.PlayOneShot(tet_Sound_Of_Get_The_Key);
+    }
 
     public void PlayerDoorOpenSFX()
     {
