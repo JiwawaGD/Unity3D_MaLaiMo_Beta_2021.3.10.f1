@@ -169,6 +169,7 @@ public partial class GameManager : MonoBehaviour
                 ProcessAnimator("Grandma_Room_Door", "DoorOpen");
                 AUDManager.instance.PlayerDoorOpenSFX();
                 ShowHint(HintItemID.S1_Rice_Funeral);
+                flowchartObjects[4].gameObject.SetActive(true);
                 break;
             case GameEventID.S1_Lotus_Paper:
                 UIState(UIItemID.S1_Lotus_Paper, true);
