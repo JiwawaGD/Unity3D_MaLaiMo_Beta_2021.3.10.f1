@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Audio;
+using System.Collections;
 
 public class AUDManager : MonoBehaviour
 {
@@ -108,9 +109,19 @@ public class AUDManager : MonoBehaviour
         }
     }
 
+    private IEnumerator RestoreVolume(float originalVolume)
+    {
+        yield return new WaitForSeconds(drawer_Opening_Sound.length); // 等待音效播放完畢
+
+        mainAudioSource.volume = originalVolume; // 恢復原始音量
+    }
     public void OpenTheDrawerSFX()
     {
+        float originalVolume = mainAudioSource.volume; 
+        mainAudioSource.volume = originalVolume * 0.5f; 
         mainAudioSource.PlayOneShot(drawer_Opening_Sound);
+
+        StartCoroutine(RestoreVolume(originalVolume));
     }
 
     public void GetTheKeySFX()

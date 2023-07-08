@@ -109,10 +109,10 @@ public partial class GameManager : MonoBehaviour
         {
             MouseCheck();
         }
-        //if (Input.GetKeyDown(KeyCode.E) && isUIOpen && )
-        //{
-        //    ButtonFunction(ButtonEventID.Enter_Game);
-        //}
+        if (isUIOpen && Input.GetKeyDown(KeyCode.R))
+        {
+            ButtonFunction(ButtonEventID.Enter_Game);
+        }
         //if (m_bInUIView && Input.GetKeyDown(KeyCode.N))
         //    imgIntroduceBackground.gameObject.SetActive(true);
     }
@@ -144,7 +144,7 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Photo_Frame:
                 UIState(UIItemID.S1_Photo_Frame, true);
-                flowchartObjects[9].gameObject.SetActive(true);
+                //flowchartObjects[9].gameObject.SetActive(true);
 
                 // Set player transform
                 Transform tfPlayer = playerCtrlr.transform;
@@ -235,6 +235,7 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_GrandmaRoomKey:
                 ShowHint(HintItemID.S1_Grandma_Room_Door);
+                AUDManager.instance.GetTheKeySFX();
                 flowchartObjects[3].gameObject.SetActive(true);
                 GameObject GrandmaRoomKeyObj = GameObject.Find("Grandma_Room_Key");
                 Destroy(GrandmaRoomKeyObj);
@@ -375,11 +376,8 @@ public partial class GameManager : MonoBehaviour
         isUIOpen = r_bEnable;
         EnterGameBtn.gameObject.SetActive(r_bEnable);
         txtEnterGameHint.gameObject.SetActive(r_bEnable);
-        txtEnterGameHint.text = r_bEnable ? "---- 是否進入遊戲 ----" : "";
-        if (r_bEnable && isUIOpen && Input.GetKeyDown(KeyCode.E))
-        {
-            ButtonFunction(ButtonEventID.Enter_Game);
-        }
+        txtEnterGameHint.text = r_bEnable ? "---- R進入遊戲 ----" : "";
+
     }
 
     public void ButtonFunction(ButtonEventID _eventID)
@@ -390,11 +388,15 @@ public partial class GameManager : MonoBehaviour
                 GameEvent(GameEventID.Close_UI);
                 break;
             case ButtonEventID.Enter_Game:
-                GlobalDeclare.bLotusGameComplete = true;
-                GameEvent(GameEventID.Close_UI);
-                playerCtrlr.m_bCanControl = false;
-                playerCtrlr.tfPlayerCamera.gameObject.SetActive(false);
-                SceneManager.LoadScene(3, LoadSceneMode.Additive);
+                if (isUIOpen)
+                {
+                    // 執行相應的程式碼
+                    GlobalDeclare.bLotusGameComplete = true;
+                    GameEvent(GameEventID.Close_UI);
+                    playerCtrlr.m_bCanControl = false;
+                    playerCtrlr.tfPlayerCamera.gameObject.SetActive(false);
+                    SceneManager.LoadScene(3, LoadSceneMode.Additive);
+                }
                 break;
         }
     }
