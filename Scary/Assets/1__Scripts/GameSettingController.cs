@@ -1,28 +1,32 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class GameSettingController : MonoBehaviour
 {
-    [SerializeField] Button SaveBtn;
-    [SerializeField] Button ReturnBtn;
+    [SerializeField] [Header("儲存按鈕")] Button SaveBtn;
+    [SerializeField] [Header("儲存按鈕")] Button ReturnBtn;
 
-    [SerializeField] Button VisableMarkBtn;
-    [SerializeField] Button VolumeMarkBtn;
-    [SerializeField] Button OperateMarkBtn;
+    [SerializeField] [Header("影像 - 按鈕")] Button VisableMarkBtn;
+    [SerializeField] [Header("影像 - 物件")] GameObject VisablePage;
+    [SerializeField] [Header("影像 - Text")] Text VisableMarkText;
 
-    [SerializeField] GameObject VisablePage;
-    [SerializeField] GameObject VolumePage;
-    [SerializeField] GameObject OperatePage;
+    [SerializeField] [Header("音效 - 按鈕")] Button VolumeMarkBtn;
+    [SerializeField] [Header("音效 - 物件")] GameObject VolumePage;
+    [SerializeField] [Header("音效 - Text")] Text VolumeMarkText;
 
-    [SerializeField] Slider MusicSlider;
-    [SerializeField] Slider SoundEffectSlider;
-    [SerializeField] Slider SensitivitySlider;
-    [SerializeField] Dropdown QualityDropDown;
+    [SerializeField] [Header("操作 - 按鈕")] Button OperateMarkBtn;
+    [SerializeField] [Header("操作 - 物件")] GameObject OperatePage;
+    [SerializeField] [Header("操作 - Text")] Text OperateMarkText;
 
-    [SerializeField] MenuController MenuCtrlr;
-    [SerializeField] PlayerController PlayerCtrlr;
+    [SerializeField] [Header("音樂 - Slider")] Slider MusicSlider;
+    [SerializeField] [Header("音效 - Slider")] Slider SoundEffectSlider;
+    [SerializeField] [Header("靈敏度 - Slider")] Slider SensitivitySlider;
+    [SerializeField] [Header("畫質 - Dropdown")] Dropdown QualityDropDown;
 
-    [SerializeField] AUDManager AUDManager;
+    [SerializeField] [Header("MenuCtrlr")] MenuController MenuCtrlr;
+    [SerializeField] [Header("PlayerCtrlr")] PlayerController PlayerCtrlr;
+
+    [SerializeField] [Header("AUDManager")] AUDManager AUDManager;
 
     float fMusic;
     float fSoundEffect;
@@ -36,6 +40,8 @@ public class GameSettingController : MonoBehaviour
         VisableMarkBtn.onClick.AddListener(() => { ShowSelectPage(0); });
         VolumeMarkBtn.onClick.AddListener(() => { ShowSelectPage(1); });
         OperateMarkBtn.onClick.AddListener(() => { ShowSelectPage(2); });
+
+        ShowSelectPage(0);
     }
 
     public void SetMusic()
@@ -78,6 +84,7 @@ public class GameSettingController : MonoBehaviour
         {
             PlayerCtrlr.fSensitivityAmplifier = fSensitivity;
         }
+
         AUDManager.LoadVolume();
     }
 
@@ -96,17 +103,24 @@ public class GameSettingController : MonoBehaviour
     void ShowSelectPage(int r_iPage)
     {
         HideAllPage();
+        DefaultFontStyleAndSize();
 
         switch (r_iPage)
         {
             case 0:
                 VisablePage.SetActive(true);
+                VisableMarkText.fontStyle = FontStyle.Bold;
+                VisableMarkText.fontSize = 48;
                 break;
             case 1:
                 VolumePage.SetActive(true);
+                VolumeMarkText.fontStyle = FontStyle.Bold;
+                VolumeMarkText.fontSize = 48;
                 break;
             case 2:
                 OperatePage.SetActive(true);
+                OperateMarkText.fontStyle = FontStyle.Bold;
+                OperateMarkText.fontSize = 48;
                 break;
             default:
                 break;
@@ -118,5 +132,17 @@ public class GameSettingController : MonoBehaviour
         VisablePage.SetActive(false);
         VolumePage.SetActive(false);
         OperatePage.SetActive(false);
+    }
+
+    void DefaultFontStyleAndSize()
+    {
+        VisableMarkText.fontStyle = FontStyle.Normal;
+        VisableMarkText.fontSize = 36;
+
+        VolumeMarkText.fontStyle = FontStyle.Normal;
+        VolumeMarkText.fontSize = 36;
+
+        OperateMarkText.fontStyle = FontStyle.Normal;
+        OperateMarkText.fontSize = 36;
     }
 }

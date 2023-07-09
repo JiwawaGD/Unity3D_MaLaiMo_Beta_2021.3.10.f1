@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
-    [SerializeField] int iNextSceneID;
+    [SerializeField] [Header("下個載入場景的 ID")] int iNextSceneID;
 
     [SerializeField] [Header("進入遊戲 按鈕")] Button Btn_EnterGame;
     [SerializeField] [Header("遊戲設定 按鈕")] Button Btn_GameSetting;
