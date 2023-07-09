@@ -22921,7 +22921,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 333ed4a7af5f4e341b746f032f28cd01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkingSound: {fileID: 8300000, guid: 03267178543da5a40a905e3879a3d279, type: 3}
+  cameraSwaySmoothing: 10
+  cameraSwayAmount: 0.1
+  cameraSwaySpeed: 1
+  verticalSwayAmount: 0.02
+  verticalSwaySpeed: 3
+  walkingSound: {fileID: 8300000, guid: 8acb4df4ae2ad834d9deb8cb3007f881, type: 3}
   fSensitivityAmplifier: 0
   m_bCursorShow: 0
   m_bCanControl: 0

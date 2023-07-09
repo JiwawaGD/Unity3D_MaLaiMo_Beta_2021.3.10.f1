@@ -3,6 +3,18 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+    public float cameraSwaySmoothing = 10f;
+    public float cameraSwayAmount = 0.5f;
+    public float cameraSwaySpeed = 1.5f;
+
+    private Vector3 originalCameraPosition;
+    //private Vector3 cameraSwayVelocity;
+
+    [SerializeField] private float verticalSwayAmount = 0.02f; // 上下起伏的幅度
+    [SerializeField] private float verticalSwaySpeed = 3f; // 上下起伏的速度
+
+    private float verticalSwayTimer;
+
     private AudioSource audioSource;
     public AudioClip walkingSound;
 
@@ -55,6 +67,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        originalCameraPosition = tfPlayerCamera.localPosition;
         InitValue();
         SetCursor();
     }
@@ -93,12 +106,26 @@ public class PlayerController : MonoBehaviour
         if (isWalking)
         {
             if (!audioSource.isPlaying)
+            {
+                float swayX = Mathf.Sin(Time.time * cameraSwaySpeed) * cameraSwayAmount;
+                float swayY = Mathf.Sin(Time.time * cameraSwaySpeed * 2f) * cameraSwayAmount;
+
+                // 上下起伏
+                float verticalSway = Mathf.Sin(verticalSwayTimer) * verticalSwayAmount;
+                verticalSwayTimer += Time.deltaTime * verticalSwaySpeed;
+
+                Vector3 swayPosition = originalCameraPosition + new Vector3(swayX, swayY + verticalSway, 0f);
+                tfPlayerCamera.localPosition = swayPosition;
                 PlayWalkingSound();
+            }
         }
         else
         {
             if (audioSource.isPlaying)
+            {
+                tfPlayerCamera.localPosition = originalCameraPosition;
                 audioSource.Stop();
+            }
         }
 
         Move();
@@ -213,13 +240,13 @@ public class PlayerController : MonoBehaviour
         }
     }
     void PlaySound(AudioClip clip)
-    { 
-        audioSource.clip =clip;
+    {
+        audioSource.clip = clip;
         audioSource.Play();
     }
     void PlayWalkingSound()
     {
         PlaySound(walkingSound);
     }
-    
+
 }
