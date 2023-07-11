@@ -18984,7 +18984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 1712147518}
+  selectedFlowchart: {fileID: 1470715938}
 --- !u!4 &824346683
 Transform:
   m_ObjectHideFlags: 1
@@ -23081,7 +23081,7 @@ MonoBehaviour:
   cameraSwaySpeed: 1
   verticalSwayAmount: 0.02
   verticalSwaySpeed: 3
-  walkingSound: {fileID: 8300000, guid: 8acb4df4ae2ad834d9deb8cb3007f881, type: 3}
+  walkingSound: {fileID: 8300000, guid: 7ad61cfe081916f47accd23cdb203f59, type: 3}
   fSensitivityAmplifier: 0
   m_bCursorShow: 0
   m_bCanControl: 0
@@ -28085,7 +28085,7 @@ MonoBehaviour:
   waitUntilFinished: 0
 --- !u!114 &1470715936
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -28101,6 +28101,17 @@ MonoBehaviour:
     floatRef: {fileID: 0}
     floatVal: 1
   durationOLD: 0
+--- !u!114 &1470715938 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3646994954826697439, guid: 2d455781c83ae9946b797d78080592fd, type: 3}
+  m_PrefabInstance: {fileID: 1470715918}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470715920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1473044788
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32048,17 +32059,6 @@ MonoBehaviour:
     booleanRef: {fileID: 0}
     booleanVal: 0
   targetGameObjectOLD: {fileID: 0}
---- !u!114 &1712147518 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 394904063187042278, guid: 8ca7370b03a6f8f47a4a0fa3f696b7b4, type: 3}
-  m_PrefabInstance: {fileID: 111523311}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1712147487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1715111022
 PrefabInstance:
   m_ObjectHideFlags: 0
