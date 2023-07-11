@@ -472,7 +472,7 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-    void SetGameState()
+    public void SetGameState()
     {
         playerCtrlr.SetCursor();
         isPaused = !isPaused;

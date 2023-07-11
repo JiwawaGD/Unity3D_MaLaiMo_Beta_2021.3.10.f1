@@ -13,7 +13,7 @@ public class TeamController : MonoBehaviour
     [SerializeField] [Header("贊助商 - 物件")] GameObject SponsorPage;
     [SerializeField] [Header("贊助商 - Text")] Text SponsorMarkText;
 
-    [SerializeField] [Header("MenuCtlr")] MenuController MenuCtlr;
+    [SerializeField] [Header("FunctionMenuCtrlr")] FunctionMenuCtrlr MenuCtrlr;
 
     void Start()
     {
@@ -29,10 +29,9 @@ public class TeamController : MonoBehaviour
         GameObject TeamView = gameObject.transform.GetChild(1).gameObject;
         TeamView.SetActive(false);
 
-        if (MenuCtlr != null)
+        if (MenuCtrlr != null)
         {
-            MenuCtlr = GameObject.Find("MenuController").GetComponent<MenuController>();
-            MenuCtlr.ShowAllBtn();
+            MenuCtrlr.ShowAllBtn();
         }
     }
 

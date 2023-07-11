@@ -23,8 +23,8 @@ public class GameSettingController : MonoBehaviour
     [SerializeField] [Header("靈敏度 - Slider")] Slider SensitivitySlider;
     [SerializeField] [Header("畫質 - Dropdown")] Dropdown QualityDropDown;
 
-    [SerializeField] [Header("MenuCtrlr")] MenuController MenuCtrlr;
     [SerializeField] [Header("PlayerCtrlr")] PlayerController PlayerCtrlr;
+    [SerializeField] [Header("FunctionMenuCtrlr")] FunctionMenuCtrlr MenuCtrlr;
 
     [SerializeField] [Header("AUDManager")] AUDManager AUDManager;
 
@@ -40,6 +40,8 @@ public class GameSettingController : MonoBehaviour
         VisableMarkBtn.onClick.AddListener(() => { ShowSelectPage(0); });
         VolumeMarkBtn.onClick.AddListener(() => { ShowSelectPage(1); });
         OperateMarkBtn.onClick.AddListener(() => { ShowSelectPage(2); });
+
+        AUDManager = GameObject.Find("AudioManager").GetComponent<AUDManager>();
 
         ShowSelectPage(0);
     }
@@ -76,7 +78,6 @@ public class GameSettingController : MonoBehaviour
 
         if (MenuCtrlr != null)
         {
-            MenuCtrlr = GameObject.Find("MenuController").GetComponent<MenuController>();
             MenuCtrlr.ShowAllBtn();
         }
 
@@ -95,7 +96,6 @@ public class GameSettingController : MonoBehaviour
 
         if (MenuCtrlr != null)
         {
-            MenuCtrlr = GameObject.Find("MenuController").GetComponent<MenuController>();
             MenuCtrlr.ShowAllBtn();
         }
     }

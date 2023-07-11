@@ -128,17 +128,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 265032861072305367, guid: 7324ea105257752469637e94d2369281, type: 3}
   m_PrefabInstance: {fileID: 265032861285723192}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &213418224 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 265032861072305352, guid: 7324ea105257752469637e94d2369281, type: 3}
-  m_PrefabInstance: {fileID: 265032861285723192}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213418223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b04988592535eaa4fbbe842bb368ac6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &290447530 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 76341655891091350, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
@@ -979,10 +968,6 @@ PrefabInstance:
       value: GameSetting
       objectReference: {fileID: 0}
     - target: {fileID: 76341655456348703, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
-      propertyPath: MenuCtrlr
-      value: 
-      objectReference: {fileID: 213418224}
-    - target: {fileID: 76341655456348703, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
       propertyPath: AUDManager
       value: 
       objectReference: {fileID: 1032181688}
@@ -990,10 +975,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 213418223}
-    - target: {fileID: 4269262729693771811, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
-      propertyPath: MenuCtlr
-      value: 
-      objectReference: {fileID: 213418224}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
 --- !u!1001 &265032861285723192

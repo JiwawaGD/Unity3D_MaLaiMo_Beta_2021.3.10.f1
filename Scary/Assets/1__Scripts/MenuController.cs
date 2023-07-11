@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
@@ -25,35 +24,6 @@ public class MenuController : MonoBehaviour
 
         if (Btn_EndGame == null)
             Btn_EndGame = GameObject.Find("MenuCanvas/EndGame").GetComponent<Button>();
-
-        Btn_EnterGame.onClick.AddListener(() => LoadScene(iNextSceneID));
-        Btn_GameSetting.onClick.AddListener(() => ShowGameSetting());
-        Btn_Team.onClick.AddListener(() => ShowTeam());
-        Btn_EndGame.onClick.AddListener(() => EndGame());
-    }
-
-    void LoadScene(int r_iSceneIndex)
-    {
-        SceneManager.LoadScene(r_iSceneIndex);
-    }
-
-    void ShowGameSetting()
-    {
-        HideAllBtn();
-        GameObject SettingView = Btn_GameSetting.gameObject.transform.parent.GetChild(1).gameObject;
-        SettingView.SetActive(true);
-    }
-
-    void ShowTeam()
-    {
-        HideAllBtn();
-        GameObject TeamView = Btn_Team.gameObject.transform.parent.GetChild(1).gameObject;
-        TeamView.SetActive(true);
-    }
-
-    void EndGame()
-    {
-        Application.Quit();
     }
 
     public void ShowAllBtn()
