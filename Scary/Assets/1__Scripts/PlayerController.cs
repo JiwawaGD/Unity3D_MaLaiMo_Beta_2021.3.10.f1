@@ -107,15 +107,15 @@ public class PlayerController : MonoBehaviour
         {
             if (!audioSource.isPlaying)
             {
-                float swayX = Mathf.Sin(Time.time * cameraSwaySpeed) * cameraSwayAmount;
-                float swayY = Mathf.Sin(Time.time * cameraSwaySpeed * 2f) * cameraSwayAmount;
+                //float swayX = Mathf.Sin(Time.time * cameraSwaySpeed) * cameraSwayAmount;
+                //float swayY = Mathf.Sin(Time.time * cameraSwaySpeed * 2f) * cameraSwayAmount;
 
-                // 上下起伏
-                float verticalSway = Mathf.Sin(verticalSwayTimer) * verticalSwayAmount;
-                verticalSwayTimer += Time.deltaTime * verticalSwaySpeed;
+                //// 上下起伏
+                //float verticalSway = Mathf.Sin(verticalSwayTimer) * verticalSwayAmount;
+                //verticalSwayTimer += Time.deltaTime * verticalSwaySpeed;
 
-                Vector3 swayPosition = originalCameraPosition + new Vector3(swayX, swayY + verticalSway, 0f);
-                tfPlayerCamera.localPosition = swayPosition;
+                //Vector3 swayPosition = originalCameraPosition + new Vector3(swayX, swayY + verticalSway, 0f);
+                //tfPlayerCamera.localPosition = swayPosition;
                 PlayWalkingSound();
             }
         }
@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
         {
             if (audioSource.isPlaying)
             {
-                tfPlayerCamera.localPosition = originalCameraPosition;
+                //tfPlayerCamera.localPosition = originalCameraPosition;
                 audioSource.Stop();
             }
         }

@@ -6,10 +6,10 @@ using System.Collections;
 
 public partial class GameManager : MonoBehaviour
 {
-    [SerializeField][Header("玩家")] PlayerController playerCtrlr;
-    [SerializeField][Header("UI 圖片庫")] Sprite[] UISprite;
-    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
-    [Header("Flowchart")] public GameObject settingObjects;
+    [SerializeField] [Header("玩家")] PlayerController playerCtrlr;
+    [SerializeField] [Header("UI 圖片庫")] Sprite[] UISprite;
+    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
     //[SerializeField] [Header("音效撥放清單")] AudioClip[] audioClip;
     //[SerializeField] [Header("音效撥放器")] AudioSource[] audioSources;
     //[SerializeField] [Header("GM 欄位腳本")] GMField gmField;
@@ -109,10 +109,12 @@ public partial class GameManager : MonoBehaviour
         {
             MouseCheck();
         }
+
         if (isUIOpen && Input.GetKeyDown(KeyCode.R))
         {
             ButtonFunction(ButtonEventID.Enter_Game);
         }
+
         //if (m_bInUIView && Input.GetKeyDown(KeyCode.N))
         //    imgIntroduceBackground.gameObject.SetActive(true);
     }
@@ -129,12 +131,10 @@ public partial class GameManager : MonoBehaviour
                 // UI 返回後執行玩家動畫
                 if (m_bShowPlayerAnimate)
                     ProcessPlayerAnimator(GlobalDeclare.GetPlayerAnimateType().ToString());
-                AUDManager.instance.PlayerGameEventSFX();
 
                 // UI 返回後執行 Item 動畫
                 if (m_bShowItemAnimate)
                     ProcessAnimator(GlobalDeclare.GetItemAniObject(), GlobalDeclare.GetItemAniName());
-                AUDManager.instance.PlayerGameEventSFX();
 
                 // UI 返回後執行 Fungus 對話
                 if (m_bShowDialog)

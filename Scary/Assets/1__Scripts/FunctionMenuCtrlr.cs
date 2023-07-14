@@ -29,6 +29,8 @@ public class FunctionMenuCtrlr : MonoBehaviour
         if (bInGame)
             gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 
+        text_EnterGame.text = bInGame ? "繼續遊戲" : "返回遊戲";
+
         Btn_EnterGame.onClick.AddListener(() => StartResumeGame());
         Btn_GameSetting.onClick.AddListener(() => ShowGameSetting());
         Btn_Team.onClick.AddListener(() => ShowTeam());
@@ -39,7 +41,6 @@ public class FunctionMenuCtrlr : MonoBehaviour
     {
         if (bInGame)
         {
-            HideAllChild();
             gm.SetGameState();
         }
         else

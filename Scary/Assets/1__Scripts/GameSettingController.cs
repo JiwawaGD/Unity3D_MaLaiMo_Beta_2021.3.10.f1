@@ -44,6 +44,8 @@ public class GameSettingController : MonoBehaviour
         AUDManager = GameObject.Find("AudioManager").GetComponent<AUDManager>();
 
         ShowSelectPage(0);
+
+        fSensitivity = 0.5f;
     }
 
     public void SetMusic()
