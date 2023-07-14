@@ -87,6 +87,8 @@ public partial class GameManager : MonoBehaviour
         txtEnterGameHint = goCanvas.transform.GetChild(6).GetComponent<Text>();
         EnterGameBtn = goCanvas.transform.GetChild(7).GetComponent<Button>();
 
+        TempItem = null;
+
         currentScene = SceneManager.GetActiveScene();
     }
 
