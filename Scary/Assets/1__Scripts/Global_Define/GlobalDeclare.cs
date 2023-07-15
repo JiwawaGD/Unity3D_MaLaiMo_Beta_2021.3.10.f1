@@ -96,10 +96,10 @@
     public readonly static string[] TxtInstructionsmage = new string[]
     {
         "",
-        "A/D 旋轉\r\n      E    轉背面\r\nEsc 返回",
-        "A/D 旋轉\r\nEsc 返回",
-        "A/D 旋轉\r\nEsc 返回",
-        "A/D 旋轉\r\nEsc 返回",
+        "Esc 返回",
+        "Esc 返回",
+        "Esc 返回",
+        "Esc 返回",
     };
 
     public readonly static string[] UIIntroduce = new string[]

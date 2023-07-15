@@ -253,6 +253,7 @@ public partial class GameManager : MonoBehaviour
                 // 查看腳尾飯後的行為
                 // 1. 亮蠟燭
                 ShowHint(HintItemID.S1_Lotus_Paper);
+                flowchartObjects[12].gameObject.SetActive(true);
                 m_bPlayLotusEnable = true;
                 flowchartObjects[8].gameObject.SetActive(true);
                 break;
