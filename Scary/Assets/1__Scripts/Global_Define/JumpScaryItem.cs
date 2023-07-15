@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class JumpScaryItem : MonoBehaviour
 {
-    public float acceleration = 250f;
+    public float acceleration = 300f;
     public GameObject Gramant;
     public Transform pos;
     public AudioClip soundEffect;
