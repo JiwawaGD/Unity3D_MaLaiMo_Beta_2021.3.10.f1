@@ -37,6 +37,13 @@ public enum HintItemID
     S1_Rice_Funeral_Spilled,
     S1_Photo_Frame,
 }
+public enum ObjItemID
+{
+    Empty = 0,
+
+    // S1 : Scene_1
+    S1_Rice,
+}
 
 public enum UIItemID
 {

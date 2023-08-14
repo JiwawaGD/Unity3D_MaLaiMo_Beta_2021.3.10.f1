@@ -2,14 +2,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
-
+using static UnityEditor.Rendering.CameraUI;
+using UnityEngine.Rendering;
+//using UnityEngine.Rendering.Universal;
 
 public partial class GameManager : MonoBehaviour
 {
-    [SerializeField] [Header("玩家")] PlayerController playerCtrlr;
-    [SerializeField] [Header("UI 圖片庫")] Sprite[] UISprite;
-    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
-    [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
+    [Header("全域變數")] public Volume postProcessVolume;
+    [Header("濾鏡效果種類")] public VolumeProfile[] profile;
+    [Header("可查看觸發物件")] public GameObject[] itemObj;
+    [Header("物件位置")] public GameObject itemObjTransform;
+
+    [SerializeField][Header("玩家")] PlayerController playerCtrlr;
+    //[SerializeField] [Header("UI 圖片庫")] Sprite[] UISprite;
+    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField][Header("設定頁面")] public GameObject settingObjects;
     //[SerializeField] [Header("音效撥放清單")] AudioClip[] audioClip;
     //[SerializeField] [Header("音效撥放器")] AudioSource[] audioSources;
     //[SerializeField] [Header("GM 欄位腳本")] GMField gmField;
@@ -24,7 +31,7 @@ public partial class GameManager : MonoBehaviour
     #region Canvas Zone
     [SerializeField] GameObject goCanvas;
     [SerializeField] Image imgUIBackGround;
-    [SerializeField] Image imgUIDisplay;
+    //[SerializeField] Image imgUIDisplay;
     //[SerializeField] Image titleImg;
     [SerializeField] Text txtTitle;
 
@@ -71,7 +78,7 @@ public partial class GameManager : MonoBehaviour
             goCanvas = GameObject.Find("UI Canvas");
 
         imgUIBackGround = goCanvas.transform.GetChild(0).GetComponent<Image>();
-        imgUIDisplay = goCanvas.transform.GetChild(1).GetComponent<Image>();
+        //imgUIDisplay = goCanvas.transform.GetChild(1).GetComponent<Image>();
         //titleImg = goCanvas.transform.GetChild(2).GetComponent<Image>();
         txtTitle = goCanvas.transform.GetChild(2).GetComponent<Text>();
 
@@ -259,6 +266,8 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Rice_Funeral:
                 ShowHint(HintItemID.S1_Filial_Piety_Curtain);
                 flowchartObjects[11].gameObject.SetActive(true);
+                UIState(UIItemID.S1_Grandma_Dead_Body, true);
+                ShowObj(ObjItemID.S1_Rice);
                 break;
         }
     }
@@ -314,7 +323,20 @@ public partial class GameManager : MonoBehaviour
         TempItem.bActive = true;
         TempItem.SetHintable(true);
     }
+    /// <summary>
+    /// 旋轉物件
+    /// </summary>
+    /// <param name="O_ItemID"></param>
+    public void ShowObj(ObjItemID O_ItemID)
+    {
+        switch (O_ItemID)
+        {
+            case ObjItemID.S1_Rice:
+                Instantiate(itemObj[0], itemObjTransform.transform.position, itemObjTransform.transform.rotation);
 
+                break;
+        }
+    }
     public void UIState(UIItemID r_ItemID, bool r_bEnable)
     {
         m_bInUIView = r_bEnable;
@@ -324,11 +346,11 @@ public partial class GameManager : MonoBehaviour
         goCanvas.SetActive(r_bEnable);
         ExitBtn.gameObject.SetActive(r_bEnable);
         imgUIBackGround.color = r_bEnable ? new Color(0, 0, 0, .02f) : new Color(0, 0, 0, 0);
-        imgUIDisplay.color = r_bEnable ? new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0);
+        //imgUIDisplay.color = r_bEnable ? new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0);
         imgInstructions.color = r_bEnable ? new Color(0, 0, 0, 1) : new Color(0, 0, 0, 0);
         int iItemID = (int)r_ItemID;
 
-        imgUIDisplay.sprite = UISprite[iItemID];
+        //imgUIDisplay.sprite = UISprite[iItemID];
         txtTitle.text = GlobalDeclare.UITitle[iItemID];
 
         txtIntroduce.text = GlobalDeclare.UIIntroduce[iItemID];
@@ -448,6 +470,13 @@ public partial class GameManager : MonoBehaviour
             if (m_bInUIView)
             {
                 GameEvent(GameEventID.Close_UI);
+                GameObject[] itemsToDelete = GameObject.FindGameObjectsWithTag("ItemObj");
+                // 刪除每個物件Tag為ItemObj的物件
+                foreach (GameObject item in itemsToDelete)
+                {
+                    Destroy(item);
+                }
+                ///////////////////////////
             }
             else
             {
@@ -492,5 +521,14 @@ public partial class GameManager : MonoBehaviour
         {
             ShowHint(HintItemID.S1_Lotus_Paper);
         }
+    }
+    public void ShowItemObject(GameObject objToShow)
+    {
+        // 將指定的物件顯示在 itemObjTransform 的位置
+        // 假設你想將該物件作為子物件添加到 itemObjTransform 下
+        // 你可以使用 Instantiate 或 SetParent 方法
+        //Instantiate(objToShow, itemObjTransform.position, itemObjTransform.rotation, itemObjTransform);
+        // 如果需要調整物件的位置、縮放等屬性，可以在這裡進行設置
+        //}
     }
 }
