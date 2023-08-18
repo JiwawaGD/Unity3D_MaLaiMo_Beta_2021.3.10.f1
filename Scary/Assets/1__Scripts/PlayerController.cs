@@ -31,7 +31,11 @@ public class PlayerController : MonoBehaviour
     readonly int m_iInteractiveLayer = 10;
     readonly Vector3 v3_zero = Vector3.zero;
 
-    float m_fLookRotation;
+    public bool m_bLimitRotation = false;
+    float m_fHorizantalRotationValue;
+    public Vector2 m_fHorizantalRotationRange;
+    float m_fVerticalRotationValue;
+    public Vector2 m_fVerticalRotationRange;
 
     [HideInInspector] public bool m_bCursorShow;
     [HideInInspector] public bool m_bCanControl;
@@ -41,7 +45,7 @@ public class PlayerController : MonoBehaviour
     Vector3 v3_MovePos;
 
     public Transform tfPlayerCamera;
-    Transform tfTransform;
+    public Transform tfTransform;
     Rigidbody rig;
     RaycastHit hit;
     Animation ani;
@@ -49,7 +53,6 @@ public class PlayerController : MonoBehaviour
     ItemController current_Item;
     ItemController last_Item;
     GameManager gameManager;
-
 
     void Awake()
     {
@@ -99,7 +102,8 @@ public class PlayerController : MonoBehaviour
 
         if (ani.isPlaying)
         {
-            m_fLookRotation = 0;
+            m_fVerticalRotationValue = 0;
+            m_fHorizantalRotationValue = 0;
             return;
         }
 
@@ -141,6 +145,9 @@ public class PlayerController : MonoBehaviour
 
             if (GameManager.m_bGrandmaRush)
                 gameManager.SendMessage("GameEvent", GameEventID.S1_Grandma_Rush);
+
+            if (GameManager.m_bToiletGhostHasShow)
+                gameManager.SendMessage("GameEvent", GameEventID.S1_Toilet_Ghost_Hide);
         }
     }
 
@@ -159,19 +166,28 @@ public class PlayerController : MonoBehaviour
 
         audioSource.volume = 1f;
         audioSource.loop = false; // 設置是否循環播放音效
-
     }
 
     void View()
     {
         // 左右轉
-        tfTransform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * m_fRLSensitivity * fSensitivityAmplifier * Time.deltaTime);
+        if (m_bLimitRotation)
+        {
+            m_fHorizantalRotationValue += Input.GetAxis("Mouse X") * m_fRLSensitivity * fSensitivityAmplifier * Time.deltaTime;
+            m_fHorizantalRotationValue = Mathf.Clamp(m_fHorizantalRotationValue, m_fHorizantalRotationRange.x, m_fHorizantalRotationRange.y);
 
-        m_fLookRotation += Input.GetAxis("Mouse Y") * m_fUDSensitivity * fSensitivityAmplifier * Time.deltaTime;
-        m_fLookRotation = Mathf.Clamp(m_fLookRotation, -75, 75);
+            tfTransform.localEulerAngles = Vector3.up * m_fHorizantalRotationValue;
+        }
+        else
+        {
+            tfTransform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * m_fRLSensitivity * fSensitivityAmplifier * Time.deltaTime);
+        }
 
         // 上下轉
-        tfPlayerCamera.localEulerAngles = -Vector3.right * m_fLookRotation;
+        m_fVerticalRotationValue += Input.GetAxis("Mouse Y") * m_fUDSensitivity * fSensitivityAmplifier * Time.deltaTime;
+        m_fVerticalRotationValue = Mathf.Clamp(m_fVerticalRotationValue, -75, 75);
+
+        tfPlayerCamera.localEulerAngles = -Vector3.right * m_fVerticalRotationValue;
     }
 
     void Move()

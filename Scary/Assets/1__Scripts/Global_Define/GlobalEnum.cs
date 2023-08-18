@@ -17,6 +17,9 @@ public enum GameEventID
     S1_GrandmaRoomKey,
     S1_Rice_Funeral,
     S1_Rice_Funeral_Spilled,
+    S1_Toilet_Door_Lock,
+    S1_Toilet_Door_Open,
+    S1_Toilet_Ghost_Hide,
 }
 
 public enum HintItemID
@@ -36,6 +39,7 @@ public enum HintItemID
     S1_Grandma_Room_Door_Lock,
     S1_Rice_Funeral_Spilled,
     S1_Photo_Frame,
+    S1_Toilet_Door,
 }
 public enum ObjItemID
 {
