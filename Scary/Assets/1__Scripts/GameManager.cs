@@ -175,16 +175,16 @@ public partial class GameManager : MonoBehaviour
                 GameObject LieGrandmaObj = GameObject.Find("Lie_Grandma_Body");
                 Destroy(LieGrandmaObj);*/
 
-                // 相框UI(紹威)
+                // 紹威 (道具UI : 相框)
 
 
                 // 人形黑影
                 ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Ghost_In");
                 m_bToiletGhostHasShow = true;
-                playerCtrlr.m_bLimitRotation = true;
-                playerCtrlr.m_fHorizantalRotationRange.x = 150f;
-                playerCtrlr.m_fHorizantalRotationRange.y = 200f;
-                playerCtrlr.tfTransform.localEulerAngles = Vector3.up * 169f;
+                //playerCtrlr.m_bLimitRotation = true;
+                //playerCtrlr.m_fHorizantalRotationRange.x = 150f;
+                //playerCtrlr.m_fHorizantalRotationRange.y = 200f;
+                //playerCtrlr.tfTransform.localEulerAngles = Vector3.up * 169f;
                 break;
             case GameEventID.S1_Grandma_Door_Open:
                 ProcessAnimator("Grandma_Room_Door", "DoorOpen");
@@ -282,7 +282,7 @@ public partial class GameManager : MonoBehaviour
                 ShowObj(ObjItemID.S1_Rice);
                 break;
             case GameEventID.S1_Toilet_Door_Lock:
-                Debug.Log("廁所門被鎖住了");
+                // 紹威 (字幕 : 廁所門被鎖住了)
                 break;
             case GameEventID.S1_Toilet_Door_Open:
                 ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Open");
@@ -346,6 +346,8 @@ public partial class GameManager : MonoBehaviour
                 break;
             case HintItemID.S1_Toilet_Door:
                 TempItem = GameObject.Find("Toilet_Door_Ghost").GetComponent<ItemController>();
+                TempItem.bAlwaysActive = false;
+                TempItem.eventID = GameEventID.S1_Toilet_Door_Open;
                 break;
         }
 
@@ -491,9 +493,7 @@ public partial class GameManager : MonoBehaviour
         //ProcessDialog("Flowchart (3)");
         flowchartObjects[5].gameObject.SetActive(true);
 
-        TempItem = GameObject.Find("Toilet_Door").GetComponent<ItemController>();
-        TempItem.bAlwaysActive = false;
-        TempItem.eventID = GameEventID.S1_Toilet_Door_Open;
+        ShowHint(HintItemID.S1_Toilet_Door);
     }
 
     void KeyboardCheck()
