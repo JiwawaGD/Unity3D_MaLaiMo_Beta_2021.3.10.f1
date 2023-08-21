@@ -4,19 +4,27 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using static UnityEditor.Rendering.CameraUI;
 using UnityEngine.Rendering;
+using System.Linq;
+using System;
 //using UnityEngine.Rendering.Universal;
 
 public partial class GameManager : MonoBehaviour
 {
+    [Header("物件移動速度")] public float objSpeed;
+    [Header("旋轉物件collider")] public Collider Ro_Cololider;
+
     [Header("全域變數")] public Volume postProcessVolume;
     [Header("濾鏡效果種類")] public VolumeProfile[] profile;
     [Header("可查看觸發物件")] public GameObject[] itemObj;
     [Header("物件位置")] public GameObject itemObjTransform;
 
-    [SerializeField] [Header("玩家")] PlayerController playerCtrlr;
+    [Header("生成後物件")] public GameObject[] RO_OBJ;
+    //public GameObject[] RO_OBJ_I;
+
+    [SerializeField][Header("玩家")] PlayerController playerCtrlr;
     //[SerializeField] [Header("UI 圖片庫")] Sprite[] UISprite;
-    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
-    [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
+    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField][Header("設定頁面")] public GameObject settingObjects;
     //[SerializeField] [Header("音效撥放清單")] AudioClip[] audioClip;
     //[SerializeField] [Header("音效撥放器")] AudioSource[] audioSources;
     //[SerializeField] [Header("GM 欄位腳本")] GMField gmField;
@@ -72,6 +80,9 @@ public partial class GameManager : MonoBehaviour
 
     void Awake()
     {
+
+        RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
+        SortRO_OBJByName();
         if (playerCtrlr == null)
             playerCtrlr = GameObject.Find("Player").GetComponent<PlayerController>();
 
@@ -179,6 +190,7 @@ public partial class GameManager : MonoBehaviour
 
 
                 // 人形黑影
+                Ro_Cololider = RO_OBJ[2].GetComponent<Collider>();
                 ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Ghost_In");
                 m_bToiletGhostHasShow = true;
                 //playerCtrlr.m_bLimitRotation = true;
@@ -195,11 +207,9 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Lotus_Paper:
                 UIState(UIItemID.S1_Lotus_Paper, true);
                 ShowEnterGame(true);
+                ShowObj(ObjItemID.S1_Lotus_Paper);
                 AUDManager.instance.PlayerLotusPaperSFX();
-                //if (r_bEnable && isUIOpen && Input.GetKeyDown(KeyCode.E))
-                //{
-                //    ButtonFunction(ButtonEventID.Enter_Game);
-                //}
+                Ro_Cololider = RO_OBJ[1].GetComponent<Collider>();
                 break;
             case GameEventID.S1_Grandma_Dead_Body:
                 UIState(UIItemID.S1_Grandma_Dead_Body, true);
@@ -208,7 +218,7 @@ public partial class GameManager : MonoBehaviour
                 GameObject RiceFuneralObj = GameObject.Find("Rice_Funeral");
                 Destroy(RiceFuneralObj);
 
-                Object RiceFuneralSpilled = Resources.Load<GameObject>("Prefabs/Rice_Funeral_Spilled");
+                UnityEngine.Object RiceFuneralSpilled = Resources.Load<GameObject>("Prefabs/Rice_Funeral_Spilled");
                 GameObject RiceFuneralSpilledObj = Instantiate(RiceFuneralSpilled) as GameObject;
                 RiceFuneralSpilledObj.transform.position = new Vector3(-4.4f, 0.006f, 11.8f);
                 RiceFuneralSpilledObj.name = "Rice_Funeral_Spilled";
@@ -279,7 +289,8 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S1_Filial_Piety_Curtain);
                 flowchartObjects[11].gameObject.SetActive(true);
                 UIState(UIItemID.S1_Grandma_Dead_Body, true);
-                ShowObj(ObjItemID.S1_Rice);
+                ShowObj(ObjItemID.S1_Rice_Funeral);
+                Ro_Cololider = RO_OBJ[0].GetComponent<Collider>();
                 break;
             case GameEventID.S1_Toilet_Door_Lock:
                 // 紹威 (字幕 : 廁所門被鎖住了)
@@ -363,8 +374,18 @@ public partial class GameManager : MonoBehaviour
     {
         switch (O_ItemID)
         {
-            case ObjItemID.S1_Rice:
-                Instantiate(itemObj[0], itemObjTransform.transform.position, itemObjTransform.transform.rotation);
+            case ObjItemID.S1_Rice_Funeral:
+                //RO_OBJ[0].transform
+                //RO_OBJ[0] = Instantiate(itemObj[0], itemObjTransform.transform.position, itemObjTransform.transform.rotation);
+                break;
+            case ObjItemID.S1_Lotus_Paper:
+                Vector3 newPosition = new Vector3(-5.65f, 1.04f, -1.984f);
+                Quaternion newRoation = Quaternion.Euler(177.1f, 175.853f, 55.56f);
+                //RO_OBJ[1] = Instantiate(itemObj[1], newPosition, newRoation);
+                break;
+            case ObjItemID.S1_Photo_Frame:
+                Quaternion newRoation_Photo = Quaternion.Euler(0, 180f, 0);
+                //RO_OBJ[2] = Instantiate(itemObj[2], itemObjTransform.transform.position, newRoation_Photo);
                 break;
         }
     }
@@ -480,7 +501,7 @@ public partial class GameManager : MonoBehaviour
         playerCtrlr.tfPlayerCamera.gameObject.SetActive(true);
         SceneManager.UnloadSceneAsync(3);
 
-        Object Lotus_state_Final = Resources.Load<GameObject>("Prefabs/Lotus_state_Final");
+        UnityEngine.Object Lotus_state_Final = Resources.Load<GameObject>("Prefabs/Lotus_state_Final");
         GameObject LotusObj = Instantiate(Lotus_state_Final) as GameObject;
         LotusObj.transform.position = new Vector3(-5.2f, 0.6f, -2.4f);
 
@@ -503,12 +524,12 @@ public partial class GameManager : MonoBehaviour
             if (m_bInUIView)
             {
                 GameEvent(GameEventID.Close_UI);
-                //GameObject[] itemsToDelete = GameObject.FindGameObjectsWithTag("ItemObj");
-                //// 刪除每個物件Tag為ItemObj的物件
-                //foreach (GameObject item in itemsToDelete)
-                //{
-                //    Destroy(item);
-                //}
+                GameObject[] itemsToDelete = GameObject.FindGameObjectsWithTag("ItemObj");
+                // 刪除每個物件Tag為ItemObj的物件
+                foreach (GameObject item in itemsToDelete)
+                {
+                    Destroy(item);
+                }
                 ///////////////////////////
             }
             else
@@ -564,5 +585,30 @@ public partial class GameManager : MonoBehaviour
         //Instantiate(objToShow, itemObjTransform.position, itemObjTransform.rotation, itemObjTransform);
         // 如果需要調整物件的位置、縮放等屬性，可以在這裡進行設置
         //}
+    }
+    public void DestroyImmediateLo()
+    {
+        RO_OBJ[1].SetActive(false);
+    }
+    private void SortRO_OBJByName()
+    {
+        Array.Sort(RO_OBJ, CompareGameObjectNames);
+    }
+    private int CompareGameObjectNames(GameObject x, GameObject y)
+    {
+        string[] names = { "RO_Rice_Funeral", "RO_Lotus_Paper", "RO_Photo_Frame", };
+
+        int xIndex = Array.IndexOf(names, x.name);
+        int yIndex = Array.IndexOf(names, y.name);
+
+        return xIndex.CompareTo(yIndex);
+    }
+    IEnumerator MoveToPosition()
+    {
+        while (gameObject.transform.localPosition != new Vector3(20, 5, 0))
+        {
+            gameObject.transform.localPosition = Vector3.MoveTowards(gameObject.transform.localPosition, new Vector3(20, 5, 0), objSpeed * Time.deltaTime);
+            yield return 0;
+        }
     }
 }

@@ -46,7 +46,9 @@ public enum ObjItemID
     Empty = 0,
 
     // S1 : Scene_1
-    S1_Rice,
+    S1_Rice_Funeral,
+    S1_Lotus_Paper,
+    S1_Photo_Frame,
 }
 
 public enum UIItemID

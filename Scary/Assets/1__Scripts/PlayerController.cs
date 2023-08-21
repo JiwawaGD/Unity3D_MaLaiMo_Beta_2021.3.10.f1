@@ -3,6 +3,13 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+    float verticalRotationSpeed = 45f; // 垂直旋轉速度
+    bool isRotatingHorizontally = true; // 是否正在水平旋轉
+    bool isRotatingVertically = false; // 是否正在垂直旋轉
+    bool rotateOnXAxis = true; // 是否繞X軸旋轉，預設為true
+    float rotationSpeed = 45f; // 初始旋轉速度
+    public Transform ro_tfItemObj;
+
     public float cameraSwaySmoothing = 10f;
     public float cameraSwayAmount = 0.5f;
     public float cameraSwaySpeed = 1.5f;
@@ -28,6 +35,7 @@ public class PlayerController : MonoBehaviour
     // Const value
     readonly float m_fMoveSpeed = 90f;
     readonly float m_fRayLength = 1.5f;
+    readonly float ro_ItemObjRayLenght = 1.5f;
     readonly int m_iInteractiveLayer = 10;
     readonly Vector3 v3_zero = Vector3.zero;
 
@@ -40,6 +48,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool m_bCursorShow;
     [HideInInspector] public bool m_bCanControl;
     [HideInInspector] public bool m_bRayOnItem;
+    [HideInInspector] public bool m_bRayOnItemObj;
 
     Vector3 v3_MoveValue;
     Vector3 v3_MovePos;
@@ -48,6 +57,7 @@ public class PlayerController : MonoBehaviour
     public Transform tfTransform;
     Rigidbody rig;
     RaycastHit hit;
+    RaycastHit hit2;
     Animation ani;
 
     ItemController current_Item;
@@ -231,6 +241,45 @@ public class PlayerController : MonoBehaviour
                                        out hit,                     // RaycastHit
                                        m_fRayLength);               // RayLength
 
+        //m_bRayOnItemObj = Physics.Raycast(ro_tfItemObj.position,     // Origin
+        //                               ro_tfItemObj.forward,      // Direction
+        //                               out hit2,                     // RaycastHit
+        //                               ro_ItemObjRayLenght); // RayLength
+
+        if (m_bRayOnItemObj && hit2.collider.CompareTag("ItemObj"))
+        {
+            //Debug.Log("321321321321");
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                StartRotationTimer();
+            }
+            if (Input.GetKey(KeyCode.L))
+            {
+                RotateCubeHorization(hit.transform);
+            }
+            if (Input.GetKeyUp(KeyCode.L))
+            {
+                StopRotationTimer();
+            }
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                StartRotationTimer();
+                isRotatingVertically = true; // 開始垂直旋轉
+            }
+            if (Input.GetKey(KeyCode.K))
+            {
+                if (isRotatingVertically)
+                {
+                    RotateCubeVertically(hit2.transform, verticalRotationSpeed); // 垂直旋轉
+                }
+            }
+            if (Input.GetKeyUp(KeyCode.K))
+            {
+                StopRotationTimer();
+                isRotatingVertically = false; // 停止垂直旋轉
+            }
+
+        }
         if (m_bRayOnItem && hit.transform.gameObject.layer == m_iInteractiveLayer)
         {
             current_Item = hit.transform.gameObject.GetComponent<ItemController>();
@@ -264,5 +313,36 @@ public class PlayerController : MonoBehaviour
     {
         PlaySound(walkingSound);
     }
+    float rotationTimer = 0f;
+    void RotateCubeHorization(Transform cubeTransform)
+    {
+        // 這裡假設最大旋轉速度為 360 度/秒
+        float maxRotationSpeed = 360f;
 
+        // 旋轉角度根據持續時間來決定
+        float rotationAngle = rotationSpeed * Time.deltaTime;
+
+        rotationAngle = Mathf.Clamp(rotationAngle, 0f, maxRotationSpeed * Time.deltaTime);
+
+        Quaternion rotation = Quaternion.Euler(0f, rotationAngle, 0f);
+        cubeTransform.rotation *= rotation;
+
+        rotationTimer += Time.deltaTime;
+        rotationSpeed = Mathf.Lerp(45f, maxRotationSpeed, rotationTimer / 1f);
+    }
+    void StartRotationTimer()
+    {
+        rotationTimer = 0f;
+    }
+    void StopRotationTimer()
+    {
+        rotationTimer = 0f;
+        rotationSpeed = 45f; // 重置旋轉速度
+    }
+    void RotateCubeVertically(Transform cubeTransform, float roatationSpeed)
+    {
+        float rotationAmount = roatationSpeed * Time.deltaTime;
+        Quaternion rotation = Quaternion.Euler(rotationAmount, 0f, 0f);
+        cubeTransform.rotation *= rotation;
+    }
 }
