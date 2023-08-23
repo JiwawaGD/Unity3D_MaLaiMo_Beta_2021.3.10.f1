@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -48,7 +49,6 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool m_bCursorShow;
     [HideInInspector] public bool m_bCanControl;
     [HideInInspector] public bool m_bRayOnItem;
-    [HideInInspector] public bool m_bRayOnItemObj;
 
     Vector3 v3_MoveValue;
     Vector3 v3_MovePos;
@@ -240,22 +240,19 @@ public class PlayerController : MonoBehaviour
                                        tfPlayerCamera.forward,      // Direction
                                        out hit,                     // RaycastHit
                                        m_fRayLength);               // RayLength
-
-        //m_bRayOnItemObj = Physics.Raycast(ro_tfItemObj.position,     // Origin
-        //                               ro_tfItemObj.forward,      // Direction
-        //                               out hit2,                     // RaycastHit
-        //                               ro_ItemObjRayLenght); // RayLength
-
-        if (m_bRayOnItemObj && hit2.collider.CompareTag("ItemObj"))
+        if (gameManager.GetM_bInUIView())
         {
-            //Debug.Log("321321321321");
             if (Input.GetKeyDown(KeyCode.L))
             {
                 StartRotationTimer();
             }
             if (Input.GetKey(KeyCode.L))
             {
-                RotateCubeHorization(hit.transform);
+                // 檢查是否有擊中物體，以及要旋轉的物體不是 null
+                if (hit.transform != null)
+                {
+                    RotateCubeHorization(hit.transform);
+                }
             }
             if (Input.GetKeyUp(KeyCode.L))
             {
@@ -268,9 +265,10 @@ public class PlayerController : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.K))
             {
-                if (isRotatingVertically)
+                // 檢查要垂直旋轉的物體不是 null
+                if (isRotatingVertically && gameManager.RO_OBJ[gameManager.saveRotaObj] != null)
                 {
-                    RotateCubeVertically(hit2.transform, verticalRotationSpeed); // 垂直旋轉
+                    RotateCubeVertically(gameManager.RO_OBJ[gameManager.saveRotaObj].transform, verticalRotationSpeed);
                 }
             }
             if (Input.GetKeyUp(KeyCode.K))

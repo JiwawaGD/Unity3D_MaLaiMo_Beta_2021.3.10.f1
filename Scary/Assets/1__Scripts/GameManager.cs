@@ -6,10 +6,17 @@ using static UnityEditor.Rendering.CameraUI;
 using UnityEngine.Rendering;
 using System.Linq;
 using System;
+using DG.Tweening;
+using UnityEngine.UIElements;
+using Unity.VisualScripting;
 //using UnityEngine.Rendering.Universal;
 
 public partial class GameManager : MonoBehaviour
 {
+    private bool isMovingObject = false;
+    public Vector3 originalPosition;
+    public Quaternion originalRotation;
+
     [Header("物件移動速度")] public float objSpeed;
     [Header("旋轉物件collider")] public Collider Ro_Cololider;
 
@@ -19,6 +26,7 @@ public partial class GameManager : MonoBehaviour
     [Header("物件位置")] public GameObject itemObjTransform;
 
     [Header("生成後物件")] public GameObject[] RO_OBJ;
+    [Header("儲存生成物件")] public int saveRotaObj;
     //public GameObject[] RO_OBJ_I;
 
     [SerializeField][Header("玩家")] PlayerController playerCtrlr;
@@ -38,20 +46,20 @@ public partial class GameManager : MonoBehaviour
 
     #region Canvas Zone
     [SerializeField] GameObject goCanvas;
-    [SerializeField] Image imgUIBackGround;
+    [SerializeField] UnityEngine.UI.Image imgUIBackGround;
     //[SerializeField] Image imgUIDisplay;
     //[SerializeField] Image titleImg;
     [SerializeField] Text txtTitle;
 
-    [SerializeField] Image imgInstructions;
+    [SerializeField] UnityEngine.UI.Image imgInstructions;
     [SerializeField] Text txtInstructions;
     //[SerializeField] Image imgScendInstructions;
     //[SerializeField] Image imgIntroduceBackground;
     [SerializeField] Text txtIntroduce;
 
-    [SerializeField] Button ExitBtn;
+    [SerializeField] UnityEngine.UI.Button ExitBtn;
     [SerializeField] Text txtEnterGameHint;
-    [SerializeField] Button EnterGameBtn;
+    [SerializeField] UnityEngine.UI.Button EnterGameBtn;
     #endregion
 
     #region Light Zone
@@ -89,22 +97,22 @@ public partial class GameManager : MonoBehaviour
         if (goCanvas == null)
             goCanvas = GameObject.Find("UI Canvas");
 
-        imgUIBackGround = goCanvas.transform.GetChild(0).GetComponent<Image>();
+        imgUIBackGround = goCanvas.transform.GetChild(0).GetComponent<UnityEngine.UI.Image>();
         //imgUIDisplay = goCanvas.transform.GetChild(1).GetComponent<Image>();
         //titleImg = goCanvas.transform.GetChild(2).GetComponent<Image>();
         txtTitle = goCanvas.transform.GetChild(2).GetComponent<Text>();
 
-        imgInstructions = goCanvas.transform.GetChild(3).GetComponent<Image>();
+        imgInstructions = goCanvas.transform.GetChild(3).GetComponent<UnityEngine.UI.Image>();
         txtInstructions = goCanvas.transform.GetChild(3).GetComponentInChildren<Text>();
         //imgScendInstructions = goCanvas.transform.GetChild(2).GetComponentInChildren<Image>();
 
         //imgIntroduceBackground = goCanvas.transform.GetChild(4).GetComponent<Image>();
         txtIntroduce = goCanvas.transform.GetChild(4).GetComponentInChildren<Text>();
 
-        ExitBtn = goCanvas.transform.GetChild(5).GetComponent<Button>();
+        ExitBtn = goCanvas.transform.GetChild(5).GetComponent<UnityEngine.UI.Button>();
 
         txtEnterGameHint = goCanvas.transform.GetChild(6).GetComponent<Text>();
-        EnterGameBtn = goCanvas.transform.GetChild(7).GetComponent<Button>();
+        EnterGameBtn = goCanvas.transform.GetChild(7).GetComponent<UnityEngine.UI.Button>();
 
         TempItem = null;
 
@@ -190,7 +198,10 @@ public partial class GameManager : MonoBehaviour
 
 
                 // 人形黑影
-                Ro_Cololider = RO_OBJ[2].GetComponent<Collider>();
+                originalPosition = RO_OBJ[saveRotaObj].transform.position;
+                originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
+                Ro_Cololider = RO_OBJ[1].GetComponent<Collider>();
+                saveRotaObj = 1; isMovingObject = true;
                 ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Ghost_In");
                 m_bToiletGhostHasShow = true;
                 //playerCtrlr.m_bLimitRotation = true;
@@ -205,11 +216,15 @@ public partial class GameManager : MonoBehaviour
                 flowchartObjects[4].gameObject.SetActive(true);
                 break;
             case GameEventID.S1_Lotus_Paper:
+                Ro_Cololider = RO_OBJ[0].GetComponent<Collider>();
+                originalPosition = RO_OBJ[saveRotaObj].transform.position;
+                originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
+                saveRotaObj = 0; isMovingObject = true;
                 UIState(UIItemID.S1_Lotus_Paper, true);
                 ShowEnterGame(true);
                 ShowObj(ObjItemID.S1_Lotus_Paper);
                 AUDManager.instance.PlayerLotusPaperSFX();
-                Ro_Cololider = RO_OBJ[1].GetComponent<Collider>();
+
                 break;
             case GameEventID.S1_Grandma_Dead_Body:
                 UIState(UIItemID.S1_Grandma_Dead_Body, true);
@@ -281,6 +296,8 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Rice_Funeral_Spilled:
                 // 查看腳尾飯後的行為
                 // 1. 亮蠟燭
+                RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
+                SortRO_OBJByName();
                 ShowHint(HintItemID.S1_Lotus_Paper);
                 m_bPlayLotusEnable = true;
                 flowchartObjects[8].gameObject.SetActive(true);
@@ -291,6 +308,10 @@ public partial class GameManager : MonoBehaviour
                 UIState(UIItemID.S1_Grandma_Dead_Body, true);
                 ShowObj(ObjItemID.S1_Rice_Funeral);
                 Ro_Cololider = RO_OBJ[0].GetComponent<Collider>();
+                originalPosition = RO_OBJ[saveRotaObj].transform.position;
+                originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
+                saveRotaObj = 0; isMovingObject = true;
+
                 break;
             case GameEventID.S1_Toilet_Door_Lock:
                 // 紹威 (字幕 : 廁所門被鎖住了)
@@ -375,17 +396,14 @@ public partial class GameManager : MonoBehaviour
         switch (O_ItemID)
         {
             case ObjItemID.S1_Rice_Funeral:
-                //RO_OBJ[0].transform
-                //RO_OBJ[0] = Instantiate(itemObj[0], itemObjTransform.transform.position, itemObjTransform.transform.rotation);
+                RO_OBJ[saveRotaObj].transform.DOMove(new Vector3(itemObjTransform.transform.position.x, itemObjTransform.transform.position.y, itemObjTransform.transform.position.z), 2);
                 break;
             case ObjItemID.S1_Lotus_Paper:
-                Vector3 newPosition = new Vector3(-5.65f, 1.04f, -1.984f);
-                Quaternion newRoation = Quaternion.Euler(177.1f, 175.853f, 55.56f);
+                RO_OBJ[saveRotaObj].transform.DOMove(new Vector3(itemObjTransform.transform.position.x, itemObjTransform.transform.position.y, itemObjTransform.transform.position.z), 2);
                 //RO_OBJ[1] = Instantiate(itemObj[1], newPosition, newRoation);
                 break;
             case ObjItemID.S1_Photo_Frame:
-                Quaternion newRoation_Photo = Quaternion.Euler(0, 180f, 0);
-                //RO_OBJ[2] = Instantiate(itemObj[2], itemObjTransform.transform.position, newRoation_Photo);
+                RO_OBJ[saveRotaObj].transform.DOMove(new Vector3(itemObjTransform.transform.position.x, itemObjTransform.transform.position.y, itemObjTransform.transform.position.z), 2);
                 break;
         }
     }
@@ -408,6 +426,8 @@ public partial class GameManager : MonoBehaviour
 
         txtIntroduce.text = GlobalDeclare.UIIntroduce[iItemID];
         txtInstructions.text = GlobalDeclare.TxtInstructionsmage[iItemID];
+
+        GetM_bInUIView();
 
         //titleImg.color = r_bEnable ? new Color(63, 0, 0, .18f) : new Color(63, 0, 0, 0);
         //imgScendInstructions.color = r_bEnable ? new Color(255, 255, 255, 1) : new Color(255, 255, 255, 0);
@@ -523,14 +543,19 @@ public partial class GameManager : MonoBehaviour
         {
             if (m_bInUIView)
             {
-                GameEvent(GameEventID.Close_UI);
-                GameObject[] itemsToDelete = GameObject.FindGameObjectsWithTag("ItemObj");
-                // 刪除每個物件Tag為ItemObj的物件
-                foreach (GameObject item in itemsToDelete)
+                
+                if (!isMovingObject)
                 {
-                    Destroy(item);
+                    GameEvent(GameEventID.Close_UI);                
                 }
-                ///////////////////////////
+                else
+                {
+                    GameEvent(GameEventID.Close_UI);
+                    RO_OBJ[saveRotaObj].transform.DOMove(originalPosition, 2);
+                    RO_OBJ[saveRotaObj].transform.DORotate(originalRotation.eulerAngles, 2);
+                    isMovingObject = false;             
+                }
+
             }
             else
             {
@@ -576,7 +601,6 @@ public partial class GameManager : MonoBehaviour
             ShowHint(HintItemID.S1_Lotus_Paper);
         }
     }
-
     public void ShowItemObject(GameObject objToShow)
     {
         // 將指定的物件顯示在 itemObjTransform 的位置
@@ -596,19 +620,23 @@ public partial class GameManager : MonoBehaviour
     }
     private int CompareGameObjectNames(GameObject x, GameObject y)
     {
-        string[] names = { "RO_Rice_Funeral", "RO_Lotus_Paper", "RO_Photo_Frame", };
+        string[] names = { "Rice_Funeral", "Lotus_Paper", "Photo_Frame", };
 
         int xIndex = Array.IndexOf(names, x.name);
         int yIndex = Array.IndexOf(names, y.name);
 
         return xIndex.CompareTo(yIndex);
     }
-    IEnumerator MoveToPosition()
+    //IEnumerator MoveToPosition()
+    //{
+    //    while (gameObject.transform.localPosition != new Vector3(20, 5, 0))
+    //    {
+    //        gameObject.transform.localPosition = Vector3.MoveTowards(gameObject.transform.localPosition, new Vector3(20, 5, 0), objSpeed * Time.deltaTime);
+    //        yield return 0;
+    //    }
+    //}
+    public bool GetM_bInUIView()
     {
-        while (gameObject.transform.localPosition != new Vector3(20, 5, 0))
-        {
-            gameObject.transform.localPosition = Vector3.MoveTowards(gameObject.transform.localPosition, new Vector3(20, 5, 0), objSpeed * Time.deltaTime);
-            yield return 0;
-        }
+        return m_bInUIView;
     }
 }
