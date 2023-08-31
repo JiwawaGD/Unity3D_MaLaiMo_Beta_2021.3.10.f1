@@ -314,7 +314,8 @@ public partial class GameManager : MonoBehaviour
 
                 break;
             case GameEventID.S1_Toilet_Door_Lock:
-                // 紹威 (字幕 : 廁所門被鎖住了)
+                flowchartObjects[12].gameObject.SetActive(true);    // (字幕 : 廁所門被鎖住了)
+
                 break;
             case GameEventID.S1_Toilet_Door_Open:
                 ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Open");
