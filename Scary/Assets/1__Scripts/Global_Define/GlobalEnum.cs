@@ -75,3 +75,12 @@ public enum PlayerAnimateType
     Player_Wake_Up,
     Player_Turn_After_Photo_Frame,
 }
+public enum IntelligenceLevel
+{
+    Unknown = 0,
+    Level1 = 1,
+    Level2 = 2,
+    Level3 = 3,
+    Level4 = 4,
+    Level5 = 5
+}
