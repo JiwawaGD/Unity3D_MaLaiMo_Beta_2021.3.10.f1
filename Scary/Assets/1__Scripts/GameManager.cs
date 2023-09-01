@@ -17,6 +17,8 @@ public partial class GameManager : MonoBehaviour
     public Vector3 originalPosition;
     public Quaternion originalRotation;
 
+    [SerializeField][Header("欲製物 - Schedule")] Text prefabs_Schedule;
+
     [Header("物件移動速度")] public float objSpeed;
     [Header("旋轉物件collider")] public Collider Ro_Cololider;
 
@@ -118,6 +120,8 @@ public partial class GameManager : MonoBehaviour
         TempItem = null;
 
         currentScene = SceneManager.GetActiveScene();
+        prefabs_Schedule.text = "?????????";
+
     }
 
     void Start()
@@ -130,6 +134,7 @@ public partial class GameManager : MonoBehaviour
         ShowHint(HintItemID.S1_Light_Switch);
         ShowHint(HintItemID.S1_Grandma_Room_Door_Lock);
         ShowHint(HintItemID.S1_Toilet_Door);
+        prefabs_Schedule.text = "當前目標:調查房間";
     }
 
     void Update()
@@ -152,6 +157,7 @@ public partial class GameManager : MonoBehaviour
 
     public void GameEvent(GameEventID r_eventID)
     {
+        string[] scheduleText = GlobalDeclare.ScheduleText;
         switch (r_eventID)
         {
             case GameEventID.Close_UI:
@@ -176,15 +182,15 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Photo_Frame:
                 UIState(UIItemID.S1_Photo_Frame, true);
                 // 紹威 (道具UI : 相框)
+                originalPosition = RO_OBJ[saveRotaObj].transform.position;
+                originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
+                Ro_Cololider = RO_OBJ[1].GetComponent<Collider>();
+                saveRotaObj = 1; isMovingObject = true;
 
                 // 人形黑影
                 ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Ghost_In");
                 m_bToiletGhostHasShow = true;
 
-                originalPosition = RO_OBJ[saveRotaObj].transform.position;
-                originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
-                Ro_Cololider = RO_OBJ[1].GetComponent<Collider>();
-                saveRotaObj = 1; isMovingObject = true;
 
                 // 限制角色視角
                 //playerCtrlr.m_bLimitRotation = true;
@@ -226,6 +232,8 @@ public partial class GameManager : MonoBehaviour
                 RiceFuneralSpilledObj.name = "Rice_Funeral_Spilled";
 
                 ShowHint(HintItemID.S1_Rice_Funeral_Spilled);
+                prefabs_Schedule.text = scheduleText[2];
+
                 break;
             case GameEventID.S1_White_Tent:
                 ProcessAnimator("Filial_Piety_Curtain", "Filial_piety_curtain Open");
@@ -279,6 +287,7 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S1_Desk_Drawer);
                 flowchartObjects[1].gameObject.SetActive(true);
                 AUDManager.instance.PlayerDoorLockSFX();
+                prefabs_Schedule.text = scheduleText[0];
                 break;
             case GameEventID.S1_Rice_Funeral_Spilled:
                 // 查看腳尾飯後的行為
@@ -288,6 +297,7 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S1_Lotus_Paper);
                 m_bPlayLotusEnable = true;
                 flowchartObjects[8].gameObject.SetActive(true);
+                prefabs_Schedule.text = scheduleText[3];
                 break;
             case GameEventID.S1_Rice_Funeral:
                 ShowHint(HintItemID.S1_Filial_Piety_Curtain);
@@ -309,6 +319,7 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S1_Photo_Frame);
                 BoxCollider ToiletDoorCollider = GameObject.Find("Toilet_Door_Ghost").GetComponent<BoxCollider>();
                 ToiletDoorCollider.enabled = false;
+                prefabs_Schedule.text = scheduleText[1];
                 break;
             case GameEventID.S1_Toilet_Ghost_Hide:
                 ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Ghost_Out");

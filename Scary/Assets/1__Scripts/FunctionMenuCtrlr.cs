@@ -17,9 +17,7 @@ public class FunctionMenuCtrlr : MonoBehaviour
     [SerializeField] [Header("子物件 - Setting")] GameObject Child_Setting;
     [SerializeField] [Header("子物件 - Team")] GameObject Child_Team;
     [SerializeField] [Header("子物件 - EndGame")] GameObject Child_EndGame;
-    [SerializeField][Header("子物件 - Schedule")] GameObject Child_Schedule;
 
-    [SerializeField][Header("欲製物 - Schedule")] Text prefabs_Schedule;
 
     GameManager gm;
     Scene currentScene;
