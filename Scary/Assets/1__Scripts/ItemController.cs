@@ -103,10 +103,10 @@ public class ItemController : MonoBehaviour
 
     void ItemDisable()
     {
-        SetItemInteractive(false);
-
         if (bAlwaysActive)
             return;
+
+        SetItemInteractive(false);
 
         bActive = false;
         HintObj.SetActive(bActive);

@@ -29,10 +29,10 @@ public partial class GameManager : MonoBehaviour
     [Header("儲存生成物件")] public int saveRotaObj;
     //public GameObject[] RO_OBJ_I;
 
-    [SerializeField][Header("玩家")] PlayerController playerCtrlr;
+    [SerializeField] [Header("玩家")] PlayerController playerCtrlr;
     //[SerializeField] [Header("UI 圖片庫")] Sprite[] UISprite;
-    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
-    [SerializeField][Header("設定頁面")] public GameObject settingObjects;
+    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
     //[SerializeField] [Header("音效撥放清單")] AudioClip[] audioClip;
     //[SerializeField] [Header("音效撥放器")] AudioSource[] audioSources;
     //[SerializeField] [Header("GM 欄位腳本")] GMField gmField;
@@ -78,6 +78,7 @@ public partial class GameManager : MonoBehaviour
     public static bool m_bReturnToBegin = false;
     public static bool m_bPlayLotusEnable = false;
     public static bool m_bToiletGhostHasShow = false;
+    public static bool m_bWaitToiletGhostHandPush = false;
     #endregion
 
     bool isPaused = false;
@@ -88,9 +89,9 @@ public partial class GameManager : MonoBehaviour
 
     void Awake()
     {
-
         RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
         SortRO_OBJByName();
+
         if (playerCtrlr == null)
             playerCtrlr = GameObject.Find("Player").GetComponent<PlayerController>();
 
@@ -128,6 +129,7 @@ public partial class GameManager : MonoBehaviour
 
         ShowHint(HintItemID.S1_Light_Switch);
         ShowHint(HintItemID.S1_Grandma_Room_Door_Lock);
+        ShowHint(HintItemID.S1_Toilet_Door);
     }
 
     void Update()
@@ -173,41 +175,26 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Photo_Frame:
                 UIState(UIItemID.S1_Photo_Frame, true);
-                //flowchartObjects[9].gameObject.SetActive(true);
-
-                /* 1.0 版相框後續處理
-                Transform tfPlayer = playerCtrlr.transform;
-                tfPlayer.position = new Vector3(-4.5f, 0.8f, 1f);
-                tfPlayer.rotation = Quaternion.Euler(0, 180, 0);
-                tfPlayer.GetChild(0).rotation = Quaternion.Euler(0, 180, 0);
-
-                // Show grandma
-                tfGrandmaGhost = GameObject.Find("Grandma_Ghost").transform;
-                ParticleSystem psMist_Partical = GameObject.Find("Mist_Partical").GetComponent<ParticleSystem>();
-                tfGrandmaGhost.Translate(0f, 100f, 0f);
-                psMist_Partical.Play();
-
-                m_bGrandmaRush = true;
-                m_bShowPlayerAnimate = true;
-                GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Player_Turn_After_Photo_Frame);
-
-                GameObject LieGrandmaObj = GameObject.Find("Lie_Grandma_Body");
-                Destroy(LieGrandmaObj);*/
-
                 // 紹威 (道具UI : 相框)
 
-
                 // 人形黑影
+                ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Ghost_In");
+                m_bToiletGhostHasShow = true;
+
                 originalPosition = RO_OBJ[saveRotaObj].transform.position;
                 originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
                 Ro_Cololider = RO_OBJ[1].GetComponent<Collider>();
                 saveRotaObj = 1; isMovingObject = true;
-                ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Ghost_In");
-                m_bToiletGhostHasShow = true;
+
+                // 限制角色視角
                 //playerCtrlr.m_bLimitRotation = true;
                 //playerCtrlr.m_fHorizantalRotationRange.x = 150f;
                 //playerCtrlr.m_fHorizantalRotationRange.y = 200f;
                 //playerCtrlr.tfTransform.localEulerAngles = Vector3.up * 169f;
+
+                // 鬼手出現
+                GameObject GhostHandObj = GameObject.Find("Ghost_Hand");
+                GhostHandObj.transform.position = new Vector3(-8.5f, 0, 6);
                 break;
             case GameEventID.S1_Grandma_Door_Open:
                 ProcessAnimator("Grandma_Room_Door", "DoorOpen");
@@ -327,6 +314,11 @@ public partial class GameManager : MonoBehaviour
                 ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Ghost_Out");
                 m_bToiletGhostHasShow = false;
                 playerCtrlr.m_bLimitRotation = false;
+                m_bWaitToiletGhostHandPush = true;
+                break;
+            case GameEventID.S1_Toilet_Ghost_Hand_Push:
+                m_bWaitToiletGhostHandPush = false;
+                ProcessAnimator("Ghost_Hand", "Ghost_Hand_Push");
                 break;
         }
     }
@@ -379,8 +371,6 @@ public partial class GameManager : MonoBehaviour
                 break;
             case HintItemID.S1_Toilet_Door:
                 TempItem = GameObject.Find("Toilet_Door_Ghost").GetComponent<ItemController>();
-                TempItem.bAlwaysActive = false;
-                TempItem.eventID = GameEventID.S1_Toilet_Door_Open;
                 break;
         }
 
@@ -476,7 +466,7 @@ public partial class GameManager : MonoBehaviour
         isUIOpen = r_bEnable;
         EnterGameBtn.gameObject.SetActive(r_bEnable);
         txtEnterGameHint.gameObject.SetActive(r_bEnable);
-        txtEnterGameHint.text = r_bEnable ? "---- R進入遊戲 ----" : "";
+        txtEnterGameHint.text = r_bEnable ? "---- R 進入遊戲 ----" : "";
     }
 
     public void ButtonFunction(ButtonEventID _eventID)
@@ -535,7 +525,9 @@ public partial class GameManager : MonoBehaviour
         //ProcessDialog("Flowchart (3)");
         flowchartObjects[5].gameObject.SetActive(true);
 
-        ShowHint(HintItemID.S1_Toilet_Door);
+        TempItem = GameObject.Find("Toilet_Door_Ghost").GetComponent<ItemController>();
+        TempItem.bAlwaysActive = false;
+        TempItem.eventID = GameEventID.S1_Toilet_Door_Open;
     }
 
     void KeyboardCheck()
@@ -544,19 +536,17 @@ public partial class GameManager : MonoBehaviour
         {
             if (m_bInUIView)
             {
-                
                 if (!isMovingObject)
                 {
-                    GameEvent(GameEventID.Close_UI);                
+                    GameEvent(GameEventID.Close_UI);
                 }
                 else
                 {
                     GameEvent(GameEventID.Close_UI);
                     RO_OBJ[saveRotaObj].transform.DOMove(originalPosition, 2);
                     RO_OBJ[saveRotaObj].transform.DORotate(originalRotation.eulerAngles, 2);
-                    isMovingObject = false;             
+                    isMovingObject = false;
                 }
-
             }
             else
             {
@@ -602,6 +592,7 @@ public partial class GameManager : MonoBehaviour
             ShowHint(HintItemID.S1_Lotus_Paper);
         }
     }
+
     public void ShowItemObject(GameObject objToShow)
     {
         // 將指定的物件顯示在 itemObjTransform 的位置
@@ -611,14 +602,17 @@ public partial class GameManager : MonoBehaviour
         // 如果需要調整物件的位置、縮放等屬性，可以在這裡進行設置
         //}
     }
+
     public void DestroyImmediateLo()
     {
         RO_OBJ[1].SetActive(false);
     }
+
     private void SortRO_OBJByName()
     {
         Array.Sort(RO_OBJ, CompareGameObjectNames);
     }
+
     private int CompareGameObjectNames(GameObject x, GameObject y)
     {
         string[] names = { "Rice_Funeral", "Lotus_Paper", "Photo_Frame", };
@@ -628,6 +622,7 @@ public partial class GameManager : MonoBehaviour
 
         return xIndex.CompareTo(yIndex);
     }
+
     //IEnumerator MoveToPosition()
     //{
     //    while (gameObject.transform.localPosition != new Vector3(20, 5, 0))
@@ -636,6 +631,7 @@ public partial class GameManager : MonoBehaviour
     //        yield return 0;
     //    }
     //}
+
     public bool GetM_bInUIView()
     {
         return m_bInUIView;

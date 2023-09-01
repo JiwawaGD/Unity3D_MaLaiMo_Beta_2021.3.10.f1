@@ -20,6 +20,7 @@ public enum GameEventID
     S1_Toilet_Door_Lock,
     S1_Toilet_Door_Open,
     S1_Toilet_Ghost_Hide,
+    S1_Toilet_Ghost_Hand_Push,
 }
 
 public enum HintItemID

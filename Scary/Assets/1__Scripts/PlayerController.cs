@@ -150,14 +150,19 @@ public class PlayerController : MonoBehaviour
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("GameEventTrigger"))
         {
-            if (GameManager.m_bPhotoFrameLightOn)
-                gameManager.SendMessage("GameEvent", GameEventID.S1_Photo_Frame_Light_On);
-
-            if (GameManager.m_bGrandmaRush)
-                gameManager.SendMessage("GameEvent", GameEventID.S1_Grandma_Rush);
-
-            if (GameManager.m_bToiletGhostHasShow)
+            if (GameManager.m_bToiletGhostHasShow && 
+                col.gameObject.name == "Toilet_Ghost_Hide")
+            {
                 gameManager.SendMessage("GameEvent", GameEventID.S1_Toilet_Ghost_Hide);
+                Destroy(col.gameObject);
+            }
+
+            if (GameManager.m_bWaitToiletGhostHandPush && 
+                col.gameObject.name == "Toilet_Ghost_Hand_Push")
+            {
+                gameManager.SendMessage("GameEvent", GameEventID.S1_Toilet_Ghost_Hand_Push);
+                Destroy(col.gameObject);
+            }
         }
     }
 
@@ -235,11 +240,13 @@ public class PlayerController : MonoBehaviour
 
     // Ray check for item interact
     void RayHitCheck()
+
     {
         m_bRayOnItem = Physics.Raycast(tfPlayerCamera.position,     // Origin
                                        tfPlayerCamera.forward,      // Direction
                                        out hit,                     // RaycastHit
                                        m_fRayLength);               // RayLength
+
         if (gameManager.GetM_bInUIView())
         {
             if (Input.GetKeyDown(KeyCode.L))
@@ -302,15 +309,18 @@ public class PlayerController : MonoBehaviour
                 last_Item.SetItemInteractive(false);
         }
     }
+
     void PlaySound(AudioClip clip)
     {
         audioSource.clip = clip;
         audioSource.Play();
     }
+
     void PlayWalkingSound()
     {
         PlaySound(walkingSound);
     }
+
     float rotationTimer = 0f;
     void RotateCubeHorization(Transform cubeTransform)
     {
@@ -328,15 +338,18 @@ public class PlayerController : MonoBehaviour
         rotationTimer += Time.deltaTime;
         rotationSpeed = Mathf.Lerp(45f, maxRotationSpeed, rotationTimer / 1f);
     }
+
     void StartRotationTimer()
     {
         rotationTimer = 0f;
     }
+
     void StopRotationTimer()
     {
         rotationTimer = 0f;
         rotationSpeed = 45f; // 重置旋轉速度
     }
+
     void RotateCubeVertically(Transform cubeTransform, float roatationSpeed)
     {
         float rotationAmount = roatationSpeed * Time.deltaTime;
