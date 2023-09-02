@@ -278,6 +278,7 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_GrandmaRoomKey:
                 ShowHint(HintItemID.S1_Grandma_Room_Door);
                 AUDManager.instance.GetTheKeySFX();
+                prefabs_Schedule.text = scheduleText[1];
                 flowchartObjects[3].gameObject.SetActive(true);
                 GameObject GrandmaRoomKeyObj = GameObject.Find("Grandma_Room_Key");
                 Destroy(GrandmaRoomKeyObj);
@@ -319,7 +320,6 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S1_Photo_Frame);
                 BoxCollider ToiletDoorCollider = GameObject.Find("Toilet_Door_Ghost").GetComponent<BoxCollider>();
                 ToiletDoorCollider.enabled = false;
-                prefabs_Schedule.text = scheduleText[1];
                 break;
             case GameEventID.S1_Toilet_Ghost_Hide:
                 ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Ghost_Out");
