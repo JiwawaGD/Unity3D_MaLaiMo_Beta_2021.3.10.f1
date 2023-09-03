@@ -185,7 +185,7 @@ public class PlayerController : MonoBehaviour
 
     void View()
     {
-        // 左右轉
+        // 左右轉 (只轉 *角色* )
         if (m_bLimitRotation)
         {
             m_fHorizantalRotationValue += Input.GetAxis("Mouse X") * m_fRLSensitivity * fSensitivityAmplifier * Time.deltaTime;
@@ -198,7 +198,7 @@ public class PlayerController : MonoBehaviour
             tfTransform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * m_fRLSensitivity * fSensitivityAmplifier * Time.deltaTime);
         }
 
-        // 上下轉
+        // 上下轉 (只轉 *攝影機* )
         m_fVerticalRotationValue += Input.GetAxis("Mouse Y") * m_fUDSensitivity * fSensitivityAmplifier * Time.deltaTime;
         m_fVerticalRotationValue = Mathf.Clamp(m_fVerticalRotationValue, -75, 75);
 

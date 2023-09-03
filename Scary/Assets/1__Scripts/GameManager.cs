@@ -17,7 +17,7 @@ public partial class GameManager : MonoBehaviour
     public Vector3 originalPosition;
     public Quaternion originalRotation;
 
-    [SerializeField][Header("欲製物 - Schedule")] Text prefabs_Schedule;
+    [SerializeField] [Header("欲製物 - Schedule")] Text prefabs_Schedule;
 
     [Header("物件移動速度")] public float objSpeed;
     [Header("旋轉物件collider")] public Collider Ro_Cololider;
@@ -74,6 +74,7 @@ public partial class GameManager : MonoBehaviour
     public static bool m_bShowPlayerAnimate = false;
     public static bool m_bShowItemAnimate = false;
     public static bool m_bShowDialog = false;
+    public static bool m_bSetPlayerViewLimit = false;
 
     public static bool m_bPhotoFrameLightOn = false;
     public static bool m_bGrandmaRush = false;
@@ -134,6 +135,11 @@ public partial class GameManager : MonoBehaviour
         ShowHint(HintItemID.S1_Light_Switch);
         ShowHint(HintItemID.S1_Grandma_Room_Door_Lock);
         ShowHint(HintItemID.S1_Toilet_Door);
+
+        TempItem = GameObject.Find("Toilet_Door_Ghost").GetComponent<ItemController>();
+        TempItem.bAlwaysActive = false;
+        TempItem.eventID = GameEventID.S1_Toilet_Door_Open;
+
         prefabs_Schedule.text = "當前目標:調查房間";
     }
 
@@ -158,6 +164,7 @@ public partial class GameManager : MonoBehaviour
     public void GameEvent(GameEventID r_eventID)
     {
         string[] scheduleText = GlobalDeclare.ScheduleText;
+
         switch (r_eventID)
         {
             case GameEventID.Close_UI:
@@ -177,6 +184,9 @@ public partial class GameManager : MonoBehaviour
                 if (m_bShowDialog)
                     ProcessDialog(GlobalDeclare.GetDialogObjName());
 
+                if (m_bSetPlayerViewLimit)
+                    SetPlayerViewLimit(true, GlobalDeclare.PlayerCameraLimit.GetPlayerCameraLimit());
+
                 GameStateCheck();
                 break;
             case GameEventID.S1_Photo_Frame:
@@ -191,12 +201,9 @@ public partial class GameManager : MonoBehaviour
                 ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Ghost_In");
                 m_bToiletGhostHasShow = true;
 
-
                 // 限制角色視角
-                //playerCtrlr.m_bLimitRotation = true;
-                //playerCtrlr.m_fHorizantalRotationRange.x = 150f;
-                //playerCtrlr.m_fHorizantalRotationRange.y = 200f;
-                //playerCtrlr.tfTransform.localEulerAngles = Vector3.up * 169f;
+                m_bSetPlayerViewLimit = true;
+                GlobalDeclare.PlayerCameraLimit.SetPlayerCameraLimit(150f, 250f, 160f);
 
                 // 鬼手出現
                 GameObject GhostHandObj = GameObject.Find("Ghost_Hand");
@@ -308,7 +315,8 @@ public partial class GameManager : MonoBehaviour
                 Ro_Cololider = RO_OBJ[0].GetComponent<Collider>();
                 originalPosition = RO_OBJ[saveRotaObj].transform.position;
                 originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
-                saveRotaObj = 0; isMovingObject = true;
+                saveRotaObj = 0;
+                isMovingObject = true;
 
                 break;
             case GameEventID.S1_Toilet_Door_Lock:
@@ -326,6 +334,7 @@ public partial class GameManager : MonoBehaviour
                 m_bToiletGhostHasShow = false;
                 playerCtrlr.m_bLimitRotation = false;
                 m_bWaitToiletGhostHandPush = true;
+                GlobalDeclare.PlayerCameraLimit.ClearValue();
                 break;
             case GameEventID.S1_Toilet_Ghost_Hand_Push:
                 m_bWaitToiletGhostHandPush = false;
@@ -472,6 +481,20 @@ public partial class GameManager : MonoBehaviour
         GlobalDeclare.SetDialogObjName("Empty");
     }
 
+    public void SetPlayerViewLimit(bool bLimitRotation, float[] fViewLimit)
+    {
+        m_bSetPlayerViewLimit = false;
+        playerCtrlr.m_bLimitRotation = bLimitRotation;
+        playerCtrlr.m_fHorizantalRotationRange.x = fViewLimit[0];
+        playerCtrlr.m_fHorizantalRotationRange.y = fViewLimit[1];
+
+        if (bLimitRotation)
+        {
+            playerCtrlr.tfTransform.localEulerAngles = Vector3.up * fViewLimit[2];
+            Debug.Log("Value : " + fViewLimit[2]);
+        }
+    }
+
     public void ShowEnterGame(bool r_bEnable)
     {
         isUIOpen = r_bEnable;
@@ -531,7 +554,6 @@ public partial class GameManager : MonoBehaviour
         LotusDestory.transform.position = new Vector3(-5f, -2f, -2f);
 
         m_bPhotoFrameLightOn = true;
-        //ShowHint(HintItemID.S1_Photo_Frame);
 
         //ProcessDialog("Flowchart (3)");
         flowchartObjects[5].gameObject.SetActive(true);

@@ -78,6 +78,48 @@
     }
     #endregion
 
+    #region 玩家視角限制
+    public class PlayerCameraLimit
+    {
+        public static float fMinView;
+        public static float fMaxView;
+        public static float fCurrentEulerAngles;
+
+        public PlayerCameraLimit()
+        {
+            fMinView = 0f;
+            fMaxView = 0f;
+            fCurrentEulerAngles = 0f;
+        }
+
+        public static void SetPlayerCameraLimit(float r_fMinView, float r_fMaxView, float r_fLocalEulerAngles)
+        {
+            fMinView = r_fMinView;
+            fMaxView = r_fMaxView;
+            fCurrentEulerAngles = r_fLocalEulerAngles;
+        }
+
+        public static float[] GetPlayerCameraLimit()
+        {
+            float[] TempFloats = new float[3];
+
+            TempFloats[0] = fMinView;
+            TempFloats[1] = fMaxView;
+            TempFloats[2] = fCurrentEulerAngles;
+
+            return TempFloats;
+        }
+
+        public static void ClearValue()
+        {
+            fMinView = 0;
+            fMaxView = 0;
+            fCurrentEulerAngles = 0;
+        }
+    }
+
+    #endregion
+
     public readonly static string[] StoryMessage = new string[]
     {
         "我的阿嬤，在我很小的時候就過世了",
