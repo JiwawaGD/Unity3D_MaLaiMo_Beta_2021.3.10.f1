@@ -192,10 +192,12 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Photo_Frame:
                 UIState(UIItemID.S1_Photo_Frame, true);
                 // 紹威 (道具UI : 相框)
+                //Debug.Log("1111111111111111111");
+                saveRotaObj = 2; isMovingObject = true;
                 originalPosition = RO_OBJ[saveRotaObj].transform.position;
                 originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
-                Ro_Cololider = RO_OBJ[1].GetComponent<Collider>();
-                saveRotaObj = 1; isMovingObject = true;
+                Ro_Cololider = RO_OBJ[2].GetComponent<Collider>();
+                ShowObj(ObjItemID.S1_Photo_Frame);
 
                 // 人形黑影
                 ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Ghost_In");
@@ -216,10 +218,11 @@ public partial class GameManager : MonoBehaviour
                 flowchartObjects[4].gameObject.SetActive(true);
                 break;
             case GameEventID.S1_Lotus_Paper:
-                Ro_Cololider = RO_OBJ[0].GetComponent<Collider>();
+                saveRotaObj = 1;
+                isMovingObject = true;
+                Ro_Cololider = RO_OBJ[1].GetComponent<Collider>();
                 originalPosition = RO_OBJ[saveRotaObj].transform.position;
                 originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
-                saveRotaObj = 0; isMovingObject = true;
                 UIState(UIItemID.S1_Lotus_Paper, true);
                 ShowEnterGame(true);
                 ShowObj(ObjItemID.S1_Lotus_Paper);
@@ -655,15 +658,6 @@ public partial class GameManager : MonoBehaviour
 
         return xIndex.CompareTo(yIndex);
     }
-
-    //IEnumerator MoveToPosition()
-    //{
-    //    while (gameObject.transform.localPosition != new Vector3(20, 5, 0))
-    //    {
-    //        gameObject.transform.localPosition = Vector3.MoveTowards(gameObject.transform.localPosition, new Vector3(20, 5, 0), objSpeed * Time.deltaTime);
-    //        yield return 0;
-    //    }
-    //}
 
     public bool GetM_bInUIView()
     {
