@@ -17514,11 +17514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_Intensity
-<<<<<<< Updated upstream
       value: 1.7498474
-=======
-      value: 2
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_AreaSize.x
@@ -17535,10 +17531,6 @@ PrefabInstance:
     - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_Shadows.m_Type
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
-      propertyPath: m_ColorTemperature
-      value: 8106
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091552, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_UseColorTemperature
@@ -17606,11 +17598,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091553, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_LocalPosition.y
-<<<<<<< Updated upstream
       value: 2.821
-=======
-      value: 2.815
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 1971745162374091553, guid: 3302713c681f3ec478e6aeada81b543d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -17676,11 +17664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< Updated upstream
   m_Intensity: 1.7498474
-=======
-  m_Intensity: 2
->>>>>>> Stashed changes
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
@@ -18297,70 +18281,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4429ab7b8dab58143b8ce5fa236e1661, type: 3}
---- !u!1 &488163822
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 488163823}
-  - component: {fileID: 488163824}
-  m_Layer: 0
-  m_Name: Local Volumetric Fog
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &488163823
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 488163822}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.054, y: 1.262, z: -1.935}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1330796662}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &488163824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 488163822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1fbb15bf92b84f40a1eb030765b5afe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parameters:
-    albedo: {r: 1, g: 0, b: 0.048888683, a: 1}
-    meanFreePath: 150
-    anisotropy: 0
-    volumeMask: {fileID: 0}
-    textureScrollingSpeed: {x: 0, y: 0, z: 0}
-    textureTiling: {x: 1, y: 1, z: 1}
-    positiveFade: {x: 0, y: 0, z: 0}
-    negativeFade: {x: 0, y: 0, z: 0}
-    m_EditorUniformFade: 0
-    m_EditorPositiveFade: {x: 0.27692306, y: 0.20333333, z: 0.17945008}
-    m_EditorNegativeFade: {x: 0.19560438, y: 0.14, z: 0.052098412}
-    m_EditorAdvancedFade: 0
-    size: {x: 4.55, y: 3, z: 6.91}
-    invertFade: 0
-    distanceFadeStart: 50
-    distanceFadeEnd: 60
-    textureOffset: {x: 0, y: 0, z: 0}
-    falloffMode: 0
-  m_Version: 2
 --- !u!1 &493419612
 GameObject:
   m_ObjectHideFlags: 0
@@ -18707,15 +18627,9 @@ MonoBehaviour:
       rangeCompressionFactor: 1
     influence:
       m_Shape: 0
-<<<<<<< Updated upstream
       m_BoxSize: {x: 2.84, y: 4.5, z: 11}
       m_BoxBlendDistancePositive: {x: -0, y: -0, z: -0}
       m_BoxBlendDistanceNegative: {x: -0, y: -0, z: -0}
-=======
-      m_BoxSize: {x: 2.26, y: 4, z: 10.63}
-      m_BoxBlendDistancePositive: {x: 0.2, y: 0.2, z: 0.2}
-      m_BoxBlendDistanceNegative: {x: 0.2, y: 0.2, z: 0.2}
->>>>>>> Stashed changes
       m_BoxBlendNormalDistancePositive: {x: 0, y: 0, z: 0}
       m_BoxBlendNormalDistanceNegative: {x: 0, y: 0, z: 0}
       m_BoxSideFadePositive: {x: 1, y: 1, z: 1}
@@ -18725,7 +18639,7 @@ MonoBehaviour:
       m_SphereBlendNormalDistance: 0
       m_EditorAdvancedModeBlendDistancePositive: {x: 1, y: 1, z: 1}
       m_EditorAdvancedModeBlendDistanceNegative: {x: 1, y: 1, z: 1}
-      m_EditorSimplifiedModeBlendDistance: 0.2
+      m_EditorSimplifiedModeBlendDistance: -0
       m_EditorAdvancedModeBlendNormalDistancePositive: {x: 0, y: 0, z: 0}
       m_EditorAdvancedModeBlendNormalDistanceNegative: {x: 0, y: 0, z: 0}
       m_EditorSimplifiedModeBlendNormalDistance: 0
@@ -18744,11 +18658,7 @@ MonoBehaviour:
       m_ObsoleteBoxInfiniteProjection: 0
     proxySettings:
       useInfluenceVolumeAsProxyVolume: 0
-<<<<<<< Updated upstream
       capturePositionProxySpace: {x: 3.37, y: -0.07, z: 0}
-=======
-      capturePositionProxySpace: {x: 3.3, y: -0.27, z: 0}
->>>>>>> Stashed changes
       captureRotationProxySpace: {x: 0, y: 0, z: 0, w: 1}
       mirrorPositionProxySpace: {x: 0, y: 0, z: 0}
       mirrorRotationProxySpace: {x: 0, y: 0, z: 0, w: 0}
@@ -19103,11 +19013,7 @@ ReflectionProbe:
   m_TimeSlicingMode: 0
   m_Resolution: 128
   m_UpdateFrequency: 0
-<<<<<<< Updated upstream
   m_BoxSize: {x: 2.84, y: 4.5, z: 11}
-=======
-  m_BoxSize: {x: 2.26, y: 4, z: 10.63}
->>>>>>> Stashed changes
   m_BoxOffset: {x: 0, y: 0, z: 0}
   m_NearClip: 0.3
   m_FarClip: 1000
@@ -28955,19 +28861,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 964834857}
-  m_LocalRotation: {x: 0.29883623, y: -0.64085644, z: 0.29883623, w: 0.64085644}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 18.86, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1256690876}
-<<<<<<< Updated upstream
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
-=======
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 50, y: -90, z: 0}
->>>>>>> Stashed changes
 --- !u!114 &964834859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29145,13 +29046,9 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
-  m_ColorTemperature: 5989
+  m_ColorTemperature: 6570
   m_UseColorTemperature: 1
-<<<<<<< Updated upstream
   m_BoundingSphereOverride: {x: 1, y: 1, z: 1, w: 1}
-=======
-  m_BoundingSphereOverride: {x: 0, y: 3.4e-44, z: 0, w: 1.9602888e-19}
->>>>>>> Stashed changes
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -36449,11 +36346,7 @@ Transform:
   m_Children:
   - {fileID: 200508679}
   - {fileID: 1413610614}
-<<<<<<< Updated upstream
   - {fileID: 399295235}
-=======
-  - {fileID: 488163823}
->>>>>>> Stashed changes
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
