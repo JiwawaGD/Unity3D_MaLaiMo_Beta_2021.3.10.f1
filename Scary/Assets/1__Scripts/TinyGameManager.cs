@@ -25,4 +25,15 @@ public partial class GameManager : MonoBehaviour
         GrandmaRoomKey.transform.position = new Vector3(-6.8f, 0.8f, -14f);
         ShowHint(HintItemID.S1_Grandma_Room_Key);
     }
+
+    public void IvkProcessPlayerFallingAnimator()
+    {
+        ProcessPlayerAnimator("Player_Falling_In_Bathroom");
+        Invoke(nameof(IvkProcessPlayerWakeUpSecondTime), 2f);
+    }
+
+    public void IvkProcessPlayerWakeUpSecondTime()
+    {
+        ProcessPlayerAnimator("Player_Wake_Up_SecondTime");
+    }
 }

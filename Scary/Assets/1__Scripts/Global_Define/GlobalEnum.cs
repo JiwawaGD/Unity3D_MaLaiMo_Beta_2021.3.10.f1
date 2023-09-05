@@ -41,6 +41,7 @@ public enum HintItemID
     S1_Rice_Funeral_Spilled,
     S1_Photo_Frame,
     S1_Toilet_Door,
+    S1_Toilet_GhostHand_Trigger,
 }
 public enum ObjItemID
 {

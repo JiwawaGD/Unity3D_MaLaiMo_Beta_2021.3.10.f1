@@ -136,10 +136,6 @@ public partial class GameManager : MonoBehaviour
         ShowHint(HintItemID.S1_Grandma_Room_Door_Lock);
         ShowHint(HintItemID.S1_Toilet_Door);
 
-        TempItem = GameObject.Find("Toilet_Door_Ghost").GetComponent<ItemController>();
-        TempItem.bAlwaysActive = false;
-        TempItem.eventID = GameEventID.S1_Toilet_Door_Open;
-
         prefabs_Schedule.text = "當前目標:調查房間";
     }
 
@@ -338,10 +334,16 @@ public partial class GameManager : MonoBehaviour
                 playerCtrlr.m_bLimitRotation = false;
                 m_bWaitToiletGhostHandPush = true;
                 GlobalDeclare.PlayerCameraLimit.ClearValue();
+                ShowHint(HintItemID.S1_Toilet_GhostHand_Trigger);
+
+                // 觸發器
+                GameObject GhostHandTriggerObj = GameObject.Find("Ghost_Hand_Trigger");
+                GhostHandTriggerObj.transform.position = new Vector3(-8.5f, 0.1f, 6.1f);
                 break;
             case GameEventID.S1_Toilet_Ghost_Hand_Push:
                 m_bWaitToiletGhostHandPush = false;
-                ProcessAnimator("Ghost_Hand", "Ghost_Hand_Push");
+                ProcessItemAnimator("Ghost_Hand", "Ghost_Hand_Push");
+                Invoke(nameof(IvkProcessPlayerFallingAnimator), 0.2f);
                 break;
         }
     }
@@ -394,6 +396,9 @@ public partial class GameManager : MonoBehaviour
                 break;
             case HintItemID.S1_Toilet_Door:
                 TempItem = GameObject.Find("Toilet_Door_Ghost").GetComponent<ItemController>();
+                break;
+            case HintItemID.S1_Toilet_GhostHand_Trigger:
+                TempItem = GameObject.Find("Ghost_Hand_Trigger").GetComponent<ItemController>();
                 break;
         }
 
@@ -462,6 +467,17 @@ public partial class GameManager : MonoBehaviour
 
         GlobalDeclare.SetItemAniObject("Empty");
         GlobalDeclare.SetItemAniName("Empty");
+        m_bShowItemAnimate = false;
+    }
+
+    public void ProcessItemAnimator(string r_strObject, string r_strTriggerName)
+    {
+        if (r_strObject.Contains("null") || r_strTriggerName.Contains("null"))
+            return;
+
+        GameObject obj = GameObject.Find(r_strObject);
+        Animator ani = obj.transform.GetComponent<Animator>();
+        ani.SetTrigger(r_strTriggerName);
         m_bShowItemAnimate = false;
     }
 
