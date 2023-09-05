@@ -156,13 +156,6 @@ public class PlayerController : MonoBehaviour
                 gameManager.SendMessage("GameEvent", GameEventID.S1_Toilet_Ghost_Hide);
                 Destroy(col.gameObject);
             }
-
-            if (GameManager.m_bWaitToiletGhostHandPush && 
-                col.gameObject.name == "Toilet_Ghost_Hand_Push")
-            {
-                gameManager.SendMessage("GameEvent", GameEventID.S1_Toilet_Ghost_Hand_Push);
-                Destroy(col.gameObject);
-            }
         }
     }
 
