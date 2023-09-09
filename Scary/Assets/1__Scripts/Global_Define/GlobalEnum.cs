@@ -58,6 +58,7 @@ public enum UIItemID
     Empty = 0,
 
     // S1 : Scene_1
+    S1_Rice_Funeral,
     S1_Photo_Frame,
     S1_Lotus_Paper,
     S1_Grandma_Dead_Body,

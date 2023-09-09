@@ -309,7 +309,7 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Rice_Funeral:
                 ShowHint(HintItemID.S1_Filial_Piety_Curtain);
                 flowchartObjects[11].gameObject.SetActive(true);
-                UIState(UIItemID.S1_Grandma_Dead_Body, true);
+                UIState(UIItemID.S1_Rice_Funeral, true);
                 ShowObj(ObjItemID.S1_Rice_Funeral);
                 Ro_Cololider = RO_OBJ[0].GetComponent<Collider>();
                 originalPosition = RO_OBJ[saveRotaObj].transform.position;

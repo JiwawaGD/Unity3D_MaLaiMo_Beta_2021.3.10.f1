@@ -129,6 +129,7 @@
     public readonly static string[] UITitle = new string[]
     {
         "",
+        "腳尾飯",
         "阿嬤的照片",
         "折蓮花專用紙",
         "阿嬤",
@@ -147,6 +148,12 @@
     public readonly static string[] UIIntroduce = new string[]
     {
         "",
+
+        "民間習俗中拜腳尾飯,\r\n" +
+        "是於亡者腳邊放置白米飯一碗，\r\n"+
+        "飯上放一顆熟鴨(雞)蛋，\r\n" +
+        "並直插筷子一雙，其意是供亡靈食用，\r\n" +
+        "讓亡靈吃飽飯好趕赴陰間報到，以入冥籍。\r\n",
 
         "阿嬤生日時爸爸幫阿嬤拍的照片。",
 
