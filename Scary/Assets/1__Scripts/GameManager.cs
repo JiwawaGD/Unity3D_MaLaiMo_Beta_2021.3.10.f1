@@ -18,7 +18,7 @@ public partial class GameManager : MonoBehaviour
 {
     private float targetIntensity = 1f; // 目標強度值
     private float currentIntensity = 0.3f; // 當前強度值
-    public float changeSpeed = 0.1f; // 強度改變速度
+    public float changeSpeed = 1f; // 強度改變速度
 
     private bool isMovingObject = false;
     public Vector3 originalPosition;
@@ -222,8 +222,7 @@ public partial class GameManager : MonoBehaviour
                 flowchartObjects[4].gameObject.SetActive(true);
                 break;
             case GameEventID.S1_Lotus_Paper:
-                saveRotaObj = 1;
-                isMovingObject = true;
+                saveRotaObj = 1;isMovingObject = true;
                 Ro_Cololider = RO_OBJ[1].GetComponent<Collider>();
                 originalPosition = RO_OBJ[saveRotaObj].transform.position;
                 originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
@@ -234,16 +233,8 @@ public partial class GameManager : MonoBehaviour
 
                 break;
             case GameEventID.S1_Grandma_Dead_Body:
-                VolumeProfile profile = postProcessVolume.sharedProfile;
-
-                if (!profile.TryGet<Vignette>(out var vignette))
-                {
-                    vignette = profile.Add<Vignette>(false);
-                }
-                vignette.intensity.value = 1;
-                
-
-                UIState(UIItemID.S1_Grandma_Dead_Body, true);
+                StopReadding();
+                //UIState(UIItemID.S1_Grandma_Dead_Body, true);
                 flowchartObjects[6].gameObject.SetActive(true);
 
                 GameObject RiceFuneralObj = GameObject.Find("Rice_Funeral");
@@ -256,6 +247,8 @@ public partial class GameManager : MonoBehaviour
 
                 ShowHint(HintItemID.S1_Rice_Funeral_Spilled);
                 prefabs_Schedule.text = scheduleText[2];
+                //KeepstoryReadding();
+                
 
                 break;
             case GameEventID.S1_White_Tent:
@@ -695,5 +688,48 @@ public partial class GameManager : MonoBehaviour
     public bool GetM_bInUIView()
     {
         return m_bInUIView;
+    }
+
+    public void StopReadding()
+    {
+        playerCtrlr.m_bCanControl = false;
+        playerCtrlr.m_bLimitRotation = true;
+        StartCoroutine(ChangeVignetteIntensity());
+    }
+    private IEnumerator ChangeVignetteIntensity()
+    {
+        VolumeProfile profile = postProcessVolume.sharedProfile;
+        Vignette vignette;
+
+        if (profile.TryGet<Vignette>(out vignette))
+        {
+            float currentIntensity = vignette.intensity.value;
+            float elapsedTime = 0f;
+
+            while (elapsedTime < 1f)
+            {
+                vignette.intensity.value = Mathf.Lerp(currentIntensity, targetIntensity, elapsedTime);
+                vignette.smoothness.value = Mathf.Lerp(currentIntensity, targetIntensity, elapsedTime);
+                vignette.roundness.value = Mathf.Lerp(currentIntensity, targetIntensity, elapsedTime);
+
+                elapsedTime += Time.deltaTime * changeSpeed;
+                yield return null;
+            }
+            playerCtrlr.m_bCanControl = true;
+            playerCtrlr.m_bLimitRotation = false;
+            KeepstoryReadding();
+        }
+    }
+    public void KeepstoryReadding()
+    {
+        VolumeProfile profile = postProcessVolume.sharedProfile;
+
+        if (!profile.TryGet<Vignette>(out var vignette))
+        {
+            vignette = profile.Add<Vignette>(false);
+        }
+        vignette.intensity.value = .1f;
+        vignette.smoothness.value = 0;
+        vignette.roundness.value = 0;
     }
 }
