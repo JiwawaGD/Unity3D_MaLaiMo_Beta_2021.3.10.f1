@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0025757162, g: 0.0025757162, b: 0.0025757162, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2171,13 +2171,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e02b3c08d6882dc468b94fb06f58f338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changeSpeed: 0.1
   originalPosition: {x: 0, y: 0, z: 0}
   originalRotation: {x: 0, y: 0, z: 0, w: 0}
   prefabs_Schedule: {fileID: 1442639429}
   objSpeed: 0
   Ro_Cololider: {fileID: 0}
   postProcessVolume: {fileID: 200508678}
-  profile: []
   itemObj:
   - {fileID: 504438018017090901, guid: ad7bad15301284a1da7ed54de03dfa76, type: 3}
   itemObjTransform: {fileID: 769173016}
@@ -60504,7 +60504,7 @@ PlayableDirector:
   m_GameObject: {fileID: 1951650508}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: a7f12e2ee78e88a48b3452687dde3909, type: 2}
+  m_PlayableAsset: {fileID: 0}
   m_InitialState: 1
   m_WrapMode: 2
   m_DirectorUpdateMode: 1

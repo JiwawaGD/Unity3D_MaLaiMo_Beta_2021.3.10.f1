@@ -9,10 +9,17 @@ using System;
 using DG.Tweening;
 using UnityEngine.UIElements;
 using Unity.VisualScripting;
+using UnityEngine.Rendering.HighDefinition;
+//using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Profiling;
 //using UnityEngine.Rendering.Universal;
 
 public partial class GameManager : MonoBehaviour
 {
+    private float targetIntensity = 1f; // 目標強度值
+    private float currentIntensity = 0.3f; // 當前強度值
+    public float changeSpeed = 0.1f; // 強度改變速度
+
     private bool isMovingObject = false;
     public Vector3 originalPosition;
     public Quaternion originalRotation;
@@ -23,7 +30,7 @@ public partial class GameManager : MonoBehaviour
     [Header("旋轉物件collider")] public Collider Ro_Cololider;
 
     [Header("全域變數")] public Volume postProcessVolume;
-    [Header("濾鏡效果種類")] public VolumeProfile[] profile;
+    //[Header("濾鏡效果種類")] public VolumeProfile[] profile;
     [Header("可查看觸發物件")] public GameObject[] itemObj;
     [Header("物件位置")] public GameObject itemObjTransform;
 
@@ -92,6 +99,7 @@ public partial class GameManager : MonoBehaviour
 
     void Awake()
     {
+        
         RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
         SortRO_OBJByName();
 
@@ -226,6 +234,15 @@ public partial class GameManager : MonoBehaviour
 
                 break;
             case GameEventID.S1_Grandma_Dead_Body:
+                VolumeProfile profile = postProcessVolume.sharedProfile;
+
+                if (!profile.TryGet<Vignette>(out var vignette))
+                {
+                    vignette = profile.Add<Vignette>(false);
+                }
+                vignette.intensity.value = 1;
+                
+
                 UIState(UIItemID.S1_Grandma_Dead_Body, true);
                 flowchartObjects[6].gameObject.SetActive(true);
 
