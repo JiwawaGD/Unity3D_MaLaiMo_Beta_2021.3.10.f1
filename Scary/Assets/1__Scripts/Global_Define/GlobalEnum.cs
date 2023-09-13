@@ -24,6 +24,8 @@ public enum GameEventID
 
     // S2 : Scene_2
     S2_Light_Switch,
+    S2_Room_Door_Lock,
+    S2_FlashLight,
 }
 
 public enum HintItemID
@@ -45,7 +47,13 @@ public enum HintItemID
     S1_Photo_Frame,
     S1_Toilet_Door,
     S1_Toilet_GhostHand_Trigger,
+
+    // S2 : Scene_2
+    S2_Light_Switch,
+    S2_Room_Door,
+    S2_FlashLight,
 }
+
 public enum ObjItemID
 {
     Empty = 0,

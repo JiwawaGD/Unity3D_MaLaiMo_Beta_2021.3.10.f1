@@ -355,6 +355,16 @@ public partial class GameManager : MonoBehaviour
                 ProcessItemAnimator("Ghost_Hand", "Ghost_Hand_Push");
                 Invoke(nameof(IvkProcessPlayerFallingAnimator), 0.2f);
                 break;
+            case GameEventID.S2_Light_Switch:
+                // 紹威 (燈不會亮 字幕)
+                break;
+            case GameEventID.S2_Room_Door_Lock:
+                // 紹威 (UI 門鎖住了 & 字幕)
+                break;
+            case GameEventID.S2_FlashLight:
+                // 手電筒消失 => 還不能亮燈
+                // 紹威 (手電筒不會亮 字幕)
+                break;
         }
     }
 
@@ -409,6 +419,15 @@ public partial class GameManager : MonoBehaviour
                 break;
             case HintItemID.S1_Toilet_GhostHand_Trigger:
                 TempItem = GameObject.Find("Ghost_Hand_Trigger").GetComponent<ItemController>();
+                break;
+            case HintItemID.S2_Light_Switch:
+                TempItem = GameObject.Find("S2_Light_Switch").GetComponent<ItemController>();
+                break;
+            case HintItemID.S2_Room_Door:
+                TempItem = GameObject.Find("S2_Room_Door").GetComponent<ItemController>();
+                break;
+            case HintItemID.S2_FlashLight:
+                TempItem = GameObject.Find("S2_FlashLight").GetComponent<ItemController>();
                 break;
         }
 
