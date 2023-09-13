@@ -29,7 +29,7 @@ public partial class GameManager : MonoBehaviour
     public void IvkProcessPlayerFallingAnimator()
     {
         ProcessPlayerAnimator("Player_Falling_In_Bathroom");
-        Invoke(nameof(IvkProcessPlayerWakeUpSecondTime), 2f);
+        Invoke(nameof(IvkProcessPlayerWakeUpSecondTime), 4f);
     }
 
     public void IvkProcessPlayerWakeUpSecondTime()

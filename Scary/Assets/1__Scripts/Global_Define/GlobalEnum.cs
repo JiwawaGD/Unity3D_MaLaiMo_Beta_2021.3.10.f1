@@ -21,6 +21,9 @@ public enum GameEventID
     S1_Toilet_Door_Open,
     S1_Toilet_Ghost_Hide,
     S1_Toilet_Ghost_Hand_Push,
+
+    // S2 : Scene_2
+    S2_Light_Switch,
 }
 
 public enum HintItemID
