@@ -95,11 +95,12 @@ public partial class GameManager : MonoBehaviour
     bool isMouseEnabled = false;
     bool bTriggerFlashlight = false;
     bool bTriggerGrandmaDoorLock = false;
+    bool bIsS1LightSwtichOK = false;
     public bool isUIOpen = false;
 
     void Awake()
     {
-        
+
         RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
         SortRO_OBJByName();
 
@@ -130,7 +131,6 @@ public partial class GameManager : MonoBehaviour
 
         currentScene = SceneManager.GetActiveScene();
         prefabs_Schedule.text = "?????????";
-
     }
 
     void Start()
@@ -222,7 +222,8 @@ public partial class GameManager : MonoBehaviour
                 flowchartObjects[4].gameObject.SetActive(true);
                 break;
             case GameEventID.S1_Lotus_Paper:
-                saveRotaObj = 1;isMovingObject = true;
+                saveRotaObj = 1; 
+                isMovingObject = true;
                 Ro_Cololider = RO_OBJ[1].GetComponent<Collider>();
                 originalPosition = RO_OBJ[saveRotaObj].transform.position;
                 originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
@@ -248,8 +249,6 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S1_Rice_Funeral_Spilled);
                 prefabs_Schedule.text = scheduleText[2];
                 //KeepstoryReadding();
-                
-
                 break;
             case GameEventID.S1_White_Tent:
                 ProcessAnimator("Filial_Piety_Curtain", "Filial_piety_curtain Open");
@@ -271,6 +270,7 @@ public partial class GameManager : MonoBehaviour
                 m_bGrandmaRush = false;
                 break;
             case GameEventID.S1_Light_Switch:
+                bIsS1LightSwtichOK = true;
                 flowchartObjects[2].gameObject.SetActive(true);
                 AUDManager.instance.PlayerLightSwitchSFX();
                 ShowHint(HintItemID.S1_Flashlight);
@@ -302,6 +302,7 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Grandma_Room_Door_Lock:
                 bTriggerGrandmaDoorLock = true;
                 ShowHint(HintItemID.S1_Desk_Drawer);
+                ShowHint(HintItemID.S1_Flashlight);
                 flowchartObjects[1].gameObject.SetActive(true);
                 AUDManager.instance.PlayerDoorLockSFX();
                 prefabs_Schedule.text = scheduleText[0];
@@ -382,6 +383,9 @@ public partial class GameManager : MonoBehaviour
                 TempItem.eventID = GameEventID.S1_Grandma_Door_Open;
                 break;
             case HintItemID.S1_Flashlight:
+                if (!bTriggerGrandmaDoorLock || !bIsS1LightSwtichOK)
+                    return;
+
                 TempItem = GameObject.Find("Flashlight").GetComponent<ItemController>();
                 break;
             case HintItemID.S1_Desk_Drawer:
