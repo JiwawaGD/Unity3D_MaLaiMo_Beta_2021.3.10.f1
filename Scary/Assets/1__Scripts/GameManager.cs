@@ -362,13 +362,15 @@ public partial class GameManager : MonoBehaviour
                 Invoke(nameof(IvkProcessPlayerFallingAnimator), 0.2f);
                 break;
             case GameEventID.S2_Light_Switch:
-                // 紹威 (燈不會亮 字幕)
+                flowchartObjects[13].gameObject.SetActive(true);    // 紹威 (燈不會亮 字幕)
                 break;
             case GameEventID.S2_Room_Door_Lock:
-                // 紹威 (UI 門鎖住了 & 字幕)
+                flowchartObjects[12].gameObject.SetActive(true);    // 紹威 (UI 門鎖住了 & 字幕)
+
                 break;
             case GameEventID.S2_FlashLight:
                 // 手電筒消失 => 還不能亮燈
+                flowchartObjects[14].gameObject.SetActive(true);    // 紹威 (UI 門鎖住了 & 字幕)
                 // 紹威 (手電筒不會亮 字幕)
                 break;
         }
