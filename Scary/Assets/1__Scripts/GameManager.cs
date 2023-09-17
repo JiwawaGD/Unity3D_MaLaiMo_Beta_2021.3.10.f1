@@ -16,6 +16,7 @@ using UnityEngine.Profiling;
 
 public partial class GameManager : MonoBehaviour
 {
+
     private float targetIntensity = 1f; // 目標強度值
     private float currentIntensity = 0.3f; // 當前強度值
     public float changeSpeed = 1f; // 強度改變速度
@@ -28,15 +29,15 @@ public partial class GameManager : MonoBehaviour
 
     [Header("物件移動速度")] public float objSpeed;
     [Header("旋轉物件collider")] public Collider Ro_Cololider;
+    [Header("旋轉物件功能")] public bool romanager;
 
     [Header("全域變數")] public Volume postProcessVolume;
     //[Header("濾鏡效果種類")] public VolumeProfile[] profile;
-    [Header("可查看觸發物件")] public GameObject[] itemObj;
+    //[Header("可查看觸發物件")] public GameObject[] itemObj;
     [Header("物件位置")] public GameObject itemObjTransform;
 
     [Header("生成後物件")] public GameObject[] RO_OBJ;
     [Header("儲存生成物件")] public int saveRotaObj;
-    //public GameObject[] RO_OBJ_I;
 
     [SerializeField] [Header("玩家")] PlayerController playerCtrlr;
     //[SerializeField] [Header("UI 圖片庫")] Sprite[] UISprite;
@@ -201,6 +202,7 @@ public partial class GameManager : MonoBehaviour
                 originalPosition = RO_OBJ[saveRotaObj].transform.position;
                 originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
                 Ro_Cololider = RO_OBJ[2].GetComponent<Collider>();
+                romanager = RO_OBJ[2].GetComponent<ROmanager>().enabled = true;
                 ShowObj(ObjItemID.S1_Photo_Frame);
 
                 // 人形黑影
@@ -225,6 +227,7 @@ public partial class GameManager : MonoBehaviour
                 saveRotaObj = 1; 
                 isMovingObject = true;
                 Ro_Cololider = RO_OBJ[1].GetComponent<Collider>();
+                romanager = RO_OBJ[1].GetComponent<ROmanager>().enabled = true;
                 originalPosition = RO_OBJ[saveRotaObj].transform.position;
                 originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
                 UIState(UIItemID.S1_Lotus_Paper, true);
@@ -323,6 +326,8 @@ public partial class GameManager : MonoBehaviour
                 UIState(UIItemID.S1_Rice_Funeral, true);
                 ShowObj(ObjItemID.S1_Rice_Funeral);
                 Ro_Cololider = RO_OBJ[0].GetComponent<Collider>();
+                print(RO_OBJ[0].name);
+                romanager = RO_OBJ[0].GetComponent<ROmanager>().enabled = true;
                 originalPosition = RO_OBJ[saveRotaObj].transform.position;
                 originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
                 saveRotaObj = 0;
@@ -628,9 +633,20 @@ public partial class GameManager : MonoBehaviour
                 else
                 {
                     GameEvent(GameEventID.Close_UI);
-                    RO_OBJ[saveRotaObj].transform.DOMove(originalPosition, 2);
-                    RO_OBJ[saveRotaObj].transform.DORotate(originalRotation.eulerAngles, 2);
-                    isMovingObject = false;
+                    //關閉旋轉
+                    romanager = false;
+                    if (!romanager)
+                    {
+                        print(RO_OBJ[saveRotaObj].transform.GetChild(0).name);
+                        //恢復物件位置
+                        //RO_OBJ[saveRotaObj].transform.GetChild(0).transform.DOMove(originalPosition, 2);
+                        RO_OBJ[saveRotaObj].transform.DOMove(originalPosition, 2);
+                        //恢復物件角度
+                        //RO_OBJ[saveRotaObj].transform.GetChild(0).transform.DOMove(originalRotation.eulerAngles, 2);
+                        //RO_OBJ[saveRotaObj].transform.GetComponentInChildren<Transform>().transform.DOMove(originalPosition, 2);
+                        RO_OBJ[saveRotaObj].transform.DORotate(originalRotation.eulerAngles, 2);
+                        isMovingObject = false;
+                    }
                 }
             }
             else
@@ -700,7 +716,7 @@ public partial class GameManager : MonoBehaviour
 
     private int CompareGameObjectNames(GameObject x, GameObject y)
     {
-        string[] names = { "Rice_Funeral", "Lotus_Paper", "Photo_Frame", };
+        string[] names = {"Rice_Funeral", "Lotus_Paper", "Photo_Frame"};
 
         int xIndex = Array.IndexOf(names, x.name);
         int yIndex = Array.IndexOf(names, y.name);

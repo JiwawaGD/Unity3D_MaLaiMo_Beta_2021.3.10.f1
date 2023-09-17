@@ -242,40 +242,40 @@ public class PlayerController : MonoBehaviour
 
         if (gameManager.GetM_bInUIView())
         {
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                StartRotationTimer();
-            }
-            if (Input.GetKey(KeyCode.L))
-            {
-                // 檢查是否有擊中物體，以及要旋轉的物體不是 null
-                if (hit.transform != null)
-                {
-                    RotateCubeHorization(hit.transform);
-                }
-            }
-            if (Input.GetKeyUp(KeyCode.L))
-            {
-                StopRotationTimer();
-            }
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                StartRotationTimer();
-                isRotatingVertically = true; // 開始垂直旋轉
-            }
-            if (Input.GetKey(KeyCode.K))
-            {
-                // 檢查要垂直旋轉的物體不是 null
-                if (isRotatingVertically && gameManager.RO_OBJ[gameManager.saveRotaObj] != null)
-                {
-                    RotateCubeVertically(gameManager.RO_OBJ[gameManager.saveRotaObj].transform, verticalRotationSpeed);
-                }
-            }
-            if (Input.GetKeyUp(KeyCode.K))
-            {
-                StopRotationTimer();
-                isRotatingVertically = false; // 停止垂直旋轉
-            }
+            //if (Input.GetKeyDown(KeyCode.L))
+            //{
+            //    StartRotationTimer();
+            //}
+            //if (Input.GetKey(KeyCode.L))
+            //{
+            //    // 檢查是否有擊中物體，以及要旋轉的物體不是 null
+            //    if (hit.transform != null)
+            //    {
+            //        RotateCubeHorization(hit.transform);
+            //    }
+            //}
+            //if (Input.GetKeyUp(KeyCode.L))
+            //{
+            //    StopRotationTimer();
+            //}
+            //if (Input.GetKeyDown(KeyCode.K))
+            //{
+            //    StartRotationTimer();
+            //    isRotatingVertically = true; // 開始垂直旋轉
+            //}
+            //if (Input.GetKey(KeyCode.K))
+            //{
+            //    // 檢查要垂直旋轉的物體不是 null
+            //    if (isRotatingVertically && gameManager.RO_OBJ[gameManager.saveRotaObj] != null)
+            //    {
+            //        RotateCubeVertically(gameManager.RO_OBJ[gameManager.saveRotaObj].transform, verticalRotationSpeed);
+            //    }
+            //}
+            //if (Input.GetKeyUp(KeyCode.K))
+            //{
+            //    StopRotationTimer();
+            //    isRotatingVertically = false; // 停止垂直旋轉
+            //}
 
         }
         if (m_bRayOnItem && hit.transform.gameObject.layer == m_iInteractiveLayer)
@@ -314,39 +314,39 @@ public class PlayerController : MonoBehaviour
         PlaySound(walkingSound);
     }
 
-    float rotationTimer = 0f;
-    void RotateCubeHorization(Transform cubeTransform)
-    {
-        // 這裡假設最大旋轉速度為 360 度/秒
-        float maxRotationSpeed = 360f;
+    //float rotationTimer = 0f;
+    //void RotateCubeHorization(Transform cubeTransform)
+    //{
+    //    // 這裡假設最大旋轉速度為 360 度/秒
+    //    float maxRotationSpeed = 360f;
 
-        // 旋轉角度根據持續時間來決定
-        float rotationAngle = rotationSpeed * Time.deltaTime;
+    //    // 旋轉角度根據持續時間來決定
+    //    float rotationAngle = rotationSpeed * Time.deltaTime;
 
-        rotationAngle = Mathf.Clamp(rotationAngle, 0f, maxRotationSpeed * Time.deltaTime);
+    //    rotationAngle = Mathf.Clamp(rotationAngle, 0f, maxRotationSpeed * Time.deltaTime);
 
-        Quaternion rotation = Quaternion.Euler(0f, rotationAngle, 0f);
-        cubeTransform.rotation *= rotation;
+    //    Quaternion rotation = Quaternion.Euler(0f, rotationAngle, 0f);
+    //    cubeTransform.rotation *= rotation;
 
-        rotationTimer += Time.deltaTime;
-        rotationSpeed = Mathf.Lerp(45f, maxRotationSpeed, rotationTimer / 1f);
-    }
+    //    rotationTimer += Time.deltaTime;
+    //    rotationSpeed = Mathf.Lerp(45f, maxRotationSpeed, rotationTimer / 1f);
+    //}
 
-    void StartRotationTimer()
-    {
-        rotationTimer = 0f;
-    }
+    //void StartRotationTimer()
+    //{
+    //    rotationTimer = 0f;
+    //}
 
-    void StopRotationTimer()
-    {
-        rotationTimer = 0f;
-        rotationSpeed = 45f; // 重置旋轉速度
-    }
+    //void StopRotationTimer()
+    //{
+    //    rotationTimer = 0f;
+    //    rotationSpeed = 45f; // 重置旋轉速度
+    //}
 
-    void RotateCubeVertically(Transform cubeTransform, float roatationSpeed)
-    {
-        float rotationAmount = roatationSpeed * Time.deltaTime;
-        Quaternion rotation = Quaternion.Euler(rotationAmount, 0f, 0f);
-        cubeTransform.rotation *= rotation;
-    }
+    //void RotateCubeVertically(Transform cubeTransform, float roatationSpeed)
+    //{
+    //    float rotationAmount = roatationSpeed * Time.deltaTime;
+    //    Quaternion rotation = Quaternion.Euler(rotationAmount, 0f, 0f);
+    //    cubeTransform.rotation *= rotation;
+    //}
 }
