@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0034503036, g: 0.0034503036, b: 0.0034503036, a: 1}
+  m_IndirectSpecularColor: {r: 0.0025757162, g: 0.0025757162, b: 0.0025757162, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -33775,7 +33775,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1141351447}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.16707426, y: 0.27259114, z: 0.3}
@@ -34392,10 +34392,10 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1169558580}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.3, z: 0.15}
+  m_Size: {x: 0.3, y: 0.3, z: 0.28}
   m_Center: {x: -3.7504946e-10, y: 0.05, z: -0.025169143}
 --- !u!1001 &1173814617
 PrefabInstance:
@@ -51017,7 +51017,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1859084591}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.36, y: 0.0089059295, z: 0.45}
@@ -68315,6 +68315,14 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4204367817037591739, guid: a9e3af0b35a9a9e488da28e1465b4cd3, type: 3}
+      propertyPath: m_Size.x
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204367817037591739, guid: a9e3af0b35a9a9e488da28e1465b4cd3, type: 3}
+      propertyPath: m_Size.z
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204367817037591739, guid: a9e3af0b35a9a9e488da28e1465b4cd3, type: 3}
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
@@ -69667,11 +69675,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8987644026509585670, guid: dd9ee429c167c3d4299f7ebf41647b2f, type: 3}
       propertyPath: m_Size.x
-      value: 0.44
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 8987644026509585670, guid: dd9ee429c167c3d4299f7ebf41647b2f, type: 3}
       propertyPath: m_Size.z
-      value: 0.39
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 8987644026509585670, guid: dd9ee429c167c3d4299f7ebf41647b2f, type: 3}
       propertyPath: m_IsTrigger
@@ -70611,11 +70619,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6515174245562265742, guid: 486126d2ebc8f704b85e3003377874c8, type: 3}
       propertyPath: m_Size.x
-      value: 0.3
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 6515174245562265742, guid: 486126d2ebc8f704b85e3003377874c8, type: 3}
       propertyPath: m_Size.y
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6515174245562265742, guid: 486126d2ebc8f704b85e3003377874c8, type: 3}
+      propertyPath: m_Size.z
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6515174245562265742, guid: 486126d2ebc8f704b85e3003377874c8, type: 3}
       propertyPath: m_Center.y
