@@ -12,7 +12,7 @@ public class ItemController : MonoBehaviour
     [Header("物件可提示範圍")]
     public float fHintRange;
 
-    [HideInInspector] // 是否可以觸發
+    //[HideInInspector] // 是否可以觸發
     public bool bActive;
 
     #region UI
@@ -93,6 +93,7 @@ public class ItemController : MonoBehaviour
     {
         gameObject.layer = r_bShow ? LayerMask.NameToLayer("InteractiveItem") : LayerMask.NameToLayer("Default");
         bShowHint = r_bShow;
+        Debug.Log("1 " + r_bShow);
     }
 
     public void SendGameEvent()

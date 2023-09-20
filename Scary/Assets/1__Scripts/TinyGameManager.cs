@@ -29,9 +29,13 @@ public partial class GameManager : MonoBehaviour
     public void IvkProcessPlayerFallingAnimator()
     {
         ProcessPlayerAnimator("Player_Falling_In_Bathroom");
-        ShowHint(HintItemID.S2_Light_Switch);
-        ShowHint(HintItemID.S2_Room_Door);
         Invoke(nameof(IvkProcessPlayerWakeUpSecondTime), 4f);
+
+        Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
+        playerFlashlight.enabled = false;
+
+        ShowHint(HintItemID.S2_Room_Door);
+        ShowHint(HintItemID.S2_Light_Switch);
     }
 
     public void IvkProcessPlayerWakeUpSecondTime()

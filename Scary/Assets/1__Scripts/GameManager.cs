@@ -92,16 +92,21 @@ public partial class GameManager : MonoBehaviour
     public static bool m_bWaitToiletGhostHandPush = false;
     #endregion
 
+    #region Game Point
+    bool bS1_TriggerFlashlight = false;
+    bool bS1_TriggerGrandmaDoorLock = false;
+    bool bS1_IsS1LightSwtichOK = false;
+
+    bool bS2_TriggerLightSwitch = false;
+    bool bS2_TriggerGrandmaDoorLock = false;
+    #endregion
+
     bool isPaused = false;
     bool isMouseEnabled = false;
-    bool bTriggerFlashlight = false;
-    bool bTriggerGrandmaDoorLock = false;
-    bool bIsS1LightSwtichOK = false;
     public bool isUIOpen = false;
 
     void Awake()
     {
-
         RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
         SortRO_OBJByName();
 
@@ -141,11 +146,15 @@ public partial class GameManager : MonoBehaviour
         ExitBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.UI_Back));
         EnterGameBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.Enter_Game));
 
+        prefabs_Schedule.text = "當前目標:調查房間";
+
         ShowHint(HintItemID.S1_Light_Switch);
         ShowHint(HintItemID.S1_Grandma_Room_Door_Lock);
         ShowHint(HintItemID.S1_Toilet_Door);
 
-        prefabs_Schedule.text = "當前目標:調查房間";
+        // Test
+        ShowHint(HintItemID.S2_Light_Switch);
+        ShowHint(HintItemID.S2_Room_Door);
     }
 
     void Update()
@@ -197,8 +206,8 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Photo_Frame:
                 UIState(UIItemID.S1_Photo_Frame, true);
                 // 紹威 (道具UI : 相框)
-                //Debug.Log("1111111111111111111");
-                saveRotaObj = 2; isMovingObject = true;
+                saveRotaObj = 2; 
+                isMovingObject = true;
                 originalPosition = RO_OBJ[saveRotaObj].transform.position;
                 originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
                 Ro_Cololider = RO_OBJ[2].GetComponent<Collider>();
@@ -224,7 +233,7 @@ public partial class GameManager : MonoBehaviour
                 flowchartObjects[4].gameObject.SetActive(true);
                 break;
             case GameEventID.S1_Lotus_Paper:
-                saveRotaObj = 1; 
+                saveRotaObj = 1;
                 isMovingObject = true;
                 Ro_Cololider = RO_OBJ[1].GetComponent<Collider>();
                 romanager = RO_OBJ[1].GetComponent<ROmanager>().enabled = true;
@@ -273,13 +282,13 @@ public partial class GameManager : MonoBehaviour
                 m_bGrandmaRush = false;
                 break;
             case GameEventID.S1_Light_Switch:
-                bIsS1LightSwtichOK = true;
+                bS1_IsS1LightSwtichOK = true;
                 flowchartObjects[2].gameObject.SetActive(true);
                 AUDManager.instance.PlayerLightSwitchSFX();
                 ShowHint(HintItemID.S1_Flashlight);
                 break;
             case GameEventID.S1_Flashlight:
-                bTriggerFlashlight = true;
+                bS1_TriggerFlashlight = true;
                 ShowHint(HintItemID.S1_Desk_Drawer);
                 Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
                 playerFlashlight.enabled = true;
@@ -303,7 +312,7 @@ public partial class GameManager : MonoBehaviour
                 Destroy(GrandmaRoomKeyObj);
                 break;
             case GameEventID.S1_Grandma_Room_Door_Lock:
-                bTriggerGrandmaDoorLock = true;
+                bS1_TriggerGrandmaDoorLock = true;
                 ShowHint(HintItemID.S1_Desk_Drawer);
                 ShowHint(HintItemID.S1_Flashlight);
                 flowchartObjects[1].gameObject.SetActive(true);
@@ -362,16 +371,34 @@ public partial class GameManager : MonoBehaviour
                 Invoke(nameof(IvkProcessPlayerFallingAnimator), 0.2f);
                 break;
             case GameEventID.S2_Light_Switch:
+                bS2_TriggerLightSwitch = true;
                 flowchartObjects[13].gameObject.SetActive(true);    // 紹威 (燈不會亮 字幕)
+                ShowHint(HintItemID.S2_FlashLight);
                 break;
             case GameEventID.S2_Room_Door_Lock:
+                bS2_TriggerGrandmaDoorLock = true;
                 flowchartObjects[12].gameObject.SetActive(true);    // 紹威 (UI 門鎖住了 & 字幕)
-
+                ShowHint(HintItemID.S2_FlashLight);
                 break;
             case GameEventID.S2_FlashLight:
-                // 手電筒消失 => 還不能亮燈
-                flowchartObjects[14].gameObject.SetActive(true);    // 紹威 (UI 門鎖住了 & 字幕)
+                flowchartObjects[14].gameObject.SetActive(true);
                 // 紹威 (手電筒不會亮 字幕)
+                GameObject S2_FlashLightObj = GameObject.Find("S2_FlashLight");
+                Destroy(S2_FlashLightObj);
+                ShowHint(HintItemID.S2_Side_Table_02);
+                break;
+            case GameEventID.S2_Side_Table_02:
+                // 紹威 (字幕 沒東西
+                ProcessAnimator("S2_Side_Table", "S2_Side_Table_Open_02");
+                ShowHint(HintItemID.S2_Side_Table_01);
+                break;
+            case GameEventID.S2_Side_Table_01:
+                ProcessAnimator("S2_Side_Table", "S2_Side_Table_Open_01");
+                // 鑰使出現
+                
+                break;
+            case GameEventID.S2_Room_Key:
+                // 紹威 (音效 急湊的敲門聲
                 break;
         }
     }
@@ -390,13 +417,13 @@ public partial class GameManager : MonoBehaviour
                 TempItem.eventID = GameEventID.S1_Grandma_Door_Open;
                 break;
             case HintItemID.S1_Flashlight:
-                if (!bTriggerGrandmaDoorLock || !bIsS1LightSwtichOK)
+                if (!bS1_TriggerGrandmaDoorLock || !bS1_IsS1LightSwtichOK)
                     return;
 
                 TempItem = GameObject.Find("Flashlight").GetComponent<ItemController>();
                 break;
             case HintItemID.S1_Desk_Drawer:
-                if (!bTriggerGrandmaDoorLock || !bTriggerFlashlight)
+                if (!bS1_TriggerGrandmaDoorLock || !bS1_TriggerFlashlight)
                     return;
 
                 TempItem = GameObject.Find("Desk_Drawer").GetComponent<ItemController>();
@@ -438,7 +465,20 @@ public partial class GameManager : MonoBehaviour
                 TempItem = GameObject.Find("S2_Room_Door").GetComponent<ItemController>();
                 break;
             case HintItemID.S2_FlashLight:
+                if (!bS2_TriggerLightSwitch || !bS2_TriggerGrandmaDoorLock)
+                    return;
+
                 TempItem = GameObject.Find("S2_FlashLight").GetComponent<ItemController>();
+                break;
+            case HintItemID.S2_Side_Table_02:
+                TempItem = GameObject.Find("S2_Side_Table").GetComponent<ItemController>();
+                Debug.Log("S2_Side_Table_02");
+                break;
+            case HintItemID.S2_Side_Table_01:
+                TempItem = GameObject.Find("S2_Side_Table").GetComponent<ItemController>();
+                TempItem.gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
+                TempItem.eventID = GameEventID.S2_Side_Table_01;
+                Debug.Log("S2_Side_Table_01");
                 break;
         }
 
@@ -718,7 +758,7 @@ public partial class GameManager : MonoBehaviour
 
     private int CompareGameObjectNames(GameObject x, GameObject y)
     {
-        string[] names = {"Rice_Funeral", "Lotus_Paper", "Photo_Frame"};
+        string[] names = { "Rice_Funeral", "Lotus_Paper", "Photo_Frame" };
 
         int xIndex = Array.IndexOf(names, x.name);
         int yIndex = Array.IndexOf(names, y.name);

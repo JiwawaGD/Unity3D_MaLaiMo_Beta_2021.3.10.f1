@@ -26,6 +26,9 @@ public enum GameEventID
     S2_Light_Switch,
     S2_Room_Door_Lock,
     S2_FlashLight,
+    S2_Side_Table_02,
+    S2_Side_Table_01,
+    S2_Room_Key
 }
 
 public enum HintItemID
@@ -52,6 +55,9 @@ public enum HintItemID
     S2_Light_Switch,
     S2_Room_Door,
     S2_FlashLight,
+    S2_Side_Table_02,
+    S2_Side_Table_01,
+    S2_Room_Key,
 }
 
 public enum ObjItemID
