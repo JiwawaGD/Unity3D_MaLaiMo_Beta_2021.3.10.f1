@@ -13,10 +13,11 @@ using UnityEngine.Rendering.HighDefinition;
 //using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Profiling;
 //using UnityEngine.Rendering.Universal;
+using ProgressP;
 
 public partial class GameManager : MonoBehaviour
 {
-
+    public ProgressProcessing progressProcessing;
     private float targetIntensity = 1f; // 目標強度值
     private float currentIntensity = 0.3f; // 當前強度值
     public float changeSpeed = 1f; // 強度改變速度
@@ -136,7 +137,7 @@ public partial class GameManager : MonoBehaviour
         TempItem = null;
 
         currentScene = SceneManager.GetActiveScene();
-        prefabs_Schedule.text = "?????????";
+        
     }
 
     void Start()
@@ -145,8 +146,6 @@ public partial class GameManager : MonoBehaviour
 
         ExitBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.UI_Back));
         EnterGameBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.Enter_Game));
-
-        prefabs_Schedule.text = "當前目標:調查房間";
 
         ShowHint(HintItemID.S1_Light_Switch);
         ShowHint(HintItemID.S1_Grandma_Room_Door_Lock);
@@ -177,7 +176,7 @@ public partial class GameManager : MonoBehaviour
 
     public void GameEvent(GameEventID r_eventID)
     {
-        string[] scheduleText = GlobalDeclare.ScheduleText;
+        //string[] scheduleText = GlobalDeclare.ScheduleText;
 
         switch (r_eventID)
         {
@@ -249,17 +248,14 @@ public partial class GameManager : MonoBehaviour
                 StopReadding();
                 //UIState(UIItemID.S1_Grandma_Dead_Body, true);
                 flowchartObjects[6].gameObject.SetActive(true);
-
                 GameObject RiceFuneralObj = GameObject.Find("Rice_Funeral");
                 Destroy(RiceFuneralObj);
-
                 UnityEngine.Object RiceFuneralSpilled = Resources.Load<GameObject>("Prefabs/Rice_Funeral_Spilled");
                 GameObject RiceFuneralSpilledObj = Instantiate(RiceFuneralSpilled) as GameObject;
                 RiceFuneralSpilledObj.transform.position = new Vector3(-4.4f, 0.006f, 11.8f);
                 RiceFuneralSpilledObj.name = "Rice_Funeral_Spilled";
-
                 ShowHint(HintItemID.S1_Rice_Funeral_Spilled);
-                prefabs_Schedule.text = scheduleText[2];
+                progressProcessing.UpdateProgress(2);
                 //KeepstoryReadding();
                 break;
             case GameEventID.S1_White_Tent:
@@ -306,7 +302,7 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_GrandmaRoomKey:
                 ShowHint(HintItemID.S1_Grandma_Room_Door);
                 AUDManager.instance.GetTheKeySFX();
-                prefabs_Schedule.text = scheduleText[1];
+                progressProcessing.UpdateProgress(1);
                 flowchartObjects[3].gameObject.SetActive(true);
                 GameObject GrandmaRoomKeyObj = GameObject.Find("Grandma_Room_Key");
                 Destroy(GrandmaRoomKeyObj);
@@ -317,7 +313,7 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S1_Flashlight);
                 flowchartObjects[1].gameObject.SetActive(true);
                 AUDManager.instance.PlayerDoorLockSFX();
-                prefabs_Schedule.text = scheduleText[0];
+                progressProcessing.UpdateProgress(0);
                 break;
             case GameEventID.S1_Rice_Funeral_Spilled:
                 // 查看腳尾飯後的行為
@@ -327,7 +323,7 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S1_Lotus_Paper);
                 m_bPlayLotusEnable = true;
                 flowchartObjects[8].gameObject.SetActive(true);
-                prefabs_Schedule.text = scheduleText[3];
+                progressProcessing.UpdateProgress(3);
                 break;
             case GameEventID.S1_Rice_Funeral:
                 ShowHint(HintItemID.S1_Filial_Piety_Curtain);
