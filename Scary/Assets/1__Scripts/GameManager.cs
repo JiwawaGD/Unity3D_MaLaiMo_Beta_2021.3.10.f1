@@ -137,7 +137,7 @@ public partial class GameManager : MonoBehaviour
         TempItem = null;
 
         currentScene = SceneManager.GetActiveScene();
-        
+
     }
 
     void Start()
@@ -205,7 +205,7 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Photo_Frame:
                 UIState(UIItemID.S1_Photo_Frame, true);
                 // 紹威 (道具UI : 相框)
-                saveRotaObj = 2; 
+                saveRotaObj = 2;
                 isMovingObject = true;
                 originalPosition = RO_OBJ[saveRotaObj].transform.position;
                 originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
@@ -405,7 +405,16 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S2_Ghost_Pass_Door:
                 ProcessAnimator("Grandma_Ghost", "S2_Grandma_Pass_Door");
-                Invoke(nameof(IvkHideS2GrandmaGhost), 1f);
+                Invoke(nameof(IvkHideS2GrandmaGhost), 1.2f);
+                ShowHint(HintItemID.S2_Rice_Funeral);
+                break;
+            case GameEventID.S2_Rice_Funeral:
+                // 紹威 (字幕 腳尾飯? 旁邊那是奶奶的照片)
+                ShowHint(HintItemID.S2_Photo_Frame);
+                break;
+            case GameEventID.S2_Photo_Frame:
+                // 紹威 (UI 參考 Excel 顯示
+                //     (音效 扭動身體音效
                 break;
         }
     }
@@ -488,6 +497,12 @@ public partial class GameManager : MonoBehaviour
                 TempItem.gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
                 TempItem.eventID = GameEventID.S2_Grandma_Door_Open;
                 break;
+            case HintItemID.S2_Rice_Funeral:
+                TempItem = GameObject.Find("S2_Rice_Funeral").GetComponent<ItemController>();
+                break;
+            case HintItemID.S2_Photo_Frame:
+                TempItem = GameObject.Find("S2_Photo_Frame").GetComponent<ItemController>();
+                break;
         }
 
         TempItem.bActive = true;
@@ -550,8 +565,12 @@ public partial class GameManager : MonoBehaviour
         GameObject obj = GameObject.Find(r_sObject);
         Animator ani = obj.transform.GetComponent<Animator>();
         ani.SetTrigger(r_sTriggerName);
-        obj.transform.GetComponent<ItemController>().SetHintable(false);
-        obj.transform.GetComponent<ItemController>().bActive = false;
+
+        if (obj.transform.GetComponent<ItemController>() != null)
+        {
+            obj.transform.GetComponent<ItemController>().SetHintable(false);
+            obj.transform.GetComponent<ItemController>().bActive = false;
+        }
 
         GlobalDeclare.SetItemAniObject("Empty");
         GlobalDeclare.SetItemAniName("Empty");

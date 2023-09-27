@@ -53,6 +53,6 @@ public partial class GameManager : MonoBehaviour
     public void IvkHideS2GrandmaGhost()
     {
         GameObject Grandma_Ghost = GameObject.Find("Grandma_Ghost");
-        Grandma_Ghost.transform.position = new Vector3(-4f, -2f, 48.5f);
+        Grandma_Ghost.transform.position = new Vector3(-6.9f, -2f, 48.5f);
     }
 }
