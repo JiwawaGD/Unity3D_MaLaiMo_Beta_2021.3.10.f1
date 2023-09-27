@@ -381,20 +381,31 @@ public partial class GameManager : MonoBehaviour
                 // 紹威 (手電筒不會亮 字幕)
                 GameObject S2_FlashLightObj = GameObject.Find("S2_FlashLight");
                 Destroy(S2_FlashLightObj);
-                ShowHint(HintItemID.S2_Side_Table_02);
+                ShowHint(HintItemID.S2_Side_Table);
                 break;
-            case GameEventID.S2_Side_Table_02:
-                // 紹威 (字幕 沒東西
-                ProcessAnimator("S2_Side_Table", "S2_Side_Table_Open_02");
-                ShowHint(HintItemID.S2_Side_Table_01);
-                break;
-            case GameEventID.S2_Side_Table_01:
+            case GameEventID.S2_Side_Table:
                 ProcessAnimator("S2_Side_Table", "S2_Side_Table_Open_01");
-                // 鑰使出現
-                
+                Invoke(nameof(IvkShowS2DoorKey), 1.25f);
                 break;
             case GameEventID.S2_Room_Key:
-                // 紹威 (音效 急湊的敲門聲
+                // 紹威 (音效 撥放急湊的敲門聲
+                BoxCollider S2_Door_Knock_Trigger = GameObject.Find("S2_Door_Knock_Trigger").GetComponent<BoxCollider>();
+                S2_Door_Knock_Trigger.enabled = true;
+                break;
+            case GameEventID.S2_Door_Knock_Stop:
+                // 紹威 (音效 關急湊的敲門聲
+                ShowHint(HintItemID.S2_Grandma_Room_Door_Open);
+                break;
+            case GameEventID.S2_Grandma_Door_Open:
+                ProcessAnimator("S2_Room_Door", "S2_Grandma_Door_Open");
+                break;
+            case GameEventID.S2_Grandma_Door_Close:
+                // 紹威 (關門音效
+                ProcessAnimator("S2_Room_Door", "S2_Grandma_Door_Close");
+                break;
+            case GameEventID.S2_Ghost_Pass_Door:
+                ProcessAnimator("Grandma_Ghost", "S2_Grandma_Pass_Door");
+                Invoke(nameof(IvkHideS2GrandmaGhost), 1f);
                 break;
         }
     }
@@ -466,15 +477,16 @@ public partial class GameManager : MonoBehaviour
 
                 TempItem = GameObject.Find("S2_FlashLight").GetComponent<ItemController>();
                 break;
-            case HintItemID.S2_Side_Table_02:
+            case HintItemID.S2_Side_Table:
                 TempItem = GameObject.Find("S2_Side_Table").GetComponent<ItemController>();
-                Debug.Log("S2_Side_Table_02");
                 break;
-            case HintItemID.S2_Side_Table_01:
-                TempItem = GameObject.Find("S2_Side_Table").GetComponent<ItemController>();
+            case HintItemID.S2_Room_Key:
+                TempItem = GameObject.Find("S2_Grandma_Room_Key").GetComponent<ItemController>();
+                break;
+            case HintItemID.S2_Grandma_Room_Door_Open:
+                TempItem = GameObject.Find("S2_Room_Door").GetComponent<ItemController>();
                 TempItem.gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
-                TempItem.eventID = GameEventID.S2_Side_Table_01;
-                Debug.Log("S2_Side_Table_01");
+                TempItem.eventID = GameEventID.S2_Grandma_Door_Open;
                 break;
         }
 

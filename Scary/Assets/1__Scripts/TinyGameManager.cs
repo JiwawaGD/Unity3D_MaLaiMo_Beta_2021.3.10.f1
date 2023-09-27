@@ -42,4 +42,17 @@ public partial class GameManager : MonoBehaviour
     {
         ProcessPlayerAnimator("Player_Wake_Up_SecondTime");
     }
+
+    public void IvkShowS2DoorKey()
+    {
+        GameObject S2_Grandma_Room_Key = GameObject.Find("S2_Grandma_Room_Key");
+        S2_Grandma_Room_Key.transform.position = new Vector3(-6.8f, 0.3f, 37.4f);
+        ShowHint(HintItemID.S2_Room_Key);
+    }
+
+    public void IvkHideS2GrandmaGhost()
+    {
+        GameObject Grandma_Ghost = GameObject.Find("Grandma_Ghost");
+        Grandma_Ghost.transform.position = new Vector3(-4f, -2f, 48.5f);
+    }
 }

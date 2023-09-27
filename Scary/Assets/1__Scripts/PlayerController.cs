@@ -150,10 +150,28 @@ public class PlayerController : MonoBehaviour
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("GameEventTrigger"))
         {
-            if (GameManager.m_bToiletGhostHasShow && 
+            if (GameManager.m_bToiletGhostHasShow &&
                 col.gameObject.name == "Toilet_Ghost_Hide")
             {
                 gameManager.SendMessage("GameEvent", GameEventID.S1_Toilet_Ghost_Hide);
+                Destroy(col.gameObject);
+            }
+
+            if (col.gameObject.name == "S2_Door_Knock_Trigger")
+            {
+                gameManager.SendMessage("GameEvent", GameEventID.S2_Door_Knock_Stop);
+                Destroy(col.gameObject);
+            }
+            
+            if (col.gameObject.name == "S2_Door_Close_Trigger")
+            {
+                gameManager.SendMessage("GameEvent", GameEventID.S2_Grandma_Door_Close);
+                Destroy(col.gameObject);
+            }
+            
+            if (col.gameObject.name == "S2_Ghost_Pass_Door_Trigger")
+            {
+                gameManager.SendMessage("GameEvent", GameEventID.S2_Ghost_Pass_Door);
                 Destroy(col.gameObject);
             }
         }

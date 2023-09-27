@@ -26,9 +26,12 @@ public enum GameEventID
     S2_Light_Switch,
     S2_Room_Door_Lock,
     S2_FlashLight,
-    S2_Side_Table_02,
-    S2_Side_Table_01,
-    S2_Room_Key
+    S2_Side_Table,
+    S2_Room_Key,
+    S2_Door_Knock_Stop,
+    S2_Grandma_Door_Open,
+    S2_Grandma_Door_Close,
+    S2_Ghost_Pass_Door,
 }
 
 public enum HintItemID
@@ -55,9 +58,9 @@ public enum HintItemID
     S2_Light_Switch,
     S2_Room_Door,
     S2_FlashLight,
-    S2_Side_Table_02,
-    S2_Side_Table_01,
+    S2_Side_Table,
     S2_Room_Key,
+    S2_Grandma_Room_Door_Open,
 }
 
 public enum ObjItemID
