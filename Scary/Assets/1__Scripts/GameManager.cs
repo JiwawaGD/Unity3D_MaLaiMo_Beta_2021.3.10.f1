@@ -7,46 +7,38 @@ using UnityEngine.Rendering;
 using System.Linq;
 using System;
 using DG.Tweening;
-using UnityEngine.UIElements;
-using Unity.VisualScripting;
 using UnityEngine.Rendering.HighDefinition;
-//using UnityEngine.Rendering.PostProcessing;
-using UnityEngine.Profiling;
-//using UnityEngine.Rendering.Universal;
 using ProgressP;
 
 public partial class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     public ProgressProcessing progressProcessing;
+
+
     private float targetIntensity = 1f; // 目標強度值
     private float currentIntensity = 0.3f; // 當前強度值
     public float changeSpeed = 1f; // 強度改變速度
-
     private bool isMovingObject = false;
     public Vector3 originalPosition;
     public Quaternion originalRotation;
 
-    [SerializeField] [Header("欲製物 - Schedule")] Text prefabs_Schedule;
+    [SerializeField][Header("欲製物 - Schedule")] Text prefabs_Schedule;
 
     [Header("物件移動速度")] public float objSpeed;
     [Header("旋轉物件collider")] public Collider Ro_Cololider;
     [Header("旋轉物件功能")] public bool romanager;
 
     [Header("全域變數")] public Volume postProcessVolume;
-    //[Header("濾鏡效果種類")] public VolumeProfile[] profile;
-    //[Header("可查看觸發物件")] public GameObject[] itemObj;
+
     [Header("物件位置")] public GameObject itemObjTransform;
 
     [Header("生成後物件")] public GameObject[] RO_OBJ;
     [Header("儲存生成物件")] public int saveRotaObj;
 
-    [SerializeField] [Header("玩家")] PlayerController playerCtrlr;
-    //[SerializeField] [Header("UI 圖片庫")] Sprite[] UISprite;
-    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
-    [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
-    //[SerializeField] [Header("音效撥放清單")] AudioClip[] audioClip;
-    //[SerializeField] [Header("音效撥放器")] AudioSource[] audioSources;
-    //[SerializeField] [Header("GM 欄位腳本")] GMField gmField;
+    [Header("玩家")] public PlayerController playerCtrlr;
+    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField][Header("設定頁面")] public GameObject settingObjects;
 
     int m_iGrandmaRushCount;
 
@@ -135,9 +127,7 @@ public partial class GameManager : MonoBehaviour
         EnterGameBtn = goCanvas.transform.GetChild(7).GetComponent<UnityEngine.UI.Button>();
 
         TempItem = null;
-
         currentScene = SceneManager.GetActiveScene();
-
     }
 
     void Start()
@@ -161,23 +151,14 @@ public partial class GameManager : MonoBehaviour
         KeyboardCheck();
 
         if (isPaused && isMouseEnabled)
-        {
             MouseCheck();
-        }
 
         if (isUIOpen && Input.GetKeyDown(KeyCode.R))
-        {
             ButtonFunction(ButtonEventID.Enter_Game);
-        }
-
-        //if (m_bInUIView && Input.GetKeyDown(KeyCode.N))
-        //    imgIntroduceBackground.gameObject.SetActive(true);
     }
 
     public void GameEvent(GameEventID r_eventID)
     {
-        //string[] scheduleText = GlobalDeclare.ScheduleText;
-
         switch (r_eventID)
         {
             case GameEventID.Close_UI:
@@ -255,7 +236,7 @@ public partial class GameManager : MonoBehaviour
                 RiceFuneralSpilledObj.transform.position = new Vector3(-4.4f, 0.006f, 11.8f);
                 RiceFuneralSpilledObj.name = "Rice_Funeral_Spilled";
                 ShowHint(HintItemID.S1_Rice_Funeral_Spilled);
-                progressProcessing.UpdateProgress(2);
+                //progressProcessing.UpdateProgress(2);
                 //KeepstoryReadding();
                 break;
             case GameEventID.S1_White_Tent:
@@ -302,7 +283,7 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_GrandmaRoomKey:
                 ShowHint(HintItemID.S1_Grandma_Room_Door);
                 AUDManager.instance.GetTheKeySFX();
-                progressProcessing.UpdateProgress(1);
+                //progressProcessing.UpdateProgress(1);
                 flowchartObjects[3].gameObject.SetActive(true);
                 GameObject GrandmaRoomKeyObj = GameObject.Find("Grandma_Room_Key");
                 Destroy(GrandmaRoomKeyObj);
@@ -313,7 +294,7 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S1_Flashlight);
                 flowchartObjects[1].gameObject.SetActive(true);
                 AUDManager.instance.PlayerDoorLockSFX();
-                progressProcessing.UpdateProgress(0);
+                //progressProcessing.UpdateProgress(0);
                 break;
             case GameEventID.S1_Rice_Funeral_Spilled:
                 // 查看腳尾飯後的行為
@@ -807,18 +788,23 @@ public partial class GameManager : MonoBehaviour
     private IEnumerator ChangeVignetteIntensity()
     {
         VolumeProfile profile = postProcessVolume.sharedProfile;
-        Vignette vignette;
 
-        if (profile.TryGet<Vignette>(out vignette))
+        if (profile.TryGet(out Vignette vignette) && 
+            profile.TryGet(out CloudLayer cloudLayer))
         {
-            float currentIntensity = vignette.intensity.value;
+            float currentIntensity = 0.738f;
             float elapsedTime = 0f;
 
             while (elapsedTime < 1f)
             {
-                vignette.intensity.value = Mathf.Lerp(currentIntensity, targetIntensity, elapsedTime);
-                vignette.smoothness.value = Mathf.Lerp(currentIntensity, targetIntensity, elapsedTime);
-                vignette.roundness.value = Mathf.Lerp(currentIntensity, targetIntensity, elapsedTime);
+                vignette.intensity.value = Mathf.Lerp(currentIntensity,
+                                                    targetIntensity, elapsedTime);
+                vignette.smoothness.value = Mathf.Lerp(currentIntensity,
+                                                    targetIntensity, elapsedTime);
+                vignette.roundness.value = Mathf.Lerp(currentIntensity,
+                                                    targetIntensity, elapsedTime);
+                cloudLayer.opacity.value = Mathf.Lerp(currentIntensity,
+                                                    targetIntensity, elapsedTime);
 
                 elapsedTime += Time.deltaTime * changeSpeed;
                 yield return null;
@@ -831,13 +817,21 @@ public partial class GameManager : MonoBehaviour
     public void KeepstoryReadding()
     {
         VolumeProfile profile = postProcessVolume.sharedProfile;
+        CloudLayer cloudLayer = null;
 
-        if (!profile.TryGet<Vignette>(out var vignette))
+        if (!profile.TryGet<Vignette>(out var vignette) &&
+            !profile.TryGet(out cloudLayer))
         {
             vignette = profile.Add<Vignette>(false);
+            cloudLayer = profile.Add<CloudLayer>(false);
         }
         vignette.intensity.value = .1f;
         vignette.smoothness.value = 0;
         vignette.roundness.value = 0;
+        if (cloudLayer != null)
+        {
+            cloudLayer.opacity.value = 0;
+        }
     }
+
 }
