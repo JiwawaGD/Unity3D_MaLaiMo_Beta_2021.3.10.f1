@@ -40,8 +40,6 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
 
     int m_iGrandmaRushCount;
-
-    [SerializeField] [Header("阿嬤的 Transform")] Transform tfGrandmaGhost;
     Scene currentScene;
 
     ItemController TempItem;
@@ -98,7 +96,7 @@ public partial class GameManager : MonoBehaviour
     [Header("S1_打翻前的腳尾飯")] public GameObject S1_Rice_Funeral;
 
     [Header("場景二物件")]
-    [Header("S1_鬼阿嬤")] public GameObject S2_Grandma_Ghost;
+    [Header("S2_鬼阿嬤")] public GameObject S2_Grandma_Ghost;
     #endregion
 
     bool isPaused = false;
@@ -254,11 +252,11 @@ public partial class GameManager : MonoBehaviour
                 m_bPhotoFrameLightOn = false;
                 break;
             case GameEventID.S1_Grandma_Rush:
-                InvokeRepeating(nameof(GrandMaRush), 0f, 0.025f);
+                //InvokeRepeating(nameof(GrandMaRush), 0f, 0.025f);
                 AUDManager.instance.PlayerGrandmaRushSFX();
                 playerCtrlr.m_bCanControl = false;
-                Animator AniGrandma = tfGrandmaGhost.GetComponent<Animator>();
-                AniGrandma.SetBool("Grandma_Attack", true);
+                //Animator AniGrandma = tfGrandmaGhost.GetComponent<Animator>();
+                //AniGrandma.SetBool("Grandma_Attack", true);
                 m_bGrandmaRush = false;
                 break;
             case GameEventID.S1_Light_Switch:
@@ -387,7 +385,8 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S2_Ghost_Pass_Door:
                 S2_Grandma_Ghost.GetComponent<Animator>().SetTrigger("S2_Grandma_Pass_Door");
-                ShowHint(HintItemID.S2_Rice_Funeral);
+
+                Invoke(nameof(IvkS2_Grandma_Pass_Door), 1.5f);
                 break;
             case GameEventID.S2_Rice_Funeral:
                 //flowchartObjects[16].gameObject.SetActive(true);
@@ -408,6 +407,8 @@ public partial class GameManager : MonoBehaviour
                 ShowEnterGame(true);
                 ShowObj(ObjItemID.S1_Photo_Grandma);
                 AUDManager.instance.BodyTwistingSound();
+
+                S2_Grandma_Ghost.transform.position = new Vector3(-5.5f, 0f, 46f);
                 break;
         }
     }
@@ -649,7 +650,7 @@ public partial class GameManager : MonoBehaviour
 
     public void GrandMaRush()
     {
-        tfGrandmaGhost.Translate(0f, 0f, 0.3f);
+        //tfGrandmaGhost.Translate(0f, 0f, 0.3f);
         m_iGrandmaRushCount++;
 
         if (m_iGrandmaRushCount >= 10)

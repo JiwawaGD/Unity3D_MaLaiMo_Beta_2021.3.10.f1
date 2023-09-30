@@ -49,4 +49,10 @@ public partial class GameManager : MonoBehaviour
         S2_Grandma_Room_Key.transform.position = new Vector3(-6.8f, 0.3f, 37.4f);
         ShowHint(HintItemID.S2_Room_Key);
     }
+
+    public void IvkS2_Grandma_Pass_Door()
+    {
+        S2_Grandma_Ghost.GetComponent<Animator>().applyRootMotion = true;
+        ShowHint(HintItemID.S2_Rice_Funeral);
+    }
 }
