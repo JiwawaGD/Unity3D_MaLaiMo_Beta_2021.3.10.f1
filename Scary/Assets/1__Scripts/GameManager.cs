@@ -23,7 +23,7 @@ public partial class GameManager : MonoBehaviour
     public Vector3 originalPosition;
     public Quaternion originalRotation;
 
-    [SerializeField][Header("欲製物 - Schedule")] Text prefabs_Schedule;
+    [SerializeField] [Header("欲製物 - Schedule")] Text prefabs_Schedule;
 
     [Header("物件移動速度")] public float objSpeed;
     [Header("旋轉物件collider")] public Collider Ro_Cololider;
@@ -37,8 +37,8 @@ public partial class GameManager : MonoBehaviour
     [Header("儲存生成物件")] public int saveRotaObj;
 
     [Header("玩家")] public PlayerController playerCtrlr;
-    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
-    [SerializeField][Header("設定頁面")] public GameObject settingObjects;
+    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
 
     int m_iGrandmaRushCount;
 
@@ -297,8 +297,6 @@ public partial class GameManager : MonoBehaviour
                 //progressProcessing.UpdateProgress(0);
                 break;
             case GameEventID.S1_Rice_Funeral_Spilled:
-                // 查看腳尾飯後的行為
-                // 1. 亮蠟燭
                 RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
                 SortRO_OBJByName();
                 ShowHint(HintItemID.S1_Lotus_Paper);
@@ -321,7 +319,8 @@ public partial class GameManager : MonoBehaviour
 
                 break;
             case GameEventID.S1_Toilet_Door_Lock:
-                flowchartObjects[12].gameObject.SetActive(true);    // (字幕 : 廁所門被鎖住了)
+                //  紹威 (廁所門被鎖住了 字幕)
+                flowchartObjects[12].gameObject.SetActive(true);    
                 break;
             case GameEventID.S1_Toilet_Door_Open:
                 ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Open");
@@ -336,8 +335,6 @@ public partial class GameManager : MonoBehaviour
                 m_bWaitToiletGhostHandPush = true;
                 GlobalDeclare.PlayerCameraLimit.ClearValue();
                 ShowHint(HintItemID.S1_Toilet_GhostHand_Trigger);
-
-                // 觸發器
                 GameObject GhostHandTriggerObj = GameObject.Find("Ghost_Hand_Trigger");
                 GhostHandTriggerObj.transform.position = new Vector3(-8.5f, 0.1f, 6.1f);
                 break;
@@ -348,17 +345,19 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S2_Light_Switch:
                 bS2_TriggerLightSwitch = true;
-                flowchartObjects[13].gameObject.SetActive(true);    // 紹威 (燈不會亮 字幕)
+                // 紹威 (燈不會亮 字幕)
+                flowchartObjects[13].gameObject.SetActive(true);    
                 ShowHint(HintItemID.S2_FlashLight);
                 break;
             case GameEventID.S2_Room_Door_Lock:
                 bS2_TriggerGrandmaDoorLock = true;
-                flowchartObjects[12].gameObject.SetActive(true);    // 紹威 (UI 門鎖住了 & 字幕)
+                // 紹威 (UI 門鎖住了 & 字幕)
+                flowchartObjects[12].gameObject.SetActive(true);
                 ShowHint(HintItemID.S2_FlashLight);
                 break;
             case GameEventID.S2_FlashLight:
-                flowchartObjects[14].gameObject.SetActive(true);
                 // 紹威 (手電筒不會亮 字幕)
+                flowchartObjects[14].gameObject.SetActive(true);
                 GameObject S2_FlashLightObj = GameObject.Find("S2_FlashLight");
                 Destroy(S2_FlashLightObj);
                 ShowHint(HintItemID.S2_Side_Table);
@@ -391,8 +390,12 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S2_Rice_Funeral:
                 flowchartObjects[16].gameObject.SetActive(true);
                 ShowHint(HintItemID.S2_Photo_Frame);
+                BoxCollider S2_Rice_Funeral_Collider = GameObject.Find("S2_Rice_Funeral").GetComponent<BoxCollider>();
+                S2_Rice_Funeral_Collider.enabled = false;
                 break;
             case GameEventID.S2_Photo_Frame:
+                // 紹威 (UI 參考 Excel 顯示
+                //     (音效 扭動身體音效
                 saveRotaObj = 3;
                 isMovingObject = true;
                 originalPosition = RO_OBJ[saveRotaObj].transform.position;
@@ -403,8 +406,6 @@ public partial class GameManager : MonoBehaviour
                 ShowEnterGame(true);
                 ShowObj(ObjItemID.S1_Photo_Grandma);
                 AUDManager.instance.BodyTwistingSound();
-                // 紹威 (UI 參考 Excel 顯示
-                //     (音效 扭動身體音效
                 break;
         }
     }
@@ -690,12 +691,16 @@ public partial class GameManager : MonoBehaviour
             if (m_bInUIView)
             {
                 if (!isMovingObject)
+                {
                     GameEvent(GameEventID.Close_UI);
+                }
                 else
                 {
                     GameEvent(GameEventID.Close_UI);
+
                     //關閉旋轉
                     romanager = false;
+
                     if (!romanager)
                     {
                         print(RO_OBJ[saveRotaObj].transform.GetChild(0).name);
@@ -708,7 +713,9 @@ public partial class GameManager : MonoBehaviour
                 }
             }
             else
-                SetGameState();           
+            {
+                SetGameState();
+            }
         }
 
         if (m_bReturnToBegin)
@@ -795,7 +802,7 @@ public partial class GameManager : MonoBehaviour
     {
         VolumeProfile profile = postProcessVolume.sharedProfile;
 
-        if (profile.TryGet(out Vignette vignette) && 
+        if (profile.TryGet(out Vignette vignette) &&
             profile.TryGet(out CloudLayer cloudLayer))
         {
             float currentIntensity = 0.738f;
