@@ -179,6 +179,10 @@ public class AUDManager : MonoBehaviour
     {
         mainAudioSource.PlayOneShot(door_Slam);
     }
+    public void BodyTwistingSound()
+    {
+        mainAudioSource.PlayOneShot(body_Twisting_Sound);
+    }
 
     /// <summary>
     /// 存取紀錄

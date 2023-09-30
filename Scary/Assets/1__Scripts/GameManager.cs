@@ -322,7 +322,6 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Toilet_Door_Lock:
                 flowchartObjects[12].gameObject.SetActive(true);    // (字幕 : 廁所門被鎖住了)
-
                 break;
             case GameEventID.S1_Toilet_Door_Open:
                 ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Open");
@@ -394,13 +393,26 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S2_Photo_Frame);
                 break;
             case GameEventID.S2_Photo_Frame:
+                saveRotaObj = 3;
+                isMovingObject = true;
+                originalPosition = RO_OBJ[saveRotaObj].transform.position;
+                originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
+                Ro_Cololider = RO_OBJ[3].GetComponent<Collider>();
+                romanager = RO_OBJ[3].GetComponent<ROmanager>().enabled = true;
+                UIState(UIItemID.S1_Photo_Grandma, true);
+                ShowEnterGame(true);
+                ShowObj(ObjItemID.S1_Photo_Grandma);
+                AUDManager.instance.BodyTwistingSound();
                 // 紹威 (UI 參考 Excel 顯示
                 //     (音效 扭動身體音效
                 break;
         }
     }
 
-    // 顯示眼睛 Hint 圖示
+    /// <summary>
+    /// 顯示眼睛 Hint 圖示
+    /// </summary>
+    /// <param name="_ItemID"></param>
     public void ShowHint(HintItemID _ItemID)
     {
         switch (_ItemID)
@@ -416,13 +428,11 @@ public partial class GameManager : MonoBehaviour
             case HintItemID.S1_Flashlight:
                 if (!bS1_TriggerGrandmaDoorLock || !bS1_IsS1LightSwtichOK)
                     return;
-
                 TempItem = GameObject.Find("Flashlight").GetComponent<ItemController>();
                 break;
             case HintItemID.S1_Desk_Drawer:
                 if (!bS1_TriggerGrandmaDoorLock || !bS1_TriggerFlashlight)
                     return;
-
                 TempItem = GameObject.Find("Desk_Drawer").GetComponent<ItemController>();
                 break;
             case HintItemID.S1_Grandma_Room_Key:
@@ -499,14 +509,23 @@ public partial class GameManager : MonoBehaviour
         switch (O_ItemID)
         {
             case ObjItemID.S1_Rice_Funeral:
-                RO_OBJ[saveRotaObj].transform.DOMove(new Vector3(itemObjTransform.transform.position.x, itemObjTransform.transform.position.y, itemObjTransform.transform.position.z), 2);
+                RO_OBJ[saveRotaObj].transform.DOMove(
+                    new Vector3(itemObjTransform.transform.position.x,
+                    itemObjTransform.transform.position.y,
+                    itemObjTransform.transform.position.z), 2);
                 break;
             case ObjItemID.S1_Lotus_Paper:
-                RO_OBJ[saveRotaObj].transform.DOMove(new Vector3(itemObjTransform.transform.position.x, itemObjTransform.transform.position.y, itemObjTransform.transform.position.z), 2);
+                RO_OBJ[saveRotaObj].transform.DOMove(
+                    new Vector3(itemObjTransform.transform.position.x,
+                    itemObjTransform.transform.position.y,
+                    itemObjTransform.transform.position.z), 2);
                 //RO_OBJ[1] = Instantiate(itemObj[1], newPosition, newRoation);
                 break;
             case ObjItemID.S1_Photo_Frame:
-                RO_OBJ[saveRotaObj].transform.DOMove(new Vector3(itemObjTransform.transform.position.x, itemObjTransform.transform.position.y, itemObjTransform.transform.position.z), 2);
+                RO_OBJ[saveRotaObj].transform.DOMove(
+                    new Vector3(itemObjTransform.transform.position.x,
+                    itemObjTransform.transform.position.y,
+                    itemObjTransform.transform.position.z), 2);
                 break;
         }
     }
@@ -520,11 +539,9 @@ public partial class GameManager : MonoBehaviour
         goCanvas.SetActive(r_bEnable);
         ExitBtn.gameObject.SetActive(r_bEnable);
         imgUIBackGround.color = r_bEnable ? new Color(0, 0, 0, .02f) : new Color(0, 0, 0, 0);
-        //imgUIDisplay.color = r_bEnable ? new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0);
         imgInstructions.color = r_bEnable ? new Color(0, 0, 0, 1) : new Color(0, 0, 0, 0);
         int iItemID = (int)r_ItemID;
 
-        //imgUIDisplay.sprite = UISprite[iItemID];
         txtTitle.text = GlobalDeclare.UITitle[iItemID];
 
         txtIntroduce.text = GlobalDeclare.UIIntroduce[iItemID];
@@ -532,10 +549,6 @@ public partial class GameManager : MonoBehaviour
 
         GetM_bInUIView();
 
-        //titleImg.color = r_bEnable ? new Color(63, 0, 0, .18f) : new Color(63, 0, 0, 0);
-        //imgScendInstructions.color = r_bEnable ? new Color(255, 255, 255, 1) : new Color(255, 255, 255, 0);
-        //imgIntroduceBackground.color = r_bEnable ? new Color(108, 106, 106, 1) : new Color(108, 106, 106, 0);
-        //imgIntroduceBackground.gameObject.SetActive(false);
     }
 
     public void ProcessAnimator(string r_sObject, string r_sTriggerName)
@@ -677,9 +690,7 @@ public partial class GameManager : MonoBehaviour
             if (m_bInUIView)
             {
                 if (!isMovingObject)
-                {
                     GameEvent(GameEventID.Close_UI);
-                }
                 else
                 {
                     GameEvent(GameEventID.Close_UI);
@@ -689,20 +700,15 @@ public partial class GameManager : MonoBehaviour
                     {
                         print(RO_OBJ[saveRotaObj].transform.GetChild(0).name);
                         //恢復物件位置
-                        //RO_OBJ[saveRotaObj].transform.GetChild(0).transform.DOMove(originalPosition, 2);
                         RO_OBJ[saveRotaObj].transform.DOMove(originalPosition, 2);
                         //恢復物件角度
-                        //RO_OBJ[saveRotaObj].transform.GetChild(0).transform.DOMove(originalRotation.eulerAngles, 2);
-                        //RO_OBJ[saveRotaObj].transform.GetComponentInChildren<Transform>().transform.DOMove(originalPosition, 2);
                         RO_OBJ[saveRotaObj].transform.DORotate(originalRotation.eulerAngles, 2);
                         isMovingObject = false;
                     }
                 }
             }
             else
-            {
-                SetGameState();
-            }
+                SetGameState();           
         }
 
         if (m_bReturnToBegin)
