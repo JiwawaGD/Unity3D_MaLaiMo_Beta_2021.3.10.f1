@@ -813,11 +813,11 @@ public partial class GameManager : MonoBehaviour
 
             while (elapsedTime < 1f)
             {
-                vignette.intensity.value = Mathf.Lerp(currentIntensity,
+                vignette.intensity.value = Mathf.Lerp(.7f,
                                                     targetIntensity, elapsedTime);
-                vignette.smoothness.value = Mathf.Lerp(currentIntensity,
+                vignette.smoothness.value = Mathf.Lerp(.16f,
                                                     targetIntensity, elapsedTime);
-                vignette.roundness.value = Mathf.Lerp(currentIntensity,
+                vignette.roundness.value = Mathf.Lerp(.18f,
                                                     targetIntensity, elapsedTime);
                 cloudLayer.opacity.value = Mathf.Lerp(currentIntensity,
                                                     targetIntensity, elapsedTime);
@@ -825,30 +825,12 @@ public partial class GameManager : MonoBehaviour
                 elapsedTime += Time.deltaTime * changeSpeed;
                 yield return null;
             }
+            vignette.intensity.value = 0.64f;
+            vignette.smoothness.value = 0.168f;
+            vignette.roundness.value = 0.184f;
+            cloudLayer.opacity.value = 0.0f;
             playerCtrlr.m_bCanControl = true;
             playerCtrlr.m_bLimitRotation = false;
-            KeepstoryReadding();
-        }
-    }
-
-    public void KeepstoryReadding()
-    {
-        VolumeProfile profile = postProcessVolume.sharedProfile;
-        CloudLayer cloudLayer = null;
-
-        if (!profile.TryGet<Vignette>(out var vignette) &&
-            !profile.TryGet(out cloudLayer))
-        {
-            vignette = profile.Add<Vignette>(false);
-            cloudLayer = profile.Add<CloudLayer>(false);
-        }
-        int elapsedTime = 0;
-        if (elapsedTime < 1)
-        {
-            vignette.intensity.value = .1f;
-            vignette.smoothness.value = 0;
-            vignette.roundness.value = 0;
-            cloudLayer.opacity.value = 0.000f;
         }
     }
 }
