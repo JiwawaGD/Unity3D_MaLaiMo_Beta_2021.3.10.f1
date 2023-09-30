@@ -140,13 +140,13 @@
     {
         "",
         "Esc 返回\r\n"+
-        "K L 旋轉",
+        "滑鼠 旋轉",
         "Esc 返回\r\n"+
-        "K L 旋轉",
+        "滑鼠 旋轉",
         "Esc 返回\r\n"+
-        "K L 旋轉",
+        "滑鼠 旋轉",
         "Esc 返回\r\n"+
-        "K L 旋轉",
+        "滑鼠 旋轉",
     };
 
     public readonly static string[] UIIntroduce = new string[]

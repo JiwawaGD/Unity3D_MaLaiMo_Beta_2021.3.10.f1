@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.Audio;
 using System.Collections;
+using Fungus;
+using OldBrickHouse;
 
 public class AUDManager : MonoBehaviour
 {
@@ -71,6 +73,7 @@ public class AUDManager : MonoBehaviour
     [SerializeField, Tooltip("墜落聲")] AudioClip falling_Sound;
     [SerializeField, Tooltip("墜落後黑畫面")] AudioClip black_Screen_After_Fall;
     [SerializeField, Tooltip("轉水龍頭聲")] AudioClip turn_The_Tap;
+    [SerializeField,Tooltip("緊湊敲門聲")]public AudioClip emergency_Knock_On_The_Door;
     #endregion
 
     [SerializeField, Header("環境/其他")] AudioSource environmentOtherSound;
@@ -167,6 +170,14 @@ public class AUDManager : MonoBehaviour
     public void PlayerWhiteTentSFX()
     {
         mainAudioSource.PlayOneShot(filial_Piety_Curtain);
+    }
+    public void EmergencyKnockOnTheDoor()
+    {
+        mainAudioSource.PlayOneShot(emergency_Knock_On_The_Door);
+    }
+    public void CloseDoor()
+    {
+        mainAudioSource.PlayOneShot(door_Slam);
     }
 
     /// <summary>

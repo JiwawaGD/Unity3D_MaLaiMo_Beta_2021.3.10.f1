@@ -369,19 +369,19 @@ public partial class GameManager : MonoBehaviour
                 Invoke(nameof(IvkShowS2DoorKey), 1.25f);
                 break;
             case GameEventID.S2_Room_Key:
-                // 紹威 (音效 撥放急湊的敲門聲
+                AUDManager.instance.EmergencyKnockOnTheDoor();
                 BoxCollider S2_Door_Knock_Trigger = GameObject.Find("S2_Door_Knock_Trigger").GetComponent<BoxCollider>();
                 S2_Door_Knock_Trigger.enabled = true;
                 break;
             case GameEventID.S2_Door_Knock_Stop:
-                // 紹威 (音效 關急湊的敲門聲
+                AUDManager.instance.EmergencyKnockOnTheDoor();
                 ShowHint(HintItemID.S2_Grandma_Room_Door_Open);
                 break;
             case GameEventID.S2_Grandma_Door_Open:
                 ProcessAnimator("S2_Room_Door", "S2_Grandma_Door_Open");
                 break;
             case GameEventID.S2_Grandma_Door_Close:
-                // 紹威 (關門音效
+                AUDManager.instance.CloseDoor();
                 ProcessAnimator("S2_Room_Door", "S2_Grandma_Door_Close");
                 break;
             case GameEventID.S2_Ghost_Pass_Door:
@@ -390,7 +390,7 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S2_Rice_Funeral);
                 break;
             case GameEventID.S2_Rice_Funeral:
-                // 紹威 (字幕 腳尾飯? 旁邊那是奶奶的照片)
+                flowchartObjects[16].gameObject.SetActive(true);
                 ShowHint(HintItemID.S2_Photo_Frame);
                 break;
             case GameEventID.S2_Photo_Frame:
