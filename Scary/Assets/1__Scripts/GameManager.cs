@@ -15,7 +15,6 @@ public partial class GameManager : MonoBehaviour
     public static GameManager instance;
     public ProgressProcessing progressProcessing;
 
-
     private float targetIntensity = 1f; // 目標強度值
     private float currentIntensity = 0.3f; // 當前強度值
     public float changeSpeed = 1f; // 強度改變速度
@@ -42,7 +41,7 @@ public partial class GameManager : MonoBehaviour
 
     int m_iGrandmaRushCount;
 
-    Transform tfGrandmaGhost;
+    [SerializeField] [Header("阿嬤的 Transform")] Transform tfGrandmaGhost;
     Scene currentScene;
 
     ItemController TempItem;
@@ -92,6 +91,11 @@ public partial class GameManager : MonoBehaviour
 
     bool bS2_TriggerLightSwitch = false;
     bool bS2_TriggerGrandmaDoorLock = false;
+    #endregion
+
+    #region - All Scene Items -
+    [Header("場景一物件")]
+    [Header("S1_打翻前的腳尾飯")] public GameObject S1_Rice_Funeral;
     #endregion
 
     bool isPaused = false;
@@ -229,10 +233,10 @@ public partial class GameManager : MonoBehaviour
                 StopReadding();
                 //UIState(UIItemID.S1_Grandma_Dead_Body, true);
                 flowchartObjects[6].gameObject.SetActive(true);
-                GameObject RiceFuneralObj = GameObject.Find("Rice_Funeral");
-                Destroy(RiceFuneralObj);
+                Destroy(S1_Rice_Funeral);
                 UnityEngine.Object RiceFuneralSpilled = Resources.Load<GameObject>("Prefabs/Rice_Funeral_Spilled");
                 GameObject RiceFuneralSpilledObj = Instantiate(RiceFuneralSpilled) as GameObject;
+                RiceFuneralSpilledObj.transform.parent = GameObject.Find("===== ITEMS =====").transform;
                 RiceFuneralSpilledObj.transform.position = new Vector3(-4.4f, 0.006f, 11.8f);
                 RiceFuneralSpilledObj.name = "Rice_Funeral_Spilled";
                 ShowHint(HintItemID.S1_Rice_Funeral_Spilled);
@@ -320,13 +324,13 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Toilet_Door_Lock:
                 //  紹威 (廁所門被鎖住了 字幕)
-                flowchartObjects[12].gameObject.SetActive(true);    
+                flowchartObjects[12].gameObject.SetActive(true);
                 break;
             case GameEventID.S1_Toilet_Door_Open:
                 ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Open");
-                ShowHint(HintItemID.S1_Photo_Frame);
                 BoxCollider ToiletDoorCollider = GameObject.Find("Toilet_Door_Ghost").GetComponent<BoxCollider>();
                 ToiletDoorCollider.enabled = false;
+                ShowHint(HintItemID.S1_Photo_Frame);
                 break;
             case GameEventID.S1_Toilet_Ghost_Hide:
                 ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Ghost_Out");
@@ -346,7 +350,7 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S2_Light_Switch:
                 bS2_TriggerLightSwitch = true;
                 // 紹威 (燈不會亮 字幕)
-                flowchartObjects[13].gameObject.SetActive(true);    
+                flowchartObjects[13].gameObject.SetActive(true);
                 ShowHint(HintItemID.S2_FlashLight);
                 break;
             case GameEventID.S2_Room_Door_Lock:
@@ -458,7 +462,7 @@ public partial class GameManager : MonoBehaviour
                 TempItem = GameObject.Find("Rice_Funeral_Spilled").GetComponent<ItemController>();
                 break;
             case HintItemID.S1_Photo_Frame:
-                TempItem = GameObject.Find("Photo_Frame").GetComponent<ItemController>();
+                TempItem = GameObject.Find("S1_Photo_Frame").GetComponent<ItemController>();
                 break;
             case HintItemID.S1_Toilet_Door:
                 TempItem = GameObject.Find("Toilet_Door_Ghost").GetComponent<ItemController>();
@@ -798,6 +802,7 @@ public partial class GameManager : MonoBehaviour
         playerCtrlr.m_bLimitRotation = true;
         StartCoroutine(ChangeVignetteIntensity());
     }
+
     private IEnumerator ChangeVignetteIntensity()
     {
         VolumeProfile profile = postProcessVolume.sharedProfile;
@@ -827,6 +832,7 @@ public partial class GameManager : MonoBehaviour
             KeepstoryReadding();
         }
     }
+
     public void KeepstoryReadding()
     {
         VolumeProfile profile = postProcessVolume.sharedProfile;
@@ -846,5 +852,4 @@ public partial class GameManager : MonoBehaviour
             cloudLayer.opacity.value = 0;
         }
     }
-
 }
