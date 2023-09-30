@@ -93,7 +93,9 @@ public partial class GameManager : MonoBehaviour
 
     #region - All Scene Items -
     [Header("場景一物件")]
-    [Header("S1_打翻前的腳尾飯")] public GameObject S1_Rice_Funeral;
+    [Header("S1_打翻前的腳尾飯")] public GameObject S1_Rice_Funeral_Obj;
+    [Header("S1_完好的相框")] public GameObject S1_Photo_Frame_Obj;
+    [Header("S1_破碎的相框")] public GameObject S1_Photo_Frame_Has_Broken_Obj;
 
     [Header("場景二物件")]
     [Header("S2_鬼阿嬤")] public GameObject S2_Grandma_Ghost;
@@ -185,6 +187,11 @@ public partial class GameManager : MonoBehaviour
                 GameStateCheck();
                 break;
             case GameEventID.S1_Photo_Frame:
+                S1_Photo_Frame_Obj.SetActive(false);
+                S1_Photo_Frame_Has_Broken_Obj.SetActive(true);
+                ShowHint(HintItemID.S1_Photo_Frame_Has_Broken);
+                break;
+            case GameEventID.S1_Photo_Frame_Has_Broken:
                 UIState(UIItemID.S1_Photo_Frame, true);
                 // 紹威 (道具UI : 相框)
                 saveRotaObj = 2;
@@ -230,7 +237,7 @@ public partial class GameManager : MonoBehaviour
                 StopReadding();
                 //UIState(UIItemID.S1_Grandma_Dead_Body, true);
                 flowchartObjects[6].gameObject.SetActive(true);
-                Destroy(S1_Rice_Funeral);
+                Destroy(S1_Rice_Funeral_Obj);
                 UnityEngine.Object RiceFuneralSpilled = Resources.Load<GameObject>("Prefabs/Rice_Funeral_Spilled");
                 GameObject RiceFuneralSpilledObj = Instantiate(RiceFuneralSpilled) as GameObject;
                 RiceFuneralSpilledObj.transform.parent = GameObject.Find("===== ITEMS =====").transform;
@@ -459,6 +466,9 @@ public partial class GameManager : MonoBehaviour
                 break;
             case HintItemID.S1_Rice_Funeral_Spilled:
                 TempItem = GameObject.Find("Rice_Funeral_Spilled").GetComponent<ItemController>();
+                break;
+            case HintItemID.S1_Photo_Frame_Has_Broken:
+                TempItem = GameObject.Find("S1_Photo_Frame_Has_Broken").GetComponent<ItemController>();
                 break;
             case HintItemID.S1_Photo_Frame:
                 TempItem = GameObject.Find("S1_Photo_Frame").GetComponent<ItemController>();

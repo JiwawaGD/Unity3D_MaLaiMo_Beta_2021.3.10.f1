@@ -21,9 +21,10 @@ public enum GameEventID
     S1_Toilet_Door_Open,
     S1_Toilet_Ghost_Hide,
     S1_Toilet_Ghost_Hand_Push,
+    S1_Photo_Frame_Has_Broken,
 
     // S2 : Scene_2
-    S2_Light_Switch,
+    S2_Light_Switch = 101,
     S2_Room_Door_Lock,
     S2_FlashLight,
     S2_Side_Table,
@@ -55,9 +56,10 @@ public enum HintItemID
     S1_Photo_Frame,
     S1_Toilet_Door,
     S1_Toilet_GhostHand_Trigger,
+    S1_Photo_Frame_Has_Broken,
 
     // S2 : Scene_2
-    S2_Light_Switch,
+    S2_Light_Switch = 101,
     S2_Room_Door,
     S2_FlashLight,
     S2_Side_Table,
