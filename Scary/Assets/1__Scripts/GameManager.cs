@@ -22,7 +22,7 @@ public partial class GameManager : MonoBehaviour
     public Vector3 originalPosition;
     public Quaternion originalRotation;
 
-    [SerializeField][Header("欲製物 - Schedule")] Text prefabs_Schedule;
+    [SerializeField] [Header("欲製物 - Schedule")] Text prefabs_Schedule;
 
     [Header("物件移動速度")] public float objSpeed;
     [Header("旋轉物件collider")] public Collider Ro_Cololider;
@@ -36,12 +36,12 @@ public partial class GameManager : MonoBehaviour
     [Header("儲存生成物件")] public int saveRotaObj;
 
     [Header("玩家")] public PlayerController playerCtrlr;
-    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
-    [SerializeField][Header("設定頁面")] public GameObject settingObjects;
+    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
 
     int m_iGrandmaRushCount;
 
-    [SerializeField][Header("阿嬤的 Transform")] Transform tfGrandmaGhost;
+    [SerializeField] [Header("阿嬤的 Transform")] Transform tfGrandmaGhost;
     Scene currentScene;
 
     ItemController TempItem;
@@ -147,10 +147,6 @@ public partial class GameManager : MonoBehaviour
         ShowHint(HintItemID.S1_Light_Switch);
         ShowHint(HintItemID.S1_Grandma_Room_Door_Lock);
         ShowHint(HintItemID.S1_Toilet_Door);
-
-        // Test
-        ShowHint(HintItemID.S2_Light_Switch);
-        ShowHint(HintItemID.S2_Room_Door);
     }
 
     void Update()
@@ -383,11 +379,11 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S2_Grandma_Room_Door_Open);
                 break;
             case GameEventID.S2_Grandma_Door_Open:
-                ProcessAnimator("S2_Room_Door", "S2_Grandma_Door_Open");
+                ProcessAnimator("S2_Grandma_Room_Door", "S2_Grandma_Room_Door_Open");
                 break;
             case GameEventID.S2_Grandma_Door_Close:
                 AUDManager.instance.CloseDoor();
-                ProcessAnimator("S2_Room_Door", "S2_Grandma_Door_Close");
+                ProcessAnimator("S2_Grandma_Room_Door", "S2_Grandma_Room_Door_Close");
                 break;
             case GameEventID.S2_Ghost_Pass_Door:
                 S2_Grandma_Ghost.GetComponent<Animator>().SetTrigger("S2_Grandma_Pass_Door");
@@ -476,7 +472,7 @@ public partial class GameManager : MonoBehaviour
                 TempItem = GameObject.Find("S2_Light_Switch").GetComponent<ItemController>();
                 break;
             case HintItemID.S2_Room_Door:
-                TempItem = GameObject.Find("S2_Room_Door").GetComponent<ItemController>();
+                TempItem = GameObject.Find("S2_Grandma_Room_Door").GetComponent<ItemController>();
                 break;
             case HintItemID.S2_FlashLight:
                 if (!bS2_TriggerLightSwitch || !bS2_TriggerGrandmaDoorLock)
@@ -491,7 +487,7 @@ public partial class GameManager : MonoBehaviour
                 TempItem = GameObject.Find("S2_Grandma_Room_Key").GetComponent<ItemController>();
                 break;
             case HintItemID.S2_Grandma_Room_Door_Open:
-                TempItem = GameObject.Find("S2_Room_Door").GetComponent<ItemController>();
+                TempItem = GameObject.Find("S2_Grandma_Room_Door").GetComponent<ItemController>();
                 TempItem.gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
                 TempItem.eventID = GameEventID.S2_Grandma_Door_Open;
                 break;
