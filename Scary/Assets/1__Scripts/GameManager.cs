@@ -309,7 +309,7 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S1_Lotus_Paper);
                 m_bPlayLotusEnable = true;
                 flowchartObjects[8].gameObject.SetActive(true);
-                progressProcessing.UpdateProgress(3);
+                //progressProcessing.UpdateProgress(3);
                 break;
             case GameEventID.S1_Rice_Funeral:
                 ShowHint(HintItemID.S1_Filial_Piety_Curtain);
@@ -394,7 +394,7 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S2_Rice_Funeral);
                 break;
             case GameEventID.S2_Rice_Funeral:
-                flowchartObjects[16].gameObject.SetActive(true);
+                //flowchartObjects[16].gameObject.SetActive(true);
                 ShowHint(HintItemID.S2_Photo_Frame);
                 BoxCollider S2_Rice_Funeral_Collider = GameObject.Find("S2_Rice_Funeral").GetComponent<BoxCollider>();
                 S2_Rice_Funeral_Collider.enabled = false;
