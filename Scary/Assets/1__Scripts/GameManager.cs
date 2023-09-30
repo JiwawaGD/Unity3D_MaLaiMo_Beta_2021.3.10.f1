@@ -22,7 +22,7 @@ public partial class GameManager : MonoBehaviour
     public Vector3 originalPosition;
     public Quaternion originalRotation;
 
-    [SerializeField] [Header("欲製物 - Schedule")] Text prefabs_Schedule;
+    [SerializeField][Header("欲製物 - Schedule")] Text prefabs_Schedule;
 
     [Header("物件移動速度")] public float objSpeed;
     [Header("旋轉物件collider")] public Collider Ro_Cololider;
@@ -36,12 +36,12 @@ public partial class GameManager : MonoBehaviour
     [Header("儲存生成物件")] public int saveRotaObj;
 
     [Header("玩家")] public PlayerController playerCtrlr;
-    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
-    [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
+    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField][Header("設定頁面")] public GameObject settingObjects;
 
     int m_iGrandmaRushCount;
 
-    [SerializeField] [Header("阿嬤的 Transform")] Transform tfGrandmaGhost;
+    [SerializeField][Header("阿嬤的 Transform")] Transform tfGrandmaGhost;
     Scene currentScene;
 
     ItemController TempItem;
@@ -846,12 +846,13 @@ public partial class GameManager : MonoBehaviour
             vignette = profile.Add<Vignette>(false);
             cloudLayer = profile.Add<CloudLayer>(false);
         }
-        vignette.intensity.value = .1f;
-        vignette.smoothness.value = 0;
-        vignette.roundness.value = 0;
-        if (cloudLayer != null)
+        int elapsedTime = 0;
+        if (elapsedTime < 1)
         {
-            cloudLayer.opacity.value = 0;
+            vignette.intensity.value = .1f;
+            vignette.smoothness.value = 0;
+            vignette.roundness.value = 0;
+            cloudLayer.opacity.value = 0.000f;
         }
     }
 }
