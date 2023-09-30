@@ -49,10 +49,4 @@ public partial class GameManager : MonoBehaviour
         S2_Grandma_Room_Key.transform.position = new Vector3(-6.8f, 0.3f, 37.4f);
         ShowHint(HintItemID.S2_Room_Key);
     }
-
-    public void IvkHideS2GrandmaGhost()
-    {
-        GameObject Grandma_Ghost = GameObject.Find("Grandma_Ghost");
-        Grandma_Ghost.transform.position = new Vector3(-6.9f, -2f, 48.5f);
-    }
 }

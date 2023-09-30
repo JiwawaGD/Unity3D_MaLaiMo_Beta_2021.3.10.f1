@@ -96,6 +96,9 @@ public partial class GameManager : MonoBehaviour
     #region - All Scene Items -
     [Header("場景一物件")]
     [Header("S1_打翻前的腳尾飯")] public GameObject S1_Rice_Funeral;
+
+    [Header("場景二物件")]
+    [Header("S1_鬼阿嬤")] public GameObject S2_Grandma_Ghost;
     #endregion
 
     bool isPaused = false;
@@ -387,8 +390,7 @@ public partial class GameManager : MonoBehaviour
                 ProcessAnimator("S2_Room_Door", "S2_Grandma_Door_Close");
                 break;
             case GameEventID.S2_Ghost_Pass_Door:
-                ProcessAnimator("Grandma_Ghost", "S2_Grandma_Pass_Door");
-                Invoke(nameof(IvkHideS2GrandmaGhost), 1.2f);
+                S2_Grandma_Ghost.GetComponent<Animator>().SetTrigger("S2_Grandma_Pass_Door");
                 ShowHint(HintItemID.S2_Rice_Funeral);
                 break;
             case GameEventID.S2_Rice_Funeral:
