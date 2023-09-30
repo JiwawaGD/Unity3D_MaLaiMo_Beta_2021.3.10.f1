@@ -395,6 +395,11 @@ public partial class GameManager : MonoBehaviour
 
                 Invoke(nameof(IvkS2_Grandma_Pass_Door), 1.5f);
                 break;
+            case GameEventID.S2_Toilet_Door:
+                // 被廁所鬼嚇的那一段
+
+                Invoke(nameof(IvkS2_Shocked_By_Toilet), 5f);
+                break;
             case GameEventID.S2_Rice_Funeral:
                 //flowchartObjects[16].gameObject.SetActive(true);
                 ShowHint(HintItemID.S2_Photo_Frame);
@@ -507,6 +512,9 @@ public partial class GameManager : MonoBehaviour
                 break;
             case HintItemID.S2_Photo_Frame:
                 TempItem = GameObject.Find("S2_Photo_Frame").GetComponent<ItemController>();
+                break;
+            case HintItemID.S2_Toilet_Door:
+                TempItem = GameObject.Find("S2_Toilet_Door").GetComponent<ItemController>();
                 break;
         }
 

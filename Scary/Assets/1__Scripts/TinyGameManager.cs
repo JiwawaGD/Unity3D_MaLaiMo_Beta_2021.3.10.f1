@@ -53,6 +53,11 @@ public partial class GameManager : MonoBehaviour
     public void IvkS2_Grandma_Pass_Door()
     {
         S2_Grandma_Ghost.GetComponent<Animator>().applyRootMotion = true;
-        ShowHint(HintItemID.S2_Rice_Funeral);
+        ShowHint(HintItemID.S2_Toilet_Door);
+    }
+
+    public void IvkS2_Shocked_By_Toilet()
+    {
+
     }
 }

@@ -35,6 +35,7 @@ public enum GameEventID
     S2_Ghost_Pass_Door,
     S2_Rice_Funeral,
     S2_Photo_Frame,
+    S2_Toilet_Door,
 }
 
 public enum HintItemID
@@ -67,6 +68,7 @@ public enum HintItemID
     S2_Grandma_Room_Door_Open,
     S2_Rice_Funeral,
     S2_Photo_Frame,
+    S2_Toilet_Door,
 }
 
 public enum ObjItemID
