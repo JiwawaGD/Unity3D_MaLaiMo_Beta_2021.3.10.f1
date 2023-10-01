@@ -35,22 +35,22 @@ public class JumpScaryItem : MonoBehaviour
 
         audioSource.Play();
 
-        Destroy(gameObject);
+        Destroy(gameObject,5);
     }
 
     private void FixedUpdate()
     {
-        if (isMoving)
-        {
-            Vector3 direction = (target.position - gradma.transform.position).normalized;
-            rb.AddForce(direction * acceleration, ForceMode.Acceleration);
+        //if (isMoving)
+        //{
+        //    Vector3 direction = (target.position - gradma.transform.position).normalized;
+        //    rb.AddForce(direction * acceleration, ForceMode.Acceleration);
 
-            if (Vector3.Distance(gradma.transform.position, target.position) < 0.1f)
-            {
-                isMoving = false;
-                rb.velocity = Vector3.zero;
-            }
-        }
+        //    if (Vector3.Distance(gradma.transform.position, target.position) < 0.1f)
+        //    {
+        //        isMoving = false;
+        //        rb.velocity = Vector3.zero;
+        //    }
+        //}
     }
 
 }
