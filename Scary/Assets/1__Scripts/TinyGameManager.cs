@@ -59,6 +59,6 @@ public partial class GameManager : MonoBehaviour
     public void IvkS2_Shocked_By_Toilet()
     {
         // 串接阿霆的動畫
-
+        S2_Toilet_Door_GhostHead_Obj.GetComponent<Animator>().SetTrigger("S2_Toilet_Door_GhostHead_Scared");
     }
 }

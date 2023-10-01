@@ -100,9 +100,10 @@ public partial class GameManager : MonoBehaviour
     [Header("場景二物件")]
     [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
     [SerializeField] [Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
-    [SerializeField] [Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_2_Obj;
+    [SerializeField] [Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
     [SerializeField] [Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
-    [SerializeField] [Header("S2_躺在床上的奶奶屍體")] GameObject S2_Toilet_Door_GhostHead_Obj;
+    [SerializeField] [Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
+    [SerializeField] [Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj;
     #endregion
 
     bool isPaused = false;
@@ -395,24 +396,24 @@ public partial class GameManager : MonoBehaviour
                 Invoke(nameof(IvkS2_Grandma_Pass_Door), 1.5f);
                 break;
             case GameEventID.S2_Toilet_Door:
-                // 陶宇 (玩家動畫(攝影機 + 物件)
                 // 紹威 (音效 關閉 廁所奇怪的聲音
+                ProcessPlayerAnimator("Player_S2_Shocked_By_Toilet_Ghost");
 
                 S2_Furniture_State_1_Obj.SetActive(false);
                 S2_Furniture_State_2_Obj.SetActive(true);
                 ShowHint(HintItemID.S2_Rice_Funeral);
 
-                Invoke(nameof(IvkS2_Shocked_By_Toilet), 3f);
+                Invoke(nameof(IvkS2_Shocked_By_Toilet), 4f);
                 break;
             case GameEventID.S2_Rice_Funeral:
+                // 紹威 (字幕 腳尾飯
                 //flowchartObjects[16].gameObject.SetActive(true);
                 BoxCollider S2_Rice_Funeral_Collider = GameObject.Find("S2_Rice_Funeral").GetComponent<BoxCollider>();
                 S2_Rice_Funeral_Collider.enabled = false;
                 ShowHint(HintItemID.S2_Photo_Frame);
                 break;
             case GameEventID.S2_Photo_Frame:
-                // 紹威 (UI 參考 Excel 顯示
-                //     (音效 扭動身體音效
+                // 紹威 (確認表現跟畫面 (會有 Error
                 saveRotaObj = 3;
                 isMovingObject = true;
                 originalPosition = RO_OBJ[saveRotaObj].transform.position;
@@ -517,7 +518,7 @@ public partial class GameManager : MonoBehaviour
                 TempItem = GameObject.Find("S2_Rice_Funeral").GetComponent<ItemController>();
                 break;
             case HintItemID.S2_Photo_Frame:
-                TempItem = GameObject.Find("S2_Photo_Frame").GetComponent<ItemController>();
+                TempItem = S2_Photo_Frame_Obj.GetComponent<ItemController>();
                 break;
             case HintItemID.S2_Toilet_Door:
                 TempItem = GameObject.Find("S2_Toilet_Door_GhostHead").GetComponent<ItemController>();
