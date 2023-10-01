@@ -15,10 +15,10 @@ public partial class GameManager : MonoBehaviour
     public static GameManager instance;
     public ProgressProcessing progressProcessing;
 
-    private float targetIntensity = 1f; // 目標強度值
-    private float currentIntensity = 0.3f; // 當前強度值
+    float targetIntensity = 1f; // 目標強度值
+    float currentIntensity = 0.3f; // 當前強度值
     public float changeSpeed = 1f; // 強度改變速度
-    private bool isMovingObject = false;
+    bool isMovingObject = false;
     public Vector3 originalPosition;
     public Quaternion originalRotation;
 
@@ -93,12 +93,16 @@ public partial class GameManager : MonoBehaviour
 
     #region - All Scene Items -
     [Header("場景一物件")]
-    [Header("S1_打翻前的腳尾飯")] public GameObject S1_Rice_Funeral_Obj;
-    [Header("S1_完好的相框")] public GameObject S1_Photo_Frame_Obj;
-    [Header("S1_破碎的相框")] public GameObject S1_Photo_Frame_Has_Broken_Obj;
+    [SerializeField] [Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
+    [SerializeField] [Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
+    [SerializeField] [Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
 
     [Header("場景二物件")]
-    [Header("S2_鬼阿嬤")] public GameObject S2_Grandma_Ghost;
+    [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
+    [SerializeField] [Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
+    [SerializeField] [Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_2_Obj;
+    [SerializeField] [Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
+    [SerializeField] [Header("S2_躺在床上的奶奶屍體")] GameObject S2_Toilet_Door_GhostHead_Obj;
     #endregion
 
     bool isPaused = false;
@@ -193,7 +197,6 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Photo_Frame_Has_Broken:
                 UIState(UIItemID.S1_Photo_Frame, true);
-                // 紹威 (道具UI : 相框)
                 saveRotaObj = 2;
                 isMovingObject = true;
                 originalPosition = RO_OBJ[saveRotaObj].transform.position;
@@ -327,7 +330,6 @@ public partial class GameManager : MonoBehaviour
 
                 break;
             case GameEventID.S1_Toilet_Door_Lock:
-                //  紹威 (廁所門被鎖住了 字幕)
                 flowchartObjects[12].gameObject.SetActive(true);
                 break;
             case GameEventID.S1_Toilet_Door_Open:
@@ -353,18 +355,15 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S2_Light_Switch:
                 bS2_TriggerLightSwitch = true;
-                // 紹威 (燈不會亮 字幕)
                 flowchartObjects[13].gameObject.SetActive(true);
                 ShowHint(HintItemID.S2_FlashLight);
                 break;
             case GameEventID.S2_Room_Door_Lock:
                 bS2_TriggerGrandmaDoorLock = true;
-                // 紹威 (UI 門鎖住了 & 字幕)
                 flowchartObjects[12].gameObject.SetActive(true);
                 ShowHint(HintItemID.S2_FlashLight);
                 break;
             case GameEventID.S2_FlashLight:
-                // 紹威 (手電筒不會亮 字幕)
                 flowchartObjects[14].gameObject.SetActive(true);
                 GameObject S2_FlashLightObj = GameObject.Find("S2_FlashLight");
                 Destroy(S2_FlashLightObj);
@@ -391,20 +390,25 @@ public partial class GameManager : MonoBehaviour
                 ProcessAnimator("S2_Grandma_Room_Door", "S2_Grandma_Room_Door_Close");
                 break;
             case GameEventID.S2_Ghost_Pass_Door:
-                S2_Grandma_Ghost.GetComponent<Animator>().SetTrigger("S2_Grandma_Pass_Door");
-
+                // 紹威 (音效 撥放 廁所有奇怪持續的聲音
+                S2_Grandma_Ghost_Obj.GetComponent<Animator>().SetTrigger("S2_Grandma_Pass_Door");
                 Invoke(nameof(IvkS2_Grandma_Pass_Door), 1.5f);
                 break;
             case GameEventID.S2_Toilet_Door:
-                // 被廁所鬼嚇的那一段
+                // 陶宇 (玩家動畫(攝影機 + 物件)
+                // 紹威 (音效 關閉 廁所奇怪的聲音
 
-                Invoke(nameof(IvkS2_Shocked_By_Toilet), 5f);
+                S2_Furniture_State_1_Obj.SetActive(false);
+                S2_Furniture_State_2_Obj.SetActive(true);
+                ShowHint(HintItemID.S2_Rice_Funeral);
+
+                Invoke(nameof(IvkS2_Shocked_By_Toilet), 3f);
                 break;
             case GameEventID.S2_Rice_Funeral:
                 //flowchartObjects[16].gameObject.SetActive(true);
-                ShowHint(HintItemID.S2_Photo_Frame);
                 BoxCollider S2_Rice_Funeral_Collider = GameObject.Find("S2_Rice_Funeral").GetComponent<BoxCollider>();
                 S2_Rice_Funeral_Collider.enabled = false;
+                ShowHint(HintItemID.S2_Photo_Frame);
                 break;
             case GameEventID.S2_Photo_Frame:
                 // 紹威 (UI 參考 Excel 顯示
@@ -420,15 +424,17 @@ public partial class GameManager : MonoBehaviour
                 ShowObj(ObjItemID.S1_Photo_Grandma);
                 AUDManager.instance.BodyTwistingSound();
 
-                S2_Grandma_Ghost.transform.position = new Vector3(-5.5f, 0f, 46f);
+                S2_Grandma_Ghost_Obj.transform.position = new Vector3(-5.5f, 0f, 46f);
+                S2_Grandma_Deadbody_On_Table_Obj.SetActive(false);
+
+                // 返回時有東西竄動的聲音
+                // 聲音大約出現 2-3 秒後安靜下來
+                // 奶奶突然出現 >> 黑畫面 >> 嬤來魔的標題
                 break;
         }
     }
 
-    /// <summary>
-    /// 顯示眼睛 Hint 圖示
-    /// </summary>
-    /// <param name="_ItemID"></param>
+    // 顯示眼睛 Hint 圖示
     public void ShowHint(HintItemID _ItemID)
     {
         switch (_ItemID)
@@ -514,7 +520,7 @@ public partial class GameManager : MonoBehaviour
                 TempItem = GameObject.Find("S2_Photo_Frame").GetComponent<ItemController>();
                 break;
             case HintItemID.S2_Toilet_Door:
-                TempItem = GameObject.Find("S2_Toilet_Door").GetComponent<ItemController>();
+                TempItem = GameObject.Find("S2_Toilet_Door_GhostHead").GetComponent<ItemController>();
                 break;
         }
 

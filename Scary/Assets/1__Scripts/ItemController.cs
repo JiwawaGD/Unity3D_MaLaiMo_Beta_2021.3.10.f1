@@ -12,7 +12,7 @@ public class ItemController : MonoBehaviour
     [Header("物件可提示範圍")]
     public float fHintRange;
 
-    //[HideInInspector] // 是否可以觸發
+    [HideInInspector] // 是否可以觸發
     public bool bActive;
 
     #region UI
