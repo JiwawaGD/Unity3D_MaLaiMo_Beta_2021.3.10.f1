@@ -79,7 +79,8 @@ public enum ObjItemID
     S1_Rice_Funeral,
     S1_Lotus_Paper,
     S1_Photo_Frame,
-    S1_Photo_Grandma
+    S1_Photo_Grandma,
+    S2_Photo_Frame
 }
 
 public enum UIItemID
@@ -92,7 +93,8 @@ public enum UIItemID
     S1_Lotus_Paper,
     S1_Grandma_Dead_Body,
     S1_White_Tent,
-    S1_Photo_Grandma
+    S1_Photo_Grandma,
+    S2_Photo_Frame
 }
 
 public enum ButtonEventID

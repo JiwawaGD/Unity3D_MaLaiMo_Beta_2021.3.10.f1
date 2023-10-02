@@ -21,6 +21,7 @@ public partial class GameManager : MonoBehaviour
     bool isMovingObject = false;
     public Vector3 originalPosition;
     public Quaternion originalRotation;
+    [Header("遊戲結束畫面UI")]public GameObject FinalUI;
 
     [SerializeField] [Header("欲製物 - Schedule")] Text prefabs_Schedule;
 
@@ -39,6 +40,7 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
     [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
     [SerializeField][Header("破碎相框co")] public Collider photoCollider;
+    [SerializeField][Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj_RO;
 
 
     int m_iGrandmaRushCount;
@@ -406,13 +408,15 @@ public partial class GameManager : MonoBehaviour
 
                 S2_Furniture_State_1_Obj.SetActive(false);
                 S2_Furniture_State_2_Obj.SetActive(true);
+                S2_Photo_Frame_Obj_RO.SetActive(true);
+                RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
                 ShowHint(HintItemID.S2_Rice_Funeral);
 
                 Invoke(nameof(IvkS2_Shocked_By_Toilet), 4f);
                 break;
             case GameEventID.S2_Rice_Funeral:
                 // 紹威 (字幕 腳尾飯
-                //flowchartObjects[16].gameObject.SetActive(true);
+                flowchartObjects[15].gameObject.SetActive(true);
                 BoxCollider S2_Rice_Funeral_Collider = GameObject.Find("S2_Rice_Funeral").GetComponent<BoxCollider>();
                 S2_Rice_Funeral_Collider.enabled = false;
                 ShowHint(HintItemID.S2_Photo_Frame);
@@ -425,16 +429,19 @@ public partial class GameManager : MonoBehaviour
                 originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
                 Ro_Cololider = RO_OBJ[3].GetComponent<Collider>();
                 romanager = RO_OBJ[3].GetComponent<ROmanager>().enabled = true;
-                UIState(UIItemID.S1_Photo_Grandma, true);
+                UIState(UIItemID.S2_Photo_Frame, true);
                 ShowEnterGame(true);
-                ShowObj(ObjItemID.S1_Photo_Grandma);
+                ShowObj(ObjItemID.S2_Photo_Frame);
                 AUDManager.instance.BodyTwistingSound();
 
                 S2_Grandma_Ghost_Obj.transform.position = new Vector3(-5.5f, 0f, 46f);
                 S2_Grandma_Deadbody_On_Table_Obj.SetActive(false);
 
                 // 返回時有東西竄動的聲音
+                AUDManager.instance.TheSoundOfSomethingMoving();
                 // 聲音大約出現 2-3 秒後安靜下來
+                AUDManager.instance.GrandmaStrangeVoice();
+                FinalUI.SetActive(true);
                 // 奶奶突然出現 >> 黑畫面 >> 嬤來魔的標題
                 break;
         }
@@ -556,6 +563,12 @@ public partial class GameManager : MonoBehaviour
                 //RO_OBJ[1] = Instantiate(itemObj[1], newPosition, newRoation);
                 break;
             case ObjItemID.S1_Photo_Frame:
+                RO_OBJ[saveRotaObj].transform.DOMove(
+                    new Vector3(itemObjTransform.transform.position.x,
+                    itemObjTransform.transform.position.y,
+                    itemObjTransform.transform.position.z), 2);
+                break;
+            case ObjItemID.S2_Photo_Frame:
                 RO_OBJ[saveRotaObj].transform.DOMove(
                     new Vector3(itemObjTransform.transform.position.x,
                     itemObjTransform.transform.position.y,

@@ -16,8 +16,9 @@ public class AUDManager : MonoBehaviour
     [SerializeField, Header("玩家聲音效")] AudioSource PlayerSound;
     [SerializeField, Header("人物/物品聲音效")] AudioSource grandmaSound;
     #region 人物/物品聲 
-    [Tooltip("廁所有奇怪持續的聲音")]public AudioClip strange_noises_keep_coming;
-    [Tooltip("廁所有奇怪持續的聲音")]public AudioClip strange_noises_in_the_toilet;
+    [Tooltip("東西竄動的聲音")] public AudioClip the_sound_of_something_moving;
+    [Tooltip("廁所有奇怪持續的聲音")] public AudioClip strange_noises_keep_coming;
+    [Tooltip("廁所有奇怪持續的聲音")] public AudioClip strange_noises_in_the_toilet;
     [Tooltip("奶奶開始向前")] public AudioClip grandma_Starts_Walking;
     [Tooltip("奶奶詭異聲")] public AudioClip grandma_StrangeVoice;
     [Tooltip("扭動身體的音效")] public AudioClip body_Twisting_Sound;
@@ -75,7 +76,7 @@ public class AUDManager : MonoBehaviour
     [SerializeField, Tooltip("墜落聲")] AudioClip falling_Sound;
     [SerializeField, Tooltip("墜落後黑畫面")] AudioClip black_Screen_After_Fall;
     [SerializeField, Tooltip("轉水龍頭聲")] AudioClip turn_The_Tap;
-    [SerializeField,Tooltip("緊湊敲門聲")]public AudioClip emergency_Knock_On_The_Door;
+    [SerializeField, Tooltip("緊湊敲門聲")] public AudioClip emergency_Knock_On_The_Door;
     #endregion
 
     [SerializeField, Header("環境/其他")] AudioSource environmentOtherSound;
@@ -122,8 +123,8 @@ public class AUDManager : MonoBehaviour
     }
     public void OpenTheDrawerSFX()
     {
-        float originalVolume = mainAudioSource.volume; 
-        mainAudioSource.volume = originalVolume * 0.5f; 
+        float originalVolume = mainAudioSource.volume;
+        mainAudioSource.volume = originalVolume * 0.5f;
         mainAudioSource.PlayOneShot(drawer_Opening_Sound);
 
         StartCoroutine(RestoreVolume(originalVolume));
@@ -173,25 +174,40 @@ public class AUDManager : MonoBehaviour
     {
         mainAudioSource.PlayOneShot(filial_Piety_Curtain);
     }
+
     public void EmergencyKnockOnTheDoor()
     {
         mainAudioSource.PlayOneShot(emergency_Knock_On_The_Door);
     }
+
     public void CloseDoor()
     {
         mainAudioSource.PlayOneShot(door_Slam);
     }
+
     public void BodyTwistingSound()
     {
         mainAudioSource.PlayOneShot(body_Twisting_Sound);
     }
+
     public void ThereIsAStrangeContinuousSoundInTheToilet()
     {
         mainAudioSource.PlayOneShot(strange_noises_keep_coming);
     }
+
     public void StrangeNoisesInTheToilet()
     {
         mainAudioSource.PlayOneShot(strange_noises_in_the_toilet);
+    }
+
+    public void TheSoundOfSomethingMoving()
+    { 
+        mainAudioSource.PlayOneShot(the_sound_of_something_moving);
+    }
+
+    public void GrandmaStrangeVoice()
+    {
+        mainAudioSource.PlayOneShot(grandma_StrangeVoice);
     }
 
     /// <summary>

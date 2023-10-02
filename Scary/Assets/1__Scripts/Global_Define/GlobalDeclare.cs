@@ -150,6 +150,8 @@
         "滑鼠 旋轉",
         "Esc 返回\r\n"+
         "滑鼠 旋轉",
+        "Esc 返回\r\n"+
+        "滑鼠 旋轉",
     };
 
     public readonly static string[] UIIntroduce = new string[]
