@@ -38,6 +38,8 @@ public partial class GameManager : MonoBehaviour
     [Header("玩家")] public PlayerController playerCtrlr;
     [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
     [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
+    [SerializeField][Header("破碎相框co")] public Collider photoCollider;
+
 
     int m_iGrandmaRushCount;
     Scene currentScene;
@@ -198,6 +200,7 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Photo_Frame_Has_Broken:
                 UIState(UIItemID.S1_Photo_Frame, true);
+                photoCollider.enabled = true;
                 saveRotaObj = 2;
                 isMovingObject = true;
                 originalPosition = RO_OBJ[saveRotaObj].transform.position;
@@ -387,16 +390,18 @@ public partial class GameManager : MonoBehaviour
                 ProcessAnimator("S2_Grandma_Room_Door", "S2_Grandma_Room_Door_Open");
                 break;
             case GameEventID.S2_Grandma_Door_Close:
-                AUDManager.instance.CloseDoor();
+                AUDManager.instance.PlayerDoorLockSFX();
                 ProcessAnimator("S2_Grandma_Room_Door", "S2_Grandma_Room_Door_Close");
                 break;
             case GameEventID.S2_Ghost_Pass_Door:
-                // 紹威 (音效 撥放 廁所有奇怪持續的聲音
+                // 紹威 (音效 撥放 廁所有奇怪持續的聲音 V
+                AUDManager.instance.ThereIsAStrangeContinuousSoundInTheToilet();
                 S2_Grandma_Ghost_Obj.GetComponent<Animator>().SetTrigger("S2_Grandma_Pass_Door");
                 Invoke(nameof(IvkS2_Grandma_Pass_Door), 1.5f);
                 break;
             case GameEventID.S2_Toilet_Door:
-                // 紹威 (音效 關閉 廁所奇怪的聲音
+                // 紹威 (音效 關閉 廁所奇怪的聲音  V
+                AUDManager.instance.StrangeNoisesInTheToilet();
                 ProcessPlayerAnimator("Player_S2_Shocked_By_Toilet_Ghost");
 
                 S2_Furniture_State_1_Obj.SetActive(false);

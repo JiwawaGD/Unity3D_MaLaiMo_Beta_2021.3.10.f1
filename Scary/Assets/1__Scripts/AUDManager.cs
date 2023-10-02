@@ -15,18 +15,20 @@ public class AUDManager : MonoBehaviour
 
     [SerializeField, Header("玩家聲音效")] AudioSource PlayerSound;
     [SerializeField, Header("人物/物品聲音效")] AudioSource grandmaSound;
-    #region 人物/物品聲    
-    [SerializeField, Tooltip("奶奶開始向前")] public AudioClip grandma_Starts_Walking;
-    [SerializeField, Tooltip("奶奶詭異聲")] public AudioClip grandma_StrangeVoice;
-    [SerializeField, Tooltip("扭動身體的音效")] public AudioClip body_Twisting_Sound;
-    [SerializeField, Tooltip("模糊不清的人聲音")] public AudioClip muffled_Vocals;
-    [SerializeField,Tooltip("腳步聲")] public AudioClip walking;
-    [SerializeField, Tooltip("緊張呼吸聲")] public AudioClip strained_Breathing;
-    [SerializeField, Tooltip("手電筒開關聲")] public AudioClip flashlight_Switch_Sound;
-    [SerializeField, Tooltip("鬼影出現聲")] public AudioClip ghosting_Sound;
-    [SerializeField, Tooltip("鬼影音效")] public AudioClip ghost_Sound;
-    [SerializeField, Tooltip("鬼魂逃跑")] public AudioClip ghost_Escape;
-    [SerializeField, Tooltip("門縫鬼影")] public AudioClip ghostIn_The_Door;
+    #region 人物/物品聲 
+    [Tooltip("廁所有奇怪持續的聲音")]public AudioClip strange_noises_keep_coming;
+    [Tooltip("廁所有奇怪持續的聲音")]public AudioClip strange_noises_in_the_toilet;
+    [Tooltip("奶奶開始向前")] public AudioClip grandma_Starts_Walking;
+    [Tooltip("奶奶詭異聲")] public AudioClip grandma_StrangeVoice;
+    [Tooltip("扭動身體的音效")] public AudioClip body_Twisting_Sound;
+    [Tooltip("模糊不清的人聲音")] public AudioClip muffled_Vocals;
+    [Tooltip("腳步聲")] public AudioClip walking;
+    [Tooltip("緊張呼吸聲")] public AudioClip strained_Breathing;
+    [Tooltip("手電筒開關聲")] public AudioClip flashlight_Switch_Sound;
+    [Tooltip("鬼影出現聲")] public AudioClip ghosting_Sound;
+    [Tooltip("鬼影音效")] public AudioClip ghost_Sound;
+    [Tooltip("鬼魂逃跑")] public AudioClip ghost_Escape;
+    [Tooltip("門縫鬼影")] public AudioClip ghostIn_The_Door;
     #endregion  
 
     [SerializeField, Header("房間")] AudioSource[] roomSound;
@@ -182,6 +184,14 @@ public class AUDManager : MonoBehaviour
     public void BodyTwistingSound()
     {
         mainAudioSource.PlayOneShot(body_Twisting_Sound);
+    }
+    public void ThereIsAStrangeContinuousSoundInTheToilet()
+    {
+        mainAudioSource.PlayOneShot(strange_noises_keep_coming);
+    }
+    public void StrangeNoisesInTheToilet()
+    {
+        mainAudioSource.PlayOneShot(strange_noises_in_the_toilet);
     }
 
     /// <summary>
