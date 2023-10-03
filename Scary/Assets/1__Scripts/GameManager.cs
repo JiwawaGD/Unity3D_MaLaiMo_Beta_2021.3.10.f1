@@ -436,8 +436,8 @@ public partial class GameManager : MonoBehaviour
                 ShowObj(ObjItemID.S2_Photo_Frame);
                 AUDManager.instance.BodyTwistingSound();
 
-                S2_Grandma_Ghost_Obj.transform.position = new Vector3(-5.5f, 0f, 46f);
                 S2_Grandma_Deadbody_On_Table_Obj.SetActive(false);
+                bS2_TriggerLastAnimateAfterPhotoFrame = true;
                 break;
         }
     }
@@ -882,5 +882,7 @@ public partial class GameManager : MonoBehaviour
 
         // 奶奶突然出現 >> 黑畫面 >> 嬤來魔的標題
         FinalUI.SetActive(true);
+
+        //S2_Grandma_Ghost_Obj.transform.position = new Vector3(-5.5f, 0f, 46f);
     }
 }
