@@ -65,5 +65,7 @@ public partial class GameManager : MonoBehaviour
     public void IvkS2_SlientAfterPhotoFrame()
     {
         AUDManager.instance.GrandmaStrangeVoice();
+
+        ProcessPlayerAnimator("Player_S2_Shocked_After_PhotoFrame");
     }
 }
