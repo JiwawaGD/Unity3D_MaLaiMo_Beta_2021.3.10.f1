@@ -61,4 +61,9 @@ public partial class GameManager : MonoBehaviour
         // 串接阿霆的動畫
         S2_Toilet_Door_GhostHead_Obj.GetComponent<Animator>().SetTrigger("S2_Toilet_Door_GhostHead_Scared");
     }
+
+    public void IvkS2_SlientAfterPhotoFrame()
+    {
+        AUDManager.instance.GrandmaStrangeVoice();
+    }
 }

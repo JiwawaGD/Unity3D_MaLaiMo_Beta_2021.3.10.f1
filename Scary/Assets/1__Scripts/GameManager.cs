@@ -21,7 +21,7 @@ public partial class GameManager : MonoBehaviour
     bool isMovingObject = false;
     public Vector3 originalPosition;
     public Quaternion originalRotation;
-    [Header("遊戲結束畫面UI")]public GameObject FinalUI;
+    [Header("遊戲結束畫面UI")] public GameObject FinalUI;
 
     [SerializeField] [Header("欲製物 - Schedule")] Text prefabs_Schedule;
 
@@ -39,8 +39,8 @@ public partial class GameManager : MonoBehaviour
     [Header("玩家")] public PlayerController playerCtrlr;
     [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
     [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
-    [SerializeField][Header("破碎相框co")] public Collider photoCollider;
-    [SerializeField][Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj_RO;
+    [SerializeField] [Header("破碎相框co")] public Collider photoCollider;
+    [SerializeField] [Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj_RO;
 
 
     int m_iGrandmaRushCount;
@@ -93,6 +93,7 @@ public partial class GameManager : MonoBehaviour
 
     bool bS2_TriggerLightSwitch = false;
     bool bS2_TriggerGrandmaDoorLock = false;
+    bool bS2_TriggerLastAnimateAfterPhotoFrame = false;
     #endregion
 
     #region - All Scene Items -
@@ -192,6 +193,9 @@ public partial class GameManager : MonoBehaviour
 
                 if (m_bSetPlayerViewLimit)
                     SetPlayerViewLimit(true, GlobalDeclare.PlayerCameraLimit.GetPlayerCameraLimit());
+
+                if (bS2_TriggerLastAnimateAfterPhotoFrame)
+                    LastAnimateAfterPhotoFrame();
 
                 GameStateCheck();
                 break;
@@ -396,13 +400,11 @@ public partial class GameManager : MonoBehaviour
                 ProcessAnimator("S2_Grandma_Room_Door", "S2_Grandma_Room_Door_Close");
                 break;
             case GameEventID.S2_Ghost_Pass_Door:
-                // 紹威 (音效 撥放 廁所有奇怪持續的聲音 V
                 AUDManager.instance.ThereIsAStrangeContinuousSoundInTheToilet();
                 S2_Grandma_Ghost_Obj.GetComponent<Animator>().SetTrigger("S2_Grandma_Pass_Door");
                 Invoke(nameof(IvkS2_Grandma_Pass_Door), 1.5f);
                 break;
             case GameEventID.S2_Toilet_Door:
-                // 紹威 (音效 關閉 廁所奇怪的聲音  V
                 AUDManager.instance.StrangeNoisesInTheToilet();
                 ProcessPlayerAnimator("Player_S2_Shocked_By_Toilet_Ghost");
 
@@ -436,13 +438,6 @@ public partial class GameManager : MonoBehaviour
 
                 S2_Grandma_Ghost_Obj.transform.position = new Vector3(-5.5f, 0f, 46f);
                 S2_Grandma_Deadbody_On_Table_Obj.SetActive(false);
-
-                // 返回時有東西竄動的聲音
-                AUDManager.instance.TheSoundOfSomethingMoving();
-                // 聲音大約出現 2-3 秒後安靜下來
-                AUDManager.instance.GrandmaStrangeVoice();
-                FinalUI.SetActive(true);
-                // 奶奶突然出現 >> 黑畫面 >> 嬤來魔的標題
                 break;
         }
     }
@@ -595,7 +590,6 @@ public partial class GameManager : MonoBehaviour
         txtInstructions.text = GlobalDeclare.TxtInstructionsmage[iItemID];
 
         GetM_bInUIView();
-
     }
 
     public void ProcessAnimator(string r_sObject, string r_sTriggerName)
@@ -876,5 +870,17 @@ public partial class GameManager : MonoBehaviour
             playerCtrlr.m_bCanControl = true;
             playerCtrlr.m_bLimitRotation = false;
         }
+    }
+
+    void LastAnimateAfterPhotoFrame()
+    {
+        // 有東西竄動的聲音
+        AUDManager.instance.TheSoundOfSomethingMoving();
+
+        // 聲音大約出現 2-3 秒後安靜下來
+        Invoke(nameof(IvkS2_SlientAfterPhotoFrame), 2f);
+
+        // 奶奶突然出現 >> 黑畫面 >> 嬤來魔的標題
+        FinalUI.SetActive(true);
     }
 }
