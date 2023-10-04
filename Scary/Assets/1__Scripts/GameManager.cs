@@ -157,8 +157,6 @@ public partial class GameManager : MonoBehaviour
         ShowHint(HintItemID.S1_Light_Switch);
         ShowHint(HintItemID.S1_Grandma_Room_Door_Lock);
         ShowHint(HintItemID.S1_Toilet_Door);
-
-        ShowHint(HintItemID.S2_Toilet_Door);
     }
 
     void Update()
