@@ -170,7 +170,7 @@ public partial class GameManager : MonoBehaviour
             ButtonFunction(ButtonEventID.Enter_Game);
     }
 
-    public void GameEvent(GameEventID r_eventID)
+    public async void GameEvent(GameEventID r_eventID)
     {
         switch (r_eventID)
         {
@@ -394,6 +394,7 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S2_Grandma_Door_Open:
                 ProcessAnimator("S2_Grandma_Room_Door", "S2_Grandma_Room_Door_Open");
+                AUDManager.instance.PlayerDoorOpenSFX();
                 break;
             case GameEventID.S2_Grandma_Door_Close:
                 AUDManager.instance.PlayerDoorLockSFX();
@@ -425,17 +426,22 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S2_Photo_Frame:
                 // 紹威 (確認表現跟畫面 (會有 Error
-                saveRotaObj = 3;
-                isMovingObject = true;
-                originalPosition = RO_OBJ[saveRotaObj].transform.position;
-                originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
-                Ro_Cololider = RO_OBJ[3].GetComponent<Collider>();
-                romanager = RO_OBJ[3].GetComponent<ROmanager>().enabled = true;
-                UIState(UIItemID.S2_Photo_Frame, true);
-                ShowEnterGame(true);
-                ShowObj(ObjItemID.S2_Photo_Frame);
-                AUDManager.instance.BodyTwistingSound();
+                //saveRotaObj = 3;
+                //isMovingObject = true;
+                //originalPosition = RO_OBJ[saveRotaObj].transform.position;
+                //originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
+                //Ro_Cololider = RO_OBJ[3].GetComponent<Collider>();
+                //romanager = RO_OBJ[3].GetComponent<ROmanager>().enabled = true;
+                ////UIState(UIItemID.S2_Photo_Frame, true);
+                //ShowEnterGame(true);
+                //ShowObj(ObjItemID.S2_Photo_Frame);
 
+
+                AUDManager.instance.BodyTwistingSound();
+                StartCoroutine(DelayedAction());
+                AUDManager.instance.GhostEscape();
+                StartCoroutine(DelayLodelobby());
+                
                 S2_Grandma_Deadbody_On_Table_Obj.SetActive(false);
                 bS2_TriggerLastAnimateAfterPhotoFrame = true;
                 break;
@@ -884,5 +890,16 @@ public partial class GameManager : MonoBehaviour
         FinalUI.SetActive(true);
 
         //S2_Grandma_Ghost_Obj.transform.position = new Vector3(-5.5f, 0f, 46f);
+    }
+    IEnumerator DelayedAction()
+    {
+        yield return new WaitForSeconds(2.5f);
+    }
+    IEnumerator DelayLodelobby()
+    {
+        AUDManager.instance.HorrorStart();
+        FinalUI.SetActive(true);
+        SceneManager.LoadScene(0);
+        yield return null;
     }
 }

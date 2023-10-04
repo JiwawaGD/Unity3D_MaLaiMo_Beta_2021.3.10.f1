@@ -209,7 +209,14 @@ public class AUDManager : MonoBehaviour
     {
         mainAudioSource.PlayOneShot(grandma_StrangeVoice);
     }
-
+    public void GhostEscape()
+    {
+        mainAudioSource.PlayOneShot(ghost_Escape);
+    }
+    public void HorrorStart()
+    {
+        mainAudioSource.PlayOneShot(horror_Start);
+    }
     /// <summary>
     /// 存取紀錄
     /// </summary>
