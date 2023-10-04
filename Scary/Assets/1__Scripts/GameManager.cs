@@ -157,6 +157,8 @@ public partial class GameManager : MonoBehaviour
         ShowHint(HintItemID.S1_Light_Switch);
         ShowHint(HintItemID.S1_Grandma_Room_Door_Lock);
         ShowHint(HintItemID.S1_Toilet_Door);
+
+        ShowHint(HintItemID.S2_Toilet_Door);
     }
 
     void Update()
@@ -170,7 +172,7 @@ public partial class GameManager : MonoBehaviour
             ButtonFunction(ButtonEventID.Enter_Game);
     }
 
-    public async void GameEvent(GameEventID r_eventID)
+    public void GameEvent(GameEventID r_eventID)
     {
         switch (r_eventID)
         {
@@ -437,13 +439,17 @@ public partial class GameManager : MonoBehaviour
                 //ShowObj(ObjItemID.S2_Photo_Frame);
 
 
-                AUDManager.instance.BodyTwistingSound();
-                StartCoroutine(DelayedAction());
-                AUDManager.instance.GhostEscape();
-                StartCoroutine(DelayLodelobby());
-                
+                // Correct
                 S2_Grandma_Deadbody_On_Table_Obj.SetActive(false);
                 bS2_TriggerLastAnimateAfterPhotoFrame = true;
+
+                //AUDManager.instance.BodyTwistingSound();
+                //StartCoroutine(DelayedAction());
+                //AUDManager.instance.GhostEscape();
+                //StartCoroutine(DelayLodelobby());
+
+                // For Record
+                LastAnimateAfterPhotoFrameForRecord();
                 break;
         }
     }
@@ -881,20 +887,30 @@ public partial class GameManager : MonoBehaviour
     void LastAnimateAfterPhotoFrame()
     {
         // 有東西竄動的聲音
-        AUDManager.instance.TheSoundOfSomethingMoving();
+        //AUDManager.instance.TheSoundOfSomethingMoving();
+        AUDManager.instance.BodyTwistingSound();
 
         // 聲音大約出現 2-3 秒後安靜下來
         Invoke(nameof(IvkS2_SlientAfterPhotoFrame), 2f);
 
         // 奶奶突然出現 >> 黑畫面 >> 嬤來魔的標題
         FinalUI.SetActive(true);
-
-        //S2_Grandma_Ghost_Obj.transform.position = new Vector3(-5.5f, 0f, 46f);
     }
+
+    void LastAnimateAfterPhotoFrameForRecord()
+    {
+        ProcessPlayerAnimator("Player_S2_Shocked_After_PhotoFrame");
+
+        AUDManager.instance.BodyTwistingSound();
+
+        Invoke(nameof(IvkS2_SlientAfterPhotoFrameForRecord), 20f);
+    }
+
     IEnumerator DelayedAction()
     {
         yield return new WaitForSeconds(2.5f);
     }
+
     IEnumerator DelayLodelobby()
     {
         AUDManager.instance.HorrorStart();

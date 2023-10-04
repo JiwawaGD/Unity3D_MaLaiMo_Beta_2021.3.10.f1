@@ -64,8 +64,17 @@ public partial class GameManager : MonoBehaviour
 
     public void IvkS2_SlientAfterPhotoFrame()
     {
-        AUDManager.instance.GrandmaStrangeVoice();
+        //AUDManager.instance.GrandmaStrangeVoice();
+        AUDManager.instance.GhostEscape();
 
         ProcessPlayerAnimator("Player_S2_Shocked_After_PhotoFrame");
+    }
+
+    public void IvkS2_SlientAfterPhotoFrameForRecord()
+    {
+        //AUDManager.instance.GrandmaStrangeVoice();
+
+        // 奶奶突然出現 >> 黑畫面 >> 嬤來魔的標題
+        FinalUI.SetActive(true);
     }
 }
