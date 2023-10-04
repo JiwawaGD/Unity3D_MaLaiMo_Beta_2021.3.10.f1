@@ -435,8 +435,8 @@ public partial class GameManager : MonoBehaviour
                 Ro_Cololider = RO_OBJ[3].GetComponent<Collider>();
                 romanager = RO_OBJ[3].GetComponent<ROmanager>().enabled = true;
                 UIState(UIItemID.S2_Photo_Frame, true);
-                //ShowEnterGame(true);
                 ShowObj(ObjItemID.S2_Photo_Frame);
+
                 if (Input.GetKeyDown(KeyCode.R))
                 {
                     RO_OBJ[saveRotaObj].transform.DOMove(
@@ -444,16 +444,13 @@ public partial class GameManager : MonoBehaviour
                     itemObjTransform.transform.position.y-180,
                     itemObjTransform.transform.position.z), 2);
                 }
-                flowchartObjects[16].gameObject.SetActive(true);
 
+                // 紹威 (此行有 Error
+                //flowchartObjects[16].gameObject.SetActive(true);
 
                 // Correct
                 S2_Grandma_Deadbody_On_Table_Obj.SetActive(false);
                 bS2_TriggerLastAnimateAfterPhotoFrame = true;
-                //AUDManager.instance.BodyTwistingSound();
-                //StartCoroutine(DelayedAction());
-                //AUDManager.instance.GhostEscape();
-                //StartCoroutine(DelayLodelobby());
 
                 // For Record
                 //LastAnimateAfterPhotoFrameForRecord();
