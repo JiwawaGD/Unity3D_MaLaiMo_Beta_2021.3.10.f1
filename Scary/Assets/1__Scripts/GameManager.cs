@@ -21,7 +21,7 @@ public partial class GameManager : MonoBehaviour
     bool isMovingObject = false;
     public Vector3 originalPosition;
     public Quaternion originalRotation;
-    [SerializeField] GameObject PhotoFrameUI;
+    //[SerializeField] GameObject PhotoFrameUI;
     [Header("遊戲結束畫面UI")] public GameObject FinalUI;
 
     [SerializeField][Header("欲製物 - Schedule")] Text prefabs_Schedule;
@@ -437,12 +437,19 @@ public partial class GameManager : MonoBehaviour
                 UIState(UIItemID.S2_Photo_Frame, true);
                 //ShowEnterGame(true);
                 ShowObj(ObjItemID.S2_Photo_Frame);
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    RO_OBJ[saveRotaObj].transform.DOMove(
+                    new Vector3(itemObjTransform.transform.position.x,
+                    itemObjTransform.transform.position.y-180,
+                    itemObjTransform.transform.position.z), 2);
+                }
+                flowchartObjects[16].gameObject.SetActive(true);
 
 
                 // Correct
                 S2_Grandma_Deadbody_On_Table_Obj.SetActive(false);
                 bS2_TriggerLastAnimateAfterPhotoFrame = true;
-
                 //AUDManager.instance.BodyTwistingSound();
                 //StartCoroutine(DelayedAction());
                 //AUDManager.instance.GhostEscape();
@@ -742,7 +749,7 @@ public partial class GameManager : MonoBehaviour
         {
             if (m_bInUIView)
             {
-                PhotoFrameUI.SetActive(false);
+                //PhotoFrameUI.SetActive(false);
                 if (!isMovingObject)
                 {
                     GameEvent(GameEventID.Close_UI);
