@@ -58,23 +58,21 @@ public partial class GameManager : MonoBehaviour
 
     public void IvkS2_Shocked_By_Toilet()
     {
-        // 串接阿霆的動畫
         S2_Toilet_Door_GhostHead_Obj.GetComponent<Animator>().SetTrigger("S2_Toilet_Door_GhostHead_Scared");
     }
 
     public void IvkS2_SlientAfterPhotoFrame()
     {
-        //AUDManager.instance.GrandmaStrangeVoice();
-        AUDManager.instance.GhostEscape();
+        // 紹威 (Word 檔 - 聲音大約出現 2-3 秒後安靜下來
 
+        // 加在這兩個註解中間
         ProcessPlayerAnimator("Player_S2_Shocked_After_PhotoFrame");
+
+        Invoke(nameof(IvkS2_SlientAfterPhotoFrameForRecord), 20f);
     }
 
     public void IvkS2_SlientAfterPhotoFrameForRecord()
     {
-        //AUDManager.instance.GrandmaStrangeVoice();
-
-        // 奶奶突然出現 >> 黑畫面 >> 嬤來魔的標題
         FinalUI.SetActive(true);
     }
 }

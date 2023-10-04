@@ -418,14 +418,12 @@ public partial class GameManager : MonoBehaviour
                 Invoke(nameof(IvkS2_Shocked_By_Toilet), 4f);
                 break;
             case GameEventID.S2_Rice_Funeral:
-                // 紹威 (字幕 腳尾飯
                 flowchartObjects[15].gameObject.SetActive(true);
                 BoxCollider S2_Rice_Funeral_Collider = GameObject.Find("S2_Rice_Funeral").GetComponent<BoxCollider>();
                 S2_Rice_Funeral_Collider.enabled = false;
                 ShowHint(HintItemID.S2_Photo_Frame);
                 break;
             case GameEventID.S2_Photo_Frame:
-                // 紹威 (確認表現跟畫面 (會有 Error
                 //saveRotaObj = 3;
                 //isMovingObject = true;
                 //originalPosition = RO_OBJ[saveRotaObj].transform.position;
@@ -884,15 +882,10 @@ public partial class GameManager : MonoBehaviour
 
     void LastAnimateAfterPhotoFrame()
     {
-        // 有東西竄動的聲音
-        //AUDManager.instance.TheSoundOfSomethingMoving();
-        AUDManager.instance.BodyTwistingSound();
+        // 紹威 (Word 檔 - 有東西竄動的聲音
 
-        // 聲音大約出現 2-3 秒後安靜下來
+        // 加在這兩個註解中間
         Invoke(nameof(IvkS2_SlientAfterPhotoFrame), 2f);
-
-        // 奶奶突然出現 >> 黑畫面 >> 嬤來魔的標題
-        FinalUI.SetActive(true);
     }
 
     void LastAnimateAfterPhotoFrameForRecord()
