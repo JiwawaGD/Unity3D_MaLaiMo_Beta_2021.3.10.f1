@@ -21,9 +21,10 @@ public partial class GameManager : MonoBehaviour
     bool isMovingObject = false;
     public Vector3 originalPosition;
     public Quaternion originalRotation;
+    [SerializeField] GameObject PhotoFrameUI;
     [Header("遊戲結束畫面UI")] public GameObject FinalUI;
 
-    [SerializeField] [Header("欲製物 - Schedule")] Text prefabs_Schedule;
+    [SerializeField][Header("欲製物 - Schedule")] Text prefabs_Schedule;
 
     [Header("物件移動速度")] public float objSpeed;
     [Header("旋轉物件collider")] public Collider Ro_Cololider;
@@ -37,10 +38,10 @@ public partial class GameManager : MonoBehaviour
     [Header("儲存生成物件")] public int saveRotaObj;
 
     [Header("玩家")] public PlayerController playerCtrlr;
-    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
-    [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
-    [SerializeField] [Header("破碎相框co")] public Collider photoCollider;
-    [SerializeField] [Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj_RO;
+    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField][Header("設定頁面")] public GameObject settingObjects;
+    [SerializeField][Header("破碎相框co")] public Collider photoCollider;
+    [SerializeField][Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj_RO;
 
 
     int m_iGrandmaRushCount;
@@ -98,17 +99,17 @@ public partial class GameManager : MonoBehaviour
 
     #region - All Scene Items -
     [Header("場景一物件")]
-    [SerializeField] [Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
-    [SerializeField] [Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
-    [SerializeField] [Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
+    [SerializeField][Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
+    [SerializeField][Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
+    [SerializeField][Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
 
     [Header("場景二物件")]
-    [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
-    [SerializeField] [Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
-    [SerializeField] [Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
-    [SerializeField] [Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
-    [SerializeField] [Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
-    [SerializeField] [Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj;
+    [SerializeField][Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
+    [SerializeField][Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
+    [SerializeField][Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
+    [SerializeField][Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
+    [SerializeField][Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
+    [SerializeField][Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj;
     #endregion
 
     bool isPaused = false;
@@ -365,22 +366,26 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S2_Light_Switch:
                 bS2_TriggerLightSwitch = true;
+                AUDManager.instance.PlayerLightSwitchSFX();
                 flowchartObjects[13].gameObject.SetActive(true);
                 ShowHint(HintItemID.S2_FlashLight);
                 break;
             case GameEventID.S2_Room_Door_Lock:
                 bS2_TriggerGrandmaDoorLock = true;
                 flowchartObjects[12].gameObject.SetActive(true);
+
                 ShowHint(HintItemID.S2_FlashLight);
                 break;
             case GameEventID.S2_FlashLight:
                 flowchartObjects[14].gameObject.SetActive(true);
+                AUDManager.instance.PlayerLightSwitchSFX();
                 GameObject S2_FlashLightObj = GameObject.Find("S2_FlashLight");
                 Destroy(S2_FlashLightObj);
                 ShowHint(HintItemID.S2_Side_Table);
                 break;
             case GameEventID.S2_Side_Table:
                 ProcessAnimator("S2_Side_Table", "S2_Side_Table_Open_01");
+                AUDManager.instance.OpenTheDrawerSFX();
                 Invoke(nameof(IvkShowS2DoorKey), 1.25f);
                 break;
             case GameEventID.S2_Room_Key:
@@ -408,13 +413,11 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S2_Toilet_Door:
                 AUDManager.instance.StrangeNoisesInTheToilet();
                 ProcessPlayerAnimator("Player_S2_Shocked_By_Toilet_Ghost");
-
                 S2_Furniture_State_1_Obj.SetActive(false);
                 S2_Furniture_State_2_Obj.SetActive(true);
                 S2_Photo_Frame_Obj_RO.SetActive(true);
                 RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
                 ShowHint(HintItemID.S2_Rice_Funeral);
-
                 Invoke(nameof(IvkS2_Shocked_By_Toilet), 4f);
                 break;
             case GameEventID.S2_Rice_Funeral:
@@ -424,15 +427,16 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S2_Photo_Frame);
                 break;
             case GameEventID.S2_Photo_Frame:
-                //saveRotaObj = 3;
-                //isMovingObject = true;
-                //originalPosition = RO_OBJ[saveRotaObj].transform.position;
-                //originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
-                //Ro_Cololider = RO_OBJ[3].GetComponent<Collider>();
-                //romanager = RO_OBJ[3].GetComponent<ROmanager>().enabled = true;
-                ////UIState(UIItemID.S2_Photo_Frame, true);
+                //PhotoFrameUI.SetActive(true);
+                saveRotaObj = 3;
+                isMovingObject = true;
+                originalPosition = RO_OBJ[saveRotaObj].transform.position;
+                originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
+                Ro_Cololider = RO_OBJ[3].GetComponent<Collider>();
+                romanager = RO_OBJ[3].GetComponent<ROmanager>().enabled = true;
+                UIState(UIItemID.S2_Photo_Frame, true);
                 //ShowEnterGame(true);
-                //ShowObj(ObjItemID.S2_Photo_Frame);
+                ShowObj(ObjItemID.S2_Photo_Frame);
 
 
                 // Correct
@@ -445,7 +449,7 @@ public partial class GameManager : MonoBehaviour
                 //StartCoroutine(DelayLodelobby());
 
                 // For Record
-                LastAnimateAfterPhotoFrameForRecord();
+                //LastAnimateAfterPhotoFrameForRecord();
                 break;
         }
     }
@@ -738,6 +742,7 @@ public partial class GameManager : MonoBehaviour
         {
             if (m_bInUIView)
             {
+                PhotoFrameUI.SetActive(false);
                 if (!isMovingObject)
                 {
                     GameEvent(GameEventID.Close_UI);
@@ -748,6 +753,7 @@ public partial class GameManager : MonoBehaviour
 
                     //關閉旋轉
                     romanager = false;
+
 
                     if (!romanager)
                     {
@@ -883,7 +889,7 @@ public partial class GameManager : MonoBehaviour
     void LastAnimateAfterPhotoFrame()
     {
         // 紹威 (Word 檔 - 有東西竄動的聲音
-
+        AUDManager.instance.GhostEscape();
         // 加在這兩個註解中間
         Invoke(nameof(IvkS2_SlientAfterPhotoFrame), 2f);
     }

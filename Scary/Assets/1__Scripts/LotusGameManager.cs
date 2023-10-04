@@ -11,6 +11,8 @@ public class LotusGameManager : MonoBehaviour
     [SerializeField] [Header("蓮花紙 - 動畫片段")] AnimationClip[] LotusPaperAniClip;
     [SerializeField] [Header("提示按鈕 - 物件")] GameObject HintObj;
     [SerializeField] [Header("上下左右 - 圖片")] Sprite[] HintSprite;
+    [SerializeField] [Header("音效撥放器")] AudioSource lotusAudioSource;
+    [SerializeField, Tooltip("金紙")] AudioClip[] goldPaper;
 
     int iAllLotusCount;
     bool bIsAnimating;
@@ -253,7 +255,8 @@ public class LotusGameManager : MonoBehaviour
         HintImg.sprite = sprite;
 
         ani.SetTrigger(strTriggerName);
-        AUDManager.instance.PlayerLotusPaperSFX();
+        lotusAudioSource.PlayOneShot(goldPaper[Random.Range(0, 2)]);
+        //AUDManager.instance.PlayerLotusPaperSFX();
 
         yield return new WaitForSeconds(clip.length + 0.2f);
 

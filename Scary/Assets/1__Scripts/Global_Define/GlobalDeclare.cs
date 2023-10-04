@@ -134,12 +134,16 @@
         "折蓮花專用紙",
         "阿嬤",
         "孝簾",
+        "阿嬤的照片",
         "阿嬤的照片"
+
     };
 
     public readonly static string[] TxtInstructionsmage = new string[]
     {
         "",
+        "Esc 返回\r\n"+
+        "滑鼠 旋轉",
         "Esc 返回\r\n"+
         "滑鼠 旋轉",
         "Esc 返回\r\n"+
@@ -190,7 +194,7 @@
         "又男喪闔左扉，女喪闔右扉，\r\n" +
         "九條與門扉須圍闔至出殯為止。\r\n" +
         "今者以黃布代替白布，旨在隔離內外，防人惡之。",
-
+        "",
         "奶奶生日時爸爸幫奶奶拍的照片\r\n"
     };
     //public readonly static string[] ScheduleText = new string[]
