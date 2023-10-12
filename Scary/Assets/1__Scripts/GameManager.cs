@@ -547,6 +547,7 @@ public partial class GameManager : MonoBehaviour
         }
 
         TempItem.bActive = true;
+        Debug.Log(string.Format("Item : {0} is Active", TempItem.name));
         TempItem.SetHintable(true);
     }
 
