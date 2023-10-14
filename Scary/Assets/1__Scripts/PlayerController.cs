@@ -262,7 +262,6 @@ public class PlayerController : MonoBehaviour
         if (m_bRayOnItem)
         {
             current_Item = hit.transform.gameObject.GetComponent<ItemController>();
-            Debug.Log(string.Format("[PlayerCtrlr] Trigger Item is : {0}}", hit.transform.gameObject.name));
 
             if (current_Item.bActive)
             {

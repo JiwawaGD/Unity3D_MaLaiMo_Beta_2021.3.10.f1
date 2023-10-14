@@ -100,6 +100,7 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
     [SerializeField] [Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
     [SerializeField] [Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
+    [SerializeField] [Header("S1_奶奶房間抽屜")] GameObject S1_Desk_Drawer_Obj;
 
     [Header("場景二物件")]
     [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
@@ -477,7 +478,7 @@ public partial class GameManager : MonoBehaviour
             case HintItemID.S1_Desk_Drawer:
                 if (!bS1_TriggerGrandmaDoorLock || !bS1_TriggerFlashlight)
                     return;
-                TempItem = GameObject.Find("Desk_Drawer").GetComponent<ItemController>();
+                TempItem = S1_Desk_Drawer_Obj.GetComponent<ItemController>();
                 break;
             case HintItemID.S1_Grandma_Room_Key:
                 TempItem = GameObject.Find("Grandma_Room_Key").GetComponent<ItemController>();
@@ -547,7 +548,6 @@ public partial class GameManager : MonoBehaviour
         }
 
         TempItem.bActive = true;
-        Debug.Log(string.Format("Item : {0} is Active", TempItem.name));
         TempItem.SetHintable(true);
     }
 
