@@ -97,8 +97,8 @@ public class ItemController : MonoBehaviour
 
     public void SendGameEvent()
     {
-        gameManager.GameEvent(eventID);
         ItemDisable();
+        gameManager.GameEvent(eventID);
     }
 
     void ItemDisable()

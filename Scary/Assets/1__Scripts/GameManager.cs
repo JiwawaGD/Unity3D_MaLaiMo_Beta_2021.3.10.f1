@@ -117,7 +117,7 @@ public partial class GameManager : MonoBehaviour
 
     void Awake()
     {
-        RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
+        //RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
         SortRO_OBJByName();
 
         if (playerCtrlr == null)
@@ -200,19 +200,16 @@ public partial class GameManager : MonoBehaviour
                 GameStateCheck();
                 break;
             case GameEventID.S1_Photo_Frame:
-                S1_Photo_Frame_Obj.SetActive(false);
-                S1_Photo_Frame_Has_Broken_Obj.transform.GetChild(2).GetComponent<MeshRenderer>().enabled = true;
-                ShowHint(HintItemID.S1_Photo_Frame_Has_Broken);
+                ShowHint(HintItemID.S1_Photo_Frame);
+                photoCollider.enabled = true;
+                S1_Photo_Frame_Obj.transform.GetChild(1).GetComponent<MeshRenderer>().enabled = true;
+                TempItem = S1_Photo_Frame_Obj.GetComponent<ItemController>();
+                TempItem.eventID = GameEventID.S1_Photo_Frame_Has_Broken;
                 break;
             case GameEventID.S1_Photo_Frame_Has_Broken:
                 UIState(UIItemID.S1_Photo_Frame, true);
                 photoCollider.enabled = true;
-                saveRotaObj = 2;
-                isMovingObject = true;
-                originalPosition = RO_OBJ[saveRotaObj].transform.position;
-                originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
-                Ro_Cololider = RO_OBJ[2].GetComponent<Collider>();
-                romanager = RO_OBJ[2].GetComponent<ROmanager>().enabled = true;
+                ProcessROMoving(2);
                 ShowObj(ObjItemID.S1_Photo_Frame);
 
                 // 人形黑影
@@ -234,12 +231,7 @@ public partial class GameManager : MonoBehaviour
                 flowchartObjects[4].gameObject.SetActive(true);
                 break;
             case GameEventID.S1_Lotus_Paper:
-                saveRotaObj = 1;
-                isMovingObject = true;
-                Ro_Cololider = RO_OBJ[1].GetComponent<Collider>();
-                romanager = RO_OBJ[1].GetComponent<ROmanager>().enabled = true;
-                originalPosition = RO_OBJ[saveRotaObj].transform.position;
-                originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
+                ProcessROMoving(1);
                 UIState(UIItemID.S1_Lotus_Paper, true);
                 ShowEnterGame(true);
                 ShowObj(ObjItemID.S1_Lotus_Paper);
@@ -318,7 +310,7 @@ public partial class GameManager : MonoBehaviour
                 //progressProcessing.UpdateProgress(0);
                 break;
             case GameEventID.S1_Rice_Funeral_Spilled:
-                RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
+                //RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
                 SortRO_OBJByName();
                 ShowHint(HintItemID.S1_Lotus_Paper);
                 m_bPlayLotusEnable = true;
@@ -330,14 +322,7 @@ public partial class GameManager : MonoBehaviour
                 flowchartObjects[11].gameObject.SetActive(true);
                 UIState(UIItemID.S1_Rice_Funeral, true);
                 ShowObj(ObjItemID.S1_Rice_Funeral);
-                Ro_Cololider = RO_OBJ[0].GetComponent<Collider>();
-                print(RO_OBJ[0].name);
-                romanager = RO_OBJ[0].GetComponent<ROmanager>().enabled = true;
-                originalPosition = RO_OBJ[saveRotaObj].transform.position;
-                originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
-                saveRotaObj = 0;
-                isMovingObject = true;
-
+                ProcessROMoving(0);
                 break;
             case GameEventID.S1_Toilet_Door_Lock:
                 flowchartObjects[12].gameObject.SetActive(true);
@@ -415,7 +400,7 @@ public partial class GameManager : MonoBehaviour
                 S2_Furniture_State_1_Obj.SetActive(false);
                 S2_Furniture_State_2_Obj.SetActive(true);
                 S2_Photo_Frame_Obj_RO.SetActive(true);
-                RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
+                //RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
                 ShowHint(HintItemID.S2_Rice_Funeral);
                 Invoke(nameof(IvkS2_Shocked_By_Toilet), 4f);
                 break;
@@ -426,13 +411,7 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S2_Photo_Frame);
                 break;
             case GameEventID.S2_Photo_Frame:
-                //PhotoFrameUI.SetActive(true);
-                saveRotaObj = 3;
-                isMovingObject = true;
-                originalPosition = RO_OBJ[saveRotaObj].transform.position;
-                originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
-                Ro_Cololider = RO_OBJ[3].GetComponent<Collider>();
-                romanager = RO_OBJ[3].GetComponent<ROmanager>().enabled = true;
+                ProcessROMoving(3);
                 UIState(UIItemID.S2_Photo_Frame, true);
                 ShowObj(ObjItemID.S2_Photo_Frame);
 
@@ -502,7 +481,7 @@ public partial class GameManager : MonoBehaviour
                 TempItem = S1_Photo_Frame_Has_Broken_Obj.GetComponent<ItemController>();
                 break;
             case HintItemID.S1_Photo_Frame:
-                TempItem = GameObject.Find("S1_Photo_Frame").GetComponent<ItemController>();
+                TempItem = S1_Photo_Frame_Obj.GetComponent<ItemController>();
                 break;
             case HintItemID.S1_Toilet_Door:
                 TempItem = GameObject.Find("Toilet_Door_Ghost").GetComponent<ItemController>();
@@ -546,6 +525,16 @@ public partial class GameManager : MonoBehaviour
 
         TempItem.bActive = true;
         TempItem.SetHintable(true);
+    }
+
+    void ProcessROMoving(int iIndex)
+    {
+        isMovingObject = true;
+        saveRotaObj = iIndex;
+        originalPosition = RO_OBJ[saveRotaObj].transform.position;
+        originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
+        Ro_Cololider = RO_OBJ[saveRotaObj].GetComponent<Collider>();
+        romanager = RO_OBJ[saveRotaObj].GetComponent<ROmanager>().enabled = true;
     }
 
     /// <summary>
@@ -833,7 +822,11 @@ public partial class GameManager : MonoBehaviour
 
     private int CompareGameObjectNames(GameObject x, GameObject y)
     {
-        string[] names = { "Rice_Funeral", "Lotus_Paper", "Photo_Frame" };
+        string[] names = {
+            "Rice_Funeral",
+            "Lotus_Paper",
+            "S1_Photo_Frame",
+            "S2_Photo_Frame"};
 
         int xIndex = Array.IndexOf(names, x.name);
         int yIndex = Array.IndexOf(names, y.name);
