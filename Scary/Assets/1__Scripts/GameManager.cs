@@ -450,9 +450,6 @@ public partial class GameManager : MonoBehaviour
                 // Correct
                 S2_Grandma_Deadbody_On_Table_Obj.SetActive(false);
                 bS2_TriggerLastAnimateAfterPhotoFrame = true;
-
-                // For Record
-                //LastAnimateAfterPhotoFrameForRecord();
                 break;
         }
     }
@@ -502,7 +499,7 @@ public partial class GameManager : MonoBehaviour
                 TempItem = GameObject.Find("Rice_Funeral_Spilled").GetComponent<ItemController>();
                 break;
             case HintItemID.S1_Photo_Frame_Has_Broken:
-                TempItem = GameObject.Find("S1_Photo_Frame_Has_Broken").GetComponent<ItemController>();
+                TempItem = S1_Photo_Frame_Has_Broken_Obj.GetComponent<ItemController>();
                 break;
             case HintItemID.S1_Photo_Frame:
                 TempItem = GameObject.Find("S1_Photo_Frame").GetComponent<ItemController>();
