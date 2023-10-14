@@ -201,7 +201,7 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Photo_Frame:
                 S1_Photo_Frame_Obj.SetActive(false);
-                S1_Photo_Frame_Has_Broken_Obj.SetActive(true);
+                S1_Photo_Frame_Has_Broken_Obj.transform.GetChild(2).GetComponent<MeshRenderer>().enabled = true;
                 ShowHint(HintItemID.S1_Photo_Frame_Has_Broken);
                 break;
             case GameEventID.S1_Photo_Frame_Has_Broken:

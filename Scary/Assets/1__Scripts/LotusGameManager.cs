@@ -4,7 +4,6 @@ using System.Collections;
 
 public class LotusGameManager : MonoBehaviour
 {
-
     [SerializeField] [Header("蓮花紙當前階段")] bool[] bLotusState;
     [SerializeField] [Header("蓮花紙 - 物件")] GameObject[] LotusPaperObj;
     [SerializeField] [Header("蓮花紙 - 動畫師")] Animator[] LotusPaperAni;
@@ -75,6 +74,13 @@ public class LotusGameManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F7))
+        {
+            GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+            gm.SendMessage("ExitLotusGame");
+            GlobalDeclare.bLotusGameComplete = true;
+        }
+
         if (bIsAnimating)
             return;
 
