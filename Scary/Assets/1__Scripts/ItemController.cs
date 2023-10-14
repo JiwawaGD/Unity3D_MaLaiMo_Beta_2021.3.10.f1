@@ -93,7 +93,7 @@ public class ItemController : MonoBehaviour
     {
         gameObject.layer = r_bShow ? LayerMask.NameToLayer("InteractiveItem") : LayerMask.NameToLayer("Default");
         bShowHint = r_bShow;
-        Debug.Log(string.Format("Item : {0}'s layer is : {1}, ShowHint is : {2}", gameObject.name, gameObject.layer, bShowHint));
+        Debug.Log(string.Format("[ItemCtlr] Item : {0}'s layer is : {1}, ShowHint is : {2}", gameObject.name, gameObject.layer, bShowHint));
     }
 
     public void SendGameEvent()

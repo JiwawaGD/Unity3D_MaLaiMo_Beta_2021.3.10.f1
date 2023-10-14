@@ -22,7 +22,7 @@ public partial class GameManager : MonoBehaviour
     //[SerializeField] GameObject PhotoFrameUI;
     [Header("遊戲結束畫面UI")] public GameObject FinalUI;
 
-    [SerializeField][Header("欲製物 - Schedule")] Text prefabs_Schedule;
+    [SerializeField] [Header("欲製物 - Schedule")] Text prefabs_Schedule;
 
     [Header("物件移動速度")] public float objSpeed;
     [Header("旋轉物件collider")] public Collider Ro_Cololider;
@@ -36,10 +36,10 @@ public partial class GameManager : MonoBehaviour
     [Header("儲存生成物件")] public int saveRotaObj;
 
     [Header("玩家")] public PlayerController playerCtrlr;
-    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
-    [SerializeField][Header("設定頁面")] public GameObject settingObjects;
-    [SerializeField][Header("破碎相框co")] public Collider photoCollider;
-    [SerializeField][Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj_RO;
+    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
+    [SerializeField] [Header("破碎相框co")] public Collider photoCollider;
+    [SerializeField] [Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj_RO;
 
 
     int m_iGrandmaRushCount;
@@ -97,17 +97,17 @@ public partial class GameManager : MonoBehaviour
 
     #region - All Scene Items -
     [Header("場景一物件")]
-    [SerializeField][Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
-    [SerializeField][Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
-    [SerializeField][Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
+    [SerializeField] [Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
+    [SerializeField] [Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
+    [SerializeField] [Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
 
     [Header("場景二物件")]
-    [SerializeField][Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
-    [SerializeField][Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
-    [SerializeField][Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
-    [SerializeField][Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
-    [SerializeField][Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
-    [SerializeField][Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj;
+    [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
+    [SerializeField] [Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
+    [SerializeField] [Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
+    [SerializeField] [Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
+    [SerializeField] [Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
+    [SerializeField] [Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj;
     #endregion
 
     bool isPaused = false;
@@ -439,7 +439,7 @@ public partial class GameManager : MonoBehaviour
                 {
                     RO_OBJ[saveRotaObj].transform.DOMove(
                     new Vector3(itemObjTransform.transform.position.x,
-                    itemObjTransform.transform.position.y-180,
+                    itemObjTransform.transform.position.y - 180,
                     itemObjTransform.transform.position.z), 2);
                 }
 

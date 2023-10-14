@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float verticalSwayAmount = 0.02f; // 上下起伏的幅度
     [SerializeField] private float verticalSwaySpeed = 3f; // 上下起伏的速度
+    [SerializeField] [Header("Item 的圖層")] LayerMask ItemLayer;
 
     private float verticalSwayTimer;
 
@@ -162,13 +163,13 @@ public class PlayerController : MonoBehaviour
                 gameManager.SendMessage("GameEvent", GameEventID.S2_Door_Knock_Stop);
                 Destroy(col.gameObject);
             }
-            
+
             if (col.gameObject.name == "S2_Door_Close_Trigger")
             {
                 gameManager.SendMessage("GameEvent", GameEventID.S2_Grandma_Door_Close);
                 Destroy(col.gameObject);
             }
-            
+
             if (col.gameObject.name == "S2_Ghost_Pass_Door_Trigger")
             {
                 gameManager.SendMessage("GameEvent", GameEventID.S2_Ghost_Pass_Door);
@@ -251,54 +252,17 @@ public class PlayerController : MonoBehaviour
 
     // Ray check for item interact
     void RayHitCheck()
-
     {
         m_bRayOnItem = Physics.Raycast(tfPlayerCamera.position,     // Origin
                                        tfPlayerCamera.forward,      // Direction
                                        out hit,                     // RaycastHit
-                                       m_fRayLength);               // RayLength
+                                       m_fRayLength,                // RayLength
+                                       ItemLayer);                  // ItemLayer);
 
-        if (gameManager.GetM_bInUIView())
-        {
-            //if (Input.GetKeyDown(KeyCode.L))
-            //{
-            //    StartRotationTimer();
-            //}
-            //if (Input.GetKey(KeyCode.L))
-            //{
-            //    // 檢查是否有擊中物體，以及要旋轉的物體不是 null
-            //    if (hit.transform != null)
-            //    {
-            //        RotateCubeHorization(hit.transform);
-            //    }
-            //}
-            //if (Input.GetKeyUp(KeyCode.L))
-            //{
-            //    StopRotationTimer();
-            //}
-            //if (Input.GetKeyDown(KeyCode.K))
-            //{
-            //    StartRotationTimer();
-            //    isRotatingVertically = true; // 開始垂直旋轉
-            //}
-            //if (Input.GetKey(KeyCode.K))
-            //{
-            //    // 檢查要垂直旋轉的物體不是 null
-            //    if (isRotatingVertically && gameManager.RO_OBJ[gameManager.saveRotaObj] != null)
-            //    {
-            //        RotateCubeVertically(gameManager.RO_OBJ[gameManager.saveRotaObj].transform, verticalRotationSpeed);
-            //    }
-            //}
-            //if (Input.GetKeyUp(KeyCode.K))
-            //{
-            //    StopRotationTimer();
-            //    isRotatingVertically = false; // 停止垂直旋轉
-            //}
-
-        }
-        if (m_bRayOnItem && hit.transform.gameObject.layer == m_iInteractiveLayer)
+        if (m_bRayOnItem)
         {
             current_Item = hit.transform.gameObject.GetComponent<ItemController>();
+            Debug.Log(string.Format("[PlayerCtrlr] Trigger Item is : {0}}", hit.transform.gameObject.name));
 
             if (current_Item.bActive)
             {
