@@ -11,9 +11,9 @@ public class PlayerController : MonoBehaviour
     float rotationSpeed = 45f; // 初始旋轉速度
     public Transform ro_tfItemObj;
 
-    public float cameraSwaySmoothing = 10f;
-    public float cameraSwayAmount = 0.5f;
-    public float cameraSwaySpeed = 1.5f;
+    public float cameraSwaySmoothing = 10f; // 平滑度
+    public float cameraSwayAmount = 0.5f;   // 幅度
+    public float cameraSwaySpeed = 1.5f;    // 速度
 
     private Vector3 originalCameraPosition;
     //private Vector3 cameraSwayVelocity;
@@ -22,19 +22,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float verticalSwaySpeed = 3f; // 上下起伏的速度
     [SerializeField] [Header("Item 的圖層")] LayerMask ItemLayer;
 
-    private float verticalSwayTimer;
+    private float verticalSwayTimer;    // 上下起伏的計時器
 
-    private AudioSource audioSource;
-    public AudioClip walkingSound;
+    private AudioSource audioSource;    // 音效來源
+    public AudioClip walkingSound;    // 走路音效
 
-    private bool isWalking = false;
+    private bool isWalking = false; // 是否正在走路
 
     // Can be setted by player
-    float m_fUDSensitivity;
-    float m_fRLSensitivity;
+    float m_fUDSensitivity; // 上下轉速
+    float m_fRLSensitivity; // 左右轉速
     public float fSensitivityAmplifier;
 
-    // Const value
+    // Const value  
     readonly float m_fMoveSpeed = 90f;
     readonly float m_fRayLength = 1.5f;
     readonly float ro_ItemObjRayLenght = 1.5f;
@@ -178,7 +178,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void InitValue()
+    void InitValue()    // 初始化數值
     {
         m_fUDSensitivity = 230;
         m_fRLSensitivity = 180;
@@ -217,7 +217,7 @@ public class PlayerController : MonoBehaviour
         tfPlayerCamera.localEulerAngles = -Vector3.right * m_fVerticalRotationValue;
     }
 
-    void Move()
+    void Move() // 移動
     {
         v3_MoveValue = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
@@ -238,7 +238,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void SetCursor()
+    public void SetCursor() // 設定滑鼠
     {
         m_bCursorShow = !m_bCursorShow;
 
@@ -251,7 +251,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Ray check for item interact
-    void RayHitCheck()
+    void RayHitCheck()  // 檢查射線是否打到物件
     {
         m_bRayOnItem = Physics.Raycast(tfPlayerCamera.position,     // Origin
                                        tfPlayerCamera.forward,      // Direction
@@ -284,50 +284,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void PlaySound(AudioClip clip)
+    void PlaySound(AudioClip clip)  // 播放音效
     {
         audioSource.clip = clip;
         audioSource.Play();
     }
 
-    void PlayWalkingSound()
+    void PlayWalkingSound() // 播放走路音效
     {
         PlaySound(walkingSound);
     }
 
-    //float rotationTimer = 0f;
-    //void RotateCubeHorization(Transform cubeTransform)
-    //{
-    //    // 這裡假設最大旋轉速度為 360 度/秒
-    //    float maxRotationSpeed = 360f;
-
-    //    // 旋轉角度根據持續時間來決定
-    //    float rotationAngle = rotationSpeed * Time.deltaTime;
-
-    //    rotationAngle = Mathf.Clamp(rotationAngle, 0f, maxRotationSpeed * Time.deltaTime);
-
-    //    Quaternion rotation = Quaternion.Euler(0f, rotationAngle, 0f);
-    //    cubeTransform.rotation *= rotation;
-
-    //    rotationTimer += Time.deltaTime;
-    //    rotationSpeed = Mathf.Lerp(45f, maxRotationSpeed, rotationTimer / 1f);
-    //}
-
-    //void StartRotationTimer()
-    //{
-    //    rotationTimer = 0f;
-    //}
-
-    //void StopRotationTimer()
-    //{
-    //    rotationTimer = 0f;
-    //    rotationSpeed = 45f; // 重置旋轉速度
-    //}
-
-    //void RotateCubeVertically(Transform cubeTransform, float roatationSpeed)
-    //{
-    //    float rotationAmount = roatationSpeed * Time.deltaTime;
-    //    Quaternion rotation = Quaternion.Euler(rotationAmount, 0f, 0f);
-    //    cubeTransform.rotation *= rotation;
-    //}
 }

@@ -22,7 +22,7 @@ public partial class GameManager : MonoBehaviour
     //[SerializeField] GameObject PhotoFrameUI;
     [Header("遊戲結束畫面UI")] public GameObject FinalUI;
 
-    [SerializeField] [Header("欲製物 - Schedule")] Text prefabs_Schedule;
+    [SerializeField][Header("欲製物 - Schedule")] Text prefabs_Schedule;
 
     [Header("物件移動速度")] public float objSpeed;
     [Header("旋轉物件collider")] public Collider Ro_Cololider;
@@ -36,10 +36,10 @@ public partial class GameManager : MonoBehaviour
     [Header("儲存生成物件")] public int saveRotaObj;
 
     [Header("玩家")] public PlayerController playerCtrlr;
-    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
-    [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
-    [SerializeField] [Header("破碎相框co")] public Collider photoCollider;
-    [SerializeField] [Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj_RO;
+    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField][Header("設定頁面")] public GameObject settingObjects;
+    [SerializeField][Header("破碎相框co")] public Collider photoCollider;
+    [SerializeField][Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj_RO;
 
 
     int m_iGrandmaRushCount;
@@ -97,18 +97,18 @@ public partial class GameManager : MonoBehaviour
 
     #region - All Scene Items -
     [Header("場景一物件")]
-    [SerializeField] [Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
-    [SerializeField] [Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
-    [SerializeField] [Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
-    [SerializeField] [Header("S1_奶奶房間抽屜")] GameObject S1_Desk_Drawer_Obj;
+    [SerializeField][Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
+    [SerializeField][Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
+    [SerializeField][Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
+    [SerializeField][Header("S1_奶奶房間抽屜")] GameObject S1_Desk_Drawer_Obj;
 
     [Header("場景二物件")]
-    [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
-    [SerializeField] [Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
-    [SerializeField] [Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
-    [SerializeField] [Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
-    [SerializeField] [Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
-    [SerializeField] [Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj;
+    [SerializeField][Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
+    [SerializeField][Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
+    [SerializeField][Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
+    [SerializeField][Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
+    [SerializeField][Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
+    [SerializeField][Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj;
     #endregion
 
     bool isPaused = false;
@@ -433,6 +433,7 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
+
     // 顯示眼睛 Hint 圖示
     public void ShowHint(HintItemID _ItemID)
     {
@@ -527,6 +528,7 @@ public partial class GameManager : MonoBehaviour
         TempItem.SetHintable(true);
     }
 
+    // 顯示進入遊戲按鈕
     void ProcessROMoving(int iIndex)
     {
         isMovingObject = true;
@@ -534,13 +536,10 @@ public partial class GameManager : MonoBehaviour
         originalPosition = RO_OBJ[saveRotaObj].transform.position;
         originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
         Ro_Cololider = RO_OBJ[saveRotaObj].GetComponent<Collider>();
-        romanager = RO_OBJ[saveRotaObj].GetComponent<ROmanager>().enabled = true;
+        romanager = RO_OBJ[saveRotaObj].GetComponent<RotateObjDetect>().enabled = true;
     }
 
-    /// <summary>
-    /// 旋轉物件
-    /// </summary>
-    /// <param name="O_ItemID"></param>
+    // 顯示進入旋轉遊戲按鈕
     public void ShowObj(ObjItemID O_ItemID)
     {
         switch (O_ItemID)
@@ -556,7 +555,6 @@ public partial class GameManager : MonoBehaviour
                     new Vector3(itemObjTransform.transform.position.x,
                     itemObjTransform.transform.position.y,
                     itemObjTransform.transform.position.z), 2);
-                //RO_OBJ[1] = Instantiate(itemObj[1], newPosition, newRoation);
                 break;
             case ObjItemID.S1_Photo_Frame:
                 RO_OBJ[saveRotaObj].transform.DOMove(
@@ -573,6 +571,7 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
+    // 旋轉物件UI畫面
     public void UIState(UIItemID r_ItemID, bool r_bEnable)
     {
         m_bInUIView = r_bEnable;
@@ -595,9 +594,8 @@ public partial class GameManager : MonoBehaviour
 
     public void ProcessAnimator(string r_sObject, string r_sTriggerName)
     {
-        if (r_sObject.Contains("null") || r_sTriggerName.Contains("null"))
+        if (r_sObject.Contains("null") || r_sTriggerName.Contains("null"))  
             return;
-
         GameObject obj = GameObject.Find(r_sObject);
         Animator ani = obj.transform.GetComponent<Animator>();
         ani.SetTrigger(r_sTriggerName);
@@ -612,7 +610,7 @@ public partial class GameManager : MonoBehaviour
         GlobalDeclare.SetItemAniName("Empty");
         m_bShowItemAnimate = false;
     }
-
+    //鬼手動畫
     public void ProcessItemAnimator(string r_strObject, string r_strTriggerName)
     {
         if (r_strObject.Contains("null") || r_strTriggerName.Contains("null"))
@@ -781,7 +779,8 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-    public void SetGameState()
+
+    public void SetGameState()  // 設定遊戲狀態
     {
         playerCtrlr.SetCursor();
         isPaused = !isPaused;
@@ -790,7 +789,7 @@ public partial class GameManager : MonoBehaviour
         isMouseEnabled = isPaused;
     }
 
-    public void GameStateCheck()
+    public void GameStateCheck()    // 檢查遊戲狀態
     {
         if (!GlobalDeclare.bLotusGameComplete &&
              m_bPlayLotusEnable &&
@@ -810,17 +809,13 @@ public partial class GameManager : MonoBehaviour
         //}
     }
 
-    public void DestroyImmediateLo()
-    {
-        RO_OBJ[1].SetActive(false);
-    }
-
-    private void SortRO_OBJByName()
+    
+    private void SortRO_OBJByName() // 依照物件名稱排序
     {
         Array.Sort(RO_OBJ, CompareGameObjectNames);
     }
 
-    private int CompareGameObjectNames(GameObject x, GameObject y)
+    private int CompareGameObjectNames(GameObject x, GameObject y)  // 比較物件名稱
     {
         string[] names = {
             "Rice_Funeral",
@@ -834,26 +829,26 @@ public partial class GameManager : MonoBehaviour
         return xIndex.CompareTo(yIndex);
     }
 
-    public bool GetM_bInUIView()
+    public bool GetM_bInUIView()    // 取得是否在 UI 畫面中
     {
         return m_bInUIView;
     }
 
-    public void StopReadding()
+    public void StopReadding()  // 停止閱讀
     {
         playerCtrlr.m_bCanControl = false;
         playerCtrlr.m_bLimitRotation = true;
         StartCoroutine(ChangeVignetteIntensity());
     }
 
-    private IEnumerator ChangeVignetteIntensity()
+    private IEnumerator ChangeVignetteIntensity()  // 改變電影模式Vignette強度
     {
         VolumeProfile profile = postProcessVolume.sharedProfile;
 
         if (profile.TryGet(out Vignette vignette) &&
             profile.TryGet(out CloudLayer cloudLayer))
         {
-            float currentIntensity = 0.738f;
+            float currentIntensity = 0.64f;
             float elapsedTime = 0f;
 
             while (elapsedTime < 1f)
@@ -870,16 +865,14 @@ public partial class GameManager : MonoBehaviour
                 elapsedTime += Time.deltaTime * changeSpeed;
                 yield return null;
             }
-            vignette.intensity.value = 0.64f;
-            vignette.smoothness.value = 0.168f;
-            vignette.roundness.value = 0.184f;
+            vignette.intensity.value = 0.7f;
+            vignette.smoothness.value = 0.16f;
+            vignette.roundness.value = 0.18f;
             cloudLayer.opacity.value = 0.0f;
-            playerCtrlr.m_bCanControl = true;
-            playerCtrlr.m_bLimitRotation = false;
         }
     }
 
-    void LastAnimateAfterPhotoFrame()
+    void LastAnimateAfterPhotoFrame()   // 照片框動畫後的最後動畫
     {
         // 紹威 (Word 檔 - 有東西竄動的聲音
         AUDManager.instance.GhostEscape();
@@ -887,7 +880,7 @@ public partial class GameManager : MonoBehaviour
         Invoke(nameof(IvkS2_SlientAfterPhotoFrame), 2f);
     }
 
-    void LastAnimateAfterPhotoFrameForRecord()
+    void LastAnimateAfterPhotoFrameForRecord()  // 照片框動畫後的最後動畫
     {
         ProcessPlayerAnimator("Player_S2_Shocked_After_PhotoFrame");
 
@@ -896,12 +889,12 @@ public partial class GameManager : MonoBehaviour
         Invoke(nameof(IvkS2_SlientAfterPhotoFrameForRecord), 20f);
     }
 
-    IEnumerator DelayedAction()
+    IEnumerator DelayedAction() // 延遲動作
     {
         yield return new WaitForSeconds(2.5f);
     }
 
-    IEnumerator DelayLodelobby()
+    IEnumerator DelayLodelobby()    // 延遲載入大廳場景   
     {
         AUDManager.instance.HorrorStart();
         FinalUI.SetActive(true);

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ROmanager : MonoBehaviour
+public class RotateObjDetect : MonoBehaviour
 {
-    private Vector3 initialMousePosition;
-    private bool isRotating = false;
+    private Vector3 initialMousePosition; // 滑鼠點擊位置
+    private bool isRotating = false;    // 是否正在旋轉
     private void Start()
     {
         
@@ -13,9 +13,9 @@ public class ROmanager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // 当鼠标左键被按下
+        if (Input.GetMouseButtonDown(0))    // 當滑鼠左键被按下
         {
-            // 检测点击位置是否在物体上
+            // 鑑測點擊位置是否在物體
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
@@ -29,7 +29,7 @@ public class ROmanager : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonUp(0)) // 当鼠标左键被释放
+        if (Input.GetMouseButtonUp(0)) // 當滑鼠左键被按下
         {
             isRotating = false;
         }
@@ -39,8 +39,8 @@ public class ROmanager : MonoBehaviour
             Vector3 currentMousePosition = Input.mousePosition;
             Vector3 mouseDelta = currentMousePosition - initialMousePosition;
 
-            // 根据鼠标移动计算旋转角度
-            float rotationSpeed = 1.0f; // 调整旋转速度
+            // 根據滑鼠移動計算旋轉角度
+            float rotationSpeed = 1.0f; // 调整旋轉速度
             transform.Rotate(Vector3.up * mouseDelta.x * rotationSpeed, Space.World);
             transform.Rotate(Vector3.right * mouseDelta.y * rotationSpeed, Space.World);
 
