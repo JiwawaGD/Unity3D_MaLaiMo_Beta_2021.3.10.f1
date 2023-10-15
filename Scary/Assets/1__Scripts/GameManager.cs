@@ -16,10 +16,9 @@ public partial class GameManager : MonoBehaviour
     float targetIntensity = 1f; // 目標強度值
     float currentIntensity = 0.3f; // 當前強度值
     public float changeSpeed = 1f; // 強度改變速度
-    bool isMovingObject = false;
-    public Vector3 originalPosition;
-    public Quaternion originalRotation;
-    //[SerializeField] GameObject PhotoFrameUI;
+    bool isMoveingObject = false;    // 是否正在移動物件
+    public Vector3 originalPosition;    // 原始位置
+    public Quaternion originalRotation; // 原始旋轉
     [Header("遊戲結束畫面UI")] public GameObject FinalUI;
 
     [SerializeField][Header("欲製物 - Schedule")] Text prefabs_Schedule;
@@ -50,14 +49,10 @@ public partial class GameManager : MonoBehaviour
     #region Canvas Zone
     [SerializeField] GameObject goCanvas;
     [SerializeField] UnityEngine.UI.Image imgUIBackGround;
-    //[SerializeField] Image imgUIDisplay;
-    //[SerializeField] Image titleImg;
     [SerializeField] Text txtTitle;
 
     [SerializeField] UnityEngine.UI.Image imgInstructions;
     [SerializeField] Text txtInstructions;
-    //[SerializeField] Image imgScendInstructions;
-    //[SerializeField] Image imgIntroduceBackground;
     [SerializeField] Text txtIntroduce;
 
     [SerializeField] UnityEngine.UI.Button ExitBtn;
@@ -117,8 +112,7 @@ public partial class GameManager : MonoBehaviour
 
     void Awake()
     {
-        //RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
-        SortRO_OBJByName();
+        SortRO_OBJByName(); // 排序物件
 
         if (playerCtrlr == null)
             playerCtrlr = GameObject.Find("Player").GetComponent<PlayerController>();
@@ -126,33 +120,28 @@ public partial class GameManager : MonoBehaviour
         if (goCanvas == null)
             goCanvas = GameObject.Find("UI Canvas");
 
-        imgUIBackGround = goCanvas.transform.GetChild(0).GetComponent<UnityEngine.UI.Image>();
-        //imgUIDisplay = goCanvas.transform.GetChild(1).GetComponent<Image>();
-        //titleImg = goCanvas.transform.GetChild(2).GetComponent<Image>();
-        txtTitle = goCanvas.transform.GetChild(2).GetComponent<Text>();
+        imgUIBackGround = goCanvas.transform.GetChild(0).GetComponent<UnityEngine.UI.Image>();  // 背景
+        txtTitle = goCanvas.transform.GetChild(2).GetComponent<Text>(); // 標題
 
-        imgInstructions = goCanvas.transform.GetChild(3).GetComponent<UnityEngine.UI.Image>();
-        txtInstructions = goCanvas.transform.GetChild(3).GetComponentInChildren<Text>();
-        //imgScendInstructions = goCanvas.transform.GetChild(2).GetComponentInChildren<Image>();
+        imgInstructions = goCanvas.transform.GetChild(3).GetComponent<UnityEngine.UI.Image>();  // 說明圖示
+        txtInstructions = goCanvas.transform.GetChild(3).GetComponentInChildren<Text>();    // 說明文字
+        txtIntroduce = goCanvas.transform.GetChild(4).GetComponentInChildren<Text>();   // 介紹文字
 
-        //imgIntroduceBackground = goCanvas.transform.GetChild(4).GetComponent<Image>();
-        txtIntroduce = goCanvas.transform.GetChild(4).GetComponentInChildren<Text>();
+        ExitBtn = goCanvas.transform.GetChild(5).GetComponent<UnityEngine.UI.Button>(); // 返回按鈕
 
-        ExitBtn = goCanvas.transform.GetChild(5).GetComponent<UnityEngine.UI.Button>();
+        txtEnterGameHint = goCanvas.transform.GetChild(6).GetComponent<Text>(); // 進入遊戲提示
+        EnterGameBtn = goCanvas.transform.GetChild(7).GetComponent<UnityEngine.UI.Button>();    // 進入遊戲按鈕
 
-        txtEnterGameHint = goCanvas.transform.GetChild(6).GetComponent<Text>();
-        EnterGameBtn = goCanvas.transform.GetChild(7).GetComponent<UnityEngine.UI.Button>();
-
-        TempItem = null;
-        currentScene = SceneManager.GetActiveScene();
+        TempItem = null;    // 暫存物件
+        currentScene = SceneManager.GetActiveScene();   // 當前場景
     }
 
     void Start()
     {
         GameEvent(GameEventID.Close_UI);
 
-        ExitBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.UI_Back));
-        EnterGameBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.Enter_Game));
+        ExitBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.UI_Back));   // 返回
+        EnterGameBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.Enter_Game));   // 進入蓮花遊戲
 
         ShowHint(HintItemID.S1_Light_Switch);
         ShowHint(HintItemID.S1_Grandma_Room_Door_Lock);
@@ -163,14 +152,14 @@ public partial class GameManager : MonoBehaviour
     {
         KeyboardCheck();
 
-        if (isPaused && isMouseEnabled)
+        if (isPaused && isMouseEnabled) // 暫停時啟用滑鼠
             MouseCheck();
 
-        if (isUIOpen && Input.GetKeyDown(KeyCode.R))
-            ButtonFunction(ButtonEventID.Enter_Game);
+        if (isUIOpen && Input.GetKeyDown(KeyCode.R))    // 關閉 UI 時按 R 鍵
+            ButtonFunction(ButtonEventID.Enter_Game);   // 進入蓮花遊戲
     }
 
-    public void GameEvent(GameEventID r_eventID)
+    public void GameEvent(GameEventID r_eventID)    // 遊戲事件
     {
         switch (r_eventID)
         {
@@ -199,17 +188,17 @@ public partial class GameManager : MonoBehaviour
 
                 GameStateCheck();
                 break;
-            case GameEventID.S1_Photo_Frame:
+            case GameEventID.S1_Photo_Frame:    // 破碎相框 
                 ShowHint(HintItemID.S1_Photo_Frame);
                 photoCollider.enabled = true;
                 S1_Photo_Frame_Obj.transform.GetChild(1).GetComponent<MeshRenderer>().enabled = true;
                 TempItem = S1_Photo_Frame_Obj.GetComponent<ItemController>();
                 TempItem.eventID = GameEventID.S1_Photo_Frame_Has_Broken;
                 break;
-            case GameEventID.S1_Photo_Frame_Has_Broken:
+            case GameEventID.S1_Photo_Frame_Has_Broken: // 破碎相框 
                 UIState(UIItemID.S1_Photo_Frame, true);
                 photoCollider.enabled = true;
-                ProcessROMoving(2);
+                ProcessRoMoving(2);
                 ShowObj(ObjItemID.S1_Photo_Frame);
 
                 // 人形黑影
@@ -231,7 +220,7 @@ public partial class GameManager : MonoBehaviour
                 flowchartObjects[4].gameObject.SetActive(true);
                 break;
             case GameEventID.S1_Lotus_Paper:
-                ProcessROMoving(1);
+                ProcessRoMoving(1);
                 UIState(UIItemID.S1_Lotus_Paper, true);
                 ShowEnterGame(true);
                 ShowObj(ObjItemID.S1_Lotus_Paper);
@@ -322,7 +311,7 @@ public partial class GameManager : MonoBehaviour
                 flowchartObjects[11].gameObject.SetActive(true);
                 UIState(UIItemID.S1_Rice_Funeral, true);
                 ShowObj(ObjItemID.S1_Rice_Funeral);
-                ProcessROMoving(0);
+                ProcessRoMoving(0);
                 break;
             case GameEventID.S1_Toilet_Door_Lock:
                 flowchartObjects[12].gameObject.SetActive(true);
@@ -411,7 +400,7 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S2_Photo_Frame);
                 break;
             case GameEventID.S2_Photo_Frame:
-                ProcessROMoving(3);
+                ProcessRoMoving(3);
                 UIState(UIItemID.S2_Photo_Frame, true);
                 ShowObj(ObjItemID.S2_Photo_Frame);
 
@@ -432,7 +421,6 @@ public partial class GameManager : MonoBehaviour
                 break;
         }
     }
-
 
     // 顯示眼睛 Hint 圖示
     public void ShowHint(HintItemID _ItemID)
@@ -528,19 +516,20 @@ public partial class GameManager : MonoBehaviour
         TempItem.SetHintable(true);
     }
 
-    // 顯示進入遊戲按鈕
-    void ProcessROMoving(int iIndex)
+    void ProcessRoMoving(int iIndex)  // 旋轉物件 (物件ID)     
     {
-        isMovingObject = true;
-        saveRotaObj = iIndex;
-        originalPosition = RO_OBJ[saveRotaObj].transform.position;
-        originalRotation = RO_OBJ[saveRotaObj].transform.rotation;
-        Ro_Cololider = RO_OBJ[saveRotaObj].GetComponent<Collider>();
-        romanager = RO_OBJ[saveRotaObj].GetComponent<RotateObjDetect>().enabled = true;
+        if (RO_OBJ[saveRotaObj] == null)
+            return;
+        isMoveingObject = true;  // 正在移動物件
+        saveRotaObj = iIndex;   // 儲存物件  
+        originalPosition = RO_OBJ[saveRotaObj].transform.position;  // 儲存物件位置
+        originalRotation = RO_OBJ[saveRotaObj].transform.rotation;  // 儲存物件旋轉
+        Ro_Cololider = RO_OBJ[saveRotaObj].GetComponent<Collider>();    // 儲存物件碰撞器
+        romanager = RO_OBJ[saveRotaObj].GetComponent<RotateObjDetect>().enabled = true; // 啟用旋轉物件碰撞器
     }
 
     // 顯示進入旋轉遊戲按鈕
-    public void ShowObj(ObjItemID O_ItemID)
+    public void ShowObj(ObjItemID O_ItemID)  // 顯示物件 UI  (旋轉物件)  (物件ID)
     {
         switch (O_ItemID)
         {
@@ -592,9 +581,9 @@ public partial class GameManager : MonoBehaviour
         GetM_bInUIView();
     }
 
-    public void ProcessAnimator(string r_sObject, string r_sTriggerName)
+    public void ProcessAnimator(string r_sObject, string r_sTriggerName)    // 執行物件動畫
     {
-        if (r_sObject.Contains("null") || r_sTriggerName.Contains("null"))  
+        if (r_sObject.Contains("null") || r_sTriggerName.Contains("null"))
             return;
         GameObject obj = GameObject.Find(r_sObject);
         Animator ani = obj.transform.GetComponent<Animator>();
@@ -622,7 +611,7 @@ public partial class GameManager : MonoBehaviour
         m_bShowItemAnimate = false;
     }
 
-    public void ProcessPlayerAnimator(string r_sAnimationName)
+    public void ProcessPlayerAnimator(string r_sAnimationName)  // 執行玩家動畫
     {
         Animation am = playerCtrlr.GetComponent<Animation>();
         am.Play(r_sAnimationName);
@@ -630,7 +619,7 @@ public partial class GameManager : MonoBehaviour
         GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Empty);
     }
 
-    public void ProcessDialog(string sDialogObjName)
+    public void ProcessDialog(string sDialogObjName)  // 執行 Fungus 對話
     {
         if (sDialogObjName.Contains("Empty"))
             return;
@@ -641,7 +630,7 @@ public partial class GameManager : MonoBehaviour
         GlobalDeclare.SetDialogObjName("Empty");
     }
 
-    public void SetPlayerViewLimit(bool bLimitRotation, float[] fViewLimit)
+    public void SetPlayerViewLimit(bool bLimitRotation, float[] fViewLimit) // 限制角色視角
     {
         m_bSetPlayerViewLimit = false;
         playerCtrlr.m_bLimitRotation = bLimitRotation;
@@ -655,7 +644,7 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-    public void ShowEnterGame(bool r_bEnable)
+    public void ShowEnterGame(bool r_bEnable)   // 顯示進入蓮花遊戲按鈕
     {
         isUIOpen = r_bEnable;
         EnterGameBtn.gameObject.SetActive(r_bEnable);
@@ -684,7 +673,7 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-    public void GrandMaRush()
+    public void GrandMaRush()   // 奶奶衝撞
     {
         //tfGrandmaGhost.Translate(0f, 0f, 0.3f);
         m_iGrandmaRushCount++;
@@ -699,7 +688,7 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-    public void ExitLotusGame()
+    public void ExitLotusGame() // 離開蓮花遊戲
     {
         m_bPlayLotusEnable = false;
         playerCtrlr.m_bCanControl = true;
@@ -715,7 +704,6 @@ public partial class GameManager : MonoBehaviour
 
         m_bPhotoFrameLightOn = true;
 
-        //ProcessDialog("Flowchart (3)");
         flowchartObjects[5].gameObject.SetActive(true);
 
         TempItem = GameObject.Find("Toilet_Door_Ghost").GetComponent<ItemController>();
@@ -723,14 +711,14 @@ public partial class GameManager : MonoBehaviour
         TempItem.eventID = GameEventID.S1_Toilet_Door_Open;
     }
 
-    void KeyboardCheck()
+    void KeyboardCheck()    // 鍵盤檢查
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (m_bInUIView)
+            if (m_bInUIView)    // 關閉 UI 畫面
             {
                 //PhotoFrameUI.SetActive(false);
-                if (!isMovingObject)
+                if (!isMoveingObject)    // 關閉旋轉
                 {
                     GameEvent(GameEventID.Close_UI);
                 }
@@ -742,24 +730,24 @@ public partial class GameManager : MonoBehaviour
                     romanager = false;
 
 
-                    if (!romanager)
+                    if (!romanager) //如果旋轉關閉
                     {
                         print(RO_OBJ[saveRotaObj].transform.GetChild(0).name);
                         //恢復物件位置
                         RO_OBJ[saveRotaObj].transform.DOMove(originalPosition, 2);
                         //恢復物件角度
                         RO_OBJ[saveRotaObj].transform.DORotate(originalRotation.eulerAngles, 2);
-                        isMovingObject = false;
+                        isMoveingObject = false;
                     }
                 }
             }
-            else
+            else    // 顯示遊戲狀態
             {
                 SetGameState();
             }
         }
 
-        if (m_bReturnToBegin)
+        if (m_bReturnToBegin)   // 回到開始畫面
         {
             if (Input.GetKeyDown(KeyCode.L))
             {
@@ -770,7 +758,7 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-    void MouseCheck()
+    void MouseCheck()   // 滑鼠檢查MouseButtonDown(0)
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -799,17 +787,6 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-    public void ShowItemObject(GameObject objToShow)
-    {
-        // 將指定的物件顯示在 itemObjTransform 的位置
-        // 假設你想將該物件作為子物件添加到 itemObjTransform 下
-        // 你可以使用 Instantiate 或 SetParent 方法
-        //Instantiate(objToShow, itemObjTransform.position, itemObjTransform.rotation, itemObjTransform);
-        // 如果需要調整物件的位置、縮放等屬性，可以在這裡進行設置
-        //}
-    }
-
-    
     private void SortRO_OBJByName() // 依照物件名稱排序
     {
         Array.Sort(RO_OBJ, CompareGameObjectNames);
@@ -834,7 +811,7 @@ public partial class GameManager : MonoBehaviour
         return m_bInUIView;
     }
 
-    public void StopReadding()  // 停止閱讀
+    public void StopReadding()  // 停止閱讀查看物件
     {
         playerCtrlr.m_bCanControl = false;
         playerCtrlr.m_bLimitRotation = true;
@@ -869,14 +846,14 @@ public partial class GameManager : MonoBehaviour
             vignette.smoothness.value = 0.16f;
             vignette.roundness.value = 0.18f;
             cloudLayer.opacity.value = 0.0f;
+            playerCtrlr.m_bCanControl = true;
+            playerCtrlr.m_bLimitRotation = false;
         }
     }
 
     void LastAnimateAfterPhotoFrame()   // 照片框動畫後的最後動畫
     {
-        // 紹威 (Word 檔 - 有東西竄動的聲音
         AUDManager.instance.GhostEscape();
-        // 加在這兩個註解中間
         Invoke(nameof(IvkS2_SlientAfterPhotoFrame), 2f);
     }
 

@@ -4,25 +4,11 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-    float verticalRotationSpeed = 45f; // 垂直旋轉速度
-    bool isRotatingHorizontally = true; // 是否正在水平旋轉
-    bool isRotatingVertically = false; // 是否正在垂直旋轉
-    bool rotateOnXAxis = true; // 是否繞X軸旋轉，預設為true
-    float rotationSpeed = 45f; // 初始旋轉速度
-    public Transform ro_tfItemObj;
+    public Transform ro_tfItemObj;  // 旋轉物件
 
-    public float cameraSwaySmoothing = 10f; // 平滑度
-    public float cameraSwayAmount = 0.5f;   // 幅度
-    public float cameraSwaySpeed = 1.5f;    // 速度
+    private Vector3 originalCameraPosition; // 原始攝影機位置
 
-    private Vector3 originalCameraPosition;
-    //private Vector3 cameraSwayVelocity;
-
-    [SerializeField] private float verticalSwayAmount = 0.02f; // 上下起伏的幅度
-    [SerializeField] private float verticalSwaySpeed = 3f; // 上下起伏的速度
     [SerializeField] [Header("Item 的圖層")] LayerMask ItemLayer;
-
-    private float verticalSwayTimer;    // 上下起伏的計時器
 
     private AudioSource audioSource;    // 音效來源
     public AudioClip walkingSound;    // 走路音效
@@ -37,8 +23,7 @@ public class PlayerController : MonoBehaviour
     // Const value  
     readonly float m_fMoveSpeed = 90f;
     readonly float m_fRayLength = 1.5f;
-    readonly float ro_ItemObjRayLenght = 1.5f;
-    readonly int m_iInteractiveLayer = 10;
+    readonly int m_iInteractiveLayer = 10;  // 互動圖層
     readonly Vector3 v3_zero = Vector3.zero;
 
     public bool m_bLimitRotation = false;
@@ -94,49 +79,45 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        RayHitCheck();
+        RayHitCheck();  
 
-        if (!GameManager.m_bInUIView)
+        if (!GameManager.m_bInUIView)   // 不在 UI 畫面時才可控制
+        {
+            if (Input.GetKeyDown(KeyCode.F6))
+                SetCursor();
+        }
+        else    // 在 UI 畫面時不可控制
         {
             if (Input.GetKeyDown(KeyCode.F6))
                 SetCursor();
         }
     }
 
-    void FixedUpdate()
+    void FixedUpdate()  
     {
-        if (m_bCursorShow)
+        if (m_bCursorShow)  // 滑鼠顯示時不可控制
             return;
 
-        if (!m_bCanControl)
+        if (!m_bCanControl) // 無法控制時不可控制
             return;
 
-        if (ani.isPlaying)
+        if (ani.isPlaying)  // 播放動畫時不可控制
         {
             m_fVerticalRotationValue = 0;
             m_fHorizantalRotationValue = 0;
             return;
         }
 
-        if (isWalking)
+        if (isWalking)  // 播放走路音效
         {
-            if (!audioSource.isPlaying)
+            if (!audioSource.isPlaying) // 音效未播放時播放音效
             {
-                //float swayX = Mathf.Sin(Time.time * cameraSwaySpeed) * cameraSwayAmount;
-                //float swayY = Mathf.Sin(Time.time * cameraSwaySpeed * 2f) * cameraSwayAmount;
-
-                //// 上下起伏
-                //float verticalSway = Mathf.Sin(verticalSwayTimer) * verticalSwayAmount;
-                //verticalSwayTimer += Time.deltaTime * verticalSwaySpeed;
-
-                //Vector3 swayPosition = originalCameraPosition + new Vector3(swayX, swayY + verticalSway, 0f);
-                //tfPlayerCamera.localPosition = swayPosition;
                 PlayWalkingSound();
             }
         }
         else
         {
-            if (audioSource.isPlaying)
+            if (audioSource.isPlaying)  // 音效播放時停止音效
             {
                 //tfPlayerCamera.localPosition = originalCameraPosition;
                 audioSource.Stop();
@@ -147,7 +128,7 @@ public class PlayerController : MonoBehaviour
         View();
     }
 
-    void OnTriggerEnter(Collider col)
+    void OnTriggerEnter(Collider col)   // 碰撞偵測
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("GameEventTrigger"))
         {
@@ -195,7 +176,7 @@ public class PlayerController : MonoBehaviour
         audioSource.loop = false; // 設置是否循環播放音效
     }
 
-    void View()
+    void View() // 視角
     {
         // 左右轉 (只轉 *角色* )
         if (m_bLimitRotation)
