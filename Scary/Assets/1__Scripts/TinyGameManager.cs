@@ -68,11 +68,26 @@ public partial class GameManager : MonoBehaviour
         // 加在這兩個註解中間
         ProcessPlayerAnimator("Player_S2_Shocked_After_PhotoFrame");
 
-        Invoke(nameof(IvkS2_SlientAfterPhotoFrameForRecord), 20f);
+        Invoke(nameof(IvkS2_PlayGrandmaVideo), 15f);
+
+        Invoke(nameof(IvkS2_SlientAfterPhotoFrameForRecord), 22f);
+    }
+
+    public void IvkS2_PlayGrandmaVideo()
+    {
+        videoPlayer.clip = GrandmaVP;
+        videoPlayer.Play();
+        Invoke(nameof(IvkS2_ShowVideoPlayerMesh),1f);
+    }
+
+    public void IvkS2_ShowVideoPlayerMesh()
+    {
+        videoPlayer.gameObject.GetComponent<MeshRenderer>().enabled = true;
     }
 
     public void IvkS2_SlientAfterPhotoFrameForRecord()
     {
+        videoPlayer.gameObject.GetComponent<MeshRenderer>().enabled = false;
         FinalUI.SetActive(true);
     }
 }
