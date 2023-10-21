@@ -44,7 +44,9 @@ public class ItemController : MonoBehaviour
         if (bShowHint)
         {
             tfHint.LookAt(tfPlayerCamera);
-            fDistanceWithPlayer = Vector3.Distance(v3This, tfPlayerCamera.position);
+            fDistanceWithPlayer = Vector3.SqrMagnitude(v3This - tfPlayerCamera.position);   //待確認   
+
+            //fDistanceWithPlayer = Vector3.Distance(v3This, tfPlayerCamera.position);    //原始使用
 
             if (fDistanceWithPlayer <= fHintRange)
                 HintObj.SetActive(true);
