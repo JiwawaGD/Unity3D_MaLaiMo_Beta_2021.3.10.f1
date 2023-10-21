@@ -80,7 +80,8 @@ public enum ObjItemID
     S1_Lotus_Paper,
     S1_Photo_Frame,
     S1_Photo_Grandma,
-    S2_Photo_Frame
+    S2_Photo_Frame,
+    S2_Photo_Frame_Floor
 }
 
 public enum UIItemID
