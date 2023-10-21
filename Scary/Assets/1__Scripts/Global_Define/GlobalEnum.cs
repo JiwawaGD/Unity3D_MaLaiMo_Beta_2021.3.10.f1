@@ -79,8 +79,8 @@ public enum ObjItemID
     S1_Rice_Funeral,
     S1_Lotus_Paper,
     S1_Photo_Frame,
-    S1_Photo_Grandma,
-    S2_Photo_Frame
+    S2_Photo_Frame,
+    S2_Photo_Frame2
 }
 
 public enum UIItemID

@@ -38,7 +38,6 @@ public partial class GameManager : MonoBehaviour
     [Header("玩家")] public PlayerController playerCtrlr;
     [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
     [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
-    [SerializeField] [Header("破碎相框co")] public Collider photoCollider;
     [SerializeField] [Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj_RO;
 
     [SerializeField] [Header("Video 撥放器")] VideoPlayer videoPlayer;
@@ -115,7 +114,7 @@ public partial class GameManager : MonoBehaviour
 
     void Awake()
     {
-        SortRO_OBJByName(); // 排序物件
+        // SortRO_OBJByName(); // 排序物件
 
         if (playerCtrlr == null)
             playerCtrlr = GameObject.Find("Player").GetComponent<PlayerController>();
@@ -193,14 +192,14 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Photo_Frame:    // 破碎相框 
                 ShowHint(HintItemID.S1_Photo_Frame);
-                photoCollider.enabled = true;
+                //photoCollider.enabled = false;
                 S1_Photo_Frame_Obj.transform.GetChild(1).GetComponent<MeshRenderer>().enabled = true;
                 TempItem = S1_Photo_Frame_Obj.GetComponent<ItemController>();
                 TempItem.eventID = GameEventID.S1_Photo_Frame_Has_Broken;
                 break;
             case GameEventID.S1_Photo_Frame_Has_Broken: // 破碎相框 
                 UIState(UIItemID.S1_Photo_Frame, true);
-                photoCollider.enabled = true;
+                //photoCollider.enabled = true;
                 ProcessRoMoving(2);
                 ShowObj(ObjItemID.S1_Photo_Frame);
 
@@ -234,7 +233,7 @@ public partial class GameManager : MonoBehaviour
                 StopReadding();
                 //UIState(UIItemID.S1_Grandma_Dead_Body, true);
                 flowchartObjects[6].gameObject.SetActive(true);
-                Destroy(S1_Rice_Funeral_Obj);
+                S1_Rice_Funeral_Obj.SetActive(false);
                 UnityEngine.Object RiceFuneralSpilled = Resources.Load<GameObject>("Prefabs/Rice_Funeral_Spilled");
                 GameObject RiceFuneralSpilledObj = Instantiate(RiceFuneralSpilled) as GameObject;
                 RiceFuneralSpilledObj.transform.parent = GameObject.Find("===== ITEMS =====").transform;
@@ -302,8 +301,7 @@ public partial class GameManager : MonoBehaviour
                 //progressProcessing.UpdateProgress(0);
                 break;
             case GameEventID.S1_Rice_Funeral_Spilled:
-                //RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
-                SortRO_OBJByName();
+                // SortRO_OBJByName();
                 ShowHint(HintItemID.S1_Lotus_Paper);
                 m_bPlayLotusEnable = true;
                 flowchartObjects[8].gameObject.SetActive(true);
@@ -403,7 +401,7 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S2_Photo_Frame);
                 break;
             case GameEventID.S2_Photo_Frame:
-                ProcessRoMoving(3);
+                ProcessRoMoving(4);
                 UIState(UIItemID.S2_Photo_Frame, true);
                 ShowObj(ObjItemID.S2_Photo_Frame);
 
@@ -528,7 +526,7 @@ public partial class GameManager : MonoBehaviour
         originalPosition = RO_OBJ[saveRotaObj].transform.position;  // 儲存物件位置
         originalRotation = RO_OBJ[saveRotaObj].transform.rotation;  // 儲存物件旋轉
         Ro_Cololider = RO_OBJ[saveRotaObj].GetComponent<Collider>();    // 儲存物件碰撞器
-        romanager = RO_OBJ[saveRotaObj].GetComponent<RotateObjDetect>().enabled = true; // 啟用旋轉物件碰撞器
+        //romanager = RO_OBJ[saveRotaObj].GetComponent<RotateObjDetect>().enabled = true; // 啟用旋轉物件碰撞器
     }
 
     // 顯示進入旋轉遊戲按鈕
@@ -790,24 +788,24 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-    private void SortRO_OBJByName() // 依照物件名稱排序
-    {
-        Array.Sort(RO_OBJ, CompareGameObjectNames);
-    }
+    // private void SortRO_OBJByName() // 依照物件名稱排序
+    // {
+    //     Array.Sort(RO_OBJ, CompareGameObjectNames);
+    // }
 
-    private int CompareGameObjectNames(GameObject x, GameObject y)  // 比較物件名稱
-    {
-        string[] names = {
-            "Rice_Funeral",
-            "Lotus_Paper",
-            "S1_Photo_Frame",
-            "S2_Photo_Frame"};
+    // private int CompareGameObjectNames(GameObject x, GameObject y)  // 比較物件名稱
+    // {
+    //     string[] names = {
+    //         "Rice_Funeral",
+    //         "Lotus_Paper",
+    //         "S1_Photo_Frame",
+    //         "S2_Photo_Frame"};
 
-        int xIndex = Array.IndexOf(names, x.name);
-        int yIndex = Array.IndexOf(names, y.name);
+    //     int xIndex = Array.IndexOf(names, x.name);
+    //     int yIndex = Array.IndexOf(names, y.name);
 
-        return xIndex.CompareTo(yIndex);
-    }
+    //     return xIndex.CompareTo(yIndex);
+    // }
 
     public bool GetM_bInUIView()    // 取得是否在 UI 畫面中
     {
