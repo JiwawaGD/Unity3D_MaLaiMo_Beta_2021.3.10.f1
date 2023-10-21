@@ -22,7 +22,7 @@ public partial class GameManager : MonoBehaviour
     public Quaternion originalRotation; // 原始旋轉
     [Header("遊戲結束畫面UI")] public GameObject FinalUI;
 
-    [SerializeField] [Header("欲製物 - Schedule")] Text prefabs_Schedule;
+    [SerializeField][Header("欲製物 - Schedule")] Text prefabs_Schedule;
 
     [Header("物件移動速度")] public float objSpeed;
     [Header("旋轉物件collider")] public Collider Ro_Cololider;
@@ -36,13 +36,13 @@ public partial class GameManager : MonoBehaviour
     [Header("儲存生成物件")] public int saveRotaObj;
 
     [Header("玩家")] public PlayerController playerCtrlr;
-    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
-    [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
-    [SerializeField] [Header("破碎相框co")] public Collider photoCollider;
-    [SerializeField] [Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj_RO;
+    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField][Header("設定頁面")] public GameObject settingObjects;
+    [SerializeField][Header("破碎相框co")] public Collider photoCollider;
+    [SerializeField][Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj;
 
-    [SerializeField] [Header("Video 撥放器")] VideoPlayer videoPlayer;
-    [SerializeField] [Header("Video - 阿嬤看螢幕")] VideoClip GrandmaVP;
+    [SerializeField][Header("Video 撥放器")] VideoPlayer videoPlayer;
+    [SerializeField][Header("Video - 阿嬤看螢幕")] VideoClip GrandmaVP;
 
     int m_iGrandmaRushCount;
     Scene currentScene;
@@ -95,18 +95,18 @@ public partial class GameManager : MonoBehaviour
 
     #region - All Scene Items -
     [Header("場景一物件")]
-    [SerializeField] [Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
-    [SerializeField] [Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
-    [SerializeField] [Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
-    [SerializeField] [Header("S1_奶奶房間抽屜")] GameObject S1_Desk_Drawer_Obj;
+    [SerializeField][Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
+    [SerializeField][Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
+    [SerializeField][Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
+    [SerializeField][Header("S1_奶奶房間抽屜")] GameObject S1_Desk_Drawer_Obj;
 
     [Header("場景二物件")]
-    [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
-    [SerializeField] [Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
-    [SerializeField] [Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
-    [SerializeField] [Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
-    [SerializeField] [Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
-    [SerializeField] [Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj;
+    [SerializeField][Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
+    [SerializeField][Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
+    [SerializeField][Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
+    [SerializeField][Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
+    [SerializeField][Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
+    [SerializeField][Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj_floor;
     #endregion
 
     bool isPaused = false;
@@ -115,7 +115,7 @@ public partial class GameManager : MonoBehaviour
 
     void Awake()
     {
-        SortRO_OBJByName(); // 排序物件
+        // SortRO_OBJByName(); // 排序物件
 
         if (playerCtrlr == null)
             playerCtrlr = GameObject.Find("Player").GetComponent<PlayerController>();
@@ -193,14 +193,14 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Photo_Frame:    // 破碎相框 
                 ShowHint(HintItemID.S1_Photo_Frame);
-                photoCollider.enabled = true;
+                // photoCollider.enabled = true;
                 S1_Photo_Frame_Obj.transform.GetChild(1).GetComponent<MeshRenderer>().enabled = true;
                 TempItem = S1_Photo_Frame_Obj.GetComponent<ItemController>();
                 TempItem.eventID = GameEventID.S1_Photo_Frame_Has_Broken;
                 break;
             case GameEventID.S1_Photo_Frame_Has_Broken: // 破碎相框 
                 UIState(UIItemID.S1_Photo_Frame, true);
-                photoCollider.enabled = true;
+                // photoCollider.enabled = true;
                 ProcessRoMoving(2);
                 ShowObj(ObjItemID.S1_Photo_Frame);
 
@@ -234,7 +234,7 @@ public partial class GameManager : MonoBehaviour
                 StopReadding();
                 //UIState(UIItemID.S1_Grandma_Dead_Body, true);
                 flowchartObjects[6].gameObject.SetActive(true);
-                Destroy(S1_Rice_Funeral_Obj);
+                S1_Rice_Funeral_Obj.SetActive(false);
                 UnityEngine.Object RiceFuneralSpilled = Resources.Load<GameObject>("Prefabs/Rice_Funeral_Spilled");
                 GameObject RiceFuneralSpilledObj = Instantiate(RiceFuneralSpilled) as GameObject;
                 RiceFuneralSpilledObj.transform.parent = GameObject.Find("===== ITEMS =====").transform;
@@ -303,7 +303,7 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Rice_Funeral_Spilled:
                 //RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
-                SortRO_OBJByName();
+                // SortRO_OBJByName();
                 ShowHint(HintItemID.S1_Lotus_Paper);
                 m_bPlayLotusEnable = true;
                 flowchartObjects[8].gameObject.SetActive(true);
@@ -391,7 +391,7 @@ public partial class GameManager : MonoBehaviour
                 ProcessPlayerAnimator("Player_S2_Shocked_By_Toilet_Ghost");
                 S2_Furniture_State_1_Obj.SetActive(false);
                 S2_Furniture_State_2_Obj.SetActive(true);
-                S2_Photo_Frame_Obj_RO.SetActive(true);
+                S2_Photo_Frame_Obj_floor.SetActive(true);
                 //RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
                 ShowHint(HintItemID.S2_Rice_Funeral);
                 Invoke(nameof(IvkS2_Shocked_By_Toilet), 4f);
@@ -403,9 +403,9 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S2_Photo_Frame);
                 break;
             case GameEventID.S2_Photo_Frame:
-                ProcessRoMoving(3);
+                ProcessRoMoving(4);
                 UIState(UIItemID.S2_Photo_Frame, true);
-                ShowObj(ObjItemID.S2_Photo_Frame);
+                ShowObj(ObjItemID.S2_Photo_Frame_Floor);
 
                 if (Input.GetKeyDown(KeyCode.R))
                 {
@@ -555,6 +555,12 @@ public partial class GameManager : MonoBehaviour
                     itemObjTransform.transform.position.z), 2);
                 break;
             case ObjItemID.S2_Photo_Frame:
+                RO_OBJ[saveRotaObj].transform.DOMove(
+                    new Vector3(itemObjTransform.transform.position.x,
+                    itemObjTransform.transform.position.y,
+                    itemObjTransform.transform.position.z), 2);
+                break;
+            case ObjItemID.S2_Photo_Frame_Floor:
                 RO_OBJ[saveRotaObj].transform.DOMove(
                     new Vector3(itemObjTransform.transform.position.x,
                     itemObjTransform.transform.position.y,
@@ -790,24 +796,24 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-    private void SortRO_OBJByName() // 依照物件名稱排序
-    {
-        Array.Sort(RO_OBJ, CompareGameObjectNames);
-    }
+    // private void SortRO_OBJByName() // 依照物件名稱排序
+    // {
+    //     Array.Sort(RO_OBJ, CompareGameObjectNames);
+    // }
 
-    private int CompareGameObjectNames(GameObject x, GameObject y)  // 比較物件名稱
-    {
-        string[] names = {
-            "Rice_Funeral",
-            "Lotus_Paper",
-            "S1_Photo_Frame",
-            "S2_Photo_Frame"};
+    // private int CompareGameObjectNames(GameObject x, GameObject y)  // 比較物件名稱
+    // {
+    //     string[] names = {
+    //         "Rice_Funeral",
+    //         "Lotus_Paper",
+    //         "S1_Photo_Frame",
+    //         "S2_Photo_Frame"};
 
-        int xIndex = Array.IndexOf(names, x.name);
-        int yIndex = Array.IndexOf(names, y.name);
+    //     int xIndex = Array.IndexOf(names, x.name);
+    //     int yIndex = Array.IndexOf(names, y.name);
 
-        return xIndex.CompareTo(yIndex);
-    }
+    //     return xIndex.CompareTo(yIndex);
+    // }
 
     public bool GetM_bInUIView()    // 取得是否在 UI 畫面中
     {

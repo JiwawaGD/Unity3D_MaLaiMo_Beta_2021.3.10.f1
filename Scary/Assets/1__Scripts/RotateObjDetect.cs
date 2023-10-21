@@ -5,8 +5,8 @@ using UnityEngine;
 public class RotateObjDetect : MonoBehaviour
 {
     private Vector3 initialMousePosition; // 滑鼠點擊位置
-    private Vector3 lastMousePosition;  // 滑鼠上一次位置
     private bool isRotating = false;    // 是否正在旋轉
+    private Vector3 lastMousePosition; // 滑鼠上一幀位置
     private void Start()
     {
 
@@ -21,6 +21,7 @@ public class RotateObjDetect : MonoBehaviour
     {
         isRotating = false;
     }
+
     void OnMouseDrag()
     {
         if (isRotating)
