@@ -192,15 +192,15 @@ public partial class GameManager : MonoBehaviour
                 GameStateCheck();
                 break;
             case GameEventID.S1_Photo_Frame:    // 破碎相框 
+                AUDManager.instance.MirrorBreakingSound();
                 ShowHint(HintItemID.S1_Photo_Frame);
-                // photoCollider.enabled = true;
                 S1_Photo_Frame_Obj.transform.GetChild(1).GetComponent<MeshRenderer>().enabled = true;
                 TempItem = S1_Photo_Frame_Obj.GetComponent<ItemController>();
                 TempItem.eventID = GameEventID.S1_Photo_Frame_Has_Broken;
                 break;
             case GameEventID.S1_Photo_Frame_Has_Broken: // 破碎相框 
+                AUDManager.instance.GetItemSound();
                 UIState(UIItemID.S1_Photo_Frame, true);
-                // photoCollider.enabled = true;
                 ProcessRoMoving(2);
                 ShowObj(ObjItemID.S1_Photo_Frame);
 
@@ -209,6 +209,7 @@ public partial class GameManager : MonoBehaviour
                 m_bToiletGhostHasShow = true;
 
                 // 限制角色視角
+                AUDManager.instance.GhostInDoor();
                 m_bSetPlayerViewLimit = true;
                 GlobalDeclare.PlayerCameraLimit.SetPlayerCameraLimit(150f, 250f, 160f);
 
@@ -231,8 +232,8 @@ public partial class GameManager : MonoBehaviour
 
                 break;
             case GameEventID.S1_Grandma_Dead_Body:
+                AUDManager.instance.GetItemSound();
                 StopReadding();
-                //UIState(UIItemID.S1_Grandma_Dead_Body, true);
                 flowchartObjects[6].gameObject.SetActive(true);
                 S1_Rice_Funeral_Obj.SetActive(false);
                 UnityEngine.Object RiceFuneralSpilled = Resources.Load<GameObject>("Prefabs/Rice_Funeral_Spilled");
@@ -241,8 +242,6 @@ public partial class GameManager : MonoBehaviour
                 RiceFuneralSpilledObj.transform.position = new Vector3(-4.4f, 0.006f, 11.8f);
                 RiceFuneralSpilledObj.name = "Rice_Funeral_Spilled";
                 ShowHint(HintItemID.S1_Rice_Funeral_Spilled);
-                //progressProcessing.UpdateProgress(2);
-                //KeepstoryReadding();
                 break;
             case GameEventID.S1_White_Tent:
                 ProcessAnimator("Filial_Piety_Curtain", "Filial_piety_curtain Open");
@@ -252,6 +251,7 @@ public partial class GameManager : MonoBehaviour
                 AUDManager.instance.PlayerWhiteTentSFX();
                 break;
             case GameEventID.S1_Photo_Frame_Light_On:
+                AUDManager.instance.PlayerLightSwitchSFX();
                 goPhotoFrameLight.SetActive(true);
                 m_bPhotoFrameLightOn = false;
                 break;
@@ -288,7 +288,6 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_GrandmaRoomKey:
                 ShowHint(HintItemID.S1_Grandma_Room_Door);
                 AUDManager.instance.GetTheKeySFX();
-                //progressProcessing.UpdateProgress(1);
                 flowchartObjects[3].gameObject.SetActive(true);
                 GameObject GrandmaRoomKeyObj = GameObject.Find("Grandma_Room_Key");
                 Destroy(GrandmaRoomKeyObj);
@@ -299,17 +298,15 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S1_Flashlight);
                 flowchartObjects[1].gameObject.SetActive(true);
                 AUDManager.instance.PlayerDoorLockSFX();
-                //progressProcessing.UpdateProgress(0);
                 break;
             case GameEventID.S1_Rice_Funeral_Spilled:
-                //RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
-                // SortRO_OBJByName();
+                AUDManager.instance.GetItemSound();
                 ShowHint(HintItemID.S1_Lotus_Paper);
                 m_bPlayLotusEnable = true;
                 flowchartObjects[8].gameObject.SetActive(true);
-                //progressProcessing.UpdateProgress(3);
                 break;
             case GameEventID.S1_Rice_Funeral:
+                AUDManager.instance.GetItemSound();
                 ShowHint(HintItemID.S1_Filial_Piety_Curtain);
                 flowchartObjects[11].gameObject.SetActive(true);
                 UIState(UIItemID.S1_Rice_Funeral, true);
@@ -317,15 +314,18 @@ public partial class GameManager : MonoBehaviour
                 ProcessRoMoving(0);
                 break;
             case GameEventID.S1_Toilet_Door_Lock:
+                AUDManager.instance.PlayerDoorLockSFX();
                 flowchartObjects[12].gameObject.SetActive(true);
                 break;
             case GameEventID.S1_Toilet_Door_Open:
+                AUDManager.instance.PlayerDoorOpenSFX();
                 ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Open");
                 BoxCollider ToiletDoorCollider = GameObject.Find("Toilet_Door_Ghost").GetComponent<BoxCollider>();
                 ToiletDoorCollider.enabled = false;
                 ShowHint(HintItemID.S1_Photo_Frame);
                 break;
             case GameEventID.S1_Toilet_Ghost_Hide:
+                AUDManager.instance.GhostingSoundSpecial();
                 ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Ghost_Out");
                 m_bToiletGhostHasShow = false;
                 playerCtrlr.m_bLimitRotation = false;
@@ -335,7 +335,8 @@ public partial class GameManager : MonoBehaviour
                 GameObject GhostHandTriggerObj = GameObject.Find("Ghost_Hand_Trigger");
                 GhostHandTriggerObj.transform.position = new Vector3(-8.5f, 0.1f, 6.1f);
                 break;
-            case GameEventID.S1_Toilet_Ghost_Hand_Push:
+            case GameEventID.S1_Toilet_Ghost_Hand_Push: // 鬼手推門
+                AUDManager.instance.FallingToBlackScreenSound();
                 m_bWaitToiletGhostHandPush = false;
                 ProcessItemAnimator("Ghost_Hand", "Ghost_Hand_Push");
                 Invoke(nameof(IvkProcessPlayerFallingAnimator), 0.2f);
@@ -347,6 +348,7 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S2_FlashLight);
                 break;
             case GameEventID.S2_Room_Door_Lock:
+                AUDManager.instance.PlayerDoorLockSFX();
                 bS2_TriggerGrandmaDoorLock = true;
                 flowchartObjects[12].gameObject.SetActive(true);
 
@@ -392,17 +394,18 @@ public partial class GameManager : MonoBehaviour
                 S2_Furniture_State_1_Obj.SetActive(false);
                 S2_Furniture_State_2_Obj.SetActive(true);
                 S2_Photo_Frame_Obj_floor.SetActive(true);
-                //RO_OBJ = GameObject.FindGameObjectsWithTag("ItemObj");
                 ShowHint(HintItemID.S2_Rice_Funeral);
                 Invoke(nameof(IvkS2_Shocked_By_Toilet), 4f);
                 break;
             case GameEventID.S2_Rice_Funeral:
+                AUDManager.instance.GetItemSound();
                 flowchartObjects[15].gameObject.SetActive(true);
                 BoxCollider S2_Rice_Funeral_Collider = GameObject.Find("S2_Rice_Funeral").GetComponent<BoxCollider>();
                 S2_Rice_Funeral_Collider.enabled = false;
                 ShowHint(HintItemID.S2_Photo_Frame);
                 break;
             case GameEventID.S2_Photo_Frame:
+                AUDManager.instance.GetItemSound();
                 ProcessRoMoving(4);
                 UIState(UIItemID.S2_Photo_Frame, true);
                 ShowObj(ObjItemID.S2_Photo_Frame_Floor);
