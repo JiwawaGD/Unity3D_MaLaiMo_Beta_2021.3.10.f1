@@ -29,7 +29,6 @@ public class AUDManager : MonoBehaviour
     #region 人物/物品聲 
     [Tooltip("東西竄動的聲音")] public AudioClip the_sound_of_something_moving;
     [Tooltip("廁所有奇怪持續的聲音")] public AudioClip strange_noises_keep_coming;
-    [Tooltip("廁所有奇怪持續的聲音")] public AudioClip strange_noises_in_the_toilet;
     [Tooltip("奶奶開始向前")] public AudioClip grandma_Starts_Walking;
     [Tooltip("奶奶詭異聲")] public AudioClip grandma_StrangeVoice;
     [Tooltip("扭動身體的音效")] public AudioClip body_Twisting_Sound;
@@ -40,10 +39,6 @@ public class AUDManager : MonoBehaviour
     [Tooltip("鬼影出現聲")] public AudioClip ghosting_Sound;
     [Tooltip("鬼魂逃跑")] public AudioClip ghost_Escape;
     [Tooltip("門縫鬼影")] public AudioClip ghostIn_The_Door;
-    public void GhostInDoor()
-    {
-        mainAudioSource.PlayOneShot(ghostIn_The_Door);
-    }
     #endregion
 
     // 房間音效
@@ -147,6 +142,14 @@ public class AUDManager : MonoBehaviour
     {
         mainAudioSource.PlayOneShot(mirror_Breaking_Sound);
     }
+    public void GrandmaStrangeVoiceStop()
+    {
+        mainAudioSource.PlayOneShot(grandma_StrangeVoice);
+    }
+    public void GhostInDoor()
+    {
+        mainAudioSource.PlayOneShot(ghostIn_The_Door);
+    }
     public void GetItemSound()
     {
         mainAudioSource.PlayOneShot(get_Item_Sound);
@@ -235,7 +238,7 @@ public class AUDManager : MonoBehaviour
 
     public void StrangeNoisesInTheToilet()
     {
-        mainAudioSource.PlayOneShot(strange_noises_in_the_toilet);
+        mainAudioSource.PlayOneShot(strange_noises_keep_coming);
     }
 
     public void TheSoundOfSomethingMoving()

@@ -64,6 +64,7 @@ public partial class GameManager : MonoBehaviour
     public void IvkS2_SlientAfterPhotoFrame()
     {
         // 紹威 (Word 檔 - 聲音大約出現 2-3 秒後安靜下來
+        AUDManager.instance.GrandmaStrangeVoiceStop();
 
         // 加在這兩個註解中間
         ProcessPlayerAnimator("Player_S2_Shocked_After_PhotoFrame");
@@ -77,6 +78,7 @@ public partial class GameManager : MonoBehaviour
     {
         videoPlayer.clip = GrandmaVP;
         videoPlayer.Play();
+        AUDManager.instance.BodyTwistingSound();
         Invoke(nameof(IvkS2_ShowVideoPlayerMesh),1f);
     }
 
