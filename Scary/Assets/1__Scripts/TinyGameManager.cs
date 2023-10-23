@@ -46,7 +46,7 @@ public partial class GameManager : MonoBehaviour
     public void IvkShowS2DoorKey()
     {
         GameObject S2_Grandma_Room_Key = GameObject.Find("S2_Grandma_Room_Key");
-        S2_Grandma_Room_Key.transform.position = new Vector3(-6.8f, 0.3f, 37.4f);
+        S2_Grandma_Room_Key.transform.position = new Vector3(-6.3f, 0.3f, 37.4f);
         ShowHint(HintItemID.S2_Room_Key);
     }
 
