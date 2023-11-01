@@ -3,13 +3,16 @@ using UnityEngine.Audio;
 using System.Collections;
 using Fungus;
 using OldBrickHouse;
+using System.Collections.Generic;
 
 public class AUDManager : MonoBehaviour
 {
+    List<AudioSource> audioSourceList = new List<AudioSource>();
     // 全局音效管理元件
     [SerializeField] AudioMixer audioMixer;
     public static AUDManager instance;
 
+    [SerializeField] string audioAssetBundleName;
     [SerializeField] AudioSource mainAudioSource;
     [SerializeField] AudioSource ScendAudioSource;
     [SerializeField] GameObject playerObj;
@@ -114,11 +117,15 @@ public class AUDManager : MonoBehaviour
 
     private void Awake()
     {
+        for (int i = 0; i < 3; i++)
+        {
+            var audioSource = gameObject.AddComponent<AudioSource>();
+            audioSourceList.Add(audioSource);
+        }
         mainAudioSource = GetComponent<AudioSource>();
         Transform childTransform = transform.Find("SecondAudioSource");
         if (childTransform != null)
         {
-            // 使用 GetComponent 方法獲取子物件上的 AudioSource 元件
             ScendAudioSource = childTransform.GetComponent<AudioSource>();
         }
         if (instance == null)
@@ -138,6 +145,141 @@ public class AUDManager : MonoBehaviour
 
         mainAudioSource.volume = originalVolume; // 恢復原始音量
     }
+
+
+    public void Play(int index, string name, bool isLoop)
+    {
+        var clip = GetAudioClip(name);
+        if (clip != null)
+        {
+            var audio = audioSourceList[index];
+            audio.clip = clip;
+            audio.loop = isLoop;
+            audio.Play();
+        }
+    }
+
+    AudioClip GetAudioClip(string name)
+    {
+        switch (name)
+        {
+            case "ghosting_Sound_Special":
+                return ghosting_Sound_Special;
+            case "mirror_Breaking_Sound":
+                return mirror_Breaking_Sound;
+            case "get_Item_Sound":
+                return get_Item_Sound;
+            case "falling_To_Black_Screen_Sound":
+                return falling_To_Black_Screen_Sound;
+            case "the_sound_of_something_moving":
+                return the_sound_of_something_moving;
+            case "strange_noises_keep_coming":
+                return strange_noises_keep_coming;
+            case "grandma_Starts_Walking":
+                return grandma_Starts_Walking;
+            case "grandma_StrangeVoice":
+                return grandma_StrangeVoice;
+            case "body_Twisting_Sound":
+                return body_Twisting_Sound;
+            case "muffled_Vocals":
+                return muffled_Vocals;
+            case "walking":
+                return walking;
+            case "strained_Breathing":
+                return strained_Breathing;
+            case "flashlight_Switch_Sound":
+                return flashlight_Switch_Sound;
+            case "ghosting_Sound":
+                return ghosting_Sound;
+            case "ghost_Escape":
+                return ghost_Escape;
+            case "ghostIn_The_Door":
+                return ghostIn_The_Door;
+            case "light_Switch_Sound":
+                return light_Switch_Sound;
+            case "drawer_Opening_Sound":
+                return drawer_Opening_Sound;
+            case "getting_Out_Of_Bed":
+                return getting_Out_Of_Bed;
+            case "the_Sound_Of_Opening_Wardrobes_And_Doors":
+                return the_Sound_Of_Opening_Wardrobes_And_Doors;
+            case "tet_Sound_Of_Get_The_Key":
+                return tet_Sound_Of_Get_The_Key;
+            case "gold_Paper":
+                return gold_Paper[Random.Range(0, 2)];
+            case "clock":
+                return clock;
+            case "piano":
+                return piano;
+            case "filial_Piety_Curtain":
+                return filial_Piety_Curtain;
+            case "buddhist_Song":
+                return buddhist_Song;
+            case "buddhist_Song_Stop":
+                return buddhist_Song_Stop;
+            case "candle_Burning":
+                return candle_Burning;
+            case "candle_Blowing_Sound":
+                return candle_Blowing_Sound;
+            case "door_Unlock_Sound":
+                return door_Unlock_Sound;
+            case "door_Slam":
+                return door_Slam;
+            case "door_Opening":
+                return door_Opening;
+            case "sound_Of_Something_Falling":
+                return sound_Of_Something_Falling;
+            case "dripping_Sound":
+                return dripping_Sound;
+            case "ghost_Hand_Catch_Player_Sound":
+                return ghost_Hand_Catch_Player_Sound;
+            case "falling_Sound":
+                return falling_Sound;
+            case "black_Screen_After_Fall":
+                return black_Screen_After_Fall;
+            case "turn_The_Tap":
+                return turn_The_Tap;
+            case "emergency_Knock_On_The_Door":
+                return emergency_Knock_On_The_Door;
+            case "white_Noise":
+                return white_Noise;
+            case "menu_Background_Music":
+                return menu_Background_Music;
+            case "horror_White_Noise":
+                return horror_White_Noise;
+            case "games_Start":
+                return games_Start;
+            case "horror_Start":
+                return horror_Start;
+            case "soprano_Violin":
+                return soprano_Violin;
+            case "enter_Scene_Sound":
+                return enter_Scene_Sound;
+            case "ui_Context":
+                return ui_Context;
+        }
+        return null;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public void MirrorBreakingSound()
     {
         mainAudioSource.PlayOneShot(mirror_Breaking_Sound);

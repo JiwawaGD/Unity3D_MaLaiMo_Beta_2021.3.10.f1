@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] [Header("Item 的圖層")] LayerMask ItemLayer;
 
-    private AudioSource audioSource;    // 音效來源
+    public AudioSource audioSource;    // 音效來源
     public AudioClip walkingSound;    // 走路音效
 
     private bool isWalking = false; // 是否正在走路
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
+        // audioSource = GetComponent<AudioSource>();
         rig = GetComponent<Rigidbody>();
         ani = GetComponent<Animation>();
         tfTransform = transform;
