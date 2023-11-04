@@ -26,13 +26,10 @@ public partial class GameManager : MonoBehaviour
         ShowHint(HintItemID.S1_Grandma_Room_Key);
     }
 
-    public void IvkProcessPlayerFallingAnimator()
+    public void IvkProcessGhostHandPushAnimator()
     {
-        ProcessPlayerAnimator("Player_Falling_In_Bathroom");
+        ProcessItemAnimator("Ghost_Hand", "Ghost_Hand_Push");
         Invoke(nameof(IvkProcessPlayerWakeUpSecondTime), 4f);
-
-        Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
-        playerFlashlight.enabled = false;
 
         ShowHint(HintItemID.S2_Room_Door);
         ShowHint(HintItemID.S2_Light_Switch);
@@ -40,6 +37,8 @@ public partial class GameManager : MonoBehaviour
 
     public void IvkProcessPlayerWakeUpSecondTime()
     {
+        Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
+        playerFlashlight.enabled = false;
         ProcessPlayerAnimator("Player_Wake_Up_SecondTime");
     }
 

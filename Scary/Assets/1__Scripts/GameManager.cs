@@ -378,8 +378,9 @@ public partial class GameManager : MonoBehaviour
                 // AUDManager.instance.FallingToBlackScreenSound();
                 audManager.Play(1, "falling_To_Black_Screen_Sound", false);
                 m_bWaitToiletGhostHandPush = false;
-                ProcessItemAnimator("Ghost_Hand", "Ghost_Hand_Push");
-                Invoke(nameof(IvkProcessPlayerFallingAnimator), 0.2f);
+
+                ProcessPlayerAnimator("Player_Falling_In_Bathroom");
+                Invoke(nameof(IvkProcessGhostHandPushAnimator), 3.95f);
                 break;
             case GameEventID.S2_Light_Switch:
                 Debug.Log("S2_Light_Switch");
