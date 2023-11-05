@@ -27,6 +27,7 @@ public class AUDManager : MonoBehaviour
 
     // 玩家聲音效
     [SerializeField, Header("玩家聲音效")] AudioSource PlayerSound;
+    [SerializeField, Tooltip("玩家走路聲")] public AudioClip walkingSound;
 
     // 人物/物品聲音效
     #region 人物/物品聲 
@@ -125,18 +126,8 @@ public class AUDManager : MonoBehaviour
         mainAudioSource = GetComponent<AudioSource>();
         Transform childTransform = transform.Find("SecondAudioSource");
         if (childTransform != null)
-        {
             ScendAudioSource = childTransform.GetComponent<AudioSource>();
-        }
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        if (instance == null) instance = this;
     }
 
     private IEnumerator RestoreVolume(float originalVolume)
@@ -147,15 +138,26 @@ public class AUDManager : MonoBehaviour
     }
 
 
+    private AudioSource GetAudioSource(int index)
+    {
+        if (index >= 0 && index < audioSourceList.Count)
+        {
+            return audioSourceList[index];
+        }
+        return null;
+    }
     public void Play(int index, string name, bool isLoop)
     {
-        var clip = GetAudioClip(name);
-        if (clip != null)
+        var audioSource = GetAudioSource(index);
+        if (audioSource != null)
         {
-            var audio = audioSourceList[index];
-            audio.clip = clip;
-            audio.loop = isLoop;
-            audio.Play();
+            var clip = GetAudioClip(name);
+            if (clip != null)
+            {
+                audioSource.clip = clip;
+                audioSource.loop = isLoop;
+                audioSource.Play();
+            }
         }
     }
 
@@ -257,53 +259,18 @@ public class AUDManager : MonoBehaviour
                 return enter_Scene_Sound;
             case "ui_Context":
                 return ui_Context;
+            case "player_Walking":
+                return walkingSound;
+
         }
         return null;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void MirrorBreakingSound()
-    {
-        mainAudioSource.PlayOneShot(mirror_Breaking_Sound);
     }
     public void GrandmaStrangeVoiceStop()
     {
         mainAudioSource.PlayOneShot(grandma_StrangeVoice);
     }
-    public void GhostInDoor()
-    {
-        mainAudioSource.PlayOneShot(ghostIn_The_Door);
-    }
-    public void GetItemSound()
-    {
-        mainAudioSource.PlayOneShot(get_Item_Sound);
-    }
-    public void FallingToBlackScreenSound()
-    {
-        mainAudioSource.PlayOneShot(falling_To_Black_Screen_Sound);
-    }
-    public void GhostingSoundSpecial()
-    {
-        mainAudioSource.PlayOneShot(ghosting_Sound_Special);
-    }
+
+
     public void OpenTheDrawerSFX()
     {
         float originalVolume = mainAudioSource.volume;
@@ -312,75 +279,17 @@ public class AUDManager : MonoBehaviour
 
         StartCoroutine(RestoreVolume(originalVolume));
     }
-
-    public void GetTheKeySFX()
-    {
-        ScendAudioSource.PlayOneShot(tet_Sound_Of_Get_The_Key);
-    }
-
-    public void PlayerDoorOpenSFX()
-    {
-        mainAudioSource.PlayOneShot(door_Opening);
-    }
-
-    public void PlayerDoorLockSFX()
-    {
-        mainAudioSource.PlayOneShot(door_Unlock_Sound);
-    }
-
     public void PlayerLotusPaperSFX()
     {
         mainAudioSource.PlayOneShot(gold_Paper[Random.Range(0, 2)]);
     }
-
-    public void PlayerLightSwitchSFX()  // 玩家開關燈
-    {
-        mainAudioSource.PlayOneShot(light_Switch_Sound);
-    }
-
-    public void PlayerFlashlighSFX()
-    {
-        mainAudioSource.PlayOneShot(flashlight_Switch_Sound);
-    }
-
-    public void PlayerGrandmaRushSFX()
-    {
-        mainAudioSource.PlayOneShot(grandma_Starts_Walking);
-    }
-
     public void PlayerGameEventSFX()
     {
         mainAudioSource.PlayOneShot(ui_Context);
     }
-
-    public void PlayerWhiteTentSFX()
-    {
-        mainAudioSource.PlayOneShot(filial_Piety_Curtain);
-    }
-
-    public void EmergencyKnockOnTheDoor()
-    {
-        mainAudioSource.PlayOneShot(emergency_Knock_On_The_Door);
-    }
-
-    public void CloseDoor()
-    {
-        mainAudioSource.PlayOneShot(door_Slam);
-    }
-
     public void BodyTwistingSound()
     {
         mainAudioSource.PlayOneShot(body_Twisting_Sound);
-    }
-
-    public void ThereIsAStrangeContinuousSoundInTheToilet()
-    {
-        mainAudioSource.PlayOneShot(strange_noises_keep_coming);
-    }
-
-    public void StrangeNoisesInTheToilet()
-    {
-        mainAudioSource.PlayOneShot(strange_noises_keep_coming);
     }
 
     public void TheSoundOfSomethingMoving()
@@ -388,18 +297,7 @@ public class AUDManager : MonoBehaviour
         mainAudioSource.PlayOneShot(the_sound_of_something_moving);
     }
 
-    public void GrandmaStrangeVoice()
-    {
-        mainAudioSource.PlayOneShot(grandma_StrangeVoice);
-    }
-    public void GhostEscape()
-    {
-        mainAudioSource.PlayOneShot(ghost_Escape);
-    }
-    public void HorrorStart()
-    {
-        mainAudioSource.PlayOneShot(horror_Start);
-    }
+
     /// <summary>
     /// 存取紀錄
     /// </summary>

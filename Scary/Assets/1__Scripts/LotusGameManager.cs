@@ -262,7 +262,6 @@ public class LotusGameManager : MonoBehaviour
 
         ani.SetTrigger(strTriggerName);
         lotusAudioSource.PlayOneShot(goldPaper[Random.Range(0, 2)]);
-        //AUDManager.instance.PlayerLotusPaperSFX();
 
         yield return new WaitForSeconds(clip.length + 0.2f);
 
