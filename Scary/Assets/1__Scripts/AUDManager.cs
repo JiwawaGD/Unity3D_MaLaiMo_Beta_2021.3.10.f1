@@ -4,6 +4,8 @@ using System.Collections;
 using Fungus;
 using OldBrickHouse;
 using System.Collections.Generic;
+using UnityEngine.Networking;
+using System.IO;
 
 public class AUDManager : MonoBehaviour
 {
@@ -109,6 +111,7 @@ public class AUDManager : MonoBehaviour
     [SerializeField, Tooltip("高音小提琴聲")] AudioClip soprano_Violin;
     [SerializeField, Tooltip("進入場景聲")] AudioClip enter_Scene_Sound;
     [SerializeField, Tooltip("UI內文")] AudioClip ui_Context;
+    private AudioClip tempcilp;
 
     #endregion
 
@@ -128,6 +131,21 @@ public class AUDManager : MonoBehaviour
         if (childTransform != null)
             ScendAudioSource = childTransform.GetComponent<AudioSource>();
         if (instance == null) instance = this;
+        string[] soundFileNames =   { "ghosting_Sound_Special.mp3", "mirror_Breaking_Sound.mp3",
+         "get_Item_Sound.mp3", "falling_To_Black_Screen_Sound.mp3", "the_sound_of_something_moving.mp3",
+          "strange_noises_keep_coming.mp3", "grandma_Starts_Walking.mp3", "grandma_StrangeVoice.mp3",
+           "body_Twisting_Sound.mp3", "muffled_Vocals.mp3", "walking.mp3", "strained_Breathing.mp3",
+            "flashlight_Switch_Sound.mp3", "ghosting_Sound.mp3", "ghost_Escape.mp3", "ghostIn_The_Door.mp3",
+             "light_Switch_Sound.mp3", "drawer_Opening_Sound.mp3", "getting_Out_Of_Bed.mp3",
+              "the_Sound_Of_Opening_Wardrobes_And_Doors.mp3", "tet_Sound_Of_Get_The_Key.mp3",
+               "gold_Paper.mp3", "clock.mp3", "piano.mp3", "filial_Piety_Curtain.mp3", "buddhist_Song.mp3",
+                "buddhist_Song_Stop.mp3", "candle_Burning.mp3", "candle_Blowing_Sound.mp3", "door_Unlock_Sound.mp3",
+                 "door_Slam.mp3", "door_Opening.mp3", "sound_Of_Something_Falling.mp3", "dripping_Sound.mp3",
+                  "ghost_Hand_Catch_Player_Sound.mp3", "falling_Sound.mp3", "black_Screen_After_Fall.mp3",
+                   "turn_The_Tap.mp3", "emergency_Knock_On_The_Door.mp3", "white_Noise.mp3", "menu_Background_Music.mp3",
+                    "horror_White_Noise.mp3", "games_Start.mp3", "horror_Start.mp3", "soprano_Violin.mp3",
+                    "enter_Scene_Sound.mp3", "ui_Context.mp3", "player_Walking.mp3" };
+        StartCoroutine(LoadSound(soundFileNames));
     }
 
     private IEnumerator RestoreVolume(float originalVolume)
@@ -308,5 +326,43 @@ public class AUDManager : MonoBehaviour
 
         audioMixer.SetFloat(AudSetting.MIXER_MUSIC, Mathf.Log10(musicVolume) * 20);
         audioMixer.SetFloat(AudSetting.MIXER_SFX, Mathf.Log10(sfxVolume) * 20);
+    }
+
+    private IEnumerator LoadSound(string[] soundFileName)
+    {
+        int iCount = soundFileName.Length;
+        string[] soundFilePaths = new string[iCount];
+        AudioClip[] soundClips = new AudioClip[iCount];
+        UnityWebRequest[] unityWebRequests = new UnityWebRequest[iCount];
+
+        for (int i = 0; i < iCount; i++)
+        {
+            // 检查文件格式
+            if (!soundFileName[i].EndsWith(".mp3"))
+            {
+                Debug.LogError($"Invalid file format for sound: {soundFileName[i]}");
+                continue;
+            }
+
+            // 使用 Path.Combine 组合路径
+            soundFilePaths[i] = Path.Combine(Application.streamingAssetsPath, soundFileName[i]);
+
+            // UnityWebRequest 抓取音效檔案
+            unityWebRequests[i] = UnityWebRequestMultimedia.GetAudioClip(soundFilePaths[i], AudioType.MPEG);
+
+            // 等待抓取完成
+            yield return unityWebRequests[i].SendWebRequest();
+
+            // 检查是否有错误
+            if (unityWebRequests[i].result == UnityWebRequest.Result.Success)
+            {
+                soundClips[i] = DownloadHandlerAudioClip.GetContent(unityWebRequests[i]);
+                Debug.Log($"音效檔案 {soundFileName[i]} 下載完成");
+            }
+            else
+            {
+                Debug.LogError($"Failed to download sound file {soundFileName[i]}: {unityWebRequests[i].error}");
+            }
+        }
     }
 }
