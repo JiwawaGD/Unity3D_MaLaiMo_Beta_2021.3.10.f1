@@ -4,8 +4,6 @@ using System.Collections;
 using Fungus;
 using OldBrickHouse;
 using System.Collections.Generic;
-using UnityEngine.Networking;
-using System.IO;
 
 public class AUDManager : MonoBehaviour
 {
@@ -17,38 +15,31 @@ public class AUDManager : MonoBehaviour
     [SerializeField] string audioAssetBundleName;
     [SerializeField] AudioSource mainAudioSource;
     [SerializeField] AudioSource ScendAudioSource;
-    [SerializeField] GameObject playerObj;
+    // [SerializeField] GameObject playerObj;
 
     // 鬼影專用音效
-    [Tooltip("鬼影專用背景音效")] public AudioClip ghosting_Sound_Special;
+    [Tooltip("鬼影尖銳刺耳音效")] public AudioClip ghostly_shrill_sound_effects;
 
     // 遊戲事件音效
     [Tooltip("鏡子破碎聲")] public AudioClip mirror_Breaking_Sound;
-    [Tooltip("獲取物品音效")] public AudioClip get_Item_Sound;
-    [Tooltip("被鬼手推到墜落進入黑畫面時")] public AudioClip falling_To_Black_Screen_Sound;
+    [Tooltip("發現線索音效")] public AudioClip get_Item_Sound;
+    [Tooltip("墜落轉黑畫面時")] public AudioClip falling_To_Black_Screen_Sound;
 
-    // 玩家聲音效
-    [SerializeField, Header("玩家聲音效")] AudioSource PlayerSound;
-    [SerializeField, Tooltip("玩家走路聲")] public AudioClip walkingSound;
-
-    // 人物/物品聲音效
     #region 人物/物品聲 
     [Tooltip("東西竄動的聲音")] public AudioClip the_sound_of_something_moving;
-    [Tooltip("廁所有奇怪持續的聲音")] public AudioClip strange_noises_keep_coming;
+    [Tooltip("小朋友笑聲")] public AudioClip children_laughing;
     [Tooltip("奶奶開始向前")] public AudioClip grandma_Starts_Walking;
     [Tooltip("奶奶詭異聲")] public AudioClip grandma_StrangeVoice;
     [Tooltip("扭動身體的音效")] public AudioClip body_Twisting_Sound;
     [Tooltip("模糊不清的人聲音")] public AudioClip muffled_Vocals;
-    [Tooltip("腳步聲")] public AudioClip walking;
-    [Tooltip("緊張呼吸聲")] public AudioClip strained_Breathing;
+    [Tooltip("緊張呼吸聲")] public AudioClip nervous_Breathing;
     [Tooltip("手電筒開關聲")] public AudioClip flashlight_Switch_Sound;
-    [Tooltip("鬼影出現聲")] public AudioClip ghosting_Sound;
-    [Tooltip("鬼魂逃跑")] public AudioClip ghost_Escape;
-    [Tooltip("門縫鬼影")] public AudioClip ghostIn_The_Door;
+    [Tooltip("鬼怪沙啞嘶吼聲")] public AudioClip the_hoarse_roar_of_the_ghost;
+    [Tooltip("鬼影快速出現短暫音效")] public AudioClip ghosts_appear_quickly_with_short_sound_effects;
+    [Tooltip("門縫鬼影")] public AudioClip ghost_In_The_Door;
     #endregion
 
-    // 房間音效
-    [SerializeField, Header("房間")] AudioSource[] roomSound;
+
     #region 房間  
     [SerializeField, Tooltip("開關燈")] AudioClip light_Switch_Sound;
     [SerializeField, Tooltip("抽屜")] AudioClip drawer_Opening_Sound;
@@ -57,62 +48,40 @@ public class AUDManager : MonoBehaviour
     [SerializeField, Tooltip("鑰匙")] AudioClip tet_Sound_Of_Get_The_Key;
     #endregion
 
-    // 客廳音效
-    [SerializeField, Header("客廳")] AudioSource[] livingRoomSound;
     #region 客廳
-    [SerializeField, Tooltip("金紙")] AudioClip[] gold_Paper;
+    [SerializeField, Tooltip("摺紙聲")] AudioClip[] gold_Paper;
     [SerializeField, Tooltip("時鐘")] AudioClip clock;
     [SerializeField, Tooltip("鋼琴")] AudioClip piano;
-    [SerializeField, Tooltip("孝簾")] AudioClip filial_Piety_Curtain;
+    [SerializeField, Tooltip("孝簾拉開音效")] AudioClip filial_Piety_Curtain;
     [SerializeField, Tooltip("佛歌")] public AudioClip buddhist_Song;
-    [SerializeField, Tooltip("佛歌中斷")] AudioClip buddhist_Song_Stop;
     #endregion
 
-    // 客廳加廚房音效
-    [SerializeField, Header("客廳加廚房")] AudioSource livingRoomPlusKitchen;
-    #region 客廳&廚房
     [SerializeField, Tooltip("蠟燭燃燒")] public AudioClip candle_Burning;
-    [SerializeField, Tooltip("蠟燭吹襲熄聲")] public AudioClip candle_Blowing_Sound;
-    #endregion
-
-    // 門音效
-    [SerializeField, Header("門")] AudioSource doorSound;
     #region 客廳+廁所
-    [SerializeField, Tooltip("門解鎖聲")] AudioClip door_Unlock_Sound;
-    [SerializeField, Tooltip("關門聲")] AudioClip door_Slam;
-    [SerializeField, Tooltip("開門聲")] AudioClip door_Opening;
+    [SerializeField, Tooltip("門被鎖起來打不開音效")] AudioClip the_door_is_locked_and_cannot_be_opened_with_sound_effects;
+    [SerializeField, Tooltip("關門聲")] AudioClip door_Close;
+    [SerializeField, Tooltip("老舊門開門聲")] AudioClip the_sound_of_the_old_door_opening;
     #endregion
 
-    // 廚房音效
-    [SerializeField, Header("廚房")] AudioSource footRiceSound;
     #region 廚房
     [SerializeField, Tooltip("腳尾飯")] AudioClip sound_Of_Something_Falling;
     #endregion
 
-    // 廁所音效
     [SerializeField, Header("廁所")] AudioSource bathroomSound;
     #region 廁所
-    [SerializeField, Tooltip("水滴聲")] AudioClip dripping_Sound;
-    [SerializeField, Tooltip("鬼手抓玩家聲")] AudioClip ghost_Hand_Catch_Player_Sound;
-    [SerializeField, Tooltip("墜落聲")] AudioClip falling_Sound;
-    [SerializeField, Tooltip("墜落後黑畫面")] AudioClip black_Screen_After_Fall;
+    [SerializeField, Tooltip("廁所水滴聲")] AudioClip toilet_water_dripping_sound;
+     [SerializeField, Tooltip("墜落後黑畫面")] AudioClip Falling_To_Black_Screen_Sound;
     [SerializeField, Tooltip("轉水龍頭聲")] AudioClip turn_The_Tap;
-    [SerializeField, Tooltip("緊湊敲門聲")] public AudioClip emergency_Knock_On_The_Door;
+    [SerializeField, Tooltip("敲門聲")] public AudioClip emergency_Knock_On_The_Door;
     #endregion
 
-    // 環境/其他音效
-    [SerializeField, Header("環境/其他")] AudioSource environmentOtherSound;
     #region 環境&其他
     [SerializeField, Tooltip("白噪音")] AudioClip white_Noise;
-    [SerializeField, Tooltip("選單背景音樂")] AudioClip menu_Background_Music;
-    [SerializeField, Tooltip("恐怖白噪音")] AudioClip horror_White_Noise;
-    [SerializeField, Tooltip("遊戲開始")] AudioClip games_Start;
+    [SerializeField, Tooltip("遊戲開始鐘鼓音效")] AudioClip game_start_bell_and_drum_sound_effect;
     [SerializeField, Tooltip("恐怖開始")] AudioClip horror_Start;
-    [SerializeField, Tooltip("高音小提琴聲")] AudioClip soprano_Violin;
-    [SerializeField, Tooltip("進入場景聲")] AudioClip enter_Scene_Sound;
+    [SerializeField, Tooltip("發現線索音效")] AudioClip soprano_Violin;
+    [SerializeField, Tooltip("進入場景低沉音效")] AudioClip enter_Scene_Sound;
     [SerializeField, Tooltip("UI內文")] AudioClip ui_Context;
-    private AudioClip tempcilp;
-
     #endregion
 
     // 音量調整
@@ -131,21 +100,6 @@ public class AUDManager : MonoBehaviour
         if (childTransform != null)
             ScendAudioSource = childTransform.GetComponent<AudioSource>();
         if (instance == null) instance = this;
-        string[] soundFileNames =   { "ghosting_Sound_Special.mp3", "mirror_Breaking_Sound.mp3",
-         "get_Item_Sound.mp3", "falling_To_Black_Screen_Sound.mp3", "the_sound_of_something_moving.mp3",
-          "strange_noises_keep_coming.mp3", "grandma_Starts_Walking.mp3", "grandma_StrangeVoice.mp3",
-           "body_Twisting_Sound.mp3", "muffled_Vocals.mp3", "walking.mp3", "strained_Breathing.mp3",
-            "flashlight_Switch_Sound.mp3", "ghosting_Sound.mp3", "ghost_Escape.mp3", "ghostIn_The_Door.mp3",
-             "light_Switch_Sound.mp3", "drawer_Opening_Sound.mp3", "getting_Out_Of_Bed.mp3",
-              "the_Sound_Of_Opening_Wardrobes_And_Doors.mp3", "tet_Sound_Of_Get_The_Key.mp3",
-               "gold_Paper.mp3", "clock.mp3", "piano.mp3", "filial_Piety_Curtain.mp3", "buddhist_Song.mp3",
-                "buddhist_Song_Stop.mp3", "candle_Burning.mp3", "candle_Blowing_Sound.mp3", "door_Unlock_Sound.mp3",
-                 "door_Slam.mp3", "door_Opening.mp3", "sound_Of_Something_Falling.mp3", "dripping_Sound.mp3",
-                  "ghost_Hand_Catch_Player_Sound.mp3", "falling_Sound.mp3", "black_Screen_After_Fall.mp3",
-                   "turn_The_Tap.mp3", "emergency_Knock_On_The_Door.mp3", "white_Noise.mp3", "menu_Background_Music.mp3",
-                    "horror_White_Noise.mp3", "games_Start.mp3", "horror_Start.mp3", "soprano_Violin.mp3",
-                    "enter_Scene_Sound.mp3", "ui_Context.mp3", "player_Walking.mp3" };
-        StartCoroutine(LoadSound(soundFileNames));
     }
 
     private IEnumerator RestoreVolume(float originalVolume)
@@ -184,7 +138,7 @@ public class AUDManager : MonoBehaviour
         switch (name)
         {
             case "ghosting_Sound_Special":
-                return ghosting_Sound_Special;
+                return ghostly_shrill_sound_effects;
             case "mirror_Breaking_Sound":
                 return mirror_Breaking_Sound;
             case "get_Item_Sound":
@@ -194,27 +148,23 @@ public class AUDManager : MonoBehaviour
             case "the_sound_of_something_moving":
                 return the_sound_of_something_moving;
             case "strange_noises_keep_coming":
-                return strange_noises_keep_coming;
-            case "grandma_Starts_Walking":
-                return grandma_Starts_Walking;
+                return children_laughing;
             case "grandma_StrangeVoice":
                 return grandma_StrangeVoice;
             case "body_Twisting_Sound":
                 return body_Twisting_Sound;
             case "muffled_Vocals":
                 return muffled_Vocals;
-            case "walking":
-                return walking;
             case "strained_Breathing":
-                return strained_Breathing;
+                return nervous_Breathing;
             case "flashlight_Switch_Sound":
                 return flashlight_Switch_Sound;
             case "ghosting_Sound":
-                return ghosting_Sound;
+                return the_hoarse_roar_of_the_ghost;
             case "ghost_Escape":
-                return ghost_Escape;
+                return ghosts_appear_quickly_with_short_sound_effects;
             case "ghostIn_The_Door":
-                return ghostIn_The_Door;
+                return ghost_In_The_Door;
             case "light_Switch_Sound":
                 return light_Switch_Sound;
             case "drawer_Opening_Sound":
@@ -235,40 +185,28 @@ public class AUDManager : MonoBehaviour
                 return filial_Piety_Curtain;
             case "buddhist_Song":
                 return buddhist_Song;
-            case "buddhist_Song_Stop":
-                return buddhist_Song_Stop;
             case "candle_Burning":
                 return candle_Burning;
-            case "candle_Blowing_Sound":
-                return candle_Blowing_Sound;
             case "door_Unlock_Sound":
-                return door_Unlock_Sound;
+                return the_door_is_locked_and_cannot_be_opened_with_sound_effects;
             case "door_Slam":
-                return door_Slam;
+                return door_Close;
             case "door_Opening":
-                return door_Opening;
+                return the_sound_of_the_old_door_opening;
             case "sound_Of_Something_Falling":
                 return sound_Of_Something_Falling;
             case "dripping_Sound":
-                return dripping_Sound;
-            case "ghost_Hand_Catch_Player_Sound":
-                return ghost_Hand_Catch_Player_Sound;
-            case "falling_Sound":
-                return falling_Sound;
+                return toilet_water_dripping_sound;
             case "black_Screen_After_Fall":
-                return black_Screen_After_Fall;
+                return Falling_To_Black_Screen_Sound;
             case "turn_The_Tap":
                 return turn_The_Tap;
             case "emergency_Knock_On_The_Door":
                 return emergency_Knock_On_The_Door;
             case "white_Noise":
                 return white_Noise;
-            case "menu_Background_Music":
-                return menu_Background_Music;
-            case "horror_White_Noise":
-                return horror_White_Noise;
             case "games_Start":
-                return games_Start;
+                return game_start_bell_and_drum_sound_effect;
             case "horror_Start":
                 return horror_Start;
             case "soprano_Violin":
@@ -277,9 +215,6 @@ public class AUDManager : MonoBehaviour
                 return enter_Scene_Sound;
             case "ui_Context":
                 return ui_Context;
-            case "player_Walking":
-                return walkingSound;
-
         }
         return null;
     }
@@ -327,42 +262,5 @@ public class AUDManager : MonoBehaviour
         audioMixer.SetFloat(AudSetting.MIXER_MUSIC, Mathf.Log10(musicVolume) * 20);
         audioMixer.SetFloat(AudSetting.MIXER_SFX, Mathf.Log10(sfxVolume) * 20);
     }
-
-    private IEnumerator LoadSound(string[] soundFileName)
-    {
-        int iCount = soundFileName.Length;
-        string[] soundFilePaths = new string[iCount];
-        AudioClip[] soundClips = new AudioClip[iCount];
-        UnityWebRequest[] unityWebRequests = new UnityWebRequest[iCount];
-
-        for (int i = 0; i < iCount; i++)
-        {
-            // 检查文件格式
-            if (!soundFileName[i].EndsWith(".mp3"))
-            {
-                Debug.LogError($"Invalid file format for sound: {soundFileName[i]}");
-                continue;
-            }
-
-            // 使用 Path.Combine 组合路径
-            soundFilePaths[i] = Path.Combine(Application.streamingAssetsPath, soundFileName[i]);
-
-            // UnityWebRequest 抓取音效檔案
-            unityWebRequests[i] = UnityWebRequestMultimedia.GetAudioClip(soundFilePaths[i], AudioType.MPEG);
-
-            // 等待抓取完成
-            yield return unityWebRequests[i].SendWebRequest();
-
-            // 检查是否有错误
-            if (unityWebRequests[i].result == UnityWebRequest.Result.Success)
-            {
-                soundClips[i] = DownloadHandlerAudioClip.GetContent(unityWebRequests[i]);
-                Debug.Log($"音效檔案 {soundFileName[i]} 下載完成");
-            }
-            else
-            {
-                Debug.LogError($"Failed to download sound file {soundFileName[i]}: {unityWebRequests[i].error}");
-            }
-        }
-    }
 }
+
