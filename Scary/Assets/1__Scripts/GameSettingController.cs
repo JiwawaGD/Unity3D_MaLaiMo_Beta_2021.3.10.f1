@@ -41,7 +41,7 @@ public class GameSettingController : MonoBehaviour
         VolumeMarkBtn.onClick.AddListener(() => { ShowSelectPage(1); });
         OperateMarkBtn.onClick.AddListener(() => { ShowSelectPage(2); });
 
-        AUDManager = GameObject.Find("AudioManager").GetComponent<AUDManager>();
+        // AUDManager = GameObject.Find("AudioManager").GetComponent<AUDManager>();
 
         ShowSelectPage(0);
 
