@@ -20,7 +20,7 @@ public partial class GameManager : MonoBehaviour
     bool isMoveingObject = false;    // 是否正在移動物件
     public Vector3 originalPosition;    // 原始位置
     public Quaternion originalRotation; // 原始旋轉
-    [SerializeField]private AUDManager audManager;
+    [SerializeField] AUDManager audManager;
     // 音效管理器
     [Header("遊戲結束畫面UI")] public GameObject FinalUI;
 
@@ -121,7 +121,7 @@ public partial class GameManager : MonoBehaviour
 
         if (playerCtrlr == null)
             playerCtrlr = GameObject.Find("Player").GetComponent<PlayerController>();
-            audManager = playerCtrlr.GetComponentInChildren<AUDManager>();
+            // audManager = playerCtrlr.GetComponentInChildren<AUDManager>();
 
         if (goCanvas == null)
             goCanvas = GameObject.Find("UI Canvas");
@@ -238,7 +238,8 @@ public partial class GameManager : MonoBehaviour
                 ShowEnterGame(true);
                 ShowObj(ObjItemID.S1_Lotus_Paper);
                 // AUDManager.instance.PlayerLotusPaperSFX();        
-                audManager.Play(1, "lotus_Paper", false);
+                // audManager.Play(1, "lotus_Paper", false);
+                // audManager.Play(1, "get_Item_Sound", false);
                 audManager.Play(1, "get_Item_Sound", false);
 
                 break;
@@ -283,6 +284,7 @@ public partial class GameManager : MonoBehaviour
                 bS1_IsS1LightSwtichOK = true;
                 flowchartObjects[2].gameObject.SetActive(true);
                 audManager.Play(1, "light_Switch_Sound", false);
+                // instance.audManager.TheSoundOfOpeningWardrobesAndDoors();
                 ShowHint(HintItemID.S1_Flashlight);
                 break;
             case GameEventID.S1_Flashlight:
