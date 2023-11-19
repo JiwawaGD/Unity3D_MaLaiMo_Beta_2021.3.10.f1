@@ -226,7 +226,7 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Grandma_Door_Open:
                 Debug.Log("S1_Grandma_Door_Open");
-                ProcessAnimator("Grandma_Room_Door", "DoorOpen");
+                ProcessAnimator("Grandma_Room_Door", "S1_Grandma_Room_Door_Open");
                 audManager.Play(1, "door_Open", false);
                 ShowHint(HintItemID.S1_Rice_Funeral);
                 flowchartObjects[4].gameObject.SetActive(true);
