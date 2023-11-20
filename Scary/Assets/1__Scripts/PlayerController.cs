@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-    public GameObject audManagerPrefab;
+    // public GameObject audManagerPrefab;
     public Transform ro_tfItemObj;  // 旋轉物件
 
     private Vector3 originalCameraPosition; // 原始攝影機位置
@@ -54,8 +54,8 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         // audioSource = GetComponent<AudioSource>();
-        GameObject audManagerObject = Instantiate(audManagerPrefab, transform);
-            audManagerObject.name = "AUDManager"; // 可以設置生成物件的名稱
+        // GameObject audManagerObject = Instantiate(audManagerPrefab, transform);
+        //     audManagerObject.name = "AUDManager"; // 可以設置生成物件的名稱
         rig = GetComponent<Rigidbody>();
         ani = GetComponent<Animation>();
         tfTransform = transform;
