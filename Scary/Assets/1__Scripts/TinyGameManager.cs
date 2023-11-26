@@ -77,7 +77,7 @@ public partial class GameManager : MonoBehaviour
     {
         videoPlayer.clip = GrandmaVP;
         videoPlayer.Play();
-        AUDManager.instance.BodyTwistingSound();
+        // AUDManager.instance.BodyTwistingSound();
         Invoke(nameof(IvkS2_ShowVideoPlayerMesh),1f);
     }
 
