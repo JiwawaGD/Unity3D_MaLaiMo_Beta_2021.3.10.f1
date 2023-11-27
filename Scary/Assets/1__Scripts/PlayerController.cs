@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     // Const value  
     readonly float m_fMoveSpeed = 90f;
-    readonly float m_fRayLength = 1.5f;
+    readonly float m_fRayLength = 1.2f;
     readonly int m_iInteractiveLayer = 10;  // 互動圖層
     readonly Vector3 v3_zero = Vector3.zero;
 
