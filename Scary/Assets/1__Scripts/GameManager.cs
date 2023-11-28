@@ -437,7 +437,7 @@ public partial class GameManager : MonoBehaviour
                 S2_Furniture_State_2_Obj.SetActive(true);
                 S2_Photo_Frame_Obj_floor.SetActive(true);
                 ShowHint(HintItemID.S2_Rice_Funeral);
-                Invoke(nameof(IvkS2_Shocked_By_Toilet), 4f);
+                Invoke(nameof(IvkS2_Shocked_By_Toilet), 9.5f);
                 break;
             case GameEventID.S2_Rice_Funeral:
                 Debug.Log("S2_Rice_Funeral");
