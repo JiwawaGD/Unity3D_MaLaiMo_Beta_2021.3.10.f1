@@ -851,7 +851,7 @@ public partial class GameManager : MonoBehaviour
         if (profile.TryGet(out Vignette vignette) &&
             profile.TryGet(out CloudLayer cloudLayer))
         {
-            float currentIntensity = 0.64f;
+            float currentIntensity = 0.6f;
             float elapsedTime = 0f;
 
             while (elapsedTime < 1f)
