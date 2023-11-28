@@ -80,7 +80,7 @@ public class ItemController : MonoBehaviour
     {
         gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
         v3This = transform.position;
-        fHintRange = 3f;
+        //fHintRange = 3f;
     }
 
     public void SetItemInteractive(bool r_bShow)
