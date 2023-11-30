@@ -155,7 +155,7 @@ Transform:
   m_GameObject: {fileID: 8675690754418267873}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 15.095265, y: -11.25108, z: -15.771606}
-  m_LocalScale: {x: 2, y: 1.25, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 196795236}
@@ -176,8 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 88c61dedb8caf8f46b728b2ce730f7a0, type: 2}
   audioAssetBundleName: 
-  mainAudioSource: {fileID: 0}
-  ScendAudioSource: {fileID: 0}
+  mainAudioSource: {fileID: 8675690754418267872}
   ghostly_shrill_sound_effects:
     m_AssetGUID: 9eae074adb210f642866f8071ac85b1c
     m_SubObjectName: 
@@ -400,7 +399,7 @@ AudioSource:
   m_GameObject: {fileID: 8675690754418267873}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1606387321818420458, guid: e7deea6c20bd73b43b10067d09a43806, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -477,7 +476,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.876
       inSlope: 0
       outSlope: 0
       tangentMode: 0
