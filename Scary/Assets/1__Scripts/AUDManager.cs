@@ -30,7 +30,7 @@ public class AUDManager : MonoBehaviour
     [SerializeField, Tooltip("手電筒開關聲")] AssetReference flashlight_Switch_Sound;
     [SerializeField, Tooltip("鬼怪沙啞嘶吼聲")] AssetReference the_hoarse_roar_of_the_ghost;
     [SerializeField, Tooltip("鬼影快速出現短暫音效")] AssetReference ghosts_appear_quickly_with_short_sound_effects;
-    [SerializeField, Tooltip("門縫鬼影")] AssetReference ghost_In_The_Door;
+    [SerializeField, Tooltip("門縫鬼影")] AssetReference Crying_in_the_bathroom;
 
     [SerializeField, Tooltip("開關燈")] AssetReference light_Switch_Sound;
     [SerializeField, Tooltip("抽屜")] AssetReference drawer_Opening_Sound;
@@ -54,16 +54,17 @@ public class AUDManager : MonoBehaviour
 
     [SerializeField, Header("廁所")] AssetReference bathroomSound;
     [SerializeField, Tooltip("廁所水滴聲")] AssetReference toilet_water_dripping_sound;
-    [SerializeField, Tooltip("墜落後黑畫面")] AssetReference Falling_To_Black_Screen_Sound;
+    [SerializeField, Tooltip("鬼手推門")] AssetReference Falling_To_Black_Screen_Sound;
     [SerializeField, Tooltip("轉水龍頭聲")] AssetReference turn_The_Tap;
     [SerializeField, Tooltip("敲門聲")] AssetReference emergency_Knock_On_The_Door;
 
     [SerializeField, Tooltip("白噪音")] AssetReference white_Noise;
     [SerializeField, Tooltip("遊戲開始鐘鼓音效")] AssetReference game_start_bell_and_drum_sound_effect;
-    [SerializeField, Tooltip("恐怖開始")] AssetReference horror_Start;
+    [SerializeField, Tooltip("恐怖開始")] AssetReference Opening_Scene;
     [SerializeField, Tooltip("發現線索音效")] AssetReference soprano_Violin;
     [SerializeField, Tooltip("進入場景低沉音效")] AssetReference enter_Scene_Sound;
     [SerializeField, Tooltip("UI內文")] AssetReference ui_Context;
+    [SerializeField] AssetReference At_the_end_it_is_found_that_Acuan_has_mostly_disappeared_and_Acuan_has_climbed_up;
 
     public const string MUSIC_KEY = "musicVolume";
     public const string SFX_KEY = "sfxVolume";
@@ -122,7 +123,31 @@ public class AUDManager : MonoBehaviour
 
             switch (name)
             {
+                case "At_the_end_it_is_found_that_Acuan_has_mostly_disappeared_and_Acuan_has_climbed_up":
+                    soundRef = At_the_end_it_is_found_that_Acuan_has_mostly_disappeared_and_Acuan_has_climbed_up;
+                    break;
+                case "body_Twisting_Sound":
+                    soundRef = body_Twisting_Sound;
+                    break;
+                case "grandma_StrangeVoice":
+                    soundRef = grandma_StrangeVoice;
+                    break;
+                case "grandma_Starts_Walking":
+                    soundRef = grandma_Starts_Walking;
+                    break;
+                case "flashlight_Switch_Sound":
+                    soundRef = flashlight_Switch_Sound;
+                    break;
+                case "Crying_in_the_bathroom":
+                    soundRef = Crying_in_the_bathroom;
+                    break;
+                case "get_Item_Sound":
+                    soundRef = get_Item_Sound;
+                    break;
                 // Room sounds...
+                case "mirror_Breaking_Sound":
+                    soundRef = mirror_Breaking_Sound;
+                    break;
                 case "light_Switch_Sound":
                     soundRef = light_Switch_Sound;
                     break;
@@ -209,8 +234,8 @@ public class AUDManager : MonoBehaviour
                     soundRef = game_start_bell_and_drum_sound_effect;
                     break;
 
-                case "horror_Start":
-                    soundRef = horror_Start;
+                case "Opening_Scene":
+                    soundRef = Opening_Scene;
                     break;
 
                 case "soprano_Violin":
