@@ -236,7 +236,7 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Lotus_Paper:
                 Debug.Log("S1_Lotus_Paper");
                 ProcessRoMoving(1);
-                UIState(UIItemID.S1_Lotus_Paper, false);
+                UIState(UIItemID.S1_Lotus_Paper, true);
                 ShowEnterGame(true);
                 ShowObj(ObjItemID.S1_Lotus_Paper);
                 // AUDManager.instance.PlayerLotusPaperSFX();        
@@ -367,7 +367,7 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Toilet_Ghost_Hand_Push: // 鬼手推門
                 Debug.Log("S1_Toilet_Ghost_Hand_Push");
-                audManager.Play("falling_To_Black_Screen_Sound", false);
+                audManager.Play("Falling_To_Black_Screen_Sound", false);
                 m_bWaitToiletGhostHandPush = false;
 
                 ProcessPlayerAnimator("Player_Falling_In_Bathroom");

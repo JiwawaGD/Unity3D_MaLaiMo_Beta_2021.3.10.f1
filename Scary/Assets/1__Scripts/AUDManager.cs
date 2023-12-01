@@ -71,7 +71,7 @@ public class AUDManager : MonoBehaviour
 
     void Update()
     {
-        Play("ghost_Escape", true);
+        Play("ghost_Escape", false);
         Debug.Log("ghost_Escape" + soundReferences.ContainsKey("ghost_Escape"));
     }
 
@@ -287,7 +287,7 @@ public class AUDManager : MonoBehaviour
 
     public void GrandmaStrangeVoiceStop()
     {
-        mainAudioSource.PlayOneShot(soundReferences["grandma_StrangeVoice"].Asset as AudioClip);
+        Play("At_the_end_it_is_found_that_Acuan_has_mostly_disappeared_and_Acuan_has_climbed_up", false);
     }
 
     public void TheSoundOfOpeningWardrobesAndDoors()
