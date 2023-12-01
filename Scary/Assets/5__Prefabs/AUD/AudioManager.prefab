@@ -193,7 +193,7 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   falling_To_Black_Screen_Sound:
-    m_AssetGUID: da7a46ea57eb42b459fb50318372c0c9
+    m_AssetGUID: 27e6c34aae0ed6b419f5e31ebc2af71e
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
@@ -247,8 +247,8 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  ghost_In_The_Door:
-    m_AssetGUID: 42137e2319523494cbd0a6d7abd506cc
+  Crying_in_the_bathroom:
+    m_AssetGUID: 65640c56857883047b6a01d8102fbb89
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
@@ -346,7 +346,7 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   Falling_To_Black_Screen_Sound:
-    m_AssetGUID: da7a46ea57eb42b459fb50318372c0c9
+    m_AssetGUID: 27e6c34aae0ed6b419f5e31ebc2af71e
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
@@ -370,8 +370,8 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  horror_Start:
-    m_AssetGUID: 3e676d7db14560b42824e85e27540917
+  Opening_Scene:
+    m_AssetGUID: c30f841cd8a725c40b62fbb8f99d6392
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
@@ -390,6 +390,11 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  At_the_end_it_is_found_that_Acuan_has_mostly_disappeared_and_Acuan_has_climbed_up:
+    m_AssetGUID: 0eaff5198504f2546b7e7f40484db5a1
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!82 &8675690754418267872
 AudioSource:
   m_ObjectHideFlags: 0
@@ -399,7 +404,7 @@ AudioSource:
   m_GameObject: {fileID: 8675690754418267873}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -1606387321818420458, guid: e7deea6c20bd73b43b10067d09a43806, type: 2}
+  OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -409,7 +414,7 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 4.73
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
@@ -461,7 +466,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.95
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -476,7 +481,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.876
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
