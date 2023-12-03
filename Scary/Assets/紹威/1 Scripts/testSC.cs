@@ -11,7 +11,7 @@ public class testSC : MonoBehaviour
         // 其他程式碼...
 
         // 調用播放音效的方法
-        audManager.Play("ghost_Escape",true);
+        // audManager.Play("ghost_Escape",true);
 
         // 其他程式碼...
     }

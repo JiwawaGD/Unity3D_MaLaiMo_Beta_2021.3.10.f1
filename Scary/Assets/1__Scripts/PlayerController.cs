@@ -1,7 +1,5 @@
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
@@ -14,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Header("Item 的圖層")] LayerMask ItemLayer;
 
     public AudioSource audioSource;    // 音效來源
-    public AssetReference walkingSound;    // 走路音效
+    public AudioClip walkingSound;    // 走路音效
 
     private bool isWalking = false; // 是否正在走路
 
@@ -279,27 +277,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayWalkingSound() // 播放走路音效
     {
-        Addressables.LoadAssetAsync<AudioClip>(walkingSound).Completed += OnSoundLoaded;
-    }void OnSoundLoaded(AsyncOperationHandle<AudioClip> handle)
-    {
-        if (handle.Status == AsyncOperationStatus.Succeeded)
-    {
-        // 獲取加載的音效
-        AudioClip audioClip = handle.Result;
-
-        // 直接設定給 audioSource.clip
-        audioSource.clip = audioClip;
-
-        // 播放音效
-        audioSource.Play();
-
-        // 釋放資源
-        Addressables.Release(handle);
-    }
-    else
-    {
-        Debug.LogError("Failed to load sound from Addressables: " + handle.DebugName);
-    }
+        PlaySound(walkingSound);
     }
 
 }
