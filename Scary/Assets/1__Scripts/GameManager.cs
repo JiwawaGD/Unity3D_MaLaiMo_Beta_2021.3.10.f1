@@ -20,11 +20,11 @@ public partial class GameManager : MonoBehaviour
     bool isMoveingObject = false;    // 是否正在移動物件
     public Vector3 originalPosition;    // 原始位置
     public Quaternion originalRotation; // 原始旋轉
-    [SerializeField]private AUDManager audManager;
+    [SerializeField] private AUDManager audManager;
     // 音效管理器
     [Header("遊戲結束畫面UI")] public GameObject FinalUI;
 
-    [SerializeField][Header("欲製物 - Schedule")] Text prefabs_Schedule;
+    [SerializeField] [Header("欲製物 - Schedule")] Text prefabs_Schedule;
 
     [Header("物件移動速度")] public float objSpeed;
     [Header("旋轉物件collider")] public Collider Ro_Cololider;
@@ -38,13 +38,15 @@ public partial class GameManager : MonoBehaviour
     [Header("儲存生成物件")] public int saveRotaObj;
 
     [Header("玩家")] public PlayerController playerCtrlr;
-    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
-    [SerializeField][Header("設定頁面")] public GameObject settingObjects;
-    [SerializeField][Header("破碎相框co")] public Collider photoCollider;
-    [SerializeField][Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj;
+    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
+    [SerializeField] [Header("破碎相框co")] public Collider photoCollider;
+    [SerializeField] [Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj;
 
-    [SerializeField][Header("Video 撥放器")] VideoPlayer videoPlayer;
-    [SerializeField][Header("Video - 阿嬤看螢幕")] VideoClip GrandmaVP;
+    [SerializeField] [Header("Video 撥放器")] VideoPlayer videoPlayer;
+    [SerializeField] [Header("Video - 阿嬤看螢幕")] VideoClip GrandmaVP;
+
+    [SerializeField] [Header("QRCode 畫面")] GameObject QRCodeUI;
 
     int m_iGrandmaRushCount;
     Scene currentScene;
@@ -97,23 +99,24 @@ public partial class GameManager : MonoBehaviour
 
     #region - All Scene Items -
     [Header("場景一物件")]
-    [SerializeField][Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
-    [SerializeField][Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
-    [SerializeField][Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
-    [SerializeField][Header("S1_奶奶房間抽屜")] GameObject S1_Desk_Drawer_Obj;
+    [SerializeField] [Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
+    [SerializeField] [Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
+    [SerializeField] [Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
+    [SerializeField] [Header("S1_奶奶房間抽屜")] GameObject S1_Desk_Drawer_Obj;
 
     [Header("場景二物件")]
-    [SerializeField][Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
-    [SerializeField][Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
-    [SerializeField][Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
-    [SerializeField][Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
-    [SerializeField][Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
-    [SerializeField][Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj_floor;
+    [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
+    [SerializeField] [Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
+    [SerializeField] [Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
+    [SerializeField] [Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
+    [SerializeField] [Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
+    [SerializeField] [Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj_floor;
     #endregion
 
     bool isPaused = false;
     bool isMouseEnabled = false;
-    public bool isUIOpen = false;
+    bool isUIOpen = false;
+    bool bIsGameEnd = false;
 
     void Awake()
     {
@@ -121,7 +124,7 @@ public partial class GameManager : MonoBehaviour
 
         if (playerCtrlr == null)
             playerCtrlr = GameObject.Find("Player").GetComponent<PlayerController>();
-            audManager = playerCtrlr.GetComponentInChildren<AUDManager>();
+        audManager = playerCtrlr.GetComponentInChildren<AUDManager>();
 
         if (goCanvas == null)
             goCanvas = GameObject.Find("UI Canvas");
@@ -162,7 +165,13 @@ public partial class GameManager : MonoBehaviour
             MouseCheck();
 
         if (isUIOpen && Input.GetKeyDown(KeyCode.R))    // 關閉 UI 時按 R 鍵
-            ButtonFunction(ButtonEventID.Enter_Game);   // 進入蓮花遊戲
+            ButtonFunction(ButtonEventID.Enter_Game);
+
+        if (bIsGameEnd && Input.GetKeyDown(KeyCode.F9))
+            ShowQRCode();
+
+        if (m_bReturnToBegin && Input.GetKeyDown(KeyCode.F10))
+            BackToBaseGame();
     }
 
     public void GameEvent(GameEventID r_eventID)    // 遊戲事件
@@ -762,10 +771,10 @@ public partial class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (m_bInUIView)    // 關閉 UI 畫面
+            // 關閉 UI 畫面
+            if (m_bInUIView)
             {
-                //PhotoFrameUI.SetActive(false);
-                if (!isMoveingObject)    // 關閉旋轉
+                if (!isMoveingObject)
                 {
                     GameEvent(GameEventID.Close_UI);
                 }
@@ -776,8 +785,8 @@ public partial class GameManager : MonoBehaviour
                     //關閉旋轉
                     romanager = false;
 
-
-                    if (!romanager) //如果旋轉關閉
+                    //如果旋轉關閉
+                    if (!romanager)
                     {
                         print(RO_OBJ[saveRotaObj].transform.GetChild(0).name);
                         //恢復物件位置
@@ -794,15 +803,15 @@ public partial class GameManager : MonoBehaviour
             }
         }
 
-        if (m_bReturnToBegin)   // 回到開始畫面
-        {
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                playerCtrlr.SetCursor();
-                SceneManager.LoadScene(0);
-                m_bReturnToBegin = false;
-            }
-        }
+        //if (m_bReturnToBegin)   // 回到開始畫面
+        //{
+        //    if (Input.GetKeyDown(KeyCode.L))
+        //    {
+        //        playerCtrlr.SetCursor();
+        //        SceneManager.LoadScene(0);
+        //        m_bReturnToBegin = false;
+        //    }
+        //}
     }
 
     void MouseCheck()   // 滑鼠檢查MouseButtonDown(0)
@@ -813,7 +822,6 @@ public partial class GameManager : MonoBehaviour
             // 可以使用 EventSystem 或 Raycasting 等方法進行 UI 按鈕的選擇處理
         }
     }
-
 
     public void SetGameState()  // 設定遊戲狀態
     {
@@ -881,17 +889,23 @@ public partial class GameManager : MonoBehaviour
 
     void LastAnimateAfterPhotoFrame()   // 照片框動畫後的最後動畫
     {
-
         audManager.Play("Crying_in_the_bathroom", false);
         Invoke(nameof(IvkS2_SlientAfterPhotoFrame), 2f);
     }
 
-    void LastAnimateAfterPhotoFrameForRecord()  // 照片框動畫後的最後動畫
+    void ShowQRCode()
     {
-        ProcessPlayerAnimator("Player_S2_Shocked_After_PhotoFrame");
-        audManager.Play("body_Twisting_Sound", false);
+        m_bReturnToBegin = true;
+        FinalUI.SetActive(false);
+        QRCodeUI.SetActive(true);
+    }
 
-        Invoke(nameof(IvkS2_SlientAfterPhotoFrameForRecord), 20f);
+    void BackToBaseGame()
+    {
+        m_bReturnToBegin = false;
+        QRCodeUI.SetActive(false);
+        playerCtrlr.SetCursor();
+        SceneManager.LoadScene(0);
     }
 
     IEnumerator DelayedAction() // 延遲動作

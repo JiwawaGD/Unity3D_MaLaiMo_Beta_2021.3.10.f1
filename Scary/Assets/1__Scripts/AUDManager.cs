@@ -72,7 +72,7 @@ public class AUDManager : MonoBehaviour
     void Update()
     {
         Play("ghost_Escape", false);
-        Debug.Log("ghost_Escape" + soundReferences.ContainsKey("ghost_Escape"));
+        //Debug.Log("ghost_Escape" + soundReferences.ContainsKey("ghost_Escape"));
     }
 
     public void Play(string name, bool isLoop)

@@ -15,7 +15,7 @@ public partial class GameManager : MonoBehaviour
         imgUIBackGround.color = new Color(1, 1, 1, 1);
         Sprite EndViewSprite = Resources.Load<Sprite>("Sprites/EndView");
         imgUIBackGround.sprite = EndViewSprite;
-        m_bReturnToBegin = true;
+        //m_bReturnToBegin = true;
         playerCtrlr.m_bCanControl = true;
     }
 
@@ -62,14 +62,11 @@ public partial class GameManager : MonoBehaviour
 
     public void IvkS2_SlientAfterPhotoFrame()
     {
-        // 紹威 (Word 檔 - 聲音大約出現 2-3 秒後安靜下來
         audManager.Play("At_the_end_it_is_found_that_Acuan_has_mostly_disappeared_and_Acuan_has_climbed_up", false);
 
-        // 加在這兩個註解中間
         ProcessPlayerAnimator("Player_S2_Shocked_After_PhotoFrame");
 
         Invoke(nameof(IvkS2_PlayGrandmaVideo), 15f);
-
         Invoke(nameof(IvkS2_SlientAfterPhotoFrameForRecord), 22f);
     }
 
@@ -90,5 +87,6 @@ public partial class GameManager : MonoBehaviour
     {
         videoPlayer.gameObject.GetComponent<MeshRenderer>().enabled = false;
         FinalUI.SetActive(true);
+        bIsGameEnd = true;
     }
 }
