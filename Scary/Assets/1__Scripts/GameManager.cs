@@ -385,7 +385,7 @@ public partial class GameManager : MonoBehaviour
                 // AUDManager.instance.PlayerDoorLockSFX();
                 audManager.Play("the_door_is_locked_and_cannot_be_opened_with_sound_effects", false);
                 bS2_TriggerGrandmaDoorLock = true;
-                flowchartObjects[12].gameObject.SetActive(true);
+                flowchartObjects[13].gameObject.SetActive(true);
 
                 ShowHint(HintItemID.S2_FlashLight);
                 break;
