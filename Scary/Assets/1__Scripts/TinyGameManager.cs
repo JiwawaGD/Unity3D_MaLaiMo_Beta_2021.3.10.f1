@@ -89,6 +89,7 @@ public partial class GameManager : MonoBehaviour
     public void IvkS2_SlientAfterPhotoFrameForRecord()
     {
         videoPlayer.gameObject.GetComponent<MeshRenderer>().enabled = false;
-        FinalUI.SetActive(true);
+        FinalUI.SetActive(true); 
+        bIsGameEnd = true;
     }
 }
