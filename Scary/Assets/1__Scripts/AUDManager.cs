@@ -47,6 +47,8 @@ public class AUDManager : MonoBehaviour
     [SerializeField, Tooltip("門被鎖起來打不開音效")] AudioClip the_door_is_locked_and_cannot_be_opened_with_sound_effects;
     [SerializeField, Tooltip("關門聲")] AudioClip door_Close;
     [SerializeField, Tooltip("老舊門開門聲")] AudioClip the_sound_of_the_old_door_opening;
+    [SerializeField, Tooltip("眼睛小徑開門音效")] AudioClip the_sound_of_the_eyes_opening_the_door;
+    [SerializeField, Tooltip("廁所門打開聲音")] AudioClip the_toilet_door_opens; 
 
     [SerializeField, Tooltip("腳尾飯")] AudioClip sound_Of_Something_Falling;
 
@@ -116,6 +118,10 @@ public class AUDManager : MonoBehaviour
 
         switch (name)
         {
+            case "the_sound_of_the_eyes_opening_the_door":
+                return the_sound_of_the_eyes_opening_the_door;
+            case "the_toilet_door_opens":
+                return the_toilet_door_opens;
             case "At_the_end_it_is_found_that_Acuan_has_mostly_disappeared_and_Acuan_has_climbed_up":
                 return At_the_end_it_is_found_that_Acuan_has_mostly_disappeared_and_Acuan_has_climbed_up;
             case "body_Twisting_Sound":

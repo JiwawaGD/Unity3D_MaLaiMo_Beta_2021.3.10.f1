@@ -111,6 +111,7 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
     [SerializeField] [Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
     [SerializeField] [Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj_floor;
+    [SerializeField] [Header("S2_阿嬤哭聲撥放器")] GameObject S2_Grandma_Cry_Audio_Obj;
     #endregion
 
     bool isPaused = false;
@@ -356,7 +357,7 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Toilet_Door_Open:
                 Debug.Log("S1_Toilet_Door_Open");
-                audManager.Play(1, "the_sound_of_the_old_door_opening", false);
+                audManager.Play(1, "the_toilet_door_opens", false);
                 ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Open");
                 BoxCollider ToiletDoorCollider = GameObject.Find("Toilet_Door_Ghost").GetComponent<BoxCollider>();
                 ToiletDoorCollider.enabled = false;
@@ -427,7 +428,7 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S2_Grandma_Door_Open:
                 Debug.Log("S2_Grandma_Door_Open");
                 ProcessAnimator("S2_Grandma_Room_Door", "S2_Grandma_Room_Door_Open");
-                audManager.Play(1, "the_sound_of_the_old_door_opening", false);
+                audManager.Play(1, "the_sound_of_the_eyes_opening_the_door", false);
                 break;
             case GameEventID.S2_Grandma_Door_Close: //用力關門
                 Debug.Log("S2_Grandma_Door_Close");
@@ -436,8 +437,9 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S2_Ghost_Pass_Door:
                 Debug.Log("S2_Ghost_Pass_Door");
-                audManager.Play(1, "grandma_StrangeVoice", false);
                 S2_Grandma_Ghost_Obj.GetComponent<Animator>().SetTrigger("S2_Grandma_Pass_Door");
+                audManager.Play(1, "grandma_StrangeVoice", false);
+                S2_Grandma_Cry_Audio_Obj.SetActive(true);
                 Invoke(nameof(IvkS2_Grandma_Pass_Door), 1.5f);
                 break;
             case GameEventID.S2_Toilet_Door://阿嬤關門
