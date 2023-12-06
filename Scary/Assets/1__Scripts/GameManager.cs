@@ -8,6 +8,7 @@ using DG.Tweening;
 using UnityEngine.Rendering.HighDefinition;
 using ProgressP;
 using UnityEngine.Video;
+using Fungus;
 
 public partial class GameManager : MonoBehaviour
 {
@@ -434,6 +435,7 @@ public partial class GameManager : MonoBehaviour
                 Debug.Log("S2_Grandma_Door_Close");
                 audManager.Play(1, "door_Close", false);
                 ProcessAnimator("S2_Grandma_Room_Door", "S2_Grandma_Room_Door_Close");
+                audManager.Play(1, "Girl_laughing", false);
                 break;
             case GameEventID.S2_Ghost_Pass_Door:
                 Debug.Log("S2_Ghost_Pass_Door");
