@@ -172,8 +172,11 @@ public partial class GameManager : MonoBehaviour
         if (bIsGameEnd && Input.GetKeyDown(KeyCode.F9))
             ShowQRCode();
 
-        if (m_bReturnToBegin && Input.GetKeyDown(KeyCode.F10))
-            BackToBaseGame();
+        //if (m_bReturnToBegin && Input.GetKeyDown(KeyCode.F10))
+        //    BackToBaseGame();
+
+        //if (Input.GetKeyDown(KeyCode.F11))
+        //    GameEvent(GameEventID.S1_Desk_Drawer);
     }
 
     public void GameEvent(GameEventID r_eventID)    // 遊戲事件
@@ -185,8 +188,6 @@ public partial class GameManager : MonoBehaviour
                 ShowEnterGame(false);
                 // AUDManager.instance.PlayerGameEventSFX();
                 audManager.Play(1, "ui_Context", false);
-
-
 
                 // UI 返回後執行玩家動畫
                 if (m_bShowPlayerAnimate)
@@ -284,11 +285,8 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Grandma_Rush:
                 Debug.Log("S1_Grandma_Rush");
-                //InvokeRepeating(nameof(GrandMaRush), 0f, 0.025f);
                 audManager.Play(1, "grandma_Starts_Walking", false);
                 playerCtrlr.m_bCanControl = false;
-                //Animator AniGrandma = tfGrandmaGhost.GetComponent<Animator>();
-                //AniGrandma.SetBool("Grandma_Attack", true);
                 m_bGrandmaRush = false;
                 break;
             case GameEventID.S1_Light_Switch:
@@ -310,12 +308,13 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Desk_Drawer:
                 Debug.Log("S1_Desk_Drawer");
+                audManager.Play(1, "drawer_Opening_Sound", false);
                 BoxCollider DrawerCollider = GameObject.Find("grandpa_desk/Desk_Drawer").GetComponent<BoxCollider>();
                 DrawerCollider.enabled = false;
                 ProcessAnimator("grandpa_desk/Desk_Drawer", "DrawerWithKey_Open");
+                GameObject S1RoomKeyObj = GameObject.Find("Grandma_Room_Key");
+                S1RoomKeyObj.GetComponent<Animation>().Play();
                 Invoke(nameof(IvkShowDoorKey), 1.2f);
-                // AUDManager.instance.OpenTheDrawerSFX();
-                audManager.Play(1, "drawer_Opening_Sound", false);
                 break;
             case GameEventID.S1_GrandmaRoomKey:
                 Debug.Log("S1_GrandmaRoomKey");
@@ -411,7 +410,8 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S2_Side_Table:
                 Debug.Log("S2_Side_Table");
                 ProcessAnimator("S2_Side_Table", "S2_Side_Table_Open_01");
-                // AUDManager.instance.OpenTheDrawerSFX();
+                GameObject RoomKeyObj = GameObject.Find("S2_Grandma_Room_Key");
+                RoomKeyObj.GetComponent<Animation>().Play();
                 audManager.Play(1, "drawer_Opening_Sound", false);
                 Invoke(nameof(IvkShowS2DoorKey), 1.25f);
                 break;
@@ -420,6 +420,8 @@ public partial class GameManager : MonoBehaviour
                 audManager.Play(1, "tet_Sound_Of_Get_The_Key", false);
                 BoxCollider S2_Door_Knock_Trigger = GameObject.Find("S2_Door_Knock_Trigger").GetComponent<BoxCollider>();
                 S2_Door_Knock_Trigger.enabled = true;
+                GameObject GrandMaRoomKeyObj = GameObject.Find("S2_Grandma_Room_Key");
+                Destroy(GrandMaRoomKeyObj);
                 break;
             case GameEventID.S2_Door_Knock_Stop:
                 Debug.Log("S2_Door_Knock_Stop");
@@ -645,6 +647,7 @@ public partial class GameManager : MonoBehaviour
     {
         if (r_sObject.Contains("null") || r_sTriggerName.Contains("null"))
             return;
+
         GameObject obj = GameObject.Find(r_sObject);
         Animator ani = obj.transform.GetComponent<Animator>();
         ani.SetTrigger(r_sTriggerName);
