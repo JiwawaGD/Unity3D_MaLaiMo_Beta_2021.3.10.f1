@@ -714,7 +714,7 @@ public partial class GameManager : MonoBehaviour
         isUIOpen = r_bEnable;
         EnterGameBtn.gameObject.SetActive(r_bEnable);
         txtEnterGameHint.gameObject.SetActive(r_bEnable);
-        txtEnterGameHint.text = r_bEnable ? "---- R 進入遊戲 ----" : "";
+        txtEnterGameHint.text = r_bEnable ? "按 *R* 進入遊戲 \r\n(Press *R* Enter Game)" : "";
     }
 
     public void ButtonFunction(ButtonEventID _eventID)
