@@ -115,6 +115,7 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("S2_阿嬤哭聲撥放器")] GameObject S2_Grandma_Cry_Audio_Obj;
     #endregion
 
+    bool bIsGameIntroducing = true;
     bool isPaused = false;
     bool isMouseEnabled = false;
     bool isUIOpen = false;
@@ -122,8 +123,6 @@ public partial class GameManager : MonoBehaviour
 
     void Awake()
     {
-        // SortRO_OBJByName(); // 排序物件
-
         if (playerCtrlr == null)
             playerCtrlr = GameObject.Find("Player").GetComponent<PlayerController>();
         audManager = playerCtrlr.GetComponentInChildren<AUDManager>();
@@ -157,6 +156,9 @@ public partial class GameManager : MonoBehaviour
         ShowHint(HintItemID.S1_Light_Switch);
         ShowHint(HintItemID.S1_Grandma_Room_Door_Lock);
         ShowHint(HintItemID.S1_Toilet_Door);
+
+        // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
+        playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
     }
 
     void Update()
@@ -176,7 +178,7 @@ public partial class GameManager : MonoBehaviour
         //    BackToBaseGame();
 
         //if (Input.GetKeyDown(KeyCode.F11))
-        //    GameEvent(GameEventID.S1_Desk_Drawer);
+        //    GameEvent(GameEventID.S2_Room_Door_Lock);
     }
 
     public void GameEvent(GameEventID r_eventID)    // 遊戲事件
@@ -886,7 +888,6 @@ public partial class GameManager : MonoBehaviour
 
     void LastAnimateAfterPhotoFrame()   // 照片框動畫後的最後動畫
     {
-
         audManager.Play(1, "Crying_in_the_bathroom", false);
         Invoke(nameof(IvkS2_SlientAfterPhotoFrame), 2f);
     }

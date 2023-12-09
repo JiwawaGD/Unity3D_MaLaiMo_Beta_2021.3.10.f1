@@ -1,7 +1,7 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class WarnSceneController : MonoBehaviour
 {
@@ -15,22 +15,26 @@ public class WarnSceneController : MonoBehaviour
     public Animation aniSubtitle_1;
     public Animation aniSubtitle_2;
 
+    [SerializeField] [Header("警告提示 UI")] GameObject WariningPanel;
+    [SerializeField] [Header("前情提要 UI")] GameObject IntroducingPanel;
+    [SerializeField] [Header("Hint text")] Text HintText;
+
+    bool bIsShowWarning = true;
+    bool bIsGameIntroducing = false;
+
     void Start()
     {
+        bIsShowWarning = true;
+        bIsGameIntroducing = false;
+    }
 
-        if (Btn_confirmGame == null)
-            Btn_confirmGame = GameObject.Find("Canvas/ConfirmGame").GetComponent<Button>();
+    void Update()
+    {
+        if (!bIsShowWarning && bIsGameIntroducing && Input.GetKeyDown(KeyCode.Return))
+            LoadScene(iNextSceneID);
 
-        if (bLoadSceneAsync)
-        {
-            StartCoroutine(nameof(LoadSceneAsync));
-            Btn_confirmGame.onClick.AddListener(() => AsyncActivate());
-        }
-        else
-        {
-            Btn_confirmGame.onClick.AddListener(() => LoadScene(iNextSceneID));
-        }
-
+        if (bIsShowWarning && Input.GetKeyDown(KeyCode.P))
+            ShowIntroducePanel();
     }
 
     void LoadScene(int r_iSceneIndex)
@@ -38,19 +42,12 @@ public class WarnSceneController : MonoBehaviour
         SceneManager.LoadScene(r_iSceneIndex);
     }
 
-    IEnumerator LoadSceneAsync()
+    void ShowIntroducePanel()
     {
-        async = SceneManager.LoadSceneAsync(iNextSceneID);
-        async.allowSceneActivation = false;
-
-        while (async.progress < 0.9f)
-        {
-            yield return new WaitForEndOfFrame();
-        }
-    }
-
-    void AsyncActivate()
-    {
-        async.allowSceneActivation = true;
+        bIsShowWarning = false;
+        bIsGameIntroducing = true;
+        HintText.text = "按下 *Enter* 繼續";
+        WariningPanel.SetActive(false);
+        IntroducingPanel.SetActive(true);
     }
 }
