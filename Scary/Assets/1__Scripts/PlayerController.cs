@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
     {
         // audioSource = GetComponent<AudioSource>();
         // GameObject audManagerObject = Instantiate(audManagerPrefab, transform);
-            // audManagerObject.name = "AUDManager"; // 可以設置生成物件的名稱
+        // audManagerObject.name = "AUDManager"; // 可以設置生成物件的名稱
         rig = GetComponent<Rigidbody>();
         ani = GetComponent<Animation>();
         tfTransform = transform;
@@ -65,7 +65,6 @@ public class PlayerController : MonoBehaviour
 
         if (gameManager == null)
             gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        
     }
 
     void Start()
@@ -83,7 +82,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        RayHitCheck();  
+        RayHitCheck();
 
         if (!GameManager.m_bInUIView)   // 不在 UI 畫面時才可控制
         {
@@ -97,7 +96,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void FixedUpdate()  
+    void FixedUpdate()
     {
         if (m_bCursorShow)  // 滑鼠顯示時不可控制
             return;

@@ -888,6 +888,9 @@ public partial class GameManager : MonoBehaviour
 
     void LastAnimateAfterPhotoFrame()   // 照片框動畫後的最後動畫
     {
+        // 暫時這樣做
+        playerCtrlr.m_bCanControl = false;
+
         audManager.Play(1, "Crying_in_the_bathroom", false);
         Invoke(nameof(IvkS2_SlientAfterPhotoFrame), 2f);
     }
