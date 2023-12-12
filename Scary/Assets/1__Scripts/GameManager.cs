@@ -14,14 +14,16 @@ public partial class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public ProgressProcessing progressProcessing;
-
-    float targetIntensity = 1f; // 目標強度值
-    float currentIntensity = 0.3f; // 當前強度值
-    public float changeSpeed = 1f; // 強度改變速度
+    [Space][Header("Volume參數設定")]
+    [SerializeField]float targetIntensity = 1f,
+                     currentIntensity = 0.3f,changeSpeed = 1f; 
+    [SerializeField] GameObject[] taskListUi;
+    [Space][Header("物件旋轉參數設定")]
     bool isMoveingObject = false;    // 是否正在移動物件
     public Vector3 originalPosition;    // 原始位置
     public Quaternion originalRotation; // 原始旋轉
-    [SerializeField] private AUDManager audManager;
+
+    [SerializeField] AUDManager audManager;
     // 音效管理器
     [Header("遊戲結束畫面UI")] public GameObject FinalUI;
 
