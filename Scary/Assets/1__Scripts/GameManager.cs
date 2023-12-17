@@ -181,7 +181,7 @@ public partial class GameManager : MonoBehaviour
         //    BackToBaseGame();
 
         //if (Input.GetKeyDown(KeyCode.F11))
-        //    GameEvent(GameEventID.S2_Room_Door_Lock);
+        //    GameEvent(GameEventID.S1_Toilet_Ghost_Hide);
     }
 
     public void SetGameSetting()
@@ -195,7 +195,7 @@ public partial class GameManager : MonoBehaviour
         {
             case GameEventID.Close_UI:
                 UIState(UIItemID.Empty, false);
-                ShowEnterGame(false); 
+                ShowEnterGame(false);
                 // AUDManager.instance.PlayerGameEventSFX();
                 audManager.Play(1, "ui_Context", false);
 
@@ -243,10 +243,6 @@ public partial class GameManager : MonoBehaviour
                 audManager.Play(1, "ghost_In_Door", false);
                 m_bSetPlayerViewLimit = true;
                 GlobalDeclare.PlayerCameraLimit.SetPlayerCameraLimit(150f, 250f, 160f);
-
-                // 鬼手出現
-                GameObject GhostHandObj = GameObject.Find("Ghost_Hand");
-                GhostHandObj.transform.position = new Vector3(-8.5f, 0, 6);
                 break;
             case GameEventID.S1_Grandma_Door_Open:
                 Debug.Log("S1_Grandma_Door_Open");
@@ -382,6 +378,11 @@ public partial class GameManager : MonoBehaviour
                 m_bWaitToiletGhostHandPush = true;
                 GlobalDeclare.PlayerCameraLimit.ClearValue();
                 ShowHint(HintItemID.S1_Toilet_GhostHand_Trigger);
+
+                // 鬼手出現
+                GameObject GhostHandObj = GameObject.Find("Ghost_Hand");
+                GhostHandObj.transform.position = new Vector3(-8.5f, 0, 6);
+
                 GameObject GhostHandTriggerObj = GameObject.Find("Ghost_Hand_Trigger");
                 GhostHandTriggerObj.transform.position = new Vector3(-8.5f, 0.1f, 6.1f);
                 break;
@@ -922,12 +923,14 @@ public partial class GameManager : MonoBehaviour
         CrosshairUI.SetActive(bEnable);
     }
 
-    IEnumerator DelayedAction() // 延遲動作
+    // 延遲動作
+    IEnumerator DelayedAction()
     {
         yield return new WaitForSeconds(2.5f);
     }
 
-    IEnumerator DelayLodelobby()    // 延遲載入大廳場景   
+    // 延遲載入大廳場景
+    IEnumerator DelayLodelobby()
     {
         audManager.Play(1, "Opening_Scene", false);
         FinalUI.SetActive(true);
