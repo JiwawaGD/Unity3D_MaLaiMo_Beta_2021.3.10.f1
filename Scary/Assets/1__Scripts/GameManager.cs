@@ -1,14 +1,14 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using System.Collections;
-using UnityEngine.Rendering;
-using System;
-using DG.Tweening;
-using UnityEngine.Rendering.HighDefinition;
-using ProgressP;
 using UnityEngine.Video;
+using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.HighDefinition;
 using Fungus;
+using ProgressP;
+using DG.Tweening;
 
 public partial class GameManager : MonoBehaviour
 {
@@ -48,6 +48,7 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("Video - 阿嬤看螢幕")] VideoClip GrandmaVP;
 
     [SerializeField] [Header("QRCode UI")] GameObject QRCodeUI;
+    [SerializeField] [Header("準心 UI")] GameObject CrosshairUI;
 
     int m_iGrandmaRushCount;
     Scene currentScene;
@@ -159,6 +160,8 @@ public partial class GameManager : MonoBehaviour
 
         // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
         playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
+
+        SetCrosshairEnable(true);
     }
 
     void Update()
@@ -181,13 +184,18 @@ public partial class GameManager : MonoBehaviour
         //    GameEvent(GameEventID.S2_Room_Door_Lock);
     }
 
+    public void SetGameSetting()
+    {
+        SetCrosshairEnable(GlobalDeclare.bCrossHairEnable);
+    }
+
     public void GameEvent(GameEventID r_eventID)    // 遊戲事件
     {
         switch (r_eventID)
         {
             case GameEventID.Close_UI:
                 UIState(UIItemID.Empty, false);
-                ShowEnterGame(false);
+                ShowEnterGame(false); 
                 // AUDManager.instance.PlayerGameEventSFX();
                 audManager.Play(1, "ui_Context", false);
 
@@ -780,34 +788,32 @@ public partial class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (m_bInUIView)    // 關閉 UI 畫面
+            // 關閉 UI 畫面
+            if (m_bInUIView)
             {
-                //PhotoFrameUI.SetActive(false);
-                if (!isMoveingObject)    // 關閉旋轉
-                {
-                    GameEvent(GameEventID.Close_UI);
-                }
-                else
-                {
-                    GameEvent(GameEventID.Close_UI);
+                GameEvent(GameEventID.Close_UI);
 
+                if (isMoveingObject)
+                {
                     //關閉旋轉
                     romanager = false;
 
-
-                    if (!romanager) //如果旋轉關閉
+                    if (!romanager)
                     {
                         print(RO_OBJ[saveRotaObj].transform.GetChild(0).name);
+
                         //恢復物件位置
                         RO_OBJ[saveRotaObj].transform.DOMove(originalPosition, 2);
+
                         //恢復物件角度
                         RO_OBJ[saveRotaObj].transform.DORotate(originalRotation.eulerAngles, 2);
                         isMoveingObject = false;
                     }
                 }
             }
-            else    // 顯示遊戲狀態
+            else
             {
+                // 顯示遊戲狀態
                 SetGameState();
             }
         }
@@ -909,6 +915,11 @@ public partial class GameManager : MonoBehaviour
         QRCodeUI.SetActive(false);
         playerCtrlr.SetCursor();
         SceneManager.LoadScene(0);
+    }
+
+    void SetCrosshairEnable(bool bEnable)
+    {
+        CrosshairUI.SetActive(bEnable);
     }
 
     IEnumerator DelayedAction() // 延遲動作
