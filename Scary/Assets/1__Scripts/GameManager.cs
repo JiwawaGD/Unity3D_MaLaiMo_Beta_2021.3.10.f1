@@ -105,6 +105,8 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
     [SerializeField] [Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
     [SerializeField] [Header("S1_奶奶房間抽屜")] GameObject S1_Desk_Drawer_Obj;
+    [SerializeField] [Header("S1_還沒摺的蓮花紙")] GameObject S1_Lotus_Paper_Obj;
+    [SerializeField] [Header("S1_蓮花紙旁的蠟燭")] GameObject S1_Lotus_Candle_Obj;
 
     [Header("場景二物件")]
     [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
