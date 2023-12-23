@@ -187,8 +187,8 @@ public partial class GameManager : MonoBehaviour
         //if (m_bReturnToBegin && Input.GetKeyDown(KeyCode.F10))
         //    BackToBaseGame();
 
-        if (Input.GetKeyDown(KeyCode.F11))
-            GameEvent(GameEventID.S1_Photo_Frame_Has_Broken);
+        //if (Input.GetKeyDown(KeyCode.F11))
+        //    GameEvent(GameEventID.S1_Rice_Funeral_Spilled);
     }
 
     public void SetGameSetting()
@@ -302,15 +302,14 @@ public partial class GameManager : MonoBehaviour
                 S1_ToiletGhostHandPush();
                 break;
             case GameEventID.S2_Light_Switch:
-                Debug.Log("S2_Light_Switch");
+                Debug.Log("場景2 ==> 房間燈開關 (S2_Light_Switch)");
                 bS2_TriggerLightSwitch = true;
                 audManager.Play(1, "light_Switch_Sound", false);
                 flowchartObjects[13].gameObject.SetActive(true);
                 ShowHint(HintItemID.S2_FlashLight);
                 break;
             case GameEventID.S2_Room_Door_Lock:
-                Debug.Log("S2_Room_Door_Lock");
-                // AUDManager.instance.PlayerDoorLockSFX();
+                Debug.Log("場景2 ==> 房間門鎖住了 (S2_Room_Door_Lock)");
                 audManager.Play(1, "the_door_is_locked_and_cannot_be_opened_with_sound_effects", false);
                 bS2_TriggerGrandmaDoorLock = true;
                 flowchartObjects[12].gameObject.SetActive(true);
@@ -318,7 +317,7 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S2_FlashLight);
                 break;
             case GameEventID.S2_FlashLight:
-                Debug.Log("S2_FlashLight");
+                Debug.Log("場景2 ==> 手電筒 (S2_FlashLight)");
                 flowchartObjects[14].gameObject.SetActive(true);
                 audManager.Play(1, "light_Switch_Sound", false);
                 GameObject S2_FlashLightObj = GameObject.Find("S2_FlashLight");
@@ -326,7 +325,7 @@ public partial class GameManager : MonoBehaviour
                 ShowHint(HintItemID.S2_Side_Table);
                 break;
             case GameEventID.S2_Side_Table:
-                Debug.Log("S2_Side_Table");
+                Debug.Log("場景2 ==> 開門旁邊的小桌抽屜 (S2_Side_Table)");
                 ProcessAnimator("S2_Side_Table", "S2_Side_Table_Open_01");
                 GameObject RoomKeyObj = GameObject.Find("S2_Grandma_Room_Key");
                 RoomKeyObj.GetComponent<Animation>().Play();
@@ -334,7 +333,7 @@ public partial class GameManager : MonoBehaviour
                 Invoke(nameof(IvkShowS2DoorKey), 1.25f);
                 break;
             case GameEventID.S2_Room_Key:
-                Debug.Log("S2_Room_Key");
+                Debug.Log("場景2 ==> 門旁邊小桌抽屜內的鑰匙 (S2_Room_Key)");
                 audManager.Play(1, "tet_Sound_Of_Get_The_Key", false);
                 BoxCollider S2_Door_Knock_Trigger = GameObject.Find("S2_Door_Knock_Trigger").GetComponent<BoxCollider>();
                 S2_Door_Knock_Trigger.enabled = true;

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public partial class GameManager : MonoBehaviour
 {
@@ -18,12 +18,12 @@ public partial class GameManager : MonoBehaviour
         ProcessRoMoving(2);
         ShowObj(ObjItemID.S1_Photo_Frame);
 
-        // ¤H§Î¶Â¼v
+        // äººå½¢é»‘å½±
         ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Ghost_In");
         audManager.Play(1, "ghost_In_Door", false);
         m_bToiletGhostHasShow = true;
 
-        // ­­¨î¨¤¦âµø¨¤
+        // é™åˆ¶è§’è‰²è¦–è§’
         //m_bSetPlayerViewLimit = true;
         //GlobalDeclare.PlayerCameraLimit.SetPlayerCameraLimit(150f, 250f, 160f);
     }
@@ -53,7 +53,7 @@ public partial class GameManager : MonoBehaviour
         flowchartObjects[6].gameObject.SetActive(true);
         StopReadding();
 
-        // ¥Í¦¨ºLÃaªº¸}§À¶º
+        // ç”Ÿæˆæ‘”å£çš„è…³å°¾é£¯
         UnityEngine.Object RiceFuneralSpilled = Resources.Load<GameObject>("Prefabs/Rice_Funeral_Spilled");
         GameObject RiceFuneralSpilledObj = Instantiate(RiceFuneralSpilled) as GameObject;
         RiceFuneralSpilledObj.transform.parent = GameObject.Find("===== ITEMS =====").transform;
@@ -139,6 +139,10 @@ public partial class GameManager : MonoBehaviour
         ShowHint(HintItemID.S1_Lotus_Paper);
         m_bPlayLotusEnable = true;
         flowchartObjects[8].gameObject.SetActive(true);
+
+        // ç§»å‹•è“®èŠ±ç´™ & è Ÿç‡­åº§æ¨™
+        S1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-5.1f, 0.6f, -2f);
+        S1_Lotus_Candle_Obj.transform.localPosition = new Vector3(8.15f, 2.23f, 8.9f);
     }
 
     void S1_RiceFuneral()
