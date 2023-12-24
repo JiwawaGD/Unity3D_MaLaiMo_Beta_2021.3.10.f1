@@ -45,6 +45,13 @@ public partial class GameManager : MonoBehaviour
         ShowHint(HintItemID.S2_Room_Key);
     }
 
+    void IvkS1_SetGhostHandPosition()
+    {
+        // 鬼手出現
+        GameObject GhostHandObj = GameObject.Find("Ghost_Hand");
+        GhostHandObj.transform.position = new Vector3(-8.5f, 0, 6);
+    }
+
     public void IvkS2_Grandma_Pass_Door()
     {
         S2_Grandma_Ghost_Obj.GetComponent<Animator>().applyRootMotion = true;

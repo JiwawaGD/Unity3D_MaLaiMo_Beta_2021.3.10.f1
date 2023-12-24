@@ -1,14 +1,14 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using System.Collections;
-using UnityEngine.Rendering;
-using System;
-using DG.Tweening;
-using UnityEngine.Rendering.HighDefinition;
-using ProgressP;
 using UnityEngine.Video;
+using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.HighDefinition;
 using Fungus;
+using ProgressP;
+using DG.Tweening;
 
 public partial class GameManager : MonoBehaviour
 {
@@ -50,6 +50,7 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("Video - 阿嬤看螢幕")] VideoClip GrandmaVP;
 
     [SerializeField] [Header("QRCode UI")] GameObject QRCodeUI;
+    [SerializeField] [Header("準心 UI")] GameObject CrosshairUI;
 
     int m_iGrandmaRushCount;
     Scene currentScene;
@@ -106,6 +107,8 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
     [SerializeField] [Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
     [SerializeField] [Header("S1_奶奶房間抽屜")] GameObject S1_Desk_Drawer_Obj;
+    [SerializeField] [Header("S1_還沒摺的蓮花紙")] GameObject S1_Lotus_Paper_Obj;
+    [SerializeField] [Header("S1_蓮花紙旁的蠟燭")] GameObject S1_Lotus_Candle_Obj;
 
     [Header("場景二物件")]
     [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
@@ -115,6 +118,11 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
     [SerializeField] [Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj_floor;
     [SerializeField] [Header("S2_阿嬤哭聲撥放器")] GameObject S2_Grandma_Cry_Audio_Obj;
+    #endregion
+
+    #region - Empty Field => For Memory -
+    BoxCollider TempBoxCollider;
+    GameObject TempGameObject;
     #endregion
 
     bool bIsGameIntroducing = true;
@@ -161,6 +169,8 @@ public partial class GameManager : MonoBehaviour
 
         // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
         playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
+
+        SetCrosshairEnable(true);
     }
 
     void Update()
@@ -170,7 +180,7 @@ public partial class GameManager : MonoBehaviour
         if (isPaused && isMouseEnabled) // 暫停時啟用滑鼠
             MouseCheck();
 
-        if (isUIOpen && Input.GetKeyDown(KeyCode.R))    // 關閉 UI 時按 R 鍵
+        if (isUIOpen && Input.GetKeyDown(KeyCode.R))    // 按 R 鍵
             ButtonFunction(ButtonEventID.Enter_Game);   // 進入蓮花遊戲
 
         if (bIsGameEnd && Input.GetKeyDown(KeyCode.F9))
@@ -180,17 +190,21 @@ public partial class GameManager : MonoBehaviour
         //    BackToBaseGame();
 
         //if (Input.GetKeyDown(KeyCode.F11))
-        //    GameEvent(GameEventID.S2_Room_Door_Lock);
+        //    GameEvent(GameEventID.S1_Rice_Funeral_Spilled);
     }
 
-    public void GameEvent(GameEventID r_eventID)    // 遊戲事件
+    public void SetGameSetting()
+    {
+        SetCrosshairEnable(GlobalDeclare.bCrossHairEnable);
+    }
+
+    public void GameEvent(GameEventID r_eventID)
     {
         switch (r_eventID)
         {
             case GameEventID.Close_UI:
                 UIState(UIItemID.Empty, false);
                 ShowEnterGame(false);
-                // AUDManager.instance.PlayerGameEventSFX();
                 audManager.Play(1, "ui_Context", false);
 
                 // UI 返回後執行玩家動畫
@@ -205,279 +219,108 @@ public partial class GameManager : MonoBehaviour
                 if (m_bShowDialog)
                     ProcessDialog(GlobalDeclare.GetDialogObjName());
 
+                // 鎖定玩家視角旋轉
                 if (m_bSetPlayerViewLimit)
                     SetPlayerViewLimit(true, GlobalDeclare.PlayerCameraLimit.GetPlayerCameraLimit());
 
+                // 動畫
                 if (bS2_TriggerLastAnimateAfterPhotoFrame)
                     LastAnimateAfterPhotoFrame();
 
                 GameStateCheck();
                 break;
-            case GameEventID.S1_Photo_Frame:    // 破碎相框 
-                Debug.Log("S1_Photo_Frame");
-                audManager.Play(1, "mirror_Breaking_Sound", false);
-                ShowHint(HintItemID.S1_Photo_Frame);
-                S1_Photo_Frame_Obj.transform.GetChild(1).GetComponent<MeshRenderer>().enabled = true;
-                TempItem = S1_Photo_Frame_Obj.GetComponent<ItemController>();
-                TempItem.eventID = GameEventID.S1_Photo_Frame_Has_Broken;
+            case GameEventID.S1_Photo_Frame:
+                S1_PhotoFrameEvent();
                 break;
-            case GameEventID.S1_Photo_Frame_Has_Broken: // 破碎相框 
-                Debug.Log("S1_Photo_Frame_Has_Broken");
-                audManager.Play(1, "get_Item_Sound", false);
-                UIState(UIItemID.S1_Photo_Frame, true);
-                ProcessRoMoving(2);
-                ShowObj(ObjItemID.S1_Photo_Frame);
-
-                // 人形黑影
-                ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Ghost_In");
-                m_bToiletGhostHasShow = true;
-
-                // 限制角色視角
-                Debug.Log("限制角色視角");
-                audManager.Play(1, "ghost_In_Door", false);
-                m_bSetPlayerViewLimit = true;
-                GlobalDeclare.PlayerCameraLimit.SetPlayerCameraLimit(150f, 250f, 160f);
-
-                // 鬼手出現
-                GameObject GhostHandObj = GameObject.Find("Ghost_Hand");
-                GhostHandObj.transform.position = new Vector3(-8.5f, 0, 6);
+            case GameEventID.S1_Photo_Frame_Has_Broken:
+                S1_PhotoFrameHasBroken();
                 break;
             case GameEventID.S1_Grandma_Door_Open:
-                Debug.Log("S1_Grandma_Door_Open");
-                ProcessAnimator("Grandma_Room_Door", "DoorOpen");
-                audManager.Play(1, "the_sound_of_the_old_door_opening", false);
-                ShowHint(HintItemID.S1_Rice_Funeral);
-                flowchartObjects[4].gameObject.SetActive(true);
+                S1_GrandmaDoorOpen();
                 break;
             case GameEventID.S1_Lotus_Paper:
-                Debug.Log("S1_Lotus_Paper");
-                ProcessRoMoving(1);
-                UIState(UIItemID.S1_Lotus_Paper, true);
-                ShowEnterGame(true);
-                ShowObj(ObjItemID.S1_Lotus_Paper);
-                // AUDManager.instance.PlayerLotusPaperSFX();        
-                audManager.Play(1, "gold_Paper", false);
-                audManager.Play(1, "get_Item_Sound", false);
-
+                S1_LotusPaper();
                 break;
             case GameEventID.S1_Grandma_Dead_Body:
-                Debug.Log("S1_Grandma_Dead_Body");
-                audManager.Play(1, "get_Item_Sound", false);
-                StopReadding();
-                flowchartObjects[6].gameObject.SetActive(true);
-                S1_Rice_Funeral_Obj.SetActive(false);
-                UnityEngine.Object RiceFuneralSpilled = Resources.Load<GameObject>("Prefabs/Rice_Funeral_Spilled");
-                GameObject RiceFuneralSpilledObj = Instantiate(RiceFuneralSpilled) as GameObject;
-                RiceFuneralSpilledObj.transform.parent = GameObject.Find("===== ITEMS =====").transform;
-                RiceFuneralSpilledObj.transform.position = new Vector3(-4.4f, 0.006f, 11.8f);
-                RiceFuneralSpilledObj.name = "Rice_Funeral_Spilled";
-                ShowHint(HintItemID.S1_Rice_Funeral_Spilled);
+                S1_GrandmaDeadBody();
                 break;
             case GameEventID.S1_White_Tent:
-                Debug.Log("S1_White_Tent");
-                ProcessAnimator("Filial_Piety_Curtain", "Filial_piety_curtain Open");
-                BoxCollider curtain = GameObject.Find("Filial_Piety_Curtain").GetComponent<BoxCollider>();
-                curtain.enabled = false;
-                ShowHint(HintItemID.S1_Lie_Grandma_Body);
-                audManager.Play(1, "filial_Piety_Curtain", false);
+                S1_WhiteTent();
                 break;
             case GameEventID.S1_Photo_Frame_Light_On:
-                Debug.Log("S1_Photo_Frame_Light_On");
-                audManager.Play(1, "flashlight_Switch_Sound", false);
-                goPhotoFrameLight.SetActive(true);
-                m_bPhotoFrameLightOn = false;
+                S1_PhotoFrameLightOn();
                 break;
             case GameEventID.S1_Grandma_Rush:
-                Debug.Log("S1_Grandma_Rush");
-                audManager.Play(1, "grandma_Starts_Walking", false);
-                playerCtrlr.m_bCanControl = false;
-                m_bGrandmaRush = false;
+                S1_GrandmaRush();
                 break;
             case GameEventID.S1_Light_Switch:
-                Debug.Log("S1_Light_Switch");
-                bS1_IsS1LightSwtichOK = true;
-                flowchartObjects[2].gameObject.SetActive(true);
-                audManager.Play(1, "light_Switch_Sound", false);
-                ShowHint(HintItemID.S1_Flashlight);
+                S1_LightSwitch();
                 break;
             case GameEventID.S1_Flashlight:
-                Debug.Log("S1_Flashlight");
-                bS1_TriggerFlashlight = true;
-                ShowHint(HintItemID.S1_Desk_Drawer);
-                Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
-                playerFlashlight.enabled = true;
-                audManager.Play(1, "light_Switch_Sound", false);
-                GameObject FlashLight = GameObject.Find("Flashlight");
-                Destroy(FlashLight);
+                S1_Flashlight();
                 break;
             case GameEventID.S1_Desk_Drawer:
-                Debug.Log("S1_Desk_Drawer");
-                audManager.Play(1, "drawer_Opening_Sound", false);
-                BoxCollider DrawerCollider = GameObject.Find("grandpa_desk/Desk_Drawer").GetComponent<BoxCollider>();
-                DrawerCollider.enabled = false;
-                ProcessAnimator("grandpa_desk/Desk_Drawer", "DrawerWithKey_Open");
-                GameObject S1RoomKeyObj = GameObject.Find("Grandma_Room_Key");
-                S1RoomKeyObj.GetComponent<Animation>().Play();
-                Invoke(nameof(IvkShowDoorKey), 1.2f);
+                S1_DeskDrawer();
                 break;
             case GameEventID.S1_GrandmaRoomKey:
-                Debug.Log("S1_GrandmaRoomKey");
-                ShowHint(HintItemID.S1_Grandma_Room_Door);
-                audManager.Play(1, "tet_Sound_Of_Get_The_Key", false);
-                flowchartObjects[3].gameObject.SetActive(true);
-                GameObject GrandmaRoomKeyObj = GameObject.Find("Grandma_Room_Key");
-                Destroy(GrandmaRoomKeyObj);
+                S1_GrandmaRoomKey();
                 break;
             case GameEventID.S1_Grandma_Room_Door_Lock:
-                Debug.Log("S1_Grandma_Room_Door_Lock");
-                bS1_TriggerGrandmaDoorLock = true;
-                ShowHint(HintItemID.S1_Desk_Drawer);
-                ShowHint(HintItemID.S1_Flashlight);
-                flowchartObjects[1].gameObject.SetActive(true);
-                // AUDManager.instance.PlayerDoorLockSFX();
-                audManager.Play(1, "the_door_is_locked_and_cannot_be_opened_with_sound_effects", false);
+                S1_GrandmaRoomDoorLock();
                 break;
             case GameEventID.S1_Rice_Funeral_Spilled:
-                Debug.Log("S1_Rice_Funeral_Spilled");
-                audManager.Play(1, "get_Item_Sound", false);
-                ShowHint(HintItemID.S1_Lotus_Paper);
-                m_bPlayLotusEnable = true;
-                flowchartObjects[8].gameObject.SetActive(true);
+                S1_RiceFuneralSpilled();
                 break;
             case GameEventID.S1_Rice_Funeral:
-                Debug.Log("S1_Rice_Funeral");
-                audManager.Play(1, "get_Item_Sound", false);
-                ShowHint(HintItemID.S1_Filial_Piety_Curtain);
-                flowchartObjects[11].gameObject.SetActive(true);
-                UIState(UIItemID.S1_Rice_Funeral, true);
-                ShowObj(ObjItemID.S1_Rice_Funeral);
-                ProcessRoMoving(0);
+                S1_RiceFuneral();
                 break;
             case GameEventID.S1_Toilet_Door_Lock:
-                Debug.Log("S1_Toilet_Door_Lock");
-                // AUDManager.instance.PlayerDoorLockSFX();
-                audManager.Play(1, "the_door_is_locked_and_cannot_be_opened_with_sound_effects", false);
-                flowchartObjects[12].gameObject.SetActive(true);
+                S1_ToiletDoorLock();
                 break;
             case GameEventID.S1_Toilet_Door_Open:
-                Debug.Log("S1_Toilet_Door_Open");
-                audManager.Play(1, "the_toilet_door_opens", false);
-                ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Open");
-                BoxCollider ToiletDoorCollider = GameObject.Find("Toilet_Door_Ghost").GetComponent<BoxCollider>();
-                ToiletDoorCollider.enabled = false;
-                ShowHint(HintItemID.S1_Photo_Frame);
+                S1_ToiletDoorOpen();
                 break;
-            case GameEventID.S1_Toilet_Ghost_Hide: // 鬼頭縮回
-                Debug.Log("S1_Toilet_Ghost_Hide");
-
-                ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Ghost_Out");
-                m_bToiletGhostHasShow = false;
-                playerCtrlr.m_bLimitRotation = false;
-                m_bWaitToiletGhostHandPush = true;
-                GlobalDeclare.PlayerCameraLimit.ClearValue();
-                ShowHint(HintItemID.S1_Toilet_GhostHand_Trigger);
-                GameObject GhostHandTriggerObj = GameObject.Find("Ghost_Hand_Trigger");
-                GhostHandTriggerObj.transform.position = new Vector3(-8.5f, 0.1f, 6.1f);
+            case GameEventID.S1_Toilet_Ghost_Hide:
+                S1_ToiletGhostHide();
                 break;
-            case GameEventID.S1_Toilet_Ghost_Hand_Push: // 鬼手推門
-                Debug.Log("S1_Toilet_Ghost_Hand_Push");
-                audManager.Play(1, "Falling_To_Black_Screen_Sound", false);
-                m_bWaitToiletGhostHandPush = false;
-
-                ProcessPlayerAnimator("Player_Falling_In_Bathroom");
-                Invoke(nameof(IvkProcessGhostHandPushAnimator), 3.95f);
+            case GameEventID.S1_Toilet_Ghost_Hand_Push:
+                S1_ToiletGhostHandPush();
                 break;
             case GameEventID.S2_Light_Switch:
-                Debug.Log("S2_Light_Switch");
-                bS2_TriggerLightSwitch = true;
-                audManager.Play(1, "light_Switch_Sound", false);
-                flowchartObjects[13].gameObject.SetActive(true);
-                ShowHint(HintItemID.S2_FlashLight);
+                S2_LightSwitch();
                 break;
             case GameEventID.S2_Room_Door_Lock:
-                Debug.Log("S2_Room_Door_Lock");
-                // AUDManager.instance.PlayerDoorLockSFX();
-                audManager.Play(1, "the_door_is_locked_and_cannot_be_opened_with_sound_effects", false);
-                bS2_TriggerGrandmaDoorLock = true;
-                flowchartObjects[12].gameObject.SetActive(true);
-
-                ShowHint(HintItemID.S2_FlashLight);
+                S2_RoomDoorLock();
                 break;
             case GameEventID.S2_FlashLight:
-                Debug.Log("S2_FlashLight");
-                flowchartObjects[14].gameObject.SetActive(true);
-                audManager.Play(1, "light_Switch_Sound", false);
-                GameObject S2_FlashLightObj = GameObject.Find("S2_FlashLight");
-                Destroy(S2_FlashLightObj);
-                ShowHint(HintItemID.S2_Side_Table);
+                S2_FlashLight();
                 break;
             case GameEventID.S2_Side_Table:
-                Debug.Log("S2_Side_Table");
-                ProcessAnimator("S2_Side_Table", "S2_Side_Table_Open_01");
-                GameObject RoomKeyObj = GameObject.Find("S2_Grandma_Room_Key");
-                RoomKeyObj.GetComponent<Animation>().Play();
-                audManager.Play(1, "drawer_Opening_Sound", false);
-                Invoke(nameof(IvkShowS2DoorKey), 1.25f);
+                S2_SideTable();
                 break;
             case GameEventID.S2_Room_Key:
-                Debug.Log("S2_Room_Key");
-                audManager.Play(1, "tet_Sound_Of_Get_The_Key", false);
-                BoxCollider S2_Door_Knock_Trigger = GameObject.Find("S2_Door_Knock_Trigger").GetComponent<BoxCollider>();
-                S2_Door_Knock_Trigger.enabled = true;
-                GameObject GrandMaRoomKeyObj = GameObject.Find("S2_Grandma_Room_Key");
-                Destroy(GrandMaRoomKeyObj);
+                S2_RoomKey();
                 break;
             case GameEventID.S2_Door_Knock_Stop:
-                Debug.Log("S2_Door_Knock_Stop");
-                audManager.Play(1, "emergency_Knock_On_The_Door", false);
-                ShowHint(HintItemID.S2_Grandma_Room_Door_Open);
+                S2_DoorKnockStop();
                 break;
             case GameEventID.S2_Grandma_Door_Open:
-                Debug.Log("S2_Grandma_Door_Open");
-                ProcessAnimator("S2_Grandma_Room_Door", "S2_Grandma_Room_Door_Open");
-                audManager.Play(1, "the_sound_of_the_eyes_opening_the_door", false);
+                S2_GrandmaDoorOpen();
                 break;
-            case GameEventID.S2_Grandma_Door_Close: //用力關門
-                Debug.Log("S2_Grandma_Door_Close");
-                audManager.Play(1, "door_Close", false);
-                ProcessAnimator("S2_Grandma_Room_Door", "S2_Grandma_Room_Door_Close");
-                audManager.Play(1, "Girl_laughing", false);
+            case GameEventID.S2_Grandma_Door_Close:
+                S2_GrandmaDoorClose();
                 break;
             case GameEventID.S2_Ghost_Pass_Door:
-                Debug.Log("S2_Ghost_Pass_Door");
-                S2_Grandma_Ghost_Obj.GetComponent<Animator>().SetTrigger("S2_Grandma_Pass_Door");
-                audManager.Play(1, "grandma_StrangeVoice", false);
-                S2_Grandma_Cry_Audio_Obj.SetActive(true);
-                Invoke(nameof(IvkS2_Grandma_Pass_Door), 1.5f);
+                S2_GhostPassDoor();
                 break;
-            case GameEventID.S2_Toilet_Door://阿嬤關門
-                Debug.Log("S2_Toilet_Door");
-                audManager.Play(1, "Crying_in_the_bathroom", false);
-                ProcessPlayerAnimator("Player_S2_Shocked_By_Toilet_Ghost");
-                S2_Furniture_State_1_Obj.SetActive(false);
-                S2_Furniture_State_2_Obj.SetActive(true);
-                S2_Photo_Frame_Obj_floor.SetActive(true);
-                ShowHint(HintItemID.S2_Rice_Funeral);
-                Invoke(nameof(IvkS2_Shocked_By_Toilet), 9.5f);
+            case GameEventID.S2_Toilet_Door:
+                S2_ToiletDoor();
                 break;
             case GameEventID.S2_Rice_Funeral:
-                Debug.Log("S2_Rice_Funeral");
-                audManager.Play(1, "get_Item_Sound", false);
-                flowchartObjects[15].gameObject.SetActive(true);
-                BoxCollider S2_Rice_Funeral_Collider = GameObject.Find("S2_Rice_Funeral").GetComponent<BoxCollider>();
-                S2_Rice_Funeral_Collider.enabled = false;
-                ShowHint(HintItemID.S2_Photo_Frame);
+                S2_Rice_Funeral();
                 break;
             case GameEventID.S2_Photo_Frame:
-                Debug.Log("S2_Photo_Frame");
-                audManager.Play(1, "At_the_end_it_is_found_that_Acuan_has_mostly_disappeared_and_Acuan_has_climbed_up", false);
-                ProcessRoMoving(4);
-                UIState(UIItemID.S2_Photo_Frame, true);
-                ShowObj(ObjItemID.S2_Photo_Frame_Floor);
-
-                // 開啟相框光源
-                S2_Grandma_Deadbody_On_Table_Obj.SetActive(false);
-                bS2_TriggerLastAnimateAfterPhotoFrame = true;
+                S2_Photo_Frame();
                 break;
         }
     }
@@ -576,10 +419,12 @@ public partial class GameManager : MonoBehaviour
         TempItem.SetHintable(true);
     }
 
-    void ProcessRoMoving(int iIndex)  // 旋轉物件 (物件ID)     
+    // 旋轉物件 (物件ID)     
+    void ProcessRoMoving(int iIndex)
     {
         if (RO_OBJ[saveRotaObj] == null)
             return;
+
         isMoveingObject = true;  // 正在移動物件
         saveRotaObj = iIndex;   // 儲存物件  
         originalPosition = RO_OBJ[saveRotaObj].transform.position;  // 儲存物件位置
@@ -647,7 +492,8 @@ public partial class GameManager : MonoBehaviour
         GetM_bInUIView();
     }
 
-    public void ProcessAnimator(string r_sObject, string r_sTriggerName)    // 執行物件動畫
+    // 執行物件動畫
+    public void ProcessAnimator(string r_sObject, string r_sTriggerName)
     {
         if (r_sObject.Contains("null") || r_sTriggerName.Contains("null"))
             return;
@@ -666,7 +512,7 @@ public partial class GameManager : MonoBehaviour
         GlobalDeclare.SetItemAniName("Empty");
         m_bShowItemAnimate = false;
     }
-    //鬼手動畫
+
     public void ProcessItemAnimator(string r_strObject, string r_strTriggerName)
     {
         if (r_strObject.Contains("null") || r_strTriggerName.Contains("null"))
@@ -678,7 +524,8 @@ public partial class GameManager : MonoBehaviour
         m_bShowItemAnimate = false;
     }
 
-    public void ProcessPlayerAnimator(string r_sAnimationName)  // 執行玩家動畫
+    // 執行玩家動畫
+    public void ProcessPlayerAnimator(string r_sAnimationName)
     {
         Animation am = playerCtrlr.GetComponent<Animation>();
         am.Play(r_sAnimationName);
@@ -686,7 +533,8 @@ public partial class GameManager : MonoBehaviour
         GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Empty);
     }
 
-    public void ProcessDialog(string sDialogObjName)  // 執行 Fungus 對話
+    // 執行 Fungus 對話
+    public void ProcessDialog(string sDialogObjName)
     {
         if (sDialogObjName.Contains("Empty"))
             return;
@@ -697,7 +545,8 @@ public partial class GameManager : MonoBehaviour
         GlobalDeclare.SetDialogObjName("Empty");
     }
 
-    public void SetPlayerViewLimit(bool bLimitRotation, float[] fViewLimit) // 限制角色視角
+    // 限制角色視角 (暫無使用)
+    public void SetPlayerViewLimit(bool bLimitRotation, float[] fViewLimit)
     {
         m_bSetPlayerViewLimit = false;
         playerCtrlr.m_bLimitRotation = bLimitRotation;
@@ -711,12 +560,13 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-    public void ShowEnterGame(bool r_bEnable)   // 顯示進入蓮花遊戲按鈕
+    // 顯示進入蓮花遊戲按鈕
+    public void ShowEnterGame(bool r_bEnable)
     {
         isUIOpen = r_bEnable;
         EnterGameBtn.gameObject.SetActive(r_bEnable);
         txtEnterGameHint.gameObject.SetActive(r_bEnable);
-        txtEnterGameHint.text = r_bEnable ? "按 *R* 進入遊戲 \r\n(Press *R* Enter Game)" : "";
+        txtEnterGameHint.text = r_bEnable ? "按 *R* 開始摺紙 \r\n(Press *R* Origami Lotus Paper)" : "";
     }
 
     public void ButtonFunction(ButtonEventID _eventID)
@@ -782,34 +632,32 @@ public partial class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (m_bInUIView)    // 關閉 UI 畫面
+            // 關閉 UI 畫面
+            if (m_bInUIView)
             {
-                //PhotoFrameUI.SetActive(false);
-                if (!isMoveingObject)    // 關閉旋轉
-                {
-                    GameEvent(GameEventID.Close_UI);
-                }
-                else
-                {
-                    GameEvent(GameEventID.Close_UI);
+                GameEvent(GameEventID.Close_UI);
 
+                if (isMoveingObject)
+                {
                     //關閉旋轉
                     romanager = false;
 
-
-                    if (!romanager) //如果旋轉關閉
+                    if (!romanager)
                     {
                         print(RO_OBJ[saveRotaObj].transform.GetChild(0).name);
+
                         //恢復物件位置
                         RO_OBJ[saveRotaObj].transform.DOMove(originalPosition, 2);
+
                         //恢復物件角度
                         RO_OBJ[saveRotaObj].transform.DORotate(originalRotation.eulerAngles, 2);
                         isMoveingObject = false;
                     }
                 }
             }
-            else    // 顯示遊戲狀態
+            else
             {
+                // 顯示遊戲狀態
                 SetGameState();
             }
         }
@@ -913,12 +761,19 @@ public partial class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    IEnumerator DelayedAction() // 延遲動作
+    void SetCrosshairEnable(bool bEnable)
+    {
+        CrosshairUI.SetActive(bEnable);
+    }
+
+    // 延遲動作
+    IEnumerator DelayedAction()
     {
         yield return new WaitForSeconds(2.5f);
     }
 
-    IEnumerator DelayLodelobby()    // 延遲載入大廳場景   
+    // 延遲載入大廳場景
+    IEnumerator DelayLodelobby()
     {
         audManager.Play(1, "Opening_Scene", false);
         FinalUI.SetActive(true);

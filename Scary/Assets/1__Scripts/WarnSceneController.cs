@@ -46,8 +46,16 @@ public class WarnSceneController : MonoBehaviour
     {
         bIsShowWarning = false;
         bIsGameIntroducing = true;
-        HintText.text = "按下 *Enter* 繼續";
+        HintText.enabled = false;
         WariningPanel.SetActive(false);
         IntroducingPanel.SetActive(true);
+
+        Invoke(nameof(DelayShowHint), 4.5f);
+    }
+
+    void DelayShowHint()
+    {
+        HintText.text = "按下 *Enter* 繼續";
+        HintText.enabled = true;
     }
 }
