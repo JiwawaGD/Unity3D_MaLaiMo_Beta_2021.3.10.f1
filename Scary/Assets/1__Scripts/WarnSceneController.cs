@@ -30,10 +30,10 @@ public class WarnSceneController : MonoBehaviour
 
     void Update()
     {
-        if (!bIsShowWarning && bIsGameIntroducing && Input.GetKeyDown(KeyCode.Return))
+        if (!bIsShowWarning && bIsGameIntroducing && Input.GetKeyDown(KeyCode.Space))
             LoadScene(iNextSceneID);
 
-        if (bIsShowWarning && Input.GetKeyDown(KeyCode.P))
+        if (bIsShowWarning && Input.GetKeyDown(KeyCode.Space))
             ShowIntroducePanel();
     }
 
