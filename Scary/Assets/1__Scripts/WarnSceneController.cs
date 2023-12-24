@@ -55,7 +55,7 @@ public class WarnSceneController : MonoBehaviour
 
     void DelayShowHint()
     {
-        HintText.text = "按下 *Enter* 繼續";
+        HintText.text = "按下 空白建 繼續";
         HintText.enabled = true;
     }
 }

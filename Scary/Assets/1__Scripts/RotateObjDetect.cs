@@ -28,7 +28,7 @@ public class RotateObjDetect : MonoBehaviour
         {
             // 使用滑鼠移動來旋轉物件
             Vector3 mouseDelta = Input.mousePosition - lastMousePosition;
-            transform.Rotate(Vector3.up, mouseDelta.x);
+            transform.Rotate(Vector3.up, -mouseDelta.x);
             transform.Rotate(Vector3.right, -mouseDelta.y);
             lastMousePosition = Input.mousePosition;
         }
