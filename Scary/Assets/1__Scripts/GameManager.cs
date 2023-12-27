@@ -74,8 +74,6 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] Text txtEnterGameHint;
     [SerializeField] UnityEngine.UI.Button EnterGameBtn;
 
-    [SerializeField] [Header("QRCode UI")] GameObject QRCodeUI;
-    [SerializeField] [Header("準心 UI")] GameObject CrosshairUI;
     #endregion
 
     #region Light Zone
