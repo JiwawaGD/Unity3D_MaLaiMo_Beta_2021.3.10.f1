@@ -50,12 +50,12 @@ public class WarnSceneController : MonoBehaviour
         WariningPanel.SetActive(false);
         IntroducingPanel.SetActive(true);
 
-        Invoke(nameof(DelayShowHint), 7.5f);
+        Invoke(nameof(DelayShowHint), 6.5f);
     }
 
     void DelayShowHint()
     {
-        HintText.text = "按下 空白建 繼續";
+        HintText.text = "按下 *空白鍵* 繼續";
         HintText.enabled = true;
     }
 }

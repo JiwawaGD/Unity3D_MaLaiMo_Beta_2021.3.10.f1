@@ -49,9 +49,6 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("Video 撥放器")] VideoPlayer videoPlayer;
     [SerializeField] [Header("Video - 阿嬤看螢幕")] VideoClip GrandmaVP;
 
-    [SerializeField] [Header("QRCode UI")] GameObject QRCodeUI;
-    [SerializeField] [Header("準心 UI")] GameObject CrosshairUI;
-
     int m_iGrandmaRushCount;
     Scene currentScene;
 
@@ -69,6 +66,9 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] UnityEngine.UI.Button ExitBtn;
     [SerializeField] Text txtEnterGameHint;
     [SerializeField] UnityEngine.UI.Button EnterGameBtn;
+
+    [SerializeField] [Header("QRCode UI")] GameObject QRCodeUI;
+    [SerializeField] [Header("準心 UI")] GameObject CrosshairUI;
     #endregion
 
     #region Light Zone
@@ -109,6 +109,7 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("S1_奶奶房間抽屜")] GameObject S1_Desk_Drawer_Obj;
     [SerializeField] [Header("S1_還沒摺的蓮花紙")] GameObject S1_Lotus_Paper_Obj;
     [SerializeField] [Header("S1_蓮花紙旁的蠟燭")] GameObject S1_Lotus_Candle_Obj;
+    [SerializeField] [Header("S1_腳尾飯後的阿嬤 Jump Scare 觸發器")] GameObject S1_Grandma_JumpScare_Trigger_Obj;
 
     [Header("場景二物件")]
     [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
@@ -118,6 +119,8 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
     [SerializeField] [Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj_floor;
     [SerializeField] [Header("S2_阿嬤哭聲撥放器")] GameObject S2_Grandma_Cry_Audio_Obj;
+    [SerializeField] [Header("S2_走廊門框")] GameObject S2_Corridor_Door_Frame_Obj;
+    [SerializeField] [Header("S2_取代走廊門框的牆壁")] GameObject S2_Wall_Replace_Door_Frame_Obj;
     #endregion
 
     #region - Empty Field => For Memory -

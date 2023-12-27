@@ -180,6 +180,7 @@ public partial class GameManager : MonoBehaviour
     {
         Debug.Log("場景1 ==> 桌上的腳尾飯 (S1_Rice_Funeral)");
 
+        S1_Grandma_JumpScare_Trigger_Obj.SetActive(true);
         audManager.Play(1, "get_Item_Sound", false);
         ShowHint(HintItemID.S1_Filial_Piety_Curtain);
         flowchartObjects[11].gameObject.SetActive(true);
@@ -333,8 +334,9 @@ public partial class GameManager : MonoBehaviour
         audManager.Play(1, "Crying_in_the_bathroom", false);
         ProcessPlayerAnimator("Player_S2_Shocked_By_Toilet_Ghost");
         S2_Furniture_State_1_Obj.SetActive(false);
+        S2_Corridor_Door_Frame_Obj.SetActive(false);
         S2_Furniture_State_2_Obj.SetActive(true);
-        S2_Photo_Frame_Obj_floor.SetActive(true);
+        S2_Wall_Replace_Door_Frame_Obj.SetActive(true);
         ShowHint(HintItemID.S2_Rice_Funeral);
         Invoke(nameof(IvkS2_Shocked_By_Toilet), 9.5f);
     }
