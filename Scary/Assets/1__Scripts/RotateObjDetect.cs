@@ -28,11 +28,11 @@ public class RotateObjDetect : MonoBehaviour
             }
             if(Vector3.Dot(transform.right, Vector3.right) > 0)
             {
-                transform.RotateAround(transform.position, transform.right, rotY);
+                transform.RotateAround(transform.position, transform.right, -rotY);
             }
             else
             {
-                transform.RotateAround(transform.position, transform.right, -rotY);
+                transform.RotateAround(transform.position, transform.right, rotY);
             }
         }
     }
