@@ -616,6 +616,7 @@ public partial class GameManager : MonoBehaviour
         TempItem = GameObject.Find("Toilet_Door_Ghost").GetComponent<ItemController>();
         TempItem.bAlwaysActive = false;
         TempItem.eventID = GameEventID.S1_Toilet_Door_Open;
+        flowchartObjects[7].gameObject.SetActive(true);
     }
 
     void KeyboardCheck()    // 鍵盤檢查

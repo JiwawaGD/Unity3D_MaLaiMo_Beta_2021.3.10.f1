@@ -253,7 +253,7 @@ public partial class GameManager : MonoBehaviour
 
         audManager.Play(1, "the_door_is_locked_and_cannot_be_opened_with_sound_effects", false);
         bS2_TriggerGrandmaDoorLock = true;
-        flowchartObjects[12].gameObject.SetActive(true);
+        flowchartObjects[9].gameObject.SetActive(true);
 
         ShowHint(HintItemID.S2_FlashLight);
     }
@@ -262,8 +262,8 @@ public partial class GameManager : MonoBehaviour
     {
         Debug.Log("場景2 ==> 手電筒 (S2_FlashLight)");
 
-        flowchartObjects[14].gameObject.SetActive(true);
         audManager.Play(1, "light_Switch_Sound", false);
+        flowchartObjects[14].gameObject.SetActive(true);
         GameObject S2_FlashLightObj = GameObject.Find("S2_FlashLight");
         Destroy(S2_FlashLightObj);
         ShowHint(HintItemID.S2_Side_Table);
