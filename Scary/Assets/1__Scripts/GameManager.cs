@@ -15,6 +15,7 @@ public partial class GameManager : MonoBehaviour
     public static GameManager instance;
     public ProgressProcessing progressProcessing;
     [Space]
+    [SerializeField] Volume CameraVolume;
     [Header("Volume參數設定")]
     [SerializeField]
     float targetIntensity = 1f,
@@ -427,6 +428,7 @@ public partial class GameManager : MonoBehaviour
         if (RO_OBJ[saveRotaObj] == null)
             return;
 
+        CameraVolume.enabled = true;
         isMoveingObject = true;  // 正在移動物件
         saveRotaObj = iIndex;   // 儲存物件  
         originalPosition = RO_OBJ[saveRotaObj].transform.position;  // 儲存物件位置
@@ -652,6 +654,7 @@ public partial class GameManager : MonoBehaviour
     }
     void RestoreItemLocation()
     {
+        CameraVolume.enabled = false;
         romanager = RO_OBJ[saveRotaObj].GetComponent<RotateObjDetect>().enabled = false;
         print(RO_OBJ[saveRotaObj].transform.name);
 
