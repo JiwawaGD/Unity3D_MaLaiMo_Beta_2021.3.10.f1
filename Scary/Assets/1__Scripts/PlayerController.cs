@@ -5,11 +5,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // public GameObject audManagerPrefab;
+    public static float MouseSensitivity = 1.0f;
     public Transform ro_tfItemObj;  // 旋轉物件
 
     private Vector3 originalCameraPosition; // 原始攝影機位置
 
-    [SerializeField] [Header("Item 的圖層")] LayerMask ItemLayer;
+    [SerializeField][Header("Item 的圖層")] LayerMask ItemLayer;
 
     public AudioSource audioSource;    // 音效來源
     public AudioClip walkingSound;    // 走路音效
@@ -55,7 +56,7 @@ public class PlayerController : MonoBehaviour
     {
         // audioSource = GetComponent<AudioSource>();
         // GameObject audManagerObject = Instantiate(audManagerPrefab, transform);
-            // audManagerObject.name = "AUDManager"; // 可以設置生成物件的名稱
+        // audManagerObject.name = "AUDManager"; // 可以設置生成物件的名稱
         rig = GetComponent<Rigidbody>();
         ani = GetComponent<Animation>();
         tfTransform = transform;
@@ -65,7 +66,6 @@ public class PlayerController : MonoBehaviour
 
         if (gameManager == null)
             gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        
     }
 
     void Start()
@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        RayHitCheck();  
+        RayHitCheck();
 
         if (!GameManager.m_bInUIView)   // 不在 UI 畫面時才可控制
         {
@@ -97,7 +97,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void FixedUpdate()  
+    public void SetMouseSensitivity(float sensitivity)
+    {
+        MouseSensitivity = sensitivity;
+        // 在這裡處理滑鼠靈敏度的邏輯
+        // 例如，更新相應的變數，調整滑鼠靈敏度
+    }
+    void FixedUpdate()
     {
         if (m_bCursorShow)  // 滑鼠顯示時不可控制
             return;
@@ -185,18 +191,18 @@ public class PlayerController : MonoBehaviour
         // 左右轉 (只轉 *角色* )
         if (m_bLimitRotation)
         {
-            m_fHorizantalRotationValue += Input.GetAxis("Mouse X") * m_fRLSensitivity * fSensitivityAmplifier * Time.deltaTime;
+            m_fHorizantalRotationValue += Input.GetAxis("Mouse X") * m_fRLSensitivity * fSensitivityAmplifier * MouseSensitivity * Time.deltaTime;
             m_fHorizantalRotationValue = Mathf.Clamp(m_fHorizantalRotationValue, m_fHorizantalRotationRange.x, m_fHorizantalRotationRange.y);
 
             tfTransform.localEulerAngles = Vector3.up * m_fHorizantalRotationValue;
         }
         else
         {
-            tfTransform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * m_fRLSensitivity * fSensitivityAmplifier * Time.deltaTime);
+            tfTransform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * m_fRLSensitivity * fSensitivityAmplifier * MouseSensitivity * Time.deltaTime);
         }
 
         // 上下轉 (只轉 *攝影機* )
-        m_fVerticalRotationValue += Input.GetAxis("Mouse Y") * m_fUDSensitivity * fSensitivityAmplifier * Time.deltaTime;
+        m_fVerticalRotationValue += Input.GetAxis("Mouse Y") * m_fUDSensitivity * fSensitivityAmplifier * MouseSensitivity * Time.deltaTime;
         m_fVerticalRotationValue = Mathf.Clamp(m_fVerticalRotationValue, -75, 75);
 
         tfPlayerCamera.localEulerAngles = -Vector3.right * m_fVerticalRotationValue;

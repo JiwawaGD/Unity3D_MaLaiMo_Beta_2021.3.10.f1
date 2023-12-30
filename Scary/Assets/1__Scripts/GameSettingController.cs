@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameSettingController : MonoBehaviour
@@ -22,11 +23,16 @@ public class GameSettingController : MonoBehaviour
     [SerializeField] [Header("音效 - Slider")] Slider SoundEffectSlider;
     [SerializeField] [Header("靈敏度 - Slider")] Slider SensitivitySlider;
     [SerializeField] [Header("畫質 - Dropdown")] Dropdown QualityDropDown;
+    [SerializeField] [Header("準心 - Toggle")] Toggle CrosshairToggle;
 
+    [SerializeField] [Header("GameManager")] GameManager GameCtrlr;
     [SerializeField] [Header("PlayerCtrlr")] PlayerController PlayerCtrlr;
     [SerializeField] [Header("FunctionMenuCtrlr")] FunctionMenuCtrlr MenuCtrlr;
 
     [SerializeField] [Header("AUDManager")] AUDManager AUDManager;
+
+    Scene currentScene;
+    bool bInGrandmaScene;
 
     float fMusic;
     float fSoundEffect;
@@ -35,6 +41,12 @@ public class GameSettingController : MonoBehaviour
 
     void Start()
     {
+        currentScene = SceneManager.GetActiveScene();
+        bInGrandmaScene = currentScene.name == "2 Grandma House";
+
+        if (bInGrandmaScene)
+            GameCtrlr = GameObject.Find("===== OTHER =====/GameManager").GetComponent<GameManager>();
+
         SaveBtn.onClick.AddListener(SettingSave);
         ReturnBtn.onClick.AddListener(SettingReturn);
         VisableMarkBtn.onClick.AddListener(() => { ShowSelectPage(0); });
@@ -74,19 +86,19 @@ public class GameSettingController : MonoBehaviour
         GlobalDeclare.fSoundEffect = fSoundEffect;
         GlobalDeclare.fSensitivity = fSensitivity;
         GlobalDeclare.fQuality = fQuality;
+        GlobalDeclare.bCrossHairEnable = CrosshairToggle.isOn;
 
         GameObject SettingView = gameObject.transform.GetChild(1).gameObject;
         SettingView.SetActive(false);
 
         if (MenuCtrlr != null)
-        {
             MenuCtrlr.ShowAllBtn();
-        }
 
         if (PlayerCtrlr != null)
-        {
             PlayerCtrlr.fSensitivityAmplifier = fSensitivity;
-        }
+
+        if (GameCtrlr != null)
+            GameCtrlr.SetGameSetting();
 
         AUDManager.LoadVolume();
     }
