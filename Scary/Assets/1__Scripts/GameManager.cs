@@ -31,7 +31,7 @@ public partial class GameManager : MonoBehaviour
     // 音效管理器
     [Header("遊戲結束畫面UI")] public GameObject FinalUI;
 
-    [SerializeField][Header("欲製物 - Schedule")] Text prefabs_Schedule;
+    [SerializeField] [Header("欲製物 - Schedule")] Text prefabs_Schedule;
 
     [Header("物件移動速度")] public float objSpeed;
     [Header("旋轉物件collider")] public Collider Ro_Cololider;
@@ -47,15 +47,15 @@ public partial class GameManager : MonoBehaviour
     // [Header("模糊背景UI")] public GameObject BlurUI;
 
     [Header("玩家")] public PlayerController playerCtrlr;
-    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
-    [SerializeField][Header("設定頁面")] public GameObject settingObjects;
-    [SerializeField][Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj;
+    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
+    [SerializeField] [Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj;
 
-    [SerializeField][Header("Video 撥放器")] VideoPlayer videoPlayer;
-    [SerializeField][Header("Video - 阿嬤看螢幕")] VideoClip GrandmaVP;
+    [SerializeField] [Header("Video 撥放器")] VideoPlayer videoPlayer;
+    [SerializeField] [Header("Video - 阿嬤看螢幕")] VideoClip GrandmaVP;
 
-    [SerializeField][Header("QRCode UI")] GameObject QRCodeUI;
-    [SerializeField][Header("準心 UI")] GameObject CrosshairUI;
+    [SerializeField] [Header("QRCode UI")] GameObject QRCodeUI;
+    [SerializeField] [Header("準心 UI")] GameObject CrosshairUI;
 
     int m_iGrandmaRushCount;
     Scene currentScene;
@@ -88,7 +88,6 @@ public partial class GameManager : MonoBehaviour
     public static bool m_bShowItemAnimate = false;
     public static bool m_bShowDialog = false;
     public static bool m_bSetPlayerViewLimit = false;
-    public static bool m_bPhotoFrameLightOn = false;
     public static bool m_bGrandmaRush = false;
     public static bool m_bReturnToBegin = false;
     public static bool m_bPlayLotusEnable = false;
@@ -108,22 +107,24 @@ public partial class GameManager : MonoBehaviour
 
     #region - All Scene Items -
     [Header("場景一物件")]
-    [SerializeField][Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
-    [SerializeField][Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
-    [SerializeField][Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
-    [SerializeField][Header("S1_奶奶房間抽屜")] GameObject S1_Desk_Drawer_Obj;
-    [SerializeField][Header("S1_還沒摺的蓮花紙")] GameObject S1_Lotus_Paper_Obj;
-    [SerializeField][Header("S1_蓮花紙旁的蠟燭")] GameObject S1_Lotus_Candle_Obj;
+    [SerializeField] [Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
+    [SerializeField] [Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
+    [SerializeField] [Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
+    [SerializeField] [Header("S1_奶奶房間抽屜")] GameObject S1_Desk_Drawer_Obj;
+    [SerializeField] [Header("S1_還沒摺的蓮花紙")] GameObject S1_Lotus_Paper_Obj;
+    [SerializeField] [Header("S1_蓮花紙旁的蠟燭")] GameObject S1_Lotus_Candle_Obj;
+    [SerializeField] [Header("S1_摺好的紙蓮花")] GameObject S1_Finished_Lotus_Paper_Obj;
+    [SerializeField] [Header("S1_放紙蓮花的盤子")] GameObject S1_Lotus_Paper_Plate_Obj;
     [SerializeField] [Header("S1_腳尾飯後的阿嬤 Jump Scare 觸發器")] GameObject S1_Grandma_JumpScare_Trigger_Obj;
 
     [Header("場景二物件")]
-    [SerializeField][Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
-    [SerializeField][Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
-    [SerializeField][Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
-    [SerializeField][Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
-    [SerializeField][Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
-    [SerializeField][Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj_floor;
-    [SerializeField][Header("S2_阿嬤哭聲撥放器")] GameObject S2_Grandma_Cry_Audio_Obj;
+    [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
+    [SerializeField] [Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
+    [SerializeField] [Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
+    [SerializeField] [Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
+    [SerializeField] [Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
+    [SerializeField] [Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj_floor;
+    [SerializeField] [Header("S2_阿嬤哭聲撥放器")] GameObject S2_Grandma_Cry_Audio_Obj;
     [SerializeField] [Header("S2_走廊門框")] GameObject S2_Corridor_Door_Frame_Obj;
     [SerializeField] [Header("S2_取代走廊門框的牆壁")] GameObject S2_Wall_Replace_Door_Frame_Obj;
     #endregion
@@ -143,6 +144,7 @@ public partial class GameManager : MonoBehaviour
     {
         if (playerCtrlr == null)
             playerCtrlr = GameObject.Find("Player").GetComponent<PlayerController>();
+
         audManager = playerCtrlr.GetComponentInChildren<AUDManager>();
 
         if (goCanvas == null)
@@ -243,6 +245,12 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Lotus_Paper:
                 S1_LotusPaper();
+                break;
+            case GameEventID.S1_Finished_Lotus_Paper:
+                S1_FinishedLotusPaper();
+                break;
+            case GameEventID.S1_Lotus_Paper_Plate:
+                S1_LotusPaperPlate();
                 break;
             case GameEventID.S1_Grandma_Dead_Body:
                 S1_GrandmaDeadBody();
@@ -364,7 +372,13 @@ public partial class GameManager : MonoBehaviour
                 TempItem = GameObject.Find("Rice_Funeral").GetComponent<ItemController>();
                 break;
             case HintItemID.S1_Lotus_Paper:
-                TempItem = GameObject.Find("Lotus_Paper").GetComponent<ItemController>();
+                TempItem = S1_Lotus_Paper_Obj.GetComponent<ItemController>();
+                break;
+            case HintItemID.S1_Finished_Lotus_Paper:
+                TempItem = S1_Finished_Lotus_Paper_Obj.GetComponent<ItemController>();
+                break;
+            case HintItemID.S1_Lotus_Paper_Plate:
+                TempItem = S1_Lotus_Paper_Plate_Obj.GetComponent<ItemController>();
                 break;
             case HintItemID.S1_Grandma_Room_Door_Lock:
                 TempItem = GameObject.Find("Grandma_Room_Door").GetComponent<ItemController>();
@@ -601,31 +615,24 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-    public void ExitLotusGame() // 離開蓮花遊戲
+    // 離開蓮花遊戲
+    public void ExitLotusGame()
     {
         m_bPlayLotusEnable = false;
         playerCtrlr.m_bCanControl = true;
         playerCtrlr.tfPlayerCamera.gameObject.SetActive(true);
         SceneManager.UnloadSceneAsync(3);
 
-        UnityEngine.Object Lotus_state_Final = Resources.Load<GameObject>("Prefabs/Lotus_state_Final");
-        GameObject LotusObj = Instantiate(Lotus_state_Final) as GameObject;
-        LotusObj.transform.position = new Vector3(-5.2f, 0.6f, -2.4f);
+        S1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-5.1f, -2f, -2f);
+        S1_Finished_Lotus_Paper_Obj.transform.localPosition = new Vector3(-5.1f, 0.6f, -2f);
 
-        GameObject LotusDestory = GameObject.Find("Lotus_Paper");
-        LotusDestory.transform.position = new Vector3(-5f, -2f, -2f);
-
-        m_bPhotoFrameLightOn = true;
+        ShowHint(HintItemID.S1_Finished_Lotus_Paper);
 
         flowchartObjects[5].gameObject.SetActive(true);
-
-        TempItem = GameObject.Find("Toilet_Door_Ghost").GetComponent<ItemController>();
-        TempItem.bAlwaysActive = false;
-        TempItem.eventID = GameEventID.S1_Toilet_Door_Open;
-        flowchartObjects[7].gameObject.SetActive(true);
     }
 
-    void KeyboardCheck()    // 鍵盤檢查
+    // 鍵盤檢查
+    void KeyboardCheck()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -652,6 +659,7 @@ public partial class GameManager : MonoBehaviour
             }
         }
     }
+
     void RestoreItemLocation()
     {
         CameraVolume.enabled = false;

@@ -55,6 +55,34 @@ public partial class GameManager : MonoBehaviour
         audManager.Play(1, "get_Item_Sound", false);
     }
 
+    void S1_FinishedLotusPaper()
+    {
+        Debug.Log("場景1 ==> 拿起摺好的蓮花 (S1_Finished_Lotus_Paper)");
+
+        S1_Finished_Lotus_Paper_Obj.GetComponent<BoxCollider>().enabled = false;
+        S1_Finished_Lotus_Paper_Obj.transform.parent = playerCtrlr.transform;
+        S1_Finished_Lotus_Paper_Obj.transform.localPosition = new Vector3(0, 0.05f, 0.6f);
+        S1_Finished_Lotus_Paper_Obj.transform.localRotation = new Quaternion(0, 0, 0, 0);
+
+        ShowHint(HintItemID.S1_Lotus_Paper_Plate);
+    }
+
+    void S1_LotusPaperPlate()
+    {
+        Debug.Log("場景1 ==> 放紙蓮花到盤子上 (S1_Lotus_Paper_Plate)");
+
+        S1_Finished_Lotus_Paper_Obj.transform.parent = S1_Lotus_Paper_Plate_Obj.transform;
+        S1_Finished_Lotus_Paper_Obj.transform.localPosition = new Vector3(0, 0.05f, 0);
+        S1_Finished_Lotus_Paper_Obj.transform.localRotation = new Quaternion(0, 0, 0, 0);
+        S1_Finished_Lotus_Paper_Obj.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+
+        TempItem = GameObject.Find("Toilet_Door_Ghost").GetComponent<ItemController>();
+        TempItem.bAlwaysActive = false;
+        TempItem.eventID = GameEventID.S1_Toilet_Door_Open;
+
+        flowchartObjects[7].gameObject.SetActive(true);
+    }
+
     void S1_GrandmaDeadBody()
     {
         Debug.Log("場景1 ==> 跟孝濂內的奶奶互動 (S1_Grandma_Dead_Body)");
@@ -90,7 +118,6 @@ public partial class GameManager : MonoBehaviour
 
         audManager.Play(1, "flashlight_Switch_Sound", false);
         goPhotoFrameLight.SetActive(true);
-        m_bPhotoFrameLightOn = false;
     }
 
     void S1_GrandmaRush()
