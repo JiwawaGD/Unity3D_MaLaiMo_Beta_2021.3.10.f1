@@ -76,8 +76,6 @@ public partial class GameManager : MonoBehaviour
         S1_Finished_Lotus_Paper_Obj.transform.localRotation = new Quaternion(0, 0, 0, 0);
         S1_Finished_Lotus_Paper_Obj.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
 
-        flowchartObjects[5].gameObject.SetActive(true);
-
         TempItem = GameObject.Find("Toilet_Door_Ghost").GetComponent<ItemController>();
         TempItem.bAlwaysActive = false;
         TempItem.eventID = GameEventID.S1_Toilet_Door_Open;
