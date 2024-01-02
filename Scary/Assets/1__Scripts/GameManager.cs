@@ -115,7 +115,6 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("S1_蓮花紙旁的蠟燭")] GameObject S1_Lotus_Candle_Obj;
     [SerializeField] [Header("S1_摺好的紙蓮花")] GameObject S1_Finished_Lotus_Paper_Obj;
     [SerializeField] [Header("S1_放紙蓮花的盤子")] GameObject S1_Lotus_Paper_Plate_Obj;
-    [SerializeField] [Header("S1_腳尾飯後的阿嬤 Jump Scare 觸發器")] GameObject S1_Grandma_JumpScare_Trigger_Obj;
 
     [Header("場景二物件")]
     [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
@@ -234,38 +233,11 @@ public partial class GameManager : MonoBehaviour
 
                 GameStateCheck();
                 break;
-            case GameEventID.S1_Photo_Frame:
-                S1_PhotoFrameEvent();
-                break;
-            case GameEventID.S1_Photo_Frame_Has_Broken:
-                S1_PhotoFrameHasBroken();
-                break;
-            case GameEventID.S1_Grandma_Door_Open:
-                S1_GrandmaDoorOpen();
-                break;
-            case GameEventID.S1_Lotus_Paper:
-                S1_LotusPaper();
-                break;
-            case GameEventID.S1_Finished_Lotus_Paper:
-                S1_FinishedLotusPaper();
-                break;
-            case GameEventID.S1_Lotus_Paper_Plate:
-                S1_LotusPaperPlate();
-                break;
-            case GameEventID.S1_Grandma_Dead_Body:
-                S1_GrandmaDeadBody();
-                break;
-            case GameEventID.S1_White_Tent:
-                S1_WhiteTent();
-                break;
-            case GameEventID.S1_Photo_Frame_Light_On:
-                S1_PhotoFrameLightOn();
-                break;
-            case GameEventID.S1_Grandma_Rush:
-                S1_GrandmaRush();
-                break;
             case GameEventID.S1_Light_Switch:
                 S1_LightSwitch();
+                break;
+            case GameEventID.S1_Grandma_Room_Door_Lock:
+                S1_GrandmaRoomDoorLock();
                 break;
             case GameEventID.S1_Flashlight:
                 S1_Flashlight();
@@ -276,14 +248,44 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_GrandmaRoomKey:
                 S1_GrandmaRoomKey();
                 break;
-            case GameEventID.S1_Grandma_Room_Door_Lock:
-                S1_GrandmaRoomDoorLock();
+            case GameEventID.S1_Grandma_Door_Open:
+                S1_GrandmaDoorOpen();
+                break;
+            case GameEventID.S1_Rice_Funeral:
+                S1_RiceFuneral();
+                break;
+            case GameEventID.S1_Grandma_Pass_Door_After_RiceFurnel:
+                S1_GrandmaPassDoorAfterRiceFurnel();
+                break;
+            case GameEventID.S1_White_Tent:
+                S1_WhiteTent();
+                break;
+            case GameEventID.S1_Grandma_Dead_Body:
+                S1_GrandmaDeadBody();
                 break;
             case GameEventID.S1_Rice_Funeral_Spilled:
                 S1_RiceFuneralSpilled();
                 break;
-            case GameEventID.S1_Rice_Funeral:
-                S1_RiceFuneral();
+            case GameEventID.S1_Photo_Frame:
+                S1_PhotoFrameEvent();
+                break;
+            case GameEventID.S1_Photo_Frame_Has_Broken:
+                S1_PhotoFrameHasBroken();
+                break;
+            case GameEventID.S1_Lotus_Paper:
+                S1_LotusPaper();
+                break;
+            case GameEventID.S1_Finished_Lotus_Paper:
+                S1_FinishedLotusPaper();
+                break;
+            case GameEventID.S1_Lotus_Paper_Plate:
+                S1_LotusPaperPlate();
+                break;
+            case GameEventID.S1_Photo_Frame_Light_On:
+                S1_PhotoFrameLightOn();
+                break;
+            case GameEventID.S1_Grandma_Rush:
+                S1_GrandmaRush();
                 break;
             case GameEventID.S1_Toilet_Door_Lock:
                 S1_ToiletDoorLock();

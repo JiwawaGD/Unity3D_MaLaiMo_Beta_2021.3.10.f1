@@ -142,6 +142,12 @@ public class PlayerController : MonoBehaviour
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("GameEventTrigger"))
         {
+            if (col.gameObject.name == "S1_Grandma_Pass_Door_Trigger")
+            {
+                gameManager.SendMessage("GameEvent", GameEventID.S1_Grandma_Pass_Door_After_RiceFurnel);
+                Destroy(col.gameObject);
+            }
+
             if (GameManager.m_bToiletGhostHasShow &&
                 col.gameObject.name == "Toilet_Ghost_Hide")
             {
