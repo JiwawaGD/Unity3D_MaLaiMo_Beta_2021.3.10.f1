@@ -292,8 +292,8 @@ public class LotusGameManager : MonoBehaviour
         {
             if (bLotusState[index])
             {
-                LotusPaperObj[index - 1].transform.position = new Vector3(0, 0, 1);
-                LotusPaperObj[index].transform.position = Vector3.zero;
+                LotusPaperObj[index - 1].transform.position = new Vector3(0, 0, 0);
+                LotusPaperObj[index].transform.position = new Vector3(1, 0, 0);
             }
         }
 

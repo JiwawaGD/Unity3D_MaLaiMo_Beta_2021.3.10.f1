@@ -138,39 +138,39 @@ public class PlayerController : MonoBehaviour
         View();
     }
 
-    void OnTriggerEnter(Collider col)   // 碰撞偵測
+    void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("GameEventTrigger"))
         {
             if (col.gameObject.name == "S1_Grandma_Pass_Door_Trigger")
             {
                 gameManager.SendMessage("GameEvent", GameEventID.S1_Grandma_Pass_Door_After_RiceFurnel);
-                Destroy(col.gameObject);
+                col.transform.localPosition -= new Vector3(0f, 10f, 0f);
             }
 
             if (GameManager.m_bToiletGhostHasShow &&
                 col.gameObject.name == "Toilet_Ghost_Hide")
             {
                 gameManager.SendMessage("GameEvent", GameEventID.S1_Toilet_Ghost_Hide);
-                Destroy(col.gameObject);
+                col.transform.localPosition -= new Vector3(0f, 10f, 0f);
             }
 
             if (col.gameObject.name == "S2_Door_Knock_Trigger")
             {
                 gameManager.SendMessage("GameEvent", GameEventID.S2_Door_Knock_Stop);
-                Destroy(col.gameObject);
+                col.transform.localPosition -= new Vector3(0f, 10f, 0f);
             }
 
             if (col.gameObject.name == "S2_Door_Close_Trigger")
             {
                 gameManager.SendMessage("GameEvent", GameEventID.S2_Grandma_Door_Close);
-                Destroy(col.gameObject);
+                col.transform.localPosition -= new Vector3(0f, 10f, 0f);
             }
 
             if (col.gameObject.name == "S2_Ghost_Pass_Door_Trigger")
             {
                 gameManager.SendMessage("GameEvent", GameEventID.S2_Ghost_Pass_Door);
-                Destroy(col.gameObject);
+                col.transform.localPosition -= new Vector3(0f, 10f, 0f);
             }
         }
     }

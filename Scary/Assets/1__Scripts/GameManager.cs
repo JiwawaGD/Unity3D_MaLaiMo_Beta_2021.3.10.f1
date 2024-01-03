@@ -595,7 +595,7 @@ public partial class GameManager : MonoBehaviour
                     RestoreItemLocation();
                     GameEvent(GameEventID.Close_UI);
                     playerCtrlr.m_bCanControl = false;
-                    playerCtrlr.tfPlayerCamera.gameObject.SetActive(false);
+                    playerCtrlr.tfPlayerCamera.GetComponent<AudioListener>().enabled = false;
                     SceneManager.LoadScene(3, LoadSceneMode.Additive);
                 }
                 break;
@@ -622,6 +622,7 @@ public partial class GameManager : MonoBehaviour
     {
         m_bPlayLotusEnable = false;
         playerCtrlr.m_bCanControl = true;
+        playerCtrlr.tfPlayerCamera.GetComponent<AudioListener>().enabled = true;
         playerCtrlr.tfPlayerCamera.gameObject.SetActive(true);
         SceneManager.UnloadSceneAsync(3);
 

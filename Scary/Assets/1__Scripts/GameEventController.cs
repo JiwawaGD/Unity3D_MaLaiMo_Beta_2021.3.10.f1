@@ -223,6 +223,7 @@ public partial class GameManager : MonoBehaviour
         Debug.Log("場景1 ==> 鬼奶奶從門前衝過 (S1_GrandmaPassDoorAfterRiceFurnel)");
 
         S2_Grandma_Ghost_Obj.GetComponent<Animator>().SetTrigger("S1_Grandma_Pass_Door");
+        Invoke(nameof(IvkS1_SetGrandmaGhostPosition), 0.7f);
     }
 
     void S1_ToiletDoorLock()
