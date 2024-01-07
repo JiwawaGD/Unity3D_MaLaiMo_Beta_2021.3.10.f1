@@ -54,6 +54,7 @@ public partial class GameManager : MonoBehaviour
 
     public void IvkS1_SetGrandmaGhostPosition()
     {
+        S2_Grandma_Ghost_Obj.GetComponent<Animator>().applyRootMotion = true;
         S2_Grandma_Ghost_Obj.transform.localPosition = new Vector3(-8f, -2f, 2.35f);
     }
 

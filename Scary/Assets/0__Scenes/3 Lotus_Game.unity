@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 4
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -951,14 +951,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 8400000, guid: cbd8bcac8d15f924bbfc2a2e868d33df, type: 2}
+  m_Texture: {fileID: 8400000, guid: 141562a5dcfe94e48a824a85364048ee, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -1363,7 +1363,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 32768
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: cbd8bcac8d15f924bbfc2a2e868d33df, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 141562a5dcfe94e48a824a85364048ee, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
