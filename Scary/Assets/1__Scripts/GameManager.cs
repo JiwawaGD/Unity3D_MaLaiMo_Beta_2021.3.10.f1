@@ -44,7 +44,7 @@ public partial class GameManager : MonoBehaviour
     [Header("生成後物件")] public GameObject[] RO_OBJ;
     [Header("儲存生成物件")] public int saveRotaObj;
     [Header("攝影棚畫面UI")] public GameObject StudioUI;
-    // [Header("模糊背景UI")] public GameObject BlurUI;
+    [Header("旋轉物件使用燈關")] public Light Ro_Light;
 
     [Header("玩家")] public PlayerController playerCtrlr;
     [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
@@ -64,16 +64,16 @@ public partial class GameManager : MonoBehaviour
 
     #region Canvas Zone
     [SerializeField] GameObject goCanvas;
-    [SerializeField] UnityEngine.UI.Image imgUIBackGround;
+    [SerializeField] Image imgUIBackGround;
     [SerializeField] Text txtTitle;
 
-    [SerializeField] UnityEngine.UI.Image imgInstructions;
+    [SerializeField] Image imgInstructions;
     [SerializeField] Text txtInstructions;
     [SerializeField] Text txtIntroduce;
 
-    [SerializeField] UnityEngine.UI.Button ExitBtn;
+    [SerializeField] Button ExitBtn;
     [SerializeField] Text txtEnterGameHint;
-    [SerializeField] UnityEngine.UI.Button EnterGameBtn;
+    [SerializeField] Button EnterGameBtn;
 
     #endregion
 
@@ -149,20 +149,21 @@ public partial class GameManager : MonoBehaviour
         if (goCanvas == null)
             goCanvas = GameObject.Find("UI Canvas");
 
-        imgUIBackGround = goCanvas.transform.GetChild(0).GetComponent<UnityEngine.UI.Image>();  // 背景
+        imgUIBackGround = goCanvas.transform.GetChild(0).GetComponent<Image>();  // 背景
         txtTitle = goCanvas.transform.GetChild(2).GetComponent<Text>(); // 標題
 
-        imgInstructions = goCanvas.transform.GetChild(3).GetComponent<UnityEngine.UI.Image>();  // 說明圖示
+        imgInstructions = goCanvas.transform.GetChild(3).GetComponent<Image>();  // 說明圖示
         txtInstructions = goCanvas.transform.GetChild(3).GetComponentInChildren<Text>();    // 說明文字
         txtIntroduce = goCanvas.transform.GetChild(4).GetComponentInChildren<Text>();   // 介紹文字
 
-        ExitBtn = goCanvas.transform.GetChild(5).GetComponent<UnityEngine.UI.Button>(); // 返回按鈕
+        ExitBtn = goCanvas.transform.GetChild(5).GetComponent<Button>(); // 返回按鈕
 
         txtEnterGameHint = goCanvas.transform.GetChild(6).GetComponent<Text>(); // 進入遊戲提示
-        EnterGameBtn = goCanvas.transform.GetChild(7).GetComponent<UnityEngine.UI.Button>();    // 進入遊戲按鈕
+        EnterGameBtn = goCanvas.transform.GetChild(7).GetComponent<Button>();    // 進入遊戲按鈕
 
         TempItem = null;    // 暫存物件
         currentScene = SceneManager.GetActiveScene();   // 當前場景
+        Ro_Light.enabled = false;   // 旋轉物件使用燈關
         StudioUI.SetActive(false);  // 攝影棚畫面UI
     }
 
@@ -443,7 +444,7 @@ public partial class GameManager : MonoBehaviour
     {
         if (RO_OBJ[saveRotaObj] == null)
             return;
-
+        Ro_Light.enabled = true;
         CameraVolume.enabled = true;
         isMoveingObject = true;  // 正在移動物件
         saveRotaObj = iIndex;   // 儲存物件  
@@ -646,12 +647,13 @@ public partial class GameManager : MonoBehaviour
 
                 if (isMoveingObject)
                 {
-                    //關閉旋轉
+                    
                     romanager = false;
 
                     if (!romanager)
                     {
                         RestoreItemLocation();
+                        Ro_Light.enabled = false;
                     }
                 }
             }
