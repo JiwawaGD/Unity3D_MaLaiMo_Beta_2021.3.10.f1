@@ -31,7 +31,7 @@ public partial class GameManager : MonoBehaviour
     // 音效管理器
     [Header("遊戲結束畫面UI")] public GameObject FinalUI;
 
-    [SerializeField] [Header("欲製物 - Schedule")] Text prefabs_Schedule;
+    [SerializeField][Header("欲製物 - Schedule")] Text prefabs_Schedule;
 
     [Header("物件移動速度")] public float objSpeed;
     [Header("旋轉物件collider")] public Collider Ro_Cololider;
@@ -44,18 +44,18 @@ public partial class GameManager : MonoBehaviour
     [Header("生成後物件")] public GameObject[] RO_OBJ;
     [Header("儲存生成物件")] public int saveRotaObj;
     [Header("攝影棚畫面UI")] public GameObject StudioUI;
-    // [Header("模糊背景UI")] public GameObject BlurUI;
+    [Header("旋轉物件使用燈關")] public Light Ro_Light;
 
     [Header("玩家")] public PlayerController playerCtrlr;
-    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
-    [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
-    [SerializeField] [Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj;
+    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField][Header("設定頁面")] public GameObject settingObjects;
+    [SerializeField][Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj;
 
-    [SerializeField] [Header("Video 撥放器")] VideoPlayer videoPlayer;
-    [SerializeField] [Header("Video - 阿嬤看螢幕")] VideoClip GrandmaVP;
+    [SerializeField][Header("Video 撥放器")] VideoPlayer videoPlayer;
+    [SerializeField][Header("Video - 阿嬤看螢幕")] VideoClip GrandmaVP;
 
-    [SerializeField] [Header("QRCode UI")] GameObject QRCodeUI;
-    [SerializeField] [Header("準心 UI")] GameObject CrosshairUI;
+    [SerializeField][Header("QRCode UI")] GameObject QRCodeUI;
+    [SerializeField][Header("準心 UI")] GameObject CrosshairUI;
 
     int m_iGrandmaRushCount;
     Scene currentScene;
@@ -64,16 +64,16 @@ public partial class GameManager : MonoBehaviour
 
     #region Canvas Zone
     [SerializeField] GameObject goCanvas;
-    [SerializeField] UnityEngine.UI.Image imgUIBackGround;
+    [SerializeField] Image imgUIBackGround;
     [SerializeField] Text txtTitle;
 
-    [SerializeField] UnityEngine.UI.Image imgInstructions;
+    [SerializeField] Image imgInstructions;
     [SerializeField] Text txtInstructions;
     [SerializeField] Text txtIntroduce;
 
-    [SerializeField] UnityEngine.UI.Button ExitBtn;
+    [SerializeField] Button ExitBtn;
     [SerializeField] Text txtEnterGameHint;
-    [SerializeField] UnityEngine.UI.Button EnterGameBtn;
+    [SerializeField] Button EnterGameBtn;
 
     #endregion
 
@@ -107,26 +107,25 @@ public partial class GameManager : MonoBehaviour
 
     #region - All Scene Items -
     [Header("場景一物件")]
-    [SerializeField] [Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
-    [SerializeField] [Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
-    [SerializeField] [Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
-    [SerializeField] [Header("S1_奶奶房間抽屜")] GameObject S1_Desk_Drawer_Obj;
-    [SerializeField] [Header("S1_還沒摺的蓮花紙")] GameObject S1_Lotus_Paper_Obj;
-    [SerializeField] [Header("S1_蓮花紙旁的蠟燭")] GameObject S1_Lotus_Candle_Obj;
-    [SerializeField] [Header("S1_摺好的紙蓮花")] GameObject S1_Finished_Lotus_Paper_Obj;
-    [SerializeField] [Header("S1_放紙蓮花的盤子")] GameObject S1_Lotus_Paper_Plate_Obj;
-    [SerializeField] [Header("S1_腳尾飯後的阿嬤 Jump Scare 觸發器")] GameObject S1_Grandma_JumpScare_Trigger_Obj;
+    [SerializeField][Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
+    [SerializeField][Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
+    [SerializeField][Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
+    [SerializeField][Header("S1_奶奶房間抽屜")] GameObject S1_Desk_Drawer_Obj;
+    [SerializeField][Header("S1_還沒摺的蓮花紙")] GameObject S1_Lotus_Paper_Obj;
+    [SerializeField][Header("S1_蓮花紙旁的蠟燭")] GameObject S1_Lotus_Candle_Obj;
+    [SerializeField][Header("S1_摺好的紙蓮花")] GameObject S1_Finished_Lotus_Paper_Obj;
+    [SerializeField][Header("S1_放紙蓮花的盤子")] GameObject S1_Lotus_Paper_Plate_Obj;
 
     [Header("場景二物件")]
-    [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
-    [SerializeField] [Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
-    [SerializeField] [Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
-    [SerializeField] [Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
-    [SerializeField] [Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
-    [SerializeField] [Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj_floor;
-    [SerializeField] [Header("S2_阿嬤哭聲撥放器")] GameObject S2_Grandma_Cry_Audio_Obj;
-    [SerializeField] [Header("S2_走廊門框")] GameObject S2_Corridor_Door_Frame_Obj;
-    [SerializeField] [Header("S2_取代走廊門框的牆壁")] GameObject S2_Wall_Replace_Door_Frame_Obj;
+    [SerializeField][Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
+    [SerializeField][Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
+    [SerializeField][Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
+    [SerializeField][Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
+    [SerializeField][Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
+    [SerializeField][Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj_floor;
+    [SerializeField][Header("S2_阿嬤哭聲撥放器")] GameObject S2_Grandma_Cry_Audio_Obj;
+    [SerializeField][Header("S2_走廊門框")] GameObject S2_Corridor_Door_Frame_Obj;
+    [SerializeField][Header("S2_取代走廊門框的牆壁")] GameObject S2_Wall_Replace_Door_Frame_Obj;
     #endregion
 
     #region - Empty Field => For Memory -
@@ -150,20 +149,21 @@ public partial class GameManager : MonoBehaviour
         if (goCanvas == null)
             goCanvas = GameObject.Find("UI Canvas");
 
-        imgUIBackGround = goCanvas.transform.GetChild(0).GetComponent<UnityEngine.UI.Image>();  // 背景
+        imgUIBackGround = goCanvas.transform.GetChild(0).GetComponent<Image>();  // 背景
         txtTitle = goCanvas.transform.GetChild(2).GetComponent<Text>(); // 標題
 
-        imgInstructions = goCanvas.transform.GetChild(3).GetComponent<UnityEngine.UI.Image>();  // 說明圖示
+        imgInstructions = goCanvas.transform.GetChild(3).GetComponent<Image>();  // 說明圖示
         txtInstructions = goCanvas.transform.GetChild(3).GetComponentInChildren<Text>();    // 說明文字
         txtIntroduce = goCanvas.transform.GetChild(4).GetComponentInChildren<Text>();   // 介紹文字
 
-        ExitBtn = goCanvas.transform.GetChild(5).GetComponent<UnityEngine.UI.Button>(); // 返回按鈕
+        ExitBtn = goCanvas.transform.GetChild(5).GetComponent<Button>(); // 返回按鈕
 
         txtEnterGameHint = goCanvas.transform.GetChild(6).GetComponent<Text>(); // 進入遊戲提示
-        EnterGameBtn = goCanvas.transform.GetChild(7).GetComponent<UnityEngine.UI.Button>();    // 進入遊戲按鈕
+        EnterGameBtn = goCanvas.transform.GetChild(7).GetComponent<Button>();    // 進入遊戲按鈕
 
         TempItem = null;    // 暫存物件
         currentScene = SceneManager.GetActiveScene();   // 當前場景
+        Ro_Light.enabled = false;   // 旋轉物件使用燈關
         StudioUI.SetActive(false);  // 攝影棚畫面UI
     }
 
@@ -234,38 +234,11 @@ public partial class GameManager : MonoBehaviour
 
                 GameStateCheck();
                 break;
-            case GameEventID.S1_Photo_Frame:
-                S1_PhotoFrameEvent();
-                break;
-            case GameEventID.S1_Photo_Frame_Has_Broken:
-                S1_PhotoFrameHasBroken();
-                break;
-            case GameEventID.S1_Grandma_Door_Open:
-                S1_GrandmaDoorOpen();
-                break;
-            case GameEventID.S1_Lotus_Paper:
-                S1_LotusPaper();
-                break;
-            case GameEventID.S1_Finished_Lotus_Paper:
-                S1_FinishedLotusPaper();
-                break;
-            case GameEventID.S1_Lotus_Paper_Plate:
-                S1_LotusPaperPlate();
-                break;
-            case GameEventID.S1_Grandma_Dead_Body:
-                S1_GrandmaDeadBody();
-                break;
-            case GameEventID.S1_White_Tent:
-                S1_WhiteTent();
-                break;
-            case GameEventID.S1_Photo_Frame_Light_On:
-                S1_PhotoFrameLightOn();
-                break;
-            case GameEventID.S1_Grandma_Rush:
-                S1_GrandmaRush();
-                break;
             case GameEventID.S1_Light_Switch:
                 S1_LightSwitch();
+                break;
+            case GameEventID.S1_Grandma_Room_Door_Lock:
+                S1_GrandmaRoomDoorLock();
                 break;
             case GameEventID.S1_Flashlight:
                 S1_Flashlight();
@@ -276,14 +249,44 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_GrandmaRoomKey:
                 S1_GrandmaRoomKey();
                 break;
-            case GameEventID.S1_Grandma_Room_Door_Lock:
-                S1_GrandmaRoomDoorLock();
+            case GameEventID.S1_Grandma_Door_Open:
+                S1_GrandmaDoorOpen();
+                break;
+            case GameEventID.S1_Rice_Funeral:
+                S1_RiceFuneral();
+                break;
+            case GameEventID.S1_Grandma_Pass_Door_After_RiceFurnel:
+                S1_GrandmaPassDoorAfterRiceFurnel();
+                break;
+            case GameEventID.S1_White_Tent:
+                S1_WhiteTent();
+                break;
+            case GameEventID.S1_Grandma_Dead_Body:
+                S1_GrandmaDeadBody();
                 break;
             case GameEventID.S1_Rice_Funeral_Spilled:
                 S1_RiceFuneralSpilled();
                 break;
-            case GameEventID.S1_Rice_Funeral:
-                S1_RiceFuneral();
+            case GameEventID.S1_Photo_Frame:
+                S1_PhotoFrameEvent();
+                break;
+            case GameEventID.S1_Photo_Frame_Has_Broken:
+                S1_PhotoFrameHasBroken();
+                break;
+            case GameEventID.S1_Lotus_Paper:
+                S1_LotusPaper();
+                break;
+            case GameEventID.S1_Finished_Lotus_Paper:
+                S1_FinishedLotusPaper();
+                break;
+            case GameEventID.S1_Lotus_Paper_Plate:
+                S1_LotusPaperPlate();
+                break;
+            case GameEventID.S1_Photo_Frame_Light_On:
+                S1_PhotoFrameLightOn();
+                break;
+            case GameEventID.S1_Grandma_Rush:
+                S1_GrandmaRush();
                 break;
             case GameEventID.S1_Toilet_Door_Lock:
                 S1_ToiletDoorLock();
@@ -441,7 +444,7 @@ public partial class GameManager : MonoBehaviour
     {
         if (RO_OBJ[saveRotaObj] == null)
             return;
-
+        Ro_Light.enabled = true;
         CameraVolume.enabled = true;
         isMoveingObject = true;  // 正在移動物件
         saveRotaObj = iIndex;   // 儲存物件  
@@ -459,23 +462,23 @@ public partial class GameManager : MonoBehaviour
         {
             case ObjItemID.S1_Rice_Funeral:
                 RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-17.5164f, 1.7942f, 8.33f), 2);
+                    new Vector3(-27.815f, 1.809f, 8.32354f), 2);
                 break;
             case ObjItemID.S1_Lotus_Paper:
                 RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-17.588f, 1.465f, 7.552f), 2);
+                    new Vector3(-27.719f, 1.777f, 8.745541f), 2);
                 break;
             case ObjItemID.S1_Photo_Frame:
                 RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-17.516f, 1.76f, 8.2738f), 2);
+                    new Vector3(-27.75f, 1.803f, 8.55254f), 2);
                 break;
             case ObjItemID.S2_Photo_Frame:
                 RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-17.4629f, 1.8599f, 8.2738f), 2);
+                    new Vector3(-27.75f, 1.803f, 8.55254f), 2);
                 break;
             case ObjItemID.S2_Photo_Frame_Floor:
                 RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-17.596f, 1.788f, 8.3609f), 2);
+                    new Vector3(-27.762f, 1.801f, 8.55254f), 2);
                 break;
         }
     }
@@ -593,7 +596,7 @@ public partial class GameManager : MonoBehaviour
                     RestoreItemLocation();
                     GameEvent(GameEventID.Close_UI);
                     playerCtrlr.m_bCanControl = false;
-                    playerCtrlr.tfPlayerCamera.gameObject.SetActive(false);
+                    playerCtrlr.tfPlayerCamera.GetComponent<AudioListener>().enabled = false;
                     SceneManager.LoadScene(3, LoadSceneMode.Additive);
                 }
                 break;
@@ -620,6 +623,7 @@ public partial class GameManager : MonoBehaviour
     {
         m_bPlayLotusEnable = false;
         playerCtrlr.m_bCanControl = true;
+        playerCtrlr.tfPlayerCamera.GetComponent<AudioListener>().enabled = true;
         playerCtrlr.tfPlayerCamera.gameObject.SetActive(true);
         SceneManager.UnloadSceneAsync(3);
 
@@ -643,12 +647,13 @@ public partial class GameManager : MonoBehaviour
 
                 if (isMoveingObject)
                 {
-                    //關閉旋轉
+                    
                     romanager = false;
 
                     if (!romanager)
                     {
                         RestoreItemLocation();
+                        Ro_Light.enabled = false;
                     }
                 }
             }

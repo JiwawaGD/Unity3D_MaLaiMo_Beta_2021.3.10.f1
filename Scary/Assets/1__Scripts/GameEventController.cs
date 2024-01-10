@@ -80,7 +80,7 @@ public partial class GameManager : MonoBehaviour
         TempItem.bAlwaysActive = false;
         TempItem.eventID = GameEventID.S1_Toilet_Door_Open;
 
-        flowchartObjects[7].gameObject.SetActive(true);
+        // flowchartObjects[7].gameObject.SetActive(true);
     }
 
     void S1_GrandmaDeadBody()
@@ -207,13 +207,23 @@ public partial class GameManager : MonoBehaviour
     {
         Debug.Log("場景1 ==> 桌上的腳尾飯 (S1_Rice_Funeral)");
 
-        S1_Grandma_JumpScare_Trigger_Obj.SetActive(true);
         audManager.Play(1, "get_Item_Sound", false);
         ShowHint(HintItemID.S1_Filial_Piety_Curtain);
         flowchartObjects[11].gameObject.SetActive(true);
         UIState(UIItemID.S1_Rice_Funeral, true);
         ShowObj(ObjItemID.S1_Rice_Funeral);
         ProcessRoMoving(0);
+
+        TempGameObject = GameObject.Find("S1_Grandma_Pass_Door_Trigger");
+        TempGameObject.transform.localPosition = new Vector3(-5f, 0.5f, 4.5f);
+    }
+
+    void S1_GrandmaPassDoorAfterRiceFurnel()
+    {
+        Debug.Log("場景1 ==> 鬼奶奶從門前衝過 (S1_GrandmaPassDoorAfterRiceFurnel)");
+
+        S2_Grandma_Ghost_Obj.GetComponent<Animator>().SetTrigger("S1_Grandma_Pass_Door");
+        Invoke(nameof(IvkS1_SetGrandmaGhostPosition), 0.7f);
     }
 
     void S1_ToiletDoorLock()

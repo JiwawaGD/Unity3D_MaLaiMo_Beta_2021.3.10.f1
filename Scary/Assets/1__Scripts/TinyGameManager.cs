@@ -52,6 +52,12 @@ public partial class GameManager : MonoBehaviour
         GhostHandObj.transform.position = new Vector3(-8.5f, 0, 6);
     }
 
+    public void IvkS1_SetGrandmaGhostPosition()
+    {
+        S2_Grandma_Ghost_Obj.GetComponent<Animator>().applyRootMotion = true;
+        S2_Grandma_Ghost_Obj.transform.localPosition = new Vector3(-8f, -2f, 2.35f);
+    }
+
     public void IvkS2_Grandma_Pass_Door()
     {
         S2_Grandma_Ghost_Obj.GetComponent<Animator>().applyRootMotion = true;
@@ -66,7 +72,7 @@ public partial class GameManager : MonoBehaviour
     public void IvkS2_SlientAfterPhotoFrame()
     {
         // 紹威 (Word 檔 - 聲音大約出現 2-3 秒後安靜下來
-        audManager.Play(1,"At_the_end_it_is_found_that_Acuan_has_mostly_disappeared_and_Acuan_has_climbed_up", false);
+        audManager.Play(1, "At_the_end_it_is_found_that_Acuan_has_mostly_disappeared_and_Acuan_has_climbed_up", false);
 
         // 加在這兩個註解中間
         ProcessPlayerAnimator("Player_S2_Shocked_After_PhotoFrame");
@@ -81,7 +87,7 @@ public partial class GameManager : MonoBehaviour
         videoPlayer.clip = GrandmaVP;
         videoPlayer.Play();
         // AUDManager.instance.BodyTwistingSound();
-        Invoke(nameof(IvkS2_ShowVideoPlayerMesh),1f);
+        Invoke(nameof(IvkS2_ShowVideoPlayerMesh), 1f);
     }
 
     public void IvkS2_ShowVideoPlayerMesh()
@@ -92,7 +98,7 @@ public partial class GameManager : MonoBehaviour
     public void IvkS2_SlientAfterPhotoFrameForRecord()
     {
         videoPlayer.gameObject.GetComponent<MeshRenderer>().enabled = false;
-        FinalUI.SetActive(true); 
+        FinalUI.SetActive(true);
         bIsGameEnd = true;
     }
 }
