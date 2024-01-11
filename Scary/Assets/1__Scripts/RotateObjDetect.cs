@@ -16,7 +16,7 @@ public class RotateObjDetect : MonoBehaviour
         if(Input.GetMouseButton(0))
         {
             float rotX = Input.GetAxis("Mouse X") * speed * Mathf.Deg2Rad;
-            float rotY = Input.GetAxis("Mouse Y") * speed * Mathf.Deg2Rad;
+            // float rotY = Input.GetAxis("Mouse Y") * speed * Mathf.Deg2Rad;
             print(rotX);
             if(Vector3.Dot(transform.up, Vector3.up) > 0)
             {
@@ -26,14 +26,14 @@ public class RotateObjDetect : MonoBehaviour
             {
                 transform.RotateAround(transform.position, transform.up, -rotX);
             }
-            if(Vector3.Dot(transform.right, Vector3.right) > 0)
-            {
-                transform.RotateAround(transform.position, transform.right, -rotY);
-            }
-            else
-            {
-                transform.RotateAround(transform.position, transform.right, rotY);
-            }
+            // if(Vector3.Dot(transform.right, Vector3.right) > 0)
+            // {
+            //     transform.RotateAround(transform.position, transform.right, -rotY);
+            // }
+            // else
+            // {
+            //     transform.RotateAround(transform.position, transform.right, rotY);
+            // }
         }
     }
     // void OnMouseDown()
