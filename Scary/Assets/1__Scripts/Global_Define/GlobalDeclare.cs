@@ -56,6 +56,28 @@
     }
     #endregion
 
+    #region 對話物件
+    public class DialogState
+    {
+        public static string sDialogObjName;
+
+        public DialogState()
+        {
+            sDialogObjName = "Empty";
+        }
+    }
+
+    public static void SetDialogObjName(string r_sName)
+    {
+        DialogState.sDialogObjName = r_sName;
+    }
+
+    public static string GetDialogObjName()
+    {
+        return DialogState.sDialogObjName;
+    }
+    #endregion
+
     #region 玩家視角限制
     public class PlayerCameraLimit
     {

@@ -13,8 +13,7 @@ using DG.Tweening;
 public partial class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public DialogueManager DialogueManager;
-    public static string CurrentDialogue;
+    public ProgressProcessing progressProcessing;
     [Space]
     [SerializeField] Volume CameraVolume;
     [Header("Volume參數設定")]
@@ -171,7 +170,7 @@ public partial class GameManager : MonoBehaviour
     void Start()
     {
         GameEvent(GameEventID.Close_UI);
-        DialogueManager.CallAction();
+
         ExitBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.UI_Back));   // 返回
         EnterGameBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.Enter_Game));   // 進入蓮花遊戲
 
@@ -220,6 +219,10 @@ public partial class GameManager : MonoBehaviour
                 // UI 返回後執行 Item 動畫
                 if (m_bShowItemAnimate)
                     ProcessAnimator(GlobalDeclare.GetItemAniObject(), GlobalDeclare.GetItemAniName());
+
+                // UI 返回後執行 Fungus 對話
+                if (m_bShowDialog)
+                    ProcessDialog(GlobalDeclare.GetDialogObjName());
 
                 // 鎖定玩家視角旋轉
                 if (m_bSetPlayerViewLimit)
@@ -542,6 +545,18 @@ public partial class GameManager : MonoBehaviour
         GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Empty);
     }
 
+    // 執行 Fungus 對話
+    public void ProcessDialog(string sDialogObjName)
+    {
+        if (sDialogObjName.Contains("Empty"))
+            return;
+
+        GameObject dialog = GameObject.Find(sDialogObjName);
+        dialog.gameObject.SetActive(true);
+        m_bShowDialog = false;
+        GlobalDeclare.SetDialogObjName("Empty");
+    }
+
     // 限制角色視角 (暫無使用)
     public void SetPlayerViewLimit(bool bLimitRotation, float[] fViewLimit)
     {
@@ -617,7 +632,7 @@ public partial class GameManager : MonoBehaviour
 
         ShowHint(HintItemID.S1_Finished_Lotus_Paper);
 
-        flowchartObjects[5].GetComponent<DialogueManager>().CallAction();
+        flowchartObjects[5].gameObject.SetActive(true);
     }
 
     // 鍵盤檢查
