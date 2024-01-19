@@ -40,7 +40,7 @@ public partial class GameManager : MonoBehaviour
         ProcessAnimator("Grandma_Room_Door", "DoorOpen");
         audManager.Play(1, "the_sound_of_the_old_door_opening", false);
         ShowHint(HintItemID.S1_Rice_Funeral);
-        flowchartObjects[4].gameObject.SetActive(true);
+        flowchartObjects[4].GetComponent<DialogueManager>().CallAction();
     }
 
     void S1_LotusPaper()
@@ -80,7 +80,6 @@ public partial class GameManager : MonoBehaviour
         TempItem.bAlwaysActive = false;
         TempItem.eventID = GameEventID.S1_Toilet_Door_Open;
 
-        // flowchartObjects[7].gameObject.SetActive(true);
     }
 
     void S1_GrandmaDeadBody()
@@ -89,7 +88,7 @@ public partial class GameManager : MonoBehaviour
 
         S1_Rice_Funeral_Obj.SetActive(false);
         audManager.Play(1, "get_Item_Sound", false);
-        flowchartObjects[6].gameObject.SetActive(true);
+        flowchartObjects[6].GetComponent<DialogueManager>().CallAction();
         StopReadding();
 
         // 生成摔壞的腳尾飯
@@ -136,7 +135,7 @@ public partial class GameManager : MonoBehaviour
         // bS1_IsS1LightSwtichOK 要放在最前面 (ShowHint 邏輯判斷用)
         bS1_IsS1LightSwtichOK = true;
         ShowHint(HintItemID.S1_Flashlight);
-        flowchartObjects[2].gameObject.SetActive(true);
+        flowchartObjects[2].GetComponent<DialogueManager>().CallAction();
         audManager.Play(1, "light_Switch_Sound", false);
     }
 
@@ -172,7 +171,7 @@ public partial class GameManager : MonoBehaviour
 
         ShowHint(HintItemID.S1_Grandma_Room_Door);
         audManager.Play(1, "tet_Sound_Of_Get_The_Key", false);
-        flowchartObjects[3].gameObject.SetActive(true);
+        flowchartObjects[3].GetComponent<DialogueManager>().CallAction();
         GameObject GrandmaRoomKeyObj = GameObject.Find("Grandma_Room_Key");
         Destroy(GrandmaRoomKeyObj);
     }
@@ -185,7 +184,7 @@ public partial class GameManager : MonoBehaviour
         bS1_TriggerGrandmaDoorLock = true;
         ShowHint(HintItemID.S1_Desk_Drawer);
         ShowHint(HintItemID.S1_Flashlight);
-        flowchartObjects[1].gameObject.SetActive(true);
+        flowchartObjects[1].GetComponent<DialogueManager>().CallAction();
         audManager.Play(1, "the_door_is_locked_and_cannot_be_opened_with_sound_effects", false);
     }
 
@@ -196,7 +195,7 @@ public partial class GameManager : MonoBehaviour
         audManager.Play(1, "get_Item_Sound", false);
         ShowHint(HintItemID.S1_Lotus_Paper);
         m_bPlayLotusEnable = true;
-        flowchartObjects[8].gameObject.SetActive(true);
+        flowchartObjects[7].GetComponent<DialogueManager>().CallAction();
 
         // 移動蓮花紙 & 蠟燭座標
         S1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-5.1f, 0.6f, -2f);
@@ -209,7 +208,7 @@ public partial class GameManager : MonoBehaviour
 
         audManager.Play(1, "get_Item_Sound", false);
         ShowHint(HintItemID.S1_Filial_Piety_Curtain);
-        flowchartObjects[11].gameObject.SetActive(true);
+        flowchartObjects[9].GetComponent<DialogueManager>().CallAction();
         UIState(UIItemID.S1_Rice_Funeral, true);
         ShowObj(ObjItemID.S1_Rice_Funeral);
         ProcessRoMoving(0);
@@ -231,7 +230,7 @@ public partial class GameManager : MonoBehaviour
         Debug.Log("場景1 ==> 廁所門鎖住了 (S1_Toilet_Door_Lock)");
 
         audManager.Play(1, "the_door_is_locked_and_cannot_be_opened_with_sound_effects", false);
-        flowchartObjects[12].gameObject.SetActive(true);
+        flowchartObjects[10].GetComponent<DialogueManager>().CallAction();
     }
 
     void S1_ToiletDoorOpen()
@@ -271,6 +270,7 @@ public partial class GameManager : MonoBehaviour
 
         ProcessPlayerAnimator("Player_Falling_In_Bathroom");
         Invoke(nameof(IvkProcessGhostHandPushAnimator), 3.95f);
+        flowchartObjects[14].GetComponent<DialogueManager>().CallAction();
     }
     #endregion
 
@@ -281,7 +281,7 @@ public partial class GameManager : MonoBehaviour
 
         bS2_TriggerLightSwitch = true;
         audManager.Play(1, "light_Switch_Sound", false);
-        flowchartObjects[13].gameObject.SetActive(true);
+        flowchartObjects[11].GetComponent<DialogueManager>().CallAction();
         ShowHint(HintItemID.S2_FlashLight);
     }
 
@@ -291,7 +291,7 @@ public partial class GameManager : MonoBehaviour
 
         audManager.Play(1, "the_door_is_locked_and_cannot_be_opened_with_sound_effects", false);
         bS2_TriggerGrandmaDoorLock = true;
-        flowchartObjects[9].gameObject.SetActive(true);
+        flowchartObjects[10].GetComponent<DialogueManager>().CallAction();
 
         ShowHint(HintItemID.S2_FlashLight);
     }
@@ -301,7 +301,7 @@ public partial class GameManager : MonoBehaviour
         Debug.Log("場景2 ==> 手電筒 (S2_FlashLight)");
 
         audManager.Play(1, "light_Switch_Sound", false);
-        flowchartObjects[14].gameObject.SetActive(true);
+        flowchartObjects[12].GetComponent<DialogueManager>().CallAction();
         GameObject S2_FlashLightObj = GameObject.Find("S2_FlashLight");
         Destroy(S2_FlashLightObj);
         ShowHint(HintItemID.S2_Side_Table);
@@ -383,7 +383,7 @@ public partial class GameManager : MonoBehaviour
         Debug.Log("場景2 ==> 地上的腳尾飯 (S2_Rice_Funeral)");
 
         audManager.Play(1, "get_Item_Sound", false);
-        flowchartObjects[15].gameObject.SetActive(true);
+        flowchartObjects[13].GetComponent<DialogueManager>().CallAction();
         BoxCollider S2_Rice_Funeral_Collider = GameObject.Find("S2_Rice_Funeral").GetComponent<BoxCollider>();
         S2_Rice_Funeral_Collider.enabled = false;
         ShowHint(HintItemID.S2_Photo_Frame);
