@@ -6,8 +6,6 @@ using UnityEngine.Video;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.Rendering.HighDefinition;
-using Fungus;
-using ProgressP;
 using DG.Tweening;
 
 public partial class GameManager : MonoBehaviour
@@ -716,11 +714,11 @@ public partial class GameManager : MonoBehaviour
 
             while (elapsedTime < 1f)
             {
-                vignette.intensity.value = Mathf.Lerp(.7f,
+                vignette.intensity.value = Mathf.Lerp(0.7669371f,
                                                     targetIntensity, elapsedTime);
-                vignette.smoothness.value = Mathf.Lerp(.16f,
+                vignette.smoothness.value = Mathf.Lerp(0.3474241f,
                                                     targetIntensity, elapsedTime);
-                vignette.roundness.value = Mathf.Lerp(.18f,
+                vignette.roundness.value = Mathf.Lerp(0.3629616f,
                                                     targetIntensity, elapsedTime);
                 cloudLayer.opacity.value = Mathf.Lerp(currentIntensity,
                                                     targetIntensity, elapsedTime);

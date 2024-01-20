@@ -53,6 +53,8 @@ public partial class GameManager : MonoBehaviour
         ShowObj(ObjItemID.S1_Lotus_Paper);
         audManager.Play(1, "gold_Paper", false);
         audManager.Play(1, "get_Item_Sound", false);
+        DialogueObjects[(byte)Lv1_Dialogue.CheckLotus_Lv1].CallAction();
+
     }
 
     void S1_FinishedLotusPaper()
@@ -79,6 +81,8 @@ public partial class GameManager : MonoBehaviour
         TempItem = GameObject.Find("Toilet_Door_Ghost").GetComponent<ItemController>();
         TempItem.bAlwaysActive = false;
         TempItem.eventID = GameEventID.S1_Toilet_Door_Open;
+        DialogueObjects[(byte)Lv1_Dialogue.HeardBathRoomSound_Lv1].CallAction();
+
 
     }
 
