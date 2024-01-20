@@ -40,7 +40,7 @@ public partial class GameManager : MonoBehaviour
         ProcessAnimator("Grandma_Room_Door", "DoorOpen");
         audManager.Play(1, "the_sound_of_the_old_door_opening", false);
         ShowHint(HintItemID.S1_Rice_Funeral);
-        DialogueObjects[ (byte)Lv1_Dialogue.OpenDoor_GetKey_Lv1 ].CallAction();
+        DialogueObjects[(byte)Lv1_Dialogue.OpenDoor_GetKey_Lv1].CallAction();
     }
 
     void S1_LotusPaper()
@@ -135,7 +135,7 @@ public partial class GameManager : MonoBehaviour
         // bS1_IsS1LightSwtichOK 要放在最前面 (ShowHint 邏輯判斷用)
         bS1_IsS1LightSwtichOK = true;
         ShowHint(HintItemID.S1_Flashlight);
-        DialogueObjects[ (byte)Lv1_Dialogue.OpenLight_Lv1 ].CallAction();
+        DialogueObjects[(byte)Lv1_Dialogue.OpenLight_Lv1].CallAction();
         audManager.Play(1, "light_Switch_Sound", false);
     }
 
@@ -213,7 +213,7 @@ public partial class GameManager : MonoBehaviour
         ProcessRoMoving(0);
 
         TempGameObject = GameObject.Find("S1_Grandma_Pass_Door_Trigger");
-        TempGameObject.transform.localPosition = new Vector3(-5f, 0.5f, 4.5f);
+        TempGameObject.transform.localPosition = new Vector3(-5f, 0.5f, 8f);
     }
 
     void S1_GrandmaPassDoorAfterRiceFurnel()
@@ -221,7 +221,7 @@ public partial class GameManager : MonoBehaviour
         Debug.Log("場景1 ==> 鬼奶奶從門前衝過 (S1_GrandmaPassDoorAfterRiceFurnel)");
 
         S2_Grandma_Ghost_Obj.GetComponent<Animator>().SetTrigger("S1_Grandma_Pass_Door");
-        Invoke(nameof(IvkS1_SetGrandmaGhostPosition), 0.7f);
+        Invoke(nameof(IvkS1_SetGrandmaGhostPosition), 2.5f);
     }
 
     void S1_ToiletDoorLock()
@@ -229,7 +229,7 @@ public partial class GameManager : MonoBehaviour
         Debug.Log("場景1 ==> 廁所門鎖住了 (S1_Toilet_Door_Lock)");
 
         audManager.Play(1, "the_door_is_locked_and_cannot_be_opened_with_sound_effects", false);
-        DialogueObjects[ (byte)Lv1_Dialogue.OpenBathRoomDoor_Nokey_Lv1 ].CallAction();
+        DialogueObjects[(byte)Lv1_Dialogue.OpenBathRoomDoor_Nokey_Lv1].CallAction();
     }
 
     void S1_ToiletDoorOpen()
@@ -268,8 +268,8 @@ public partial class GameManager : MonoBehaviour
         m_bWaitToiletGhostHandPush = false;
 
         ProcessPlayerAnimator("Player_Falling_In_Bathroom");
-        Invoke(nameof(IvkProcessGhostHandPushAnimator), 3.95f);
-        DialogueObjects[ (byte)Lv1_Dialogue.WakeUp_Lv2 ].CallAction();
+        Invoke(nameof(IvkProcessGhostHandPushAnimator), 2.2f);
+        DialogueObjects[(byte)Lv1_Dialogue.WakeUp_Lv2].CallAction();
     }
     #endregion
 
@@ -280,7 +280,7 @@ public partial class GameManager : MonoBehaviour
 
         bS2_TriggerLightSwitch = true;
         audManager.Play(1, "light_Switch_Sound", false);
-        DialogueObjects[ (byte)Lv1_Dialogue.OpenLight_Lv2 ].CallAction();
+        DialogueObjects[(byte)Lv1_Dialogue.OpenLight_Lv2].CallAction();
         ShowHint(HintItemID.S2_FlashLight);
     }
 
@@ -290,7 +290,7 @@ public partial class GameManager : MonoBehaviour
 
         audManager.Play(1, "the_door_is_locked_and_cannot_be_opened_with_sound_effects", false);
         bS2_TriggerGrandmaDoorLock = true;
-        DialogueObjects[ (byte)Lv1_Dialogue.DoorLocked_Lv2 ].CallAction();
+        DialogueObjects[(byte)Lv1_Dialogue.DoorLocked_Lv2].CallAction();
 
         ShowHint(HintItemID.S2_FlashLight);
     }
@@ -300,7 +300,7 @@ public partial class GameManager : MonoBehaviour
         Debug.Log("場景2 ==> 手電筒 (S2_FlashLight)");
 
         audManager.Play(1, "light_Switch_Sound", false);
-        DialogueObjects[ (byte)Lv1_Dialogue.OpenFlashLight_Lv2 ].CallAction();
+        DialogueObjects[(byte)Lv1_Dialogue.OpenFlashLight_Lv2].CallAction();
         GameObject S2_FlashLightObj = GameObject.Find("S2_FlashLight");
         Destroy(S2_FlashLightObj);
         ShowHint(HintItemID.S2_Side_Table);
@@ -382,7 +382,7 @@ public partial class GameManager : MonoBehaviour
         Debug.Log("場景2 ==> 地上的腳尾飯 (S2_Rice_Funeral)");
 
         audManager.Play(1, "get_Item_Sound", false);
-        DialogueObjects[ (byte)Lv1_Dialogue.CheckRiceFuneral_OnFloor_Lv2 ].CallAction();
+        DialogueObjects[(byte)Lv1_Dialogue.CheckRiceFuneral_OnFloor_Lv2].CallAction();
         BoxCollider S2_Rice_Funeral_Collider = GameObject.Find("S2_Rice_Funeral").GetComponent<BoxCollider>();
         S2_Rice_Funeral_Collider.enabled = false;
         ShowHint(HintItemID.S2_Photo_Frame);
