@@ -27,7 +27,7 @@ public partial class GameManager : MonoBehaviour
     public void IvkProcessGhostHandPushAnimator()
     {
         ProcessItemAnimator("Ghost_Hand", "Ghost_Hand_Push");
-        Invoke(nameof(IvkProcessPlayerWakeUpSecondTime), 4f);
+        Invoke(nameof(IvkProcessPlayerWakeUpSecondTime), 3.5f);
 
         ShowHint(HintItemID.S2_Room_Door);
         ShowHint(HintItemID.S2_Light_Switch);
@@ -37,6 +37,8 @@ public partial class GameManager : MonoBehaviour
     {
         Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
         playerFlashlight.enabled = false;
+        Animation am = playerCtrlr.GetComponent<Animation>();
+        am.Stop();
         ProcessPlayerAnimator("Player_Wake_Up_SecondTime");
     }
 
