@@ -25,26 +25,24 @@ public class DialogueManager : MonoBehaviour
 
     private AudioSource aud;
     private int currentPos = 0; //當前打字位置
-    private GameManager GameManager;
+    private GameManager GM;
 
     private void Start()
     {
         ActionCount = 0;
         DialogueText = GameObject.Find("===== DIAOGUES====/DialogueUICanvas/DialogueText").GetComponent<Text>();
         aud = GameObject.Find("===== AUDIO =====/對話音效管理器").GetComponent<AudioSource>();
-        GameManager = GameObject.Find("===== OTHER =====/GameManager").GetComponent<GameManager>();
+        GM = GameObject.Find("===== OTHER =====/GameManager").GetComponent<GameManager>();
     }
 
     public void CallAction()
     {
+        GM.CurrentDialogue = gameObject.name;
         StartCoroutine(StartAction());
-        print(gameObject.name);
-        GameManager.CurrentDialogue = gameObject.name;
     }
 
     private IEnumerator StartAction()
     {
-        if (GameManager.CurrentDialogue != gameObject.name) StopCoroutine("StartAction");
         if (ActionEvent[ActionCount].Contains("{%wait:"))
         {
             var WaitingTime = float.Parse(ActionEvent[ActionCount].Substring(7));
@@ -68,8 +66,13 @@ public class DialogueManager : MonoBehaviour
             var VoiceVolume = Int64.Parse(Voicedata[1]);
             aud.PlayOneShot(Voices[VoiceIndex], VoiceVolume);
         }
-        else yield return StartCoroutine(OnStartWriter());
+        else
+        {
+            print(GM.CurrentDialogue + "       " + gameObject.name);
+            if (GM.CurrentDialogue == gameObject.name) DialogueText.text = ActionEvent[ActionCount];
+        }
 
+        //yield return StartCoroutine(OnStartWriter());
 
         if (ActionCount < ActionEvent.Length - 1)
         {
@@ -102,17 +105,17 @@ public class DialogueManager : MonoBehaviour
         yield return null;
     }
 
-    /// 打字
-    public IEnumerator OnStartWriter()
-    {
-        while (currentPos < ActionEvent[ActionCount].Length)
-        {
-            currentPos++;
-            DialogueText.text = ActionEvent[ActionCount].Substring(0, currentPos); //刷新文本顯示内容
-            yield return new WaitForSeconds(0.1f);
-        }
-        currentPos = 0;
-        yield return null;
-    }
+    ///// 打字
+    //public IEnumerator OnStartWriter()
+    //{
+    //    while (currentPos < ActionEvent[ActionCount].Length)
+    //    {
+    //        currentPos++;
+    //        DialogueText.text = ActionEvent[ActionCount].Substring(0, currentPos); //刷新文本顯示内容
+    //        yield return new WaitForSeconds(0.1f);
+    //    }
+    //    currentPos = 0;
+    //    yield return null;
+    //}
 
 }

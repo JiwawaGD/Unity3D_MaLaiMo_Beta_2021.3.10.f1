@@ -13,8 +13,7 @@ using DG.Tweening;
 public partial class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public DialogueManager DialogueManager;
-    public static string CurrentDialogue;
+    public string CurrentDialogue;
     [Space]
     [SerializeField] Volume CameraVolume;
     [Header("Volume參數設定")]
@@ -48,7 +47,7 @@ public partial class GameManager : MonoBehaviour
     [Header("旋轉物件使用燈關")] public Light Ro_Light;
 
     [Header("玩家")] public PlayerController playerCtrlr;
-    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField][Header("對話程序")] DialogueManager[] DialogueObjects;
     [SerializeField][Header("設定頁面")] public GameObject settingObjects;
     [SerializeField][Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj;
 
@@ -171,7 +170,7 @@ public partial class GameManager : MonoBehaviour
     void Start()
     {
         GameEvent(GameEventID.Close_UI);
-        DialogueManager.CallAction();
+        DialogueObjects[(byte)Lv1_Dialogue.Begin].CallAction();
         ExitBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.UI_Back));   // 返回
         EnterGameBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.Enter_Game));   // 進入蓮花遊戲
 
@@ -617,7 +616,7 @@ public partial class GameManager : MonoBehaviour
 
         ShowHint(HintItemID.S1_Finished_Lotus_Paper);
 
-        flowchartObjects[5].GetComponent<DialogueManager>().CallAction();
+        DialogueObjects[ (byte)Lv1_Dialogue.AfterPlayLotus_Lv1 ].CallAction();
     }
 
     // 鍵盤檢查
