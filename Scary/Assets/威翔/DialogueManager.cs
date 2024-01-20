@@ -44,7 +44,9 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator StartAction()
     {
-        if (GameManager.CurrentDialogue != gameObject.name) StopCoroutine("StartAction");
+        if (GameManager.CurrentDialogue != gameObject.name)
+            StopCoroutine("StartAction");
+
         if (ActionEvent[ActionCount].Contains("{%wait:"))
         {
             var WaitingTime = float.Parse(ActionEvent[ActionCount].Substring(7));
@@ -58,7 +60,9 @@ public class DialogueManager : MonoBehaviour
             var ObjectActive = Convert.ToBoolean(Objectdata[1]);
             var ObjectAlpha = float.Parse(Objectdata[2]);
             HandleObject[ObjectIndex].SetActive(ObjectActive);
-            if (ObjectAlpha != -1f) yield return StartCoroutine(AlphaInOut(HandleObject[ObjectIndex], ObjectAlpha));
+
+            if (ObjectAlpha != -1f)
+                yield return StartCoroutine(AlphaInOut(HandleObject[ObjectIndex], ObjectAlpha));
         }
         else if (ActionEvent[ActionCount].Contains("{%voice:"))
         {
@@ -68,15 +72,20 @@ public class DialogueManager : MonoBehaviour
             var VoiceVolume = Int64.Parse(Voicedata[1]);
             aud.PlayOneShot(Voices[VoiceIndex], VoiceVolume);
         }
-        else yield return StartCoroutine(OnStartWriter());
-
+        else
+        {
+            yield return StartCoroutine(OnStartWriter());
+        }
 
         if (ActionCount < ActionEvent.Length - 1)
         {
             ActionCount++;
             StartCoroutine(StartAction());
         }
-        else ActionCount = 0;
+        else
+        {
+            ActionCount = 0;
+        }
     }
 
     private IEnumerator AlphaInOut(GameObject node, float alpha)
@@ -111,8 +120,8 @@ public class DialogueManager : MonoBehaviour
             DialogueText.text = ActionEvent[ActionCount].Substring(0, currentPos); //刷新文本顯示内容
             yield return new WaitForSeconds(0.1f);
         }
+
         currentPos = 0;
         yield return null;
     }
-
 }

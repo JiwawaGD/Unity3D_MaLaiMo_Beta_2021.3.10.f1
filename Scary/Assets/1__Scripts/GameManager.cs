@@ -32,7 +32,7 @@ public partial class GameManager : MonoBehaviour
     // 音效管理器
     [Header("遊戲結束畫面UI")] public GameObject FinalUI;
 
-    [SerializeField][Header("欲製物 - Schedule")] Text prefabs_Schedule;
+    [SerializeField] [Header("欲製物 - Schedule")] Text prefabs_Schedule;
 
     [Header("物件移動速度")] public float objSpeed;
     [Header("旋轉物件collider")] public Collider Ro_Cololider;
@@ -48,15 +48,15 @@ public partial class GameManager : MonoBehaviour
     [Header("旋轉物件使用燈關")] public Light Ro_Light;
 
     [Header("玩家")] public PlayerController playerCtrlr;
-    [SerializeField][Header("Flowchart")] GameObject[] flowchartObjects;
-    [SerializeField][Header("設定頁面")] public GameObject settingObjects;
-    [SerializeField][Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj;
+    [SerializeField] [Header("Flowchart")] GameObject[] flowchartObjects;
+    [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
+    [SerializeField] [Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj;
 
-    [SerializeField][Header("Video 撥放器")] VideoPlayer videoPlayer;
-    [SerializeField][Header("Video - 阿嬤看螢幕")] VideoClip GrandmaVP;
+    [SerializeField] [Header("Video 撥放器")] VideoPlayer videoPlayer;
+    [SerializeField] [Header("Video - 阿嬤看螢幕")] VideoClip GrandmaVP;
 
-    [SerializeField][Header("QRCode UI")] GameObject QRCodeUI;
-    [SerializeField][Header("準心 UI")] GameObject CrosshairUI;
+    [SerializeField] [Header("QRCode UI")] GameObject QRCodeUI;
+    [SerializeField] [Header("準心 UI")] GameObject CrosshairUI;
 
     int m_iGrandmaRushCount;
     Scene currentScene;
@@ -108,25 +108,26 @@ public partial class GameManager : MonoBehaviour
 
     #region - All Scene Items -
     [Header("場景一物件")]
-    [SerializeField][Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
-    [SerializeField][Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
-    [SerializeField][Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
-    [SerializeField][Header("S1_奶奶房間抽屜")] GameObject S1_Desk_Drawer_Obj;
-    [SerializeField][Header("S1_還沒摺的蓮花紙")] GameObject S1_Lotus_Paper_Obj;
-    [SerializeField][Header("S1_蓮花紙旁的蠟燭")] GameObject S1_Lotus_Candle_Obj;
-    [SerializeField][Header("S1_摺好的紙蓮花")] GameObject S1_Finished_Lotus_Paper_Obj;
-    [SerializeField][Header("S1_放紙蓮花的盤子")] GameObject S1_Lotus_Paper_Plate_Obj;
+    [SerializeField] [Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
+    [SerializeField] [Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
+    [SerializeField] [Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
+    [SerializeField] [Header("S1_奶奶房間抽屜")] GameObject S1_Desk_Drawer_Obj;
+    [SerializeField] [Header("S1_還沒摺的蓮花紙")] GameObject S1_Lotus_Paper_Obj;
+    [SerializeField] [Header("S1_蓮花紙旁的蠟燭")] GameObject S1_Lotus_Candle_Obj;
+    [SerializeField] [Header("S1_摺好的紙蓮花")] GameObject S1_Finished_Lotus_Paper_Obj;
+    [SerializeField] [Header("S1_放紙蓮花的盤子")] GameObject S1_Lotus_Paper_Plate_Obj;
+    [SerializeField] [Header("S1_廁所水龍頭特效")] GameObject S1_Water_Flush_VFX_Obj;
 
     [Header("場景二物件")]
-    [SerializeField][Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
-    [SerializeField][Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
-    [SerializeField][Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
-    [SerializeField][Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
-    [SerializeField][Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
-    [SerializeField][Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj_floor;
-    [SerializeField][Header("S2_阿嬤哭聲撥放器")] GameObject S2_Grandma_Cry_Audio_Obj;
-    [SerializeField][Header("S2_走廊門框")] GameObject S2_Corridor_Door_Frame_Obj;
-    [SerializeField][Header("S2_取代走廊門框的牆壁")] GameObject S2_Wall_Replace_Door_Frame_Obj;
+    [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
+    [SerializeField] [Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
+    [SerializeField] [Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
+    [SerializeField] [Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
+    [SerializeField] [Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
+    [SerializeField] [Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj_floor;
+    [SerializeField] [Header("S2_阿嬤哭聲撥放器")] GameObject S2_Grandma_Cry_Audio_Obj;
+    [SerializeField] [Header("S2_走廊門框")] GameObject S2_Corridor_Door_Frame_Obj;
+    [SerializeField] [Header("S2_取代走廊門框的牆壁")] GameObject S2_Wall_Replace_Door_Frame_Obj;
     #endregion
 
     #region - Empty Field => For Memory -
@@ -632,7 +633,7 @@ public partial class GameManager : MonoBehaviour
 
                 if (isMoveingObject)
                 {
-                    
+
                     romanager = false;
 
                     if (!romanager)

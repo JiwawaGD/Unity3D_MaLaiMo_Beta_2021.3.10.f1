@@ -80,6 +80,7 @@ public partial class GameManager : MonoBehaviour
         TempItem.bAlwaysActive = false;
         TempItem.eventID = GameEventID.S1_Toilet_Door_Open;
 
+        S1_Water_Flush_VFX_Obj.SetActive(true);
     }
 
     void S1_GrandmaDeadBody()
