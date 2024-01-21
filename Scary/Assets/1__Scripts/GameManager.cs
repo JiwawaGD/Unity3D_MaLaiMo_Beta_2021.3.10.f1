@@ -188,6 +188,7 @@ public partial class GameManager : MonoBehaviour
         // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
         playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
 
+
         SetCrosshairEnable(true);
     }
 
