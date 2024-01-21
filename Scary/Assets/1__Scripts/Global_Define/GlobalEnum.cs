@@ -25,6 +25,7 @@ public enum GameEventID
     S1_Finished_Lotus_Paper,
     S1_Lotus_Paper_Plate,
     S1_Grandma_Pass_Door_After_RiceFurnel,
+    Lv1_CheckFilialPietyCurtain,
 
     // S2 : Scene_2
     S2_Light_Switch = 101,

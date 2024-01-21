@@ -37,7 +37,7 @@ public partial class GameManager : MonoBehaviour
     {
         Debug.Log("場景1 ==> 打開奶奶房間門 (S1_Grandma_Door_Open)");
 
-        ProcessAnimator("Grandma_Room_Door", "DoorOpen");
+        ProcessAnimator("Lv1_Grandma_Room_Door", "DoorOpen");
         audManager.Play(1, "the_sound_of_the_old_door_opening", false);
         ShowHint(HintItemID.S1_Rice_Funeral);
         DialogueObjects[(byte)Lv1_Dialogue.OpenDoor_GetKey_Lv1].CallAction();
@@ -54,7 +54,6 @@ public partial class GameManager : MonoBehaviour
         audManager.Play(1, "gold_Paper", false);
         audManager.Play(1, "get_Item_Sound", false);
         DialogueObjects[(byte)Lv1_Dialogue.CheckLotus_Lv1].CallAction();
-
     }
 
     void S1_FinishedLotusPaper()
@@ -82,8 +81,6 @@ public partial class GameManager : MonoBehaviour
         TempItem.bAlwaysActive = false;
         TempItem.eventID = GameEventID.S1_Toilet_Door_Open;
         DialogueObjects[(byte)Lv1_Dialogue.HeardBathRoomSound_Lv1].CallAction();
-
-
     }
 
     void S1_GrandmaDeadBody()
@@ -109,10 +106,17 @@ public partial class GameManager : MonoBehaviour
         Debug.Log("場景1 ==> 觸發孝濂 (S1_White_Tent)");
 
         audManager.Play(1, "filial_Piety_Curtain", false);
-        ProcessAnimator("Filial_Piety_Curtain", "Filial_piety_curtain Open");
-        TempBoxCollider = GameObject.Find("Filial_Piety_Curtain").GetComponent<BoxCollider>();
+        ProcessAnimator("Lv1_Filial_Piety_Curtain", "Filial_piety_curtain Open");
+        TempBoxCollider = GameObject.Find("Lv1_Filial_Piety_Curtain").GetComponent<BoxCollider>();
         TempBoxCollider.enabled = false;
         ShowHint(HintItemID.S1_Lie_Grandma_Body);
+    }
+
+    void Lv1_CheckFilialPietyCurtain()
+    {
+        Debug.Log("場景1 ==> 先去看看其他地方吧 (Lv1_CheckFilialPietyCurtain)");
+
+        DialogueObjects[(byte)Lv1_Dialogue.CheckFilialPietyCurtain_Lv1].CallAction();
     }
 
     void S1_PhotoFrameLightOn()
@@ -136,8 +140,6 @@ public partial class GameManager : MonoBehaviour
     {
         Debug.Log("場景1 ==> 觸發奶奶房間燈開關 (S1_Light_Switch)");
 
-        // bS1_IsS1LightSwtichOK 要放在最前面 (ShowHint 邏輯判斷用)
-        bS1_IsS1LightSwtichOK = true;
         ShowHint(HintItemID.S1_Flashlight);
         DialogueObjects[(byte)Lv1_Dialogue.OpenLight_Lv1].CallAction();
         audManager.Play(1, "light_Switch_Sound", false);
@@ -147,13 +149,16 @@ public partial class GameManager : MonoBehaviour
     {
         Debug.Log("場景1 ==> 觸發奶奶房間手電筒 (S1_Flashlight)");
 
-        bS1_TriggerFlashlight = true;
-        ShowHint(HintItemID.S1_Desk_Drawer);
+        bLv1_HasFlashlight = true;
+
         Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
         playerFlashlight.enabled = true;
         audManager.Play(1, "light_Switch_Sound", false);
-        GameObject FlashLight = GameObject.Find("Flashlight");
+        GameObject FlashLight = GameObject.Find("Lv1_Flashlight");
         Destroy(FlashLight);
+
+        if (bLv1_HasGrandmaRoomKey)
+            ShowHint(HintItemID.S1_Grandma_Room_Door);
     }
 
     void S1_DeskDrawer()
@@ -161,9 +166,10 @@ public partial class GameManager : MonoBehaviour
         Debug.Log("場景1 ==> 奶奶房間抽屜 (S1_Desk_Drawer)");
 
         audManager.Play(1, "drawer_Opening_Sound", false);
-        TempBoxCollider = GameObject.Find("grandpa_desk/Desk_Drawer").GetComponent<BoxCollider>();
+        TempBoxCollider = Lv1_Desk_Drawer_Item.GetComponent<BoxCollider>();
+        //TempBoxCollider = GameObject.Find("grandpa_desk/Desk_Drawer").GetComponent<BoxCollider>();
         TempBoxCollider.enabled = false;
-        ProcessAnimator("grandpa_desk/Desk_Drawer", "DrawerWithKey_Open");
+        ProcessAnimator("grandpa_desk/Lv1_Desk_Drawer", "DrawerWithKey_Open");
         TempGameObject = GameObject.Find("Grandma_Room_Key");
         TempGameObject.GetComponent<Animation>().Play();
         Invoke(nameof(IvkShowDoorKey), 1.2f);
@@ -173,23 +179,32 @@ public partial class GameManager : MonoBehaviour
     {
         Debug.Log("場景1 ==> 奶奶房間抽屜鑰匙 (S1_GrandmaRoomKey)");
 
-        ShowHint(HintItemID.S1_Grandma_Room_Door);
+        bLv1_HasGrandmaRoomKey = true;
+
         audManager.Play(1, "tet_Sound_Of_Get_The_Key", false);
         DialogueObjects[(byte)Lv1_Dialogue.GetKey_Lv1].CallAction();
         GameObject GrandmaRoomKeyObj = GameObject.Find("Grandma_Room_Key");
         Destroy(GrandmaRoomKeyObj);
+
+        if (bLv1_HasFlashlight)
+            ShowHint(HintItemID.S1_Grandma_Room_Door);
     }
 
     void S1_GrandmaRoomDoorLock()
     {
         Debug.Log("場景1 ==> 奶奶房間門鎖住 (S1_Grandma_Room_Door_Lock)");
 
-        // bS1_TriggerGrandmaDoorLock 要放在最前面 (ShowHint 邏輯判斷用)
-        bS1_TriggerGrandmaDoorLock = true;
-        ShowHint(HintItemID.S1_Desk_Drawer);
-        ShowHint(HintItemID.S1_Flashlight);
-        DialogueObjects[(byte)Lv1_Dialogue.OpenDoor_Nokey_Lv1].CallAction();
-        audManager.Play(1, "the_door_is_locked_and_cannot_be_opened_with_sound_effects", false);
+        // (無key) ==> 鎖住了
+        if (!bLv1_HasGrandmaRoomKey)
+        {
+            DialogueObjects[(byte)Lv1_Dialogue.OpenDoor_Nokey_Lv1].CallAction();
+            return;
+        }
+
+        if (!bLv1_HasFlashlight)
+            DialogueObjects[(byte)Lv1_Dialogue.OpenDoor_NoFlashLight_Lv1].CallAction();
+
+        //audManager.Play(1, "the_door_is_locked_and_cannot_be_opened_with_sound_effects", false);
     }
 
     void S1_RiceFuneralSpilled()
@@ -210,6 +225,8 @@ public partial class GameManager : MonoBehaviour
     {
         Debug.Log("場景1 ==> 桌上的腳尾飯 (S1_Rice_Funeral)");
 
+        bLv1_TriggerRiceFuneral = true;
+
         audManager.Play(1, "get_Item_Sound", false);
         ShowHint(HintItemID.S1_Filial_Piety_Curtain);
         UIState(UIItemID.S1_Rice_Funeral, true);
@@ -224,8 +241,10 @@ public partial class GameManager : MonoBehaviour
     {
         Debug.Log("場景1 ==> 鬼奶奶從門前衝過 (S1_GrandmaPassDoorAfterRiceFurnel)");
 
+
+
         S2_Grandma_Ghost_Obj.GetComponent<Animator>().SetTrigger("S1_Grandma_Pass_Door");
-        Invoke(nameof(IvkS1_SetGrandmaGhostPosition), 2.5f);
+        Invoke(nameof(IvkS1_SetGrandmaGhostPosition), 2.2f);
     }
 
     void S1_ToiletDoorLock()

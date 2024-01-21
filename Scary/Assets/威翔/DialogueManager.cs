@@ -70,7 +70,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            print(GM.CurrentDialogue + "       " + gameObject.name);
+            //print(GM.CurrentDialogue + "       " + gameObject.name);
             if (GM.CurrentDialogue == gameObject.name) DialogueText.text = ActionEvent[ActionCount];
         }
 

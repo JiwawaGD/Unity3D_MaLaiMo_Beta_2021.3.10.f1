@@ -37,6 +37,7 @@ public partial class GameManager : MonoBehaviour
     {
         Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
         playerFlashlight.enabled = false;
+        audManager.Play(1, "Falling_To_Black_Screen_Sound_Part2", false);
         Animation am = playerCtrlr.GetComponent<Animation>();
         am.Stop();
         ProcessPlayerAnimator("Player_Wake_Up_SecondTime");
@@ -58,6 +59,9 @@ public partial class GameManager : MonoBehaviour
     {
         S2_Grandma_Ghost_Obj.GetComponent<Animator>().applyRootMotion = true;
         S2_Grandma_Ghost_Obj.transform.localPosition = new Vector3(-8f, -2f, 2.35f);
+
+        TempBoxCollider = GameObject.Find("Lv1_Filial_Piety_Curtain").GetComponent<BoxCollider>();
+        TempBoxCollider.enabled = true;
     }
 
     public void IvkS2_Grandma_Pass_Door()

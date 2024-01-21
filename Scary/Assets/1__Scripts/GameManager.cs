@@ -29,7 +29,7 @@ public partial class GameManager : MonoBehaviour
     // 音效管理器
     [Header("遊戲結束畫面UI")] public GameObject FinalUI;
 
-    [SerializeField][Header("欲製物 - Schedule")] Text prefabs_Schedule;
+    [SerializeField] [Header("欲製物 - Schedule")] Text prefabs_Schedule;
 
     [Header("物件移動速度")] public float objSpeed;
     [Header("旋轉物件collider")] public Collider Ro_Cololider;
@@ -45,15 +45,15 @@ public partial class GameManager : MonoBehaviour
     [Header("旋轉物件使用燈關")] public Light Ro_Light;
 
     [Header("玩家")] public PlayerController playerCtrlr;
-    [SerializeField][Header("對話程序")] DialogueManager[] DialogueObjects;
-    [SerializeField][Header("設定頁面")] public GameObject settingObjects;
-    [SerializeField][Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj;
+    [SerializeField] [Header("對話程序")] DialogueManager[] DialogueObjects;
+    [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
+    [SerializeField] [Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj;
 
-    [SerializeField][Header("Video 撥放器")] VideoPlayer videoPlayer;
-    [SerializeField][Header("Video - 阿嬤看螢幕")] VideoClip GrandmaVP;
+    [SerializeField] [Header("Video 撥放器")] VideoPlayer videoPlayer;
+    [SerializeField] [Header("Video - 阿嬤看螢幕")] VideoClip GrandmaVP;
 
-    [SerializeField][Header("QRCode UI")] GameObject QRCodeUI;
-    [SerializeField][Header("準心 UI")] GameObject CrosshairUI;
+    [SerializeField] [Header("QRCode UI")] GameObject QRCodeUI;
+    [SerializeField] [Header("準心 UI")] GameObject CrosshairUI;
 
     int m_iGrandmaRushCount;
     Scene currentScene;
@@ -94,9 +94,9 @@ public partial class GameManager : MonoBehaviour
     #endregion
 
     #region Game Point
-    bool bS1_TriggerFlashlight = false;
-    bool bS1_TriggerGrandmaDoorLock = false;
-    bool bS1_IsS1LightSwtichOK = false;
+    bool bLv1_HasGrandmaRoomKey = false;
+    bool bLv1_HasFlashlight = false;
+    bool bLv1_TriggerRiceFuneral = false;
 
     bool bS2_TriggerLightSwitch = false;
     bool bS2_TriggerGrandmaDoorLock = false;
@@ -105,25 +105,30 @@ public partial class GameManager : MonoBehaviour
 
     #region - All Scene Items -
     [Header("場景一物件")]
-    [SerializeField][Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
-    [SerializeField][Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
-    [SerializeField][Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
-    [SerializeField][Header("S1_奶奶房間抽屜")] GameObject S1_Desk_Drawer_Obj;
-    [SerializeField][Header("S1_還沒摺的蓮花紙")] GameObject S1_Lotus_Paper_Obj;
-    [SerializeField][Header("S1_蓮花紙旁的蠟燭")] GameObject S1_Lotus_Candle_Obj;
-    [SerializeField][Header("S1_摺好的紙蓮花")] GameObject S1_Finished_Lotus_Paper_Obj;
-    [SerializeField][Header("S1_放紙蓮花的盤子")] GameObject S1_Lotus_Paper_Plate_Obj;
+    [SerializeField] [Header("Lv1_阿嬤的房間門")] ItemController Lv1_Grandma_ROOM_Door_Item;
+    [SerializeField] [Header("Lv1_房間燈開關")] ItemController Lv1_Light_Switch_Item;
+    [SerializeField] [Header("Lv1_手電筒")] ItemController Lv1_FlashLight_Item;
+    [SerializeField] [Header("Lv1_阿嬤房間內的抽屜")] ItemController Lv1_Desk_Drawer_Item;
+    [SerializeField] [Header("Lv1_孝濂")] ItemController Lv1_Filial_Piety_Curtain_Item;
+    [SerializeField] [Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
+    [SerializeField] [Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
+    [SerializeField] [Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
+    [SerializeField] [Header("S1_奶奶房間抽屜")] GameObject S1_Desk_Drawer_Obj;
+    [SerializeField] [Header("S1_還沒摺的蓮花紙")] GameObject S1_Lotus_Paper_Obj;
+    [SerializeField] [Header("S1_蓮花紙旁的蠟燭")] GameObject S1_Lotus_Candle_Obj;
+    [SerializeField] [Header("S1_摺好的紙蓮花")] GameObject S1_Finished_Lotus_Paper_Obj;
+    [SerializeField] [Header("S1_放紙蓮花的盤子")] GameObject S1_Lotus_Paper_Plate_Obj;
 
     [Header("場景二物件")]
-    [SerializeField][Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
-    [SerializeField][Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
-    [SerializeField][Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
-    [SerializeField][Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
-    [SerializeField][Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
-    [SerializeField][Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj_floor;
-    [SerializeField][Header("S2_阿嬤哭聲撥放器")] GameObject S2_Grandma_Cry_Audio_Obj;
-    [SerializeField][Header("S2_走廊門框")] GameObject S2_Corridor_Door_Frame_Obj;
-    [SerializeField][Header("S2_取代走廊門框的牆壁")] GameObject S2_Wall_Replace_Door_Frame_Obj;
+    [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
+    [SerializeField] [Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
+    [SerializeField] [Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
+    [SerializeField] [Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
+    [SerializeField] [Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
+    [SerializeField] [Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj_floor;
+    [SerializeField] [Header("S2_阿嬤哭聲撥放器")] GameObject S2_Grandma_Cry_Audio_Obj;
+    [SerializeField] [Header("S2_走廊門框")] GameObject S2_Corridor_Door_Frame_Obj;
+    [SerializeField] [Header("S2_取代走廊門框的牆壁")] GameObject S2_Wall_Replace_Door_Frame_Obj;
     #endregion
 
     #region - Empty Field => For Memory -
@@ -172,9 +177,13 @@ public partial class GameManager : MonoBehaviour
         ExitBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.UI_Back));   // 返回
         EnterGameBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.Enter_Game));   // 進入蓮花遊戲
 
+        // Lv1 預設開啟的 Hint
+        ShowHint(HintItemID.S1_Desk_Drawer);
+        ShowHint(HintItemID.S1_Flashlight);
         ShowHint(HintItemID.S1_Light_Switch);
         ShowHint(HintItemID.S1_Grandma_Room_Door_Lock);
         ShowHint(HintItemID.S1_Toilet_Door);
+        ShowHint(HintItemID.S1_Filial_Piety_Curtain);
 
         // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
         playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
@@ -251,6 +260,9 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.S1_Grandma_Pass_Door_After_RiceFurnel:
                 S1_GrandmaPassDoorAfterRiceFurnel();
+                break;
+            case GameEventID.Lv1_CheckFilialPietyCurtain:
+                Lv1_CheckFilialPietyCurtain();
                 break;
             case GameEventID.S1_White_Tent:
                 S1_WhiteTent();
@@ -338,29 +350,35 @@ public partial class GameManager : MonoBehaviour
     {
         switch (_ItemID)
         {
+            case HintItemID.S1_Grandma_Room_Door_Lock:
+                TempItem = Lv1_Grandma_ROOM_Door_Item;
+                break;
             case HintItemID.S1_Light_Switch:
-                TempItem = GameObject.Find("Light_Switch").GetComponent<ItemController>();
+                TempItem = Lv1_Light_Switch_Item;
                 break;
             case HintItemID.S1_Grandma_Room_Door:
-                TempItem = GameObject.Find("Grandma_Room_Door").GetComponent<ItemController>();
+                TempItem = Lv1_Grandma_ROOM_Door_Item;
                 TempItem.gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
+                TempItem.bAlwaysActive = false;
                 TempItem.eventID = GameEventID.S1_Grandma_Door_Open;
                 break;
             case HintItemID.S1_Flashlight:
-                if (!bS1_TriggerGrandmaDoorLock || !bS1_IsS1LightSwtichOK)
-                    return;
-                TempItem = GameObject.Find("Flashlight").GetComponent<ItemController>();
+                TempItem = Lv1_FlashLight_Item;
                 break;
             case HintItemID.S1_Desk_Drawer:
-                if (!bS1_TriggerGrandmaDoorLock || !bS1_TriggerFlashlight)
-                    return;
                 TempItem = S1_Desk_Drawer_Obj.GetComponent<ItemController>();
                 break;
             case HintItemID.S1_Grandma_Room_Key:
                 TempItem = GameObject.Find("Grandma_Room_Key").GetComponent<ItemController>();
                 break;
             case HintItemID.S1_Filial_Piety_Curtain:
-                TempItem = GameObject.Find("Filial_Piety_Curtain").GetComponent<ItemController>();
+                TempItem = Lv1_Filial_Piety_Curtain_Item;
+
+                if (bLv1_TriggerRiceFuneral)
+                {
+                    TempItem.bAlwaysActive = false;
+                    TempItem.eventID = GameEventID.S1_White_Tent;
+                }
                 break;
             case HintItemID.S1_Lie_Grandma_Body:
                 TempItem = GameObject.Find("Lie_Grandma_Body").GetComponent<ItemController>();
@@ -376,9 +394,6 @@ public partial class GameManager : MonoBehaviour
                 break;
             case HintItemID.S1_Lotus_Paper_Plate:
                 TempItem = S1_Lotus_Paper_Plate_Obj.GetComponent<ItemController>();
-                break;
-            case HintItemID.S1_Grandma_Room_Door_Lock:
-                TempItem = GameObject.Find("Grandma_Room_Door").GetComponent<ItemController>();
                 break;
             case HintItemID.S1_Rice_Funeral_Spilled:
                 TempItem = GameObject.Find("Rice_Funeral_Spilled").GetComponent<ItemController>();
@@ -614,7 +629,7 @@ public partial class GameManager : MonoBehaviour
 
         ShowHint(HintItemID.S1_Finished_Lotus_Paper);
 
-        DialogueObjects[ (byte)Lv1_Dialogue.AfterPlayLotus_Lv1 ].CallAction();
+        DialogueObjects[(byte)Lv1_Dialogue.AfterPlayLotus_Lv1].CallAction();
     }
 
     // 鍵盤檢查
@@ -629,7 +644,7 @@ public partial class GameManager : MonoBehaviour
 
                 if (isMoveingObject)
                 {
-                    
+
                     romanager = false;
 
                     if (!romanager)
