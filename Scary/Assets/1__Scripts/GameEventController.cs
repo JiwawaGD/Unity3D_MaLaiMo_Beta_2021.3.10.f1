@@ -382,16 +382,15 @@ public partial class GameManager : MonoBehaviour
 
         audManager.Play(1, "door_Close", false);
         ProcessAnimator("Lv2_Grandma_Room_Door", "S2_Grandma_Room_Door_Close");
-        audManager.Play(1, "Girl_laughing", false);
     }
 
     void S2_GhostPassDoor()
     {
         Debug.Log("場景2 ==> 鬼奶奶從門前衝過 (S2_Ghost_Pass_Door)");
 
+        audManager.Play(1, "Girl_laughing", false);
         S2_Grandma_Ghost_Obj.GetComponent<Animator>().applyRootMotion = false;
         S2_Grandma_Ghost_Obj.GetComponent<Animator>().SetTrigger("S2_Grandma_Pass_Door");
-        audManager.Play(1, "grandma_StrangeVoice", false);
         S2_Grandma_Cry_Audio_Obj.SetActive(true);
         Invoke(nameof(IvkS2_Grandma_Pass_Door), 1.5f);
     }
@@ -407,7 +406,7 @@ public partial class GameManager : MonoBehaviour
         S2_Furniture_State_2_Obj.SetActive(true);
         S2_Wall_Replace_Door_Frame_Obj.SetActive(true);
         ShowHint(HintItemID.S2_Rice_Funeral);
-        Invoke(nameof(IvkS2_Shocked_By_Toilet), 9.5f);
+        Invoke(nameof(IvkS2_Shocked_By_Toilet), 7.5f);
     }
 
     void S2_Rice_Funeral()
@@ -416,8 +415,15 @@ public partial class GameManager : MonoBehaviour
 
         audManager.Play(1, "get_Item_Sound", false);
         DialogueObjects[(byte)Lv1_Dialogue.CheckRiceFuneral_OnFloor_Lv2].CallAction();
-        BoxCollider S2_Rice_Funeral_Collider = GameObject.Find("S2_Rice_Funeral").GetComponent<BoxCollider>();
-        S2_Rice_Funeral_Collider.enabled = false;
+
+        //BoxCollider S2_Rice_Funeral_Collider = GameObject.Find("S2_Rice_Funeral").GetComponent<BoxCollider>();
+        //S2_Rice_Funeral_Collider.enabled = false;
+
+        Lv2_Rice_Funeral_Obj.GetComponent<BoxCollider>().enabled = false;
+        Lv2_Rice_Funeral_Obj.transform.parent = playerCtrlr.transform;
+        Lv2_Rice_Funeral_Obj.transform.localPosition = new Vector3(0, 0.05f, 0.6f);
+        Lv2_Rice_Funeral_Obj.transform.localRotation = new Quaternion(0, 0, 0, 0);
+
         ShowHint(HintItemID.S2_Photo_Frame);
     }
 
@@ -432,6 +438,7 @@ public partial class GameManager : MonoBehaviour
 
         // 開啟相框光源
         S2_Grandma_Deadbody_On_Table_Obj.SetActive(false);
+
         bS2_TriggerLastAnimateAfterPhotoFrame = true;
     }
     #endregion

@@ -67,6 +67,7 @@ public partial class GameManager : MonoBehaviour
     {
         S2_Grandma_Ghost_Obj.GetComponent<Animator>().applyRootMotion = true;
         ShowHint(HintItemID.S2_Toilet_Door);
+        audManager.Play(1, "grandma_StrangeVoice", false);
     }
 
     public void IvkS2_Shocked_By_Toilet()

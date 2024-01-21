@@ -125,6 +125,11 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("Lv2_手電筒")] ItemController Lv2_FlashLight_Item;
     [SerializeField] [Header("Lv2_小邊桌")] ItemController Lv2_SideTable_Item;
     [SerializeField] [Header("Lv2_奶奶房間門")] ItemController Lv2_Grandma_Room_Door_Item;
+
+    [SerializeField] [Header("Lv2_腳尾飯_Item")] ItemController Lv2_Rice_Funeral_Item;
+    [SerializeField] [Header("Lv2_腳尾飯_Obj")] GameObject Lv2_Rice_Funeral_Obj;
+
+
     [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
     [SerializeField] [Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
     [SerializeField] [Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
@@ -436,11 +441,11 @@ public partial class GameManager : MonoBehaviour
                 TempItem.eventID = GameEventID.S2_Grandma_Door_Open;
                 TempItem.bAlwaysActive = false;
                 break;
-            case HintItemID.S2_Rice_Funeral:
-                TempItem = GameObject.Find("S2_Rice_Funeral").GetComponent<ItemController>();
-                break;
             case HintItemID.S2_Photo_Frame:
                 TempItem = S2_Photo_Frame_Obj.GetComponent<ItemController>();
+                break;
+            case HintItemID.S2_Rice_Funeral:
+                TempItem = Lv2_Rice_Funeral_Item;
                 break;
             case HintItemID.S2_Toilet_Door:
                 TempItem = GameObject.Find("S2_Toilet_Door_GhostHead").GetComponent<ItemController>();
