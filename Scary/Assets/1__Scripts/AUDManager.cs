@@ -20,7 +20,7 @@ public class AUDManager : MonoBehaviour
 
     [SerializeField, Tooltip("東西竄動的聲音")] AudioClip the_sound_of_something_moving;
     [SerializeField, Tooltip("小朋友笑聲")] AudioClip children_laughing;
-    [SerializeField, Tooltip("小女孩笑聲")]  AudioClip Girl_laughing;
+    [SerializeField, Tooltip("小女孩笑聲")] AudioClip Girl_laughing;
     [SerializeField, Tooltip("奶奶開始向前")] AudioClip grandma_Starts_Walking;
     [SerializeField, Tooltip("奶奶詭異聲")] AudioClip grandma_StrangeVoice;
     [SerializeField, Tooltip("扭動身體的音效")] AudioClip body_Twisting_Sound;
@@ -49,13 +49,14 @@ public class AUDManager : MonoBehaviour
     [SerializeField, Tooltip("關門聲")] AudioClip door_Close;
     [SerializeField, Tooltip("老舊門開門聲")] AudioClip the_sound_of_the_old_door_opening;
     [SerializeField, Tooltip("眼睛小徑開門音效")] AudioClip the_sound_of_the_eyes_opening_the_door;
-    [SerializeField, Tooltip("廁所門打開聲音")] AudioClip the_toilet_door_opens; 
+    [SerializeField, Tooltip("廁所門打開聲音")] AudioClip the_toilet_door_opens;
 
     [SerializeField, Tooltip("腳尾飯")] AudioClip sound_Of_Something_Falling;
 
     [SerializeField, Header("廁所")] AudioClip bathroomSound;
     [SerializeField] AudioClip toilet_water_dripping_sound;
-    [SerializeField, Tooltip("廁所水滴聲")] AudioClip Falling_To_Black_Screen_Sound;
+    [SerializeField, Tooltip("推倒玩家鬼手音效Part1")] AudioClip Falling_To_Black_Screen_Sound_Part1;
+    [SerializeField, Tooltip("推倒玩家鬼手音效Part2")] AudioClip Falling_To_Black_Screen_Sound_Part2;
     [SerializeField, Tooltip("轉水龍頭聲")] AudioClip turn_The_Tap;
     [SerializeField, Tooltip("敲門聲")] AudioClip emergency_Knock_On_The_Door;
 
@@ -175,8 +176,10 @@ public class AUDManager : MonoBehaviour
                 return sound_Of_Something_Falling;
             case "toilet_water_dripping_sound":
                 return toilet_water_dripping_sound;
-            case "Falling_To_Black_Screen_Sound":
-                return Falling_To_Black_Screen_Sound;
+            case "Falling_To_Black_Screen_Sound_Part1":
+                return Falling_To_Black_Screen_Sound_Part1;
+            case "Falling_To_Black_Screen_Sound_Part2":
+                return Falling_To_Black_Screen_Sound_Part2;
             case "turn_The_Tap":
                 return turn_The_Tap;
             case "emergency_Knock_On_The_Door":
@@ -193,7 +196,7 @@ public class AUDManager : MonoBehaviour
                 return enter_Scene_Sound;
             case "ui_Context":
                 return ui_Context;
-                
+
         }
         return null;
     }

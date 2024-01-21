@@ -268,7 +268,7 @@ public partial class GameManager : MonoBehaviour
     {
         Debug.Log("場景1 ==> 廁所鬼手推玩家 (S1_Toilet_Ghost_Hand_Push)");
 
-        audManager.Play(1, "Falling_To_Black_Screen_Sound", false);
+        audManager.Play(1, "Falling_To_Black_Screen_Sound_Part1", false);
         m_bWaitToiletGhostHandPush = false;
 
         ProcessPlayerAnimator("Player_Falling_In_Bathroom");
