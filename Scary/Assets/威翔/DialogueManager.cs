@@ -26,6 +26,7 @@ public class DialogueManager : MonoBehaviour
     private AudioSource aud;
     private int currentPos = 0; //當前打字位置
     private GameManager GM;
+    private bool IsPlaying  = false;
 
     private void Start()
     {
@@ -38,11 +39,12 @@ public class DialogueManager : MonoBehaviour
     public void CallAction()
     {
         GM.CurrentDialogue = gameObject.name;
-        StartCoroutine(StartAction());
+        if (IsPlaying == false) StartCoroutine(StartAction());
     }
 
     private IEnumerator StartAction()
     {
+        IsPlaying = true;
         if (ActionEvent[ActionCount].Contains("{%wait:"))
         {
             var WaitingTime = float.Parse(ActionEvent[ActionCount].Substring(7));
@@ -79,7 +81,11 @@ public class DialogueManager : MonoBehaviour
             ActionCount++;
             StartCoroutine(StartAction());
         }
-        else ActionCount = 0;
+        else
+        {
+            ActionCount = 0;
+            IsPlaying = false;
+        } 
     }
 
     private IEnumerator AlphaInOut(GameObject node, float alpha)
