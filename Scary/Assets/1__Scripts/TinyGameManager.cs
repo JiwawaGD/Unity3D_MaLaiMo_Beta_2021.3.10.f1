@@ -31,6 +31,8 @@ public partial class GameManager : MonoBehaviour
 
         ShowHint(HintItemID.S2_Room_Door);
         ShowHint(HintItemID.S2_Light_Switch);
+        ShowHint(HintItemID.S2_FlashLight);
+        ShowHint(HintItemID.S2_Side_Table);
     }
 
     public void IvkProcessPlayerWakeUpSecondTime()
@@ -59,9 +61,6 @@ public partial class GameManager : MonoBehaviour
     {
         S2_Grandma_Ghost_Obj.GetComponent<Animator>().applyRootMotion = true;
         S2_Grandma_Ghost_Obj.transform.localPosition = new Vector3(-8f, -2f, 2.35f);
-
-        TempBoxCollider = GameObject.Find("Lv1_Filial_Piety_Curtain").GetComponent<BoxCollider>();
-        TempBoxCollider.enabled = true;
     }
 
     public void IvkS2_Grandma_Pass_Door()

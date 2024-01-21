@@ -98,7 +98,9 @@ public partial class GameManager : MonoBehaviour
     bool bLv1_HasFlashlight = false;
     bool bLv1_TriggerRiceFuneral = false;
 
-    bool bS2_TriggerLightSwitch = false;
+    bool bLv2_TriggerLightSwitch = false;
+    bool bLv2_HasGrandmaRoomKey = false;
+    bool bLv2_HasFlashlight = false;
     bool bS2_TriggerGrandmaDoorLock = false;
     bool bS2_TriggerLastAnimateAfterPhotoFrame = false;
     #endregion
@@ -120,6 +122,9 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("S1_放紙蓮花的盤子")] GameObject S1_Lotus_Paper_Plate_Obj;
 
     [Header("場景二物件")]
+    [SerializeField] [Header("Lv2_手電筒")] ItemController Lv2_FlashLight_Item;
+    [SerializeField] [Header("Lv2_小邊桌")] ItemController Lv2_SideTable_Item;
+    [SerializeField] [Header("Lv2_奶奶房間門")] ItemController Lv2_Grandma_Room_Door_Item;
     [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
     [SerializeField] [Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
     [SerializeField] [Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
@@ -187,7 +192,6 @@ public partial class GameManager : MonoBehaviour
 
         // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
         playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
-
 
         SetCrosshairEnable(true);
     }
@@ -415,24 +419,22 @@ public partial class GameManager : MonoBehaviour
                 TempItem = GameObject.Find("S2_Light_Switch").GetComponent<ItemController>();
                 break;
             case HintItemID.S2_Room_Door:
-                TempItem = GameObject.Find("S2_Grandma_Room_Door").GetComponent<ItemController>();
+                TempItem = Lv2_Grandma_Room_Door_Item;
                 break;
             case HintItemID.S2_FlashLight:
-                if (!bS2_TriggerLightSwitch || !bS2_TriggerGrandmaDoorLock)
-                    return;
-
-                TempItem = GameObject.Find("S2_FlashLight").GetComponent<ItemController>();
+                TempItem = Lv2_FlashLight_Item;
                 break;
             case HintItemID.S2_Side_Table:
-                TempItem = GameObject.Find("S2_Side_Table").GetComponent<ItemController>();
+                TempItem = Lv2_SideTable_Item;
                 break;
             case HintItemID.S2_Room_Key:
                 TempItem = GameObject.Find("S2_Grandma_Room_Key").GetComponent<ItemController>();
                 break;
             case HintItemID.S2_Grandma_Room_Door_Open:
-                TempItem = GameObject.Find("S2_Grandma_Room_Door").GetComponent<ItemController>();
+                TempItem = Lv2_Grandma_Room_Door_Item;
                 TempItem.gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
                 TempItem.eventID = GameEventID.S2_Grandma_Door_Open;
+                TempItem.bAlwaysActive = false;
                 break;
             case HintItemID.S2_Rice_Funeral:
                 TempItem = GameObject.Find("S2_Rice_Funeral").GetComponent<ItemController>();
@@ -645,7 +647,6 @@ public partial class GameManager : MonoBehaviour
 
                 if (isMoveingObject)
                 {
-
                     romanager = false;
 
                     if (!romanager)
