@@ -128,7 +128,9 @@ public partial class GameManager : MonoBehaviour
 
     [SerializeField] [Header("Lv2_腳尾飯_Item")] ItemController Lv2_Rice_Funeral_Item;
     [SerializeField] [Header("Lv2_腳尾飯_Obj")] GameObject Lv2_Rice_Funeral_Obj;
+    [SerializeField] [Header("Lv2_腳尾凳子_Item")] ItemController Lv2_Piano_Stool_Item;
 
+    [SerializeField] [Header("Lv2_哥哥的鞋子_Obj")] GameObject Lv2_BrotherShoe_Obj;
 
     [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
     [SerializeField] [Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
@@ -352,6 +354,9 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S2_Photo_Frame:
                 S2_Photo_Frame();
                 break;
+            case GameEventID.Lv2_Ruce_Funeral_Plate:
+                Lv2_RuceFuneralPlate();
+                break;
         }
     }
 
@@ -449,6 +454,9 @@ public partial class GameManager : MonoBehaviour
                 break;
             case HintItemID.S2_Toilet_Door:
                 TempItem = GameObject.Find("S2_Toilet_Door_GhostHead").GetComponent<ItemController>();
+                break;
+            case HintItemID.Lv2_Ruce_Funeral_Plate:
+                TempItem = Lv2_Piano_Stool_Item;
                 break;
         }
 

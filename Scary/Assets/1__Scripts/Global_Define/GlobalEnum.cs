@@ -40,6 +40,7 @@ public enum GameEventID
     S2_Rice_Funeral,
     S2_Photo_Frame,
     S2_Toilet_Door,
+    Lv2_Ruce_Funeral_Plate,
 }
 
 public enum HintItemID
@@ -75,7 +76,7 @@ public enum HintItemID
     S2_Rice_Funeral,
     S2_Photo_Frame,
     S2_Toilet_Door,
-    S2_Ruce_Funeral_Plate,
+    Lv2_Ruce_Funeral_Plate,
 }
 
 public enum ObjItemID

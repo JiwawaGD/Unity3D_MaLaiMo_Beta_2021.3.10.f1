@@ -406,7 +406,7 @@ public partial class GameManager : MonoBehaviour
         S2_Furniture_State_2_Obj.SetActive(true);
         S2_Wall_Replace_Door_Frame_Obj.SetActive(true);
         ShowHint(HintItemID.S2_Rice_Funeral);
-        Invoke(nameof(IvkS2_Shocked_By_Toilet), 7.5f);
+        Invoke(nameof(IvkS2_Shocked_By_Toilet), 7.2f);
     }
 
     void S2_Rice_Funeral()
@@ -416,15 +416,12 @@ public partial class GameManager : MonoBehaviour
         audManager.Play(1, "get_Item_Sound", false);
         DialogueObjects[(byte)Lv1_Dialogue.CheckRiceFuneral_OnFloor_Lv2].CallAction();
 
-        //BoxCollider S2_Rice_Funeral_Collider = GameObject.Find("S2_Rice_Funeral").GetComponent<BoxCollider>();
-        //S2_Rice_Funeral_Collider.enabled = false;
-
         Lv2_Rice_Funeral_Obj.GetComponent<BoxCollider>().enabled = false;
         Lv2_Rice_Funeral_Obj.transform.parent = playerCtrlr.transform;
         Lv2_Rice_Funeral_Obj.transform.localPosition = new Vector3(0, 0.05f, 0.6f);
         Lv2_Rice_Funeral_Obj.transform.localRotation = new Quaternion(0, 0, 0, 0);
 
-        ShowHint(HintItemID.S2_Photo_Frame);
+        ShowHint(HintItemID.Lv2_Ruce_Funeral_Plate);
     }
 
     void S2_Photo_Frame()
@@ -436,10 +433,21 @@ public partial class GameManager : MonoBehaviour
         UIState(UIItemID.S2_Photo_Frame, true);
         ShowObj(ObjItemID.S2_Photo_Frame_Floor);
 
-        // 開啟相框光源
-        S2_Grandma_Deadbody_On_Table_Obj.SetActive(false);
+        Lv2_BrotherShoe_Obj.transform.localPosition = new Vector3(-4.4f, 0f, 48.8f);
 
         bS2_TriggerLastAnimateAfterPhotoFrame = true;
+    }
+
+    void Lv2_RuceFuneralPlate()
+    {
+        Debug.Log("場景2 ==> 放腳尾飯到凳子上 (Lv2_RuceFuneralPlate)");
+
+        Lv2_Rice_Funeral_Obj.transform.parent = Lv2_Piano_Stool_Item.transform;
+        Lv2_Rice_Funeral_Obj.transform.localPosition = new Vector3(0, 0.9f, 0);
+        Lv2_Rice_Funeral_Obj.transform.localRotation = new Quaternion(0, 0, 0, 0);
+        Lv2_Rice_Funeral_Obj.transform.localScale = new Vector3(1f, 1f, 1f);
+
+        ShowHint(HintItemID.S2_Photo_Frame);
     }
     #endregion
 }
