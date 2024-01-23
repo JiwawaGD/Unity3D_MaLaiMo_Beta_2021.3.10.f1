@@ -157,7 +157,7 @@ public class PlayerController : MonoBehaviour
 
             if (col.gameObject.name == "S2_Door_Knock_Trigger")
             {
-                gameManager.SendMessage("GameEvent", GameEventID.S2_Door_Knock_Stop);
+                //gameManager.SendMessage("GameEvent", GameEventID.S2_Door_Knock_Stop);
                 col.transform.localPosition -= new Vector3(0f, 10f, 0f);
             }
 

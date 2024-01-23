@@ -25,6 +25,7 @@ public enum GameEventID
     S1_Finished_Lotus_Paper,
     S1_Lotus_Paper_Plate,
     S1_Grandma_Pass_Door_After_RiceFurnel,
+    Lv1_CheckFilialPietyCurtain,
 
     // S2 : Scene_2
     S2_Light_Switch = 101,
@@ -39,6 +40,7 @@ public enum GameEventID
     S2_Rice_Funeral,
     S2_Photo_Frame,
     S2_Toilet_Door,
+    Lv2_Ruce_Funeral_Plate,
 }
 
 public enum HintItemID
@@ -74,6 +76,7 @@ public enum HintItemID
     S2_Rice_Funeral,
     S2_Photo_Frame,
     S2_Toilet_Door,
+    Lv2_Ruce_Funeral_Plate,
 }
 
 public enum ObjItemID
@@ -123,4 +126,26 @@ public enum IntelligenceLevel
     Level3 = 3,
     Level4 = 4,
     Level5 = 5
+}
+
+public enum Lv1_Dialogue
+{
+    Begin = 0,
+    OpenDoor_Nokey_Lv1,
+    OpenLight_Lv1,
+    GetKey_Lv1,
+    OpenDoor_GetKey_Lv1,
+    AfterPlayLotus_Lv1,
+    OpenFilialPietyCurtain_Lv1,
+    CheckRiceFuneral_OnFloor_Lv1,
+    DoorLocked_Lv2,
+    OpenDoor_NoFlashLight_Lv1,
+    OpenBathRoomDoor_Nokey_Lv1,
+    OpenLight_Lv2,
+    OpenFlashLight_Lv2,
+    CheckRiceFuneral_OnFloor_Lv2,
+    WakeUp_Lv2,
+    CheckFilialPietyCurtain_Lv1,
+    CheckLotus_Lv1,
+    HeardBathRoomSound_Lv1
 }

@@ -56,28 +56,6 @@
     }
     #endregion
 
-    #region 對話物件
-    public class DialogState
-    {
-        public static string sDialogObjName;
-
-        public DialogState()
-        {
-            sDialogObjName = "Empty";
-        }
-    }
-
-    public static void SetDialogObjName(string r_sName)
-    {
-        DialogState.sDialogObjName = r_sName;
-    }
-
-    public static string GetDialogObjName()
-    {
-        return DialogState.sDialogObjName;
-    }
-    #endregion
-
     #region 玩家視角限制
     public class PlayerCameraLimit
     {
@@ -165,7 +143,8 @@
         "民間習俗中拜腳尾飯,\r\n" +
         "是於亡者腳邊放置白米飯一碗，\r\n"+
         "飯上放一顆熟鴨(雞)蛋，\r\n" +
-        "並直插筷子一雙，其意是供亡靈食用，\r\n" +
+        "並直插筷子一雙。\r\n" +
+        "其意是供亡靈食用，\r\n" +
         "讓亡靈吃飽飯好趕赴陰間報到，以入冥籍。\r\n",
 
         "奶奶生日時爸爸幫奶奶拍的照片。",
@@ -192,7 +171,7 @@
         "九條與門扉須圍闔至出殯為止。\r\n" +
         "今者以黃布代替白布，旨在隔離內外，防人惡之。",
         "",
-        "爸爸幫奶奶拍的照片\r\n"
+        "爸爸幫阿嬤拍的照片\r\n"
     };
     //public readonly static string[] ScheduleText = new string[]
     //{

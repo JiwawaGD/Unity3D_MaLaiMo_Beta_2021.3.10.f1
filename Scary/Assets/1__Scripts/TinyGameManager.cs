@@ -27,16 +27,21 @@ public partial class GameManager : MonoBehaviour
     public void IvkProcessGhostHandPushAnimator()
     {
         ProcessItemAnimator("Ghost_Hand", "Ghost_Hand_Push");
-        Invoke(nameof(IvkProcessPlayerWakeUpSecondTime), 4f);
+        Invoke(nameof(IvkProcessPlayerWakeUpSecondTime), 3.5f);
 
         ShowHint(HintItemID.S2_Room_Door);
         ShowHint(HintItemID.S2_Light_Switch);
+        ShowHint(HintItemID.S2_FlashLight);
+        ShowHint(HintItemID.S2_Side_Table);
     }
 
     public void IvkProcessPlayerWakeUpSecondTime()
     {
         Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
         playerFlashlight.enabled = false;
+        audManager.Play(1, "Falling_To_Black_Screen_Sound_Part2", false);
+        Animation am = playerCtrlr.GetComponent<Animation>();
+        am.Stop();
         ProcessPlayerAnimator("Player_Wake_Up_SecondTime");
     }
 
@@ -62,6 +67,7 @@ public partial class GameManager : MonoBehaviour
     {
         S2_Grandma_Ghost_Obj.GetComponent<Animator>().applyRootMotion = true;
         ShowHint(HintItemID.S2_Toilet_Door);
+        audManager.Play(1, "grandma_StrangeVoice", false);
     }
 
     public void IvkS2_Shocked_By_Toilet()
