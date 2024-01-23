@@ -23,10 +23,14 @@ public partial class GameManager : MonoBehaviour
         ProcessRoMoving(2);
         ShowObj(ObjItemID.S1_Photo_Frame);
 
-        // 人形黑影
-        ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Ghost_In");
-        audManager.Play(1, "ghost_In_Door", false);
-        m_bToiletGhostHasShow = true;
+        Lv2_BrotherShoe_Obj.transform.localPosition = new Vector3(-4.4f, 0f, 48.8f);
+
+        bS2_TriggerLastAnimateAfterPhotoFrame = true;
+
+        // 人形黑影 (暫時先註解)
+        //ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Ghost_In");
+        //audManager.Play(1, "ghost_In_Door", false);
+        //m_bToiletGhostHasShow = true;
 
         // 限制角色視角
         //m_bSetPlayerViewLimit = true;
@@ -75,9 +79,10 @@ public partial class GameManager : MonoBehaviour
         S1_Finished_Lotus_Paper_Obj.transform.localRotation = new Quaternion(0, 0, 0, 0);
         S1_Finished_Lotus_Paper_Obj.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
 
-        TempItem = GameObject.Find("Toilet_Door_Ghost").GetComponent<ItemController>();
+        TempItem = GameObject.Find("Lv1_Toilet_Door_Ghost").GetComponent<ItemController>();
         TempItem.bAlwaysActive = false;
         TempItem.eventID = GameEventID.S1_Toilet_Door_Open;
+
         DialogueObjects[(byte)Lv1_Dialogue.HeardBathRoomSound_Lv1].CallAction();
     }
 
@@ -252,21 +257,22 @@ public partial class GameManager : MonoBehaviour
         Debug.Log("場景1 ==> 打開廁所門 (S1_Toilet_Door_Open)");
 
         audManager.Play(1, "the_toilet_door_opens", false);
-        ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Open");
-        BoxCollider ToiletDoorCollider = GameObject.Find("Toilet_Door_Ghost").GetComponent<BoxCollider>();
+        ProcessAnimator("Lv1_Toilet_Door_Ghost", "Toilet_Door_Open");
+        BoxCollider ToiletDoorCollider = GameObject.Find("Lv1_Toilet_Door_Ghost").GetComponent<BoxCollider>();
         ToiletDoorCollider.enabled = false;
-        ShowHint(HintItemID.S1_Photo_Frame);
+        Lv1_Faucet_Flush_Obj.SetActive(true);
+        ShowHint(HintItemID.Lv1_Faucet);
     }
 
     void S1_ToiletGhostHide()
     {
+        // 暫時沒用到
+        return;
+
         Debug.Log("場景1 ==> 廁所鬼頭縮回門後 (S1_Toilet_Ghost_Hide)");
 
-        ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Ghost_Out");
+        ProcessAnimator("Lv1_Toilet_Door_Ghost", "Toilet_Door_Ghost_Out");
         m_bToiletGhostHasShow = false;
-        playerCtrlr.m_bLimitRotation = false;
-        m_bWaitToiletGhostHandPush = true;
-        GlobalDeclare.PlayerCameraLimit.ClearValue();
         ShowHint(HintItemID.S1_Toilet_GhostHand_Trigger);
 
         Invoke(nameof(IvkS1_SetGhostHandPosition), 2f);
@@ -280,11 +286,30 @@ public partial class GameManager : MonoBehaviour
         Debug.Log("場景1 ==> 廁所鬼手推玩家 (S1_Toilet_Ghost_Hand_Push)");
 
         //audManager.Play(1, "Falling_To_Black_Screen_Sound_Part1", false);
-        m_bWaitToiletGhostHandPush = false;
 
         ProcessPlayerAnimator("Player_Falling_In_Bathroom");
         Invoke(nameof(IvkProcessGhostHandPushAnimator), 2.2f);
         DialogueObjects[(byte)Lv1_Dialogue.WakeUp_Lv2].CallAction();
+    }
+
+    void Lv1_Faucet()
+    {
+        Debug.Log("場景1 ==> 水龍頭 (Lv1_Faucet)");
+
+        Lv1_Faucet_Flush_Obj.SetActive(false);
+
+        Material matFaucetWaterSurface = WaterSurfaceObj.GetComponent<MeshRenderer>().material;
+        matFaucetWaterSurface.SetFloat("_RefractionSpeed", 0.01f);
+        matFaucetWaterSurface.SetFloat("_RefractionScale", 0.1f);
+        matFaucetWaterSurface.SetFloat("_RefractionStrength", 0.1f);
+        matFaucetWaterSurface.SetFloat("_FoamAmount", 0.01f);
+        matFaucetWaterSurface.SetFloat("_FoamCutOff", 1.2f);
+        matFaucetWaterSurface.SetFloat("_FoamSpeed", 0.1f);
+        matFaucetWaterSurface.SetFloat("_FoamScale", 0.3f);
+
+        ProcessAnimator("Lv1_Toilet_Door_Ghost", "Toilet_Door_Close");
+
+        Invoke(nameof(IvkS1_SetGhostHandPosition), 3f);
     }
     #endregion
 
@@ -447,7 +472,7 @@ public partial class GameManager : MonoBehaviour
         Lv2_Rice_Funeral_Obj.transform.localRotation = new Quaternion(0, 0, 0, 0);
         Lv2_Rice_Funeral_Obj.transform.localScale = new Vector3(1f, 1f, 1f);
 
-        ShowHint(HintItemID.S2_Photo_Frame);
+        ShowHint(HintItemID.S1_Photo_Frame);
     }
     #endregion
 }

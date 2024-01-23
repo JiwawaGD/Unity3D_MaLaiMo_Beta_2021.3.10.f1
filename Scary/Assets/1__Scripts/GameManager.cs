@@ -55,6 +55,8 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("QRCode UI")] GameObject QRCodeUI;
     [SerializeField] [Header("準心 UI")] GameObject CrosshairUI;
 
+    [SerializeField] [Header("洗手台的水")] GameObject WaterSurfaceObj;
+
     int m_iGrandmaRushCount;
     Scene currentScene;
 
@@ -90,7 +92,6 @@ public partial class GameManager : MonoBehaviour
     public static bool m_bReturnToBegin = false;
     public static bool m_bPlayLotusEnable = false;
     public static bool m_bToiletGhostHasShow = false;
-    public static bool m_bWaitToiletGhostHandPush = false;
     #endregion
 
     #region Game Point
@@ -112,6 +113,12 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("Lv1_手電筒")] ItemController Lv1_FlashLight_Item;
     [SerializeField] [Header("Lv1_阿嬤房間內的抽屜")] ItemController Lv1_Desk_Drawer_Item;
     [SerializeField] [Header("Lv1_孝濂")] ItemController Lv1_Filial_Piety_Curtain_Item;
+    [SerializeField] [Header("Lv1_水龍頭")] ItemController Lv1_Faucet_Item;
+    [SerializeField] [Header("Lv1_水龍頭水粒子")] GameObject Lv1_Faucet_Flush_Obj;
+    [SerializeField] [Header("Lv1_廁所門")] ItemController Lv1_Toilet_Door_Item;
+    [SerializeField] [Header("Lv1_完整的相框")] ItemController Lv1_Photo_Frame_Item;
+    [SerializeField] [Header("Lv1_破碎的相框")] ItemController Lv1_Photo_Frame_Broken_Item;
+
     [SerializeField] [Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
     [SerializeField] [Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
     [SerializeField] [Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
@@ -318,6 +325,9 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Toilet_Ghost_Hand_Push:
                 S1_ToiletGhostHandPush();
                 break;
+            case GameEventID.Lv1_Faucet:
+                Lv1_Faucet();
+                break;
             case GameEventID.S2_Light_Switch:
                 S2_LightSwitch();
                 break;
@@ -414,16 +424,19 @@ public partial class GameManager : MonoBehaviour
                 TempItem = GameObject.Find("Rice_Funeral_Spilled").GetComponent<ItemController>();
                 break;
             case HintItemID.S1_Photo_Frame_Has_Broken:
-                TempItem = S1_Photo_Frame_Has_Broken_Obj.GetComponent<ItemController>();
+                TempItem = Lv1_Photo_Frame_Broken_Item;
                 break;
             case HintItemID.S1_Photo_Frame:
-                TempItem = S1_Photo_Frame_Obj.GetComponent<ItemController>();
+                TempItem = Lv1_Photo_Frame_Item;
                 break;
             case HintItemID.S1_Toilet_Door:
-                TempItem = GameObject.Find("Toilet_Door_Ghost").GetComponent<ItemController>();
+                TempItem = Lv1_Toilet_Door_Item;
                 break;
             case HintItemID.S1_Toilet_GhostHand_Trigger:
                 TempItem = GameObject.Find("Ghost_Hand_Trigger").GetComponent<ItemController>();
+                break;
+            case HintItemID.Lv1_Faucet:
+                TempItem = Lv1_Faucet_Item;
                 break;
             case HintItemID.S2_Light_Switch:
                 TempItem = GameObject.Find("S2_Light_Switch").GetComponent<ItemController>();

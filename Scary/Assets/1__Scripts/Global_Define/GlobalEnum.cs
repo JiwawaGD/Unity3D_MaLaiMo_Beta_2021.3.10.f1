@@ -26,6 +26,7 @@ public enum GameEventID
     S1_Lotus_Paper_Plate,
     S1_Grandma_Pass_Door_After_RiceFurnel,
     Lv1_CheckFilialPietyCurtain,
+    Lv1_Faucet,
 
     // S2 : Scene_2
     S2_Light_Switch = 101,
@@ -65,6 +66,7 @@ public enum HintItemID
     S1_Photo_Frame_Has_Broken,
     S1_Finished_Lotus_Paper,
     S1_Lotus_Paper_Plate,
+    Lv1_Faucet,
 
     // S2 : Scene_2
     S2_Light_Switch = 101,

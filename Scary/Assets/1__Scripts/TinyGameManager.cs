@@ -55,6 +55,12 @@ public partial class GameManager : MonoBehaviour
         // 鬼手出現
         GameObject GhostHandObj = GameObject.Find("Ghost_Hand");
         GhostHandObj.transform.position = new Vector3(-8.5f, 0, 6);
+
+        // 鬼門觸發
+        GameObject GhostHandTriggerObj = GameObject.Find("Ghost_Hand_Trigger");
+        GhostHandTriggerObj.transform.position = new Vector3(-8.5f, 0.1f, 6.1f);
+
+        ShowHint(HintItemID.S1_Toilet_GhostHand_Trigger);
     }
 
     public void IvkS1_SetGrandmaGhostPosition()

@@ -148,12 +148,12 @@ public class PlayerController : MonoBehaviour
                 col.transform.localPosition -= new Vector3(0f, 10f, 0f);
             }
 
-            if (GameManager.m_bToiletGhostHasShow &&
-                col.gameObject.name == "Toilet_Ghost_Hide")
-            {
-                gameManager.SendMessage("GameEvent", GameEventID.S1_Toilet_Ghost_Hide);
-                col.transform.localPosition -= new Vector3(0f, 10f, 0f);
-            }
+            //if (GameManager.m_bToiletGhostHasShow &&
+            //    col.gameObject.name == "Toilet_Ghost_Hide")
+            //{
+            //    gameManager.SendMessage("GameEvent", GameEventID.S1_Toilet_Ghost_Hide);
+            //    col.transform.localPosition -= new Vector3(0f, 10f, 0f);
+            //}
 
             if (col.gameObject.name == "S2_Door_Knock_Trigger")
             {
