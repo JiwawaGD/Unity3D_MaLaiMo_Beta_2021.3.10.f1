@@ -432,7 +432,7 @@ public partial class GameManager : MonoBehaviour
         S2_Furniture_State_2_Obj.SetActive(true);
         S2_Wall_Replace_Door_Frame_Obj.SetActive(true);
         ShowHint(HintItemID.S2_Rice_Funeral);
-        Invoke(nameof(IvkS2_Shocked_By_Toilet), 7f);
+        Invoke(nameof(IvkS2_Shocked_By_Toilet), 9.5f);
     }
 
     void S2_Rice_Funeral()
