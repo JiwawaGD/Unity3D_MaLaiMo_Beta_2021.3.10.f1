@@ -94,16 +94,19 @@ public partial class GameManager : MonoBehaviour
 
     public void IvkS2_PlayGrandmaVideo()
     {
-        RawImgGrandmaUI.enabled = true;
-
-        videoPlayer.clip = GrandmaVP;
         videoPlayer.Play();
+        Invoke(nameof(IvkLv2_ShowRawImage), 0.15f);
     }
 
+    public void IvkLv2_ShowRawImage()
+    {
+        RawImgGrandmaUI.enabled = true;
+    }
 
     public void IvkS2_SlientAfterPhotoFrameForRecord()
     {
         videoPlayer.Stop();
+        RawImgGrandmaUI.enabled = false;
         FinalUI.SetActive(true);
         bIsGameEnd = true;
     }

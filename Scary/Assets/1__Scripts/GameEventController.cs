@@ -431,7 +431,7 @@ public partial class GameManager : MonoBehaviour
         S2_Furniture_State_2_Obj.SetActive(true);
         S2_Wall_Replace_Door_Frame_Obj.SetActive(true);
         ShowHint(HintItemID.S2_Rice_Funeral);
-        Invoke(nameof(IvkS2_Shocked_By_Toilet), 7.2f);
+        Invoke(nameof(IvkS2_Shocked_By_Toilet), 7f);
     }
 
     void S2_Rice_Funeral()
@@ -468,7 +468,7 @@ public partial class GameManager : MonoBehaviour
         Debug.Log("場景2 ==> 放腳尾飯到凳子上 (Lv2_RuceFuneralPlate)");
 
         Lv2_Rice_Funeral_Obj.transform.parent = Lv2_Piano_Stool_Item.transform;
-        Lv2_Rice_Funeral_Obj.transform.localPosition = new Vector3(0, 0.9f, 0);
+        Lv2_Rice_Funeral_Obj.transform.localPosition = new Vector3(0, 1f, 0);
         Lv2_Rice_Funeral_Obj.transform.localRotation = new Quaternion(0, 0, 0, 0);
         Lv2_Rice_Funeral_Obj.transform.localScale = new Vector3(1f, 1f, 1f);
 
