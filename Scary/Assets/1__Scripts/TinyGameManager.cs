@@ -83,33 +83,27 @@ public partial class GameManager : MonoBehaviour
 
     public void IvkS2_SlientAfterPhotoFrame()
     {
-        // 紹威 (Word 檔 - 聲音大約出現 2-3 秒後安靜下來
         audManager.Play(1, "At_the_end_it_is_found_that_Acuan_has_mostly_disappeared_and_Acuan_has_climbed_up", false);
 
-        // 加在這兩個註解中間
         ProcessPlayerAnimator("Player_S2_Shocked_After_PhotoFrame");
 
-        Invoke(nameof(IvkS2_PlayGrandmaVideo), 15f);
+        Invoke(nameof(IvkS2_PlayGrandmaVideo), 7f);
 
-        Invoke(nameof(IvkS2_SlientAfterPhotoFrameForRecord), 22f);
+        Invoke(nameof(IvkS2_SlientAfterPhotoFrameForRecord), 15f);
     }
 
     public void IvkS2_PlayGrandmaVideo()
     {
+        RawImgGrandmaUI.enabled = true;
+
         videoPlayer.clip = GrandmaVP;
         videoPlayer.Play();
-        // AUDManager.instance.BodyTwistingSound();
-        Invoke(nameof(IvkS2_ShowVideoPlayerMesh), 1f);
     }
 
-    public void IvkS2_ShowVideoPlayerMesh()
-    {
-        videoPlayer.gameObject.GetComponent<MeshRenderer>().enabled = true;
-    }
 
     public void IvkS2_SlientAfterPhotoFrameForRecord()
     {
-        videoPlayer.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        videoPlayer.Stop();
         FinalUI.SetActive(true);
         bIsGameEnd = true;
     }

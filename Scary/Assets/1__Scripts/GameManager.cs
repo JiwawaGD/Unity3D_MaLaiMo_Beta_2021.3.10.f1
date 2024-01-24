@@ -54,6 +54,7 @@ public partial class GameManager : MonoBehaviour
 
     [SerializeField] [Header("QRCode UI")] GameObject QRCodeUI;
     [SerializeField] [Header("準心 UI")] GameObject CrosshairUI;
+    [SerializeField] [Header("阿嬤收尾嚇人影片 UI")] RawImage RawImgGrandmaUI;
 
     [SerializeField] [Header("洗手台的水")] GameObject WaterSurfaceObj;
 
@@ -74,7 +75,6 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] Button ExitBtn;
     [SerializeField] Text txtEnterGameHint;
     [SerializeField] Button EnterGameBtn;
-
     #endregion
 
     #region Light Zone
@@ -780,11 +780,11 @@ public partial class GameManager : MonoBehaviour
 
     void LastAnimateAfterPhotoFrame()   // 照片框動畫後的最後動畫
     {
-        // 暫時這樣做
         playerCtrlr.m_bCanControl = false;
 
         audManager.Play(1, "Crying_in_the_bathroom", false);
-        Invoke(nameof(IvkS2_SlientAfterPhotoFrame), 2f);
+
+        Invoke(nameof(IvkS2_SlientAfterPhotoFrame), 1f);
     }
 
     void ShowQRCode()
