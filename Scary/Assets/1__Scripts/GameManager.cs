@@ -99,10 +99,8 @@ public partial class GameManager : MonoBehaviour
     bool bLv1_HasFlashlight = false;
     bool bLv1_TriggerRiceFuneral = false;
 
-    bool bLv2_TriggerLightSwitch = false;
     bool bLv2_HasGrandmaRoomKey = false;
     bool bLv2_HasFlashlight = false;
-    bool bS2_TriggerGrandmaDoorLock = false;
     bool bS2_TriggerLastAnimateAfterPhotoFrame = false;
     #endregion
 

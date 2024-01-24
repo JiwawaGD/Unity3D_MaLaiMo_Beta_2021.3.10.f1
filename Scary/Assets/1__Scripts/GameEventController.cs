@@ -308,6 +308,7 @@ public partial class GameManager : MonoBehaviour
         matFaucetWaterSurface.SetFloat("_FoamScale", 0.3f);
 
         ProcessAnimator("Lv1_Toilet_Door_Ghost", "Toilet_Door_Close");
+        audManager.Play(1, "door_Close", false);
 
         Invoke(nameof(IvkS1_SetGhostHandPosition), 3f);
     }
@@ -470,7 +471,7 @@ public partial class GameManager : MonoBehaviour
         Lv2_Rice_Funeral_Obj.transform.parent = Lv2_Piano_Stool_Item.transform;
         Lv2_Rice_Funeral_Obj.transform.localPosition = new Vector3(0, 1f, 0);
         Lv2_Rice_Funeral_Obj.transform.localRotation = new Quaternion(0, 0, 0, 0);
-        Lv2_Rice_Funeral_Obj.transform.localScale = new Vector3(1f, 1f, 1f);
+        Lv2_Rice_Funeral_Obj.transform.localScale = new Vector3(1f, 2f, 1f);
 
         ShowHint(HintItemID.S1_Photo_Frame);
     }

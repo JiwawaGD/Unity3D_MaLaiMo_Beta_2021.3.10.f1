@@ -104,9 +104,11 @@ public class AUDManager : MonoBehaviour
     public void Play(int index, string name, bool isLoop)
     {
         var audioSource = GetAudioSource(index);
+
         if (audioSource != null)
         {
             var clip = GetAudioClip(name);
+
             if (clip != null)
             {
                 audioSource.clip = clip;
@@ -117,7 +119,6 @@ public class AUDManager : MonoBehaviour
     }
     AudioClip GetAudioClip(string name)
     {
-
         switch (name)
         {
             case "Girl_laughing":

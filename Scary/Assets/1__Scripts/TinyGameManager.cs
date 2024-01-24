@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Video;
 
 public partial class GameManager : MonoBehaviour
 {
@@ -85,22 +86,24 @@ public partial class GameManager : MonoBehaviour
     {
         audManager.Play(1, "At_the_end_it_is_found_that_Acuan_has_mostly_disappeared_and_Acuan_has_climbed_up", false);
 
+        videoPlayer.started += OnVideoPlayerStarted;
+
         ProcessPlayerAnimator("Player_S2_Shocked_After_PhotoFrame");
 
-        Invoke(nameof(IvkS2_PlayGrandmaVideo), 7f);
+        Invoke(nameof(IvkS2_PlayGrandmaVideo), 8.2f);
 
-        Invoke(nameof(IvkS2_SlientAfterPhotoFrameForRecord), 15f);
+        Invoke(nameof(IvkS2_SlientAfterPhotoFrameForRecord), 18f);
+    }
+
+    void OnVideoPlayerStarted(VideoPlayer vp)
+    {
+        RawImgGrandmaUI.enabled = true;
+        vp.started -= OnVideoPlayerStarted;
     }
 
     public void IvkS2_PlayGrandmaVideo()
     {
         videoPlayer.Play();
-        Invoke(nameof(IvkLv2_ShowRawImage), 0.15f);
-    }
-
-    public void IvkLv2_ShowRawImage()
-    {
-        RawImgGrandmaUI.enabled = true;
     }
 
     public void IvkS2_SlientAfterPhotoFrameForRecord()
