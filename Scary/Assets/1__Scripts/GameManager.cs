@@ -50,7 +50,6 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj;
 
     [SerializeField] [Header("Video 撥放器")] VideoPlayer videoPlayer;
-    [SerializeField] [Header("Video - 阿嬤看螢幕")] VideoClip GrandmaVP;
 
     [SerializeField] [Header("QRCode UI")] GameObject QRCodeUI;
     [SerializeField] [Header("準心 UI")] GameObject CrosshairUI;
@@ -804,6 +803,12 @@ public partial class GameManager : MonoBehaviour
     void SetCrosshairEnable(bool bEnable)
     {
         CrosshairUI.SetActive(bEnable);
+    }
+
+    public void GameQuit()
+    {
+        Debug.Log("GameQuit");
+        Application.Quit();
     }
 
     // 延遲動作
