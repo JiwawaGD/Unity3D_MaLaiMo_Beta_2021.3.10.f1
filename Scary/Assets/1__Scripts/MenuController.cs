@@ -53,7 +53,7 @@ public class MenuController : MonoBehaviour
 
     public void SetCurrentChoose(string mode)
     {
-        if (mode == "team") TeamCurrentChoose = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
-        else GameSettingCurrentChoose = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject; ;
+        if (mode == "team") TeamCurrentChoose = EventSystem.current.currentSelectedGameObject;
+        else GameSettingCurrentChoose = EventSystem.current.currentSelectedGameObject; ;
     }
 }
