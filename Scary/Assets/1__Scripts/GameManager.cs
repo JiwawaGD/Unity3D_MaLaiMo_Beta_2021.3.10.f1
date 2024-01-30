@@ -497,23 +497,23 @@ public partial class GameManager : MonoBehaviour
         {
             case ObjItemID.S1_Rice_Funeral:
                 RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-27.815f, 1.809f, 8.32354f), 2);
+                    new Vector3(-27.815f, 1.809f, 8.32354f), 0.5f);
                 break;
             case ObjItemID.S1_Lotus_Paper:
                 RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-27.719f, 1.777f, 8.745541f), 2);
+                    new Vector3(-27.719f, 1.777f, 8.745541f), 0.5f);
                 break;
             case ObjItemID.S1_Photo_Frame:
                 RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-27.75f, 1.803f, 8.55254f), 2);
+                    new Vector3(-27.75f, 1.803f, 8.55254f), 0.5f);
                 break;
             case ObjItemID.S2_Photo_Frame:
                 RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-27.75f, 1.803f, 8.55254f), 2);
+                    new Vector3(-27.75f, 1.803f, 8.55254f), 0.5f);
                 break;
             case ObjItemID.S2_Photo_Frame_Floor:
                 RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-27.762f, 1.801f, 8.55254f), 2);
+                    new Vector3(-27.762f, 1.801f, 8.55254f), 0.5f);
                 break;
         }
     }
@@ -744,35 +744,39 @@ public partial class GameManager : MonoBehaviour
 
     private IEnumerator ChangeVignetteIntensity()  // 改變電影模式Vignette強度
     {
-        VolumeProfile profile = postProcessVolume.sharedProfile;
+        yield return new WaitForSeconds(11f);
+        playerCtrlr.m_bCanControl = true;
+        playerCtrlr.m_bLimitRotation = false;
+        //VolumeProfile profile = postProcessVolume.sharedProfile;
 
-        if (profile.TryGet(out Vignette vignette) &&
-            profile.TryGet(out CloudLayer cloudLayer))
-        {
-            float currentIntensity = 0.64f;
-            float elapsedTime = 0f;
+        //if (profile.TryGet(out Vignette vignette) &&
+        //    profile.TryGet(out CloudLayer cloudLayer))
+        //{
+        //    float currentIntensity = 0.64f;
+        //    float elapsedTime = 0f;
 
-            while (elapsedTime < 1f)
-            {
-                vignette.intensity.value = Mathf.Lerp(0.7669371f,
-                                                    targetIntensity, elapsedTime);
-                vignette.smoothness.value = Mathf.Lerp(0.3474241f,
-                                                    targetIntensity, elapsedTime);
-                vignette.roundness.value = Mathf.Lerp(0.3629616f,
-                                                    targetIntensity, elapsedTime);
-                cloudLayer.opacity.value = Mathf.Lerp(currentIntensity,
-                                                    targetIntensity, elapsedTime);
+        //    while (elapsedTime < 1f)
+        //    {
+        //        vignette.intensity.value = Mathf.Lerp(0.7669371f,
+        //                                            targetIntensity, elapsedTime);
+        //        vignette.smoothness.value = Mathf.Lerp(0.3474241f,
+        //                                            targetIntensity, elapsedTime);
+        //        vignette.roundness.value = Mathf.Lerp(0.3629616f,
+        //                                            targetIntensity, elapsedTime);
+        //        cloudLayer.opacity.value = Mathf.Lerp(currentIntensity,
+        //                                            targetIntensity, elapsedTime);
 
-                elapsedTime += Time.deltaTime * changeSpeed;
-                yield return null;
-            }
-            vignette.intensity.value = 0.7f;
-            vignette.smoothness.value = 0.16f;
-            vignette.roundness.value = 0.18f;
-            cloudLayer.opacity.value = 0.0f;
-            playerCtrlr.m_bCanControl = true;
-            playerCtrlr.m_bLimitRotation = false;
-        }
+        //        elapsedTime += Time.deltaTime * changeSpeed;
+        //        yield return null;
+        //    }
+        //    yield return new WaitForSeconds(8f);
+        //    vignette.intensity.value = 0.7f;
+        //    vignette.smoothness.value = 0.16f;
+        //    vignette.roundness.value = 0.18f;
+        //    cloudLayer.opacity.value = 0.0f;
+        //    playerCtrlr.m_bCanControl = true;
+        //    playerCtrlr.m_bLimitRotation = false;
+        //}
     }
 
     void LastAnimateAfterPhotoFrame()   // 照片框動畫後的最後動畫
