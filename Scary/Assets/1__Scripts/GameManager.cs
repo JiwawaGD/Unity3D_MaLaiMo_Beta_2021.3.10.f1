@@ -497,19 +497,19 @@ public partial class GameManager : MonoBehaviour
         {
             case ObjItemID.S1_Rice_Funeral:
                 RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-27.815f, 1.809f, 8.32354f), 0.5f);
+                    new Vector3(-28f, 1.85f, 8.32354f), 0.5f);
                 break;
             case ObjItemID.S1_Lotus_Paper:
                 RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-27.719f, 1.777f, 8.745541f), 0.5f);
+                    new Vector3(-27.8f, 1.8f, 8.745541f), 0.5f);
                 break;
             case ObjItemID.S1_Photo_Frame:
                 RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-27.75f, 1.803f, 8.55254f), 0.5f);
+                    new Vector3(-28f, 1.85f, 8.55254f), 0.5f);
                 break;
             case ObjItemID.S2_Photo_Frame:
                 RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-27.75f, 1.803f, 8.55254f), 0.5f);
+                    new Vector3(-28f, 1.85f, 8.55254f), 0.5f);
                 break;
             case ObjItemID.S2_Photo_Frame_Floor:
                 RO_OBJ[saveRotaObj].transform.DOMove(
@@ -694,10 +694,10 @@ public partial class GameManager : MonoBehaviour
         print(RO_OBJ[saveRotaObj].transform.name);
 
         //恢復物件位置
-        RO_OBJ[saveRotaObj].transform.DOMove(originalPosition, 2);
+        RO_OBJ[saveRotaObj].transform.DOMove(originalPosition, 0.1f);
 
         //恢復物件角度
-        RO_OBJ[saveRotaObj].transform.DORotate(originalRotation.eulerAngles, 2);
+        RO_OBJ[saveRotaObj].transform.DORotate(originalRotation.eulerAngles, 0.1f);
         isMoveingObject = false;
         StudioUI.SetActive(false);
     }

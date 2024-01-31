@@ -67,6 +67,8 @@ public class AUDManager : MonoBehaviour
     [SerializeField, Tooltip("進入場景低沉音效")] AudioClip enter_Scene_Sound;
     [SerializeField, Tooltip("UI內文")] AudioClip ui_Context;
     [SerializeField] AudioClip At_the_end_it_is_found_that_Acuan_has_mostly_disappeared_and_Acuan_has_climbed_up;
+    [SerializeField, Tooltip("沖水聲")] public AudioSource FlushSound;
+
 
     public const string MUSIC_KEY = "musicVolume";
     public const string SFX_KEY = "sfxVolume";

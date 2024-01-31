@@ -82,7 +82,7 @@ public partial class GameManager : MonoBehaviour
         TempItem = GameObject.Find("Lv1_Toilet_Door_Ghost").GetComponent<ItemController>();
         TempItem.bAlwaysActive = false;
         TempItem.eventID = GameEventID.S1_Toilet_Door_Open;
-
+        audManager.FlushSound.Play();
         DialogueObjects[(byte)Lv1_Dialogue.HeardBathRoomSound_Lv1].CallAction();
     }
 

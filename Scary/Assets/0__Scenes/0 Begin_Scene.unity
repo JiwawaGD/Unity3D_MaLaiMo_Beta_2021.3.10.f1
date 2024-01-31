@@ -381,22 +381,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventID: 9
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 76341656172625725}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!114 &130159070 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 76341654704027054, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
@@ -1084,22 +1068,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventID: 9
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 76341656172625726}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!114 &1099151779 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 76341655073474207, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
@@ -1464,22 +1432,6 @@ MonoBehaviour:
             m_BoolArgument: 1
           m_CallState: 2
   - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 76341656172625727}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 9
     callback:
       m_PersistentCalls:
         m_Calls:
@@ -2474,6 +2426,10 @@ PrefabInstance:
       value: 0.5019608
       objectReference: {fileID: 0}
     - target: {fileID: 76341655387282483, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
+      propertyPath: m_Colors.m_PressedColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 76341655387282483, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
       propertyPath: m_Colors.m_PressedColor.b
       value: 0.78431374
       objectReference: {fileID: 0}
@@ -2774,6 +2730,10 @@ PrefabInstance:
       value: 0.5019608
       objectReference: {fileID: 0}
     - target: {fileID: 76341656189445533, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
+      propertyPath: m_Colors.m_PressedColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 76341656189445533, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
       propertyPath: m_Colors.m_PressedColor.b
       value: 0.78431374
       objectReference: {fileID: 0}
@@ -2951,7 +2911,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1007525909669317423, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
       propertyPath: m_Delegates.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1007525909669317423, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
       propertyPath: m_Delegates.Array.data[2].eventID
@@ -3151,7 +3111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1345912895438707855, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
       propertyPath: m_Colors.m_PressedColor.a
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1345912895438707855, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
       propertyPath: m_Colors.m_PressedColor.b
@@ -3351,7 +3311,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3551765801280821043, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
       propertyPath: m_Colors.m_PressedColor.a
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3551765801280821043, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
       propertyPath: m_Colors.m_PressedColor.b
@@ -3599,7 +3559,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5824913796876500545, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
       propertyPath: m_Colors.m_PressedColor.a
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5824913796876500545, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
       propertyPath: m_Colors.m_PressedColor.b
@@ -3783,7 +3743,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7630580965227107379, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
       propertyPath: m_Delegates.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7630580965227107379, guid: aef7090ce2e7f174a93cd08c62c866bc, type: 3}
       propertyPath: m_Delegates.Array.data[2].eventID
