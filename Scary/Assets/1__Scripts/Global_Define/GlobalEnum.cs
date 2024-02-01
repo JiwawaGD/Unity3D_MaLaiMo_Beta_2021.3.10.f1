@@ -149,5 +149,6 @@ public enum Lv1_Dialogue
     WakeUp_Lv2,
     CheckFilialPietyCurtain_Lv1,
     CheckLotus_Lv1,
-    HeardBathRoomSound_Lv1
+    HeardBathRoomSound_Lv1,
+    Lv1_OpenLight_HasFlashlight,
 }

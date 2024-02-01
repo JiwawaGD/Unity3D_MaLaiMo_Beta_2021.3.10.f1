@@ -142,7 +142,11 @@ public partial class GameManager : MonoBehaviour
     {
         Debug.Log("場景1 ==> 觸發奶奶房間燈開關 (S1_Light_Switch)");
 
-        DialogueObjects[(byte)Lv1_Dialogue.OpenLight_Lv1].CallAction();
+        if (bLv1_HasFlashlight)
+            DialogueObjects[(byte)Lv1_Dialogue.Lv1_OpenLight_HasFlashlight].CallAction();
+        else
+            DialogueObjects[(byte)Lv1_Dialogue.OpenLight_Lv1].CallAction();
+
         audManager.Play(1, "light_Switch_Sound", false);
     }
 
