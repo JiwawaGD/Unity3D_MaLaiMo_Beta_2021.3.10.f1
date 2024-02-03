@@ -7,11 +7,11 @@ public partial class GameManager : MonoBehaviour
     {
         Debug.Log("場景1 ==> 正常相框 (S1_Photo_Frame)");
 
-        ShowHint(HintItemID.S1_Photo_Frame);
-        audManager.Play(1, "mirror_Breaking_Sound", false);
-        S1_Photo_Frame_Obj.transform.GetChild(1).GetComponent<MeshRenderer>().enabled = true;
-        TempItem = S1_Photo_Frame_Obj.GetComponent<ItemController>();
-        TempItem.eventID = GameEventID.S1_Photo_Frame_Has_Broken;
+        ProcessAnimator("Lv2_Photo_Frame", "Lv2_PutPhotoFrameBack");
+
+        DialogueObjects[(byte)Lv1_Dialogue.Lv2_PutPhotoFrameBack].CallAction();
+
+        Invoke(nameof(IvkLv2_BrokenPhotoFrameEnable), 2.5f);
     }
 
     void S1_PhotoFrameHasBroken()
@@ -26,15 +26,6 @@ public partial class GameManager : MonoBehaviour
         Lv2_BrotherShoe_Obj.transform.localPosition = new Vector3(-4.4f, 0f, 48.8f);
 
         bS2_TriggerLastAnimateAfterPhotoFrame = true;
-
-        // 人形黑影 (暫時先註解)
-        //ProcessAnimator("Toilet_Door_Ghost", "Toilet_Door_Ghost_In");
-        //audManager.Play(1, "ghost_In_Door", false);
-        //m_bToiletGhostHasShow = true;
-
-        // 限制角色視角
-        //m_bSetPlayerViewLimit = true;
-        //GlobalDeclare.PlayerCameraLimit.SetPlayerCameraLimit(150f, 250f, 160f);
     }
 
     void S1_GrandmaDoorOpen()
@@ -477,7 +468,11 @@ public partial class GameManager : MonoBehaviour
         Lv2_Rice_Funeral_Obj.transform.localRotation = new Quaternion(0, 0, 0, 0);
         Lv2_Rice_Funeral_Obj.transform.localScale = new Vector3(1f, 2f, 1f);
 
+        audManager.Play(1, "mirror_Breaking_Sound", false);
+        DialogueObjects[(byte)Lv1_Dialogue.Lv2_PhotoFrameFall].CallAction();
+        ProcessAnimator("Lv2_Photo_Frame", "Lv2_PhotoFrameFall");
         ShowHint(HintItemID.S1_Photo_Frame);
+        S1_Photo_Frame_Obj.transform.GetChild(1).GetComponent<MeshRenderer>().enabled = true;
     }
     #endregion
 }

@@ -113,4 +113,11 @@ public partial class GameManager : MonoBehaviour
         FinalUI.SetActive(true);
         bIsGameEnd = true;
     }
+
+    void IvkLv2_BrokenPhotoFrameEnable()
+    {
+        ShowHint(HintItemID.S1_Photo_Frame);
+        TempItem = S1_Photo_Frame_Obj.GetComponent<ItemController>();
+        TempItem.eventID = GameEventID.S1_Photo_Frame_Has_Broken;
+    }
 }

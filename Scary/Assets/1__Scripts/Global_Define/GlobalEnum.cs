@@ -1,4 +1,4 @@
-public enum GameEventID
+﻿public enum GameEventID
 {
     Close_UI = 0,
 
@@ -39,7 +39,7 @@ public enum GameEventID
     S2_Grandma_Door_Close,
     S2_Ghost_Pass_Door,
     S2_Rice_Funeral,
-    S2_Photo_Frame,
+    S2_Photo_Frame, // 現在沒再用 可替換
     S2_Toilet_Door,
     Lv2_Ruce_Funeral_Plate,
 }
@@ -151,4 +151,6 @@ public enum Lv1_Dialogue
     CheckLotus_Lv1,
     HeardBathRoomSound_Lv1,
     Lv1_OpenLight_HasFlashlight,
+    Lv2_PhotoFrameFall,
+    Lv2_PutPhotoFrameBack,
 }
