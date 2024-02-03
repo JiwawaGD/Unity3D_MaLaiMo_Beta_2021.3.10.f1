@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class FunctionMenuCtrlr : MonoBehaviour
 {
@@ -16,7 +17,10 @@ public class FunctionMenuCtrlr : MonoBehaviour
     [SerializeField] [Header("子物件 - Setting")] GameObject Child_Setting;
     [SerializeField] [Header("子物件 - Team")] GameObject Child_Team;
     [SerializeField] [Header("子物件 - EndGame")] GameObject Child_EndGame;
-
+    [SerializeField] [Header("設定畫面")] GameObject SettingView;
+    [SerializeField] [Header("參加人員畫面")] GameObject TeamView;
+    [SerializeField] [Header("設定目前選擇按鈕")] GameObject GameSettingCurrentChoose;
+    [SerializeField] [Header("製作人員目前選擇按鈕")] GameObject TeamCurrentChoose;
 
     GameManager gm;
     Scene currentScene;
@@ -93,5 +97,30 @@ public class FunctionMenuCtrlr : MonoBehaviour
         Child_Setting.SetActive(false);
         Child_Team.SetActive(false);
         Child_EndGame.SetActive(false);
+    }
+
+    public void ResetCurrentChoose(string mode)
+    {
+        if (mode == "team") EventSystem.current.SetSelectedGameObject(TeamCurrentChoose);
+        else EventSystem.current.SetSelectedGameObject(GameSettingCurrentChoose);
+    }
+
+    public void SetCurrentChoose(string mode)
+    {
+        if (mode == "team") TeamCurrentChoose = EventSystem.current.currentSelectedGameObject;
+        else GameSettingCurrentChoose = EventSystem.current.currentSelectedGameObject; ;
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SettingView.SetActive(false);
+            TeamView.SetActive(false);
+            print(Btn_EnterGame.gameObject.transform.parent.gameObject.name);
+            Btn_EnterGame.gameObject.SetActive(true);
+            Btn_GameSetting.gameObject.SetActive(true);
+            Btn_Team.gameObject.SetActive(true);
+            Btn_EndGame.gameObject.SetActive(true);
+        }
     }
 }

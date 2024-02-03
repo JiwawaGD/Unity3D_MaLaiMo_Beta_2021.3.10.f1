@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems;
+
 
 public class MenuController : MonoBehaviour
 {
@@ -11,8 +11,6 @@ public class MenuController : MonoBehaviour
     [SerializeField] [Header("遊戲設定 按鈕")] Button Btn_GameSetting;
     [SerializeField] [Header("製作人員 按鈕")] Button Btn_Team;
     [SerializeField] [Header("離開按鈕")] Button Btn_EndGame;
-    [SerializeField] [Header("設定目前選擇按鈕")] GameObject GameSettingCurrentChoose;
-    [SerializeField] [Header("製作人員目前選擇按鈕")] GameObject TeamCurrentChoose;
 
     void Start()
     {
@@ -43,17 +41,5 @@ public class MenuController : MonoBehaviour
         Btn_GameSetting.gameObject.SetActive(false);
         Btn_Team.gameObject.SetActive(false);
         Btn_EndGame.gameObject.SetActive(false);
-    }
-
-    public void ResetCurrentChoose(string mode)
-    {
-        if(mode == "team") EventSystem.current.SetSelectedGameObject(TeamCurrentChoose);
-        else EventSystem.current.SetSelectedGameObject(GameSettingCurrentChoose);
-    }
-
-    public void SetCurrentChoose(string mode)
-    {
-        if (mode == "team") TeamCurrentChoose = EventSystem.current.currentSelectedGameObject;
-        else GameSettingCurrentChoose = EventSystem.current.currentSelectedGameObject; ;
     }
 }
