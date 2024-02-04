@@ -101,16 +101,20 @@ public class FunctionMenuCtrlr : MonoBehaviour
 
     public void ResetCurrentChoose(string mode)
     {
-        if (mode == "team") EventSystem.current.SetSelectedGameObject(TeamCurrentChoose);
-        else EventSystem.current.SetSelectedGameObject(GameSettingCurrentChoose);
+        if (mode == "team")
+            EventSystem.current.SetSelectedGameObject(TeamCurrentChoose);
+        else
+            EventSystem.current.SetSelectedGameObject(GameSettingCurrentChoose);
     }
 
     public void SetCurrentChoose(string mode)
     {
-        if (mode == "team") TeamCurrentChoose = EventSystem.current.currentSelectedGameObject;
-        else GameSettingCurrentChoose = EventSystem.current.currentSelectedGameObject; ;
+        if (mode == "team")
+            TeamCurrentChoose = EventSystem.current.currentSelectedGameObject;
+        else
+            GameSettingCurrentChoose = EventSystem.current.currentSelectedGameObject; ;
     }
-    private void Update()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {

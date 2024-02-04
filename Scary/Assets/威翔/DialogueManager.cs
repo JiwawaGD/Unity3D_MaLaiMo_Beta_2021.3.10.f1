@@ -26,7 +26,7 @@ public class DialogueManager : MonoBehaviour
     private AudioSource aud;
     private int currentPos = 0; //當前打字位置
     private GameManager GM;
-    private bool IsPlaying  = false;
+    private bool IsPlaying = false;
 
     private void Start()
     {
@@ -38,8 +38,13 @@ public class DialogueManager : MonoBehaviour
 
     public void CallAction()
     {
+        GlobalDeclare.byCurrentDialogIndex = (byte)Lv1_Dialogue.Begin;
+
+
         GM.CurrentDialogue = gameObject.name;
-        if (IsPlaying == false) StartCoroutine(StartAction());
+
+        if (IsPlaying == false)
+            StartCoroutine(StartAction());
     }
 
     private IEnumerator StartAction()
@@ -85,7 +90,7 @@ public class DialogueManager : MonoBehaviour
         {
             ActionCount = 0;
             IsPlaying = false;
-        } 
+        }
     }
 
     private IEnumerator AlphaInOut(GameObject node, float alpha)

@@ -135,6 +135,7 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("Lv2_腳尾凳子_Item")] ItemController Lv2_Piano_Stool_Item;
 
     [SerializeField] [Header("Lv2_哥哥的鞋子_Obj")] GameObject Lv2_BrotherShoe_Obj;
+    [SerializeField] [Header("Lv2_哥哥的鞋子_Item")] ItemController Lv2_BrotherShoe_Item;
 
     [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
     [SerializeField] [Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
@@ -157,6 +158,7 @@ public partial class GameManager : MonoBehaviour
     bool isMouseEnabled = false;
     bool isUIOpen = false;
     bool bIsGameEnd = false;
+    bool bNeedShowDialog = false;
 
     void Awake()
     {
@@ -205,6 +207,8 @@ public partial class GameManager : MonoBehaviour
         playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
 
         SetCrosshairEnable(true);
+
+        S2_ToiletDoor();
     }
 
     void Update()
@@ -250,6 +254,12 @@ public partial class GameManager : MonoBehaviour
                 // 動畫
                 if (bS2_TriggerLastAnimateAfterPhotoFrame)
                     LastAnimateAfterPhotoFrame();
+
+                if (bNeedShowDialog)
+                {
+                    DialogueObjects[GlobalDeclare.byCurrentDialogIndex].CallAction();
+                    bNeedShowDialog = false;
+                }
 
                 GameStateCheck();
                 break;
@@ -364,6 +374,9 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.Lv2_Ruce_Funeral_Plate:
                 Lv2_RuceFuneralPlate();
                 break;
+            case GameEventID.Lv2_Boy_Sneaker:
+                Lv2_BoySneaker();
+                break;
         }
     }
 
@@ -468,6 +481,9 @@ public partial class GameManager : MonoBehaviour
             case HintItemID.Lv2_Ruce_Funeral_Plate:
                 TempItem = Lv2_Piano_Stool_Item;
                 break;
+            case HintItemID.Lv2_Boy_Sneaker:
+                TempItem = Lv2_BrotherShoe_Item;
+                break;
         }
 
         TempItem.bActive = true;
@@ -490,9 +506,10 @@ public partial class GameManager : MonoBehaviour
     }
 
     // 顯示進入旋轉遊戲按鈕
-    public void ShowObj(ObjItemID O_ItemID)  // 顯示物件 UI  (旋轉物件)  (物件ID)
+    public void ShowObj(ObjItemID O_ItemID)
     {
         StudioUI.SetActive(true);
+
         switch (O_ItemID)
         {
             case ObjItemID.S1_Rice_Funeral:
@@ -614,7 +631,6 @@ public partial class GameManager : MonoBehaviour
             case ButtonEventID.Enter_Game:
                 if (isUIOpen)
                 {
-                    // 執行相應的程式碼
                     GlobalDeclare.bLotusGameComplete = true;
                     RestoreItemLocation();
                     GameEvent(GameEventID.Close_UI);
@@ -628,7 +644,6 @@ public partial class GameManager : MonoBehaviour
 
     public void GrandMaRush()   // 奶奶衝撞
     {
-        //tfGrandmaGhost.Translate(0f, 0f, 0.3f);
         m_iGrandmaRushCount++;
 
         if (m_iGrandmaRushCount >= 10)

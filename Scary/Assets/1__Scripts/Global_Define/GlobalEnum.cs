@@ -42,6 +42,7 @@
     S2_Photo_Frame, // 現在沒再用 可替換
     S2_Toilet_Door,
     Lv2_Ruce_Funeral_Plate,
+    Lv2_Boy_Sneaker,
 }
 
 public enum HintItemID
@@ -79,6 +80,7 @@ public enum HintItemID
     S2_Photo_Frame,
     S2_Toilet_Door,
     Lv2_Ruce_Funeral_Plate,
+    Lv2_Boy_Sneaker,
 }
 
 public enum ObjItemID
@@ -153,4 +155,5 @@ public enum Lv1_Dialogue
     Lv1_OpenLight_HasFlashlight,
     Lv2_PhotoFrameFall,
     Lv2_PutPhotoFrameBack,
+    Lv2_Boy_Sneaker,
 }

@@ -98,6 +98,8 @@
 
     #endregion
 
+    public static byte byCurrentDialogIndex;
+
     public readonly static string[] StoryMessage = new string[]
     {
         "我的奶奶，在我很小的時候就過世了",

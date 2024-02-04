@@ -25,7 +25,10 @@ public partial class GameManager : MonoBehaviour
 
         Lv2_BrotherShoe_Obj.transform.localPosition = new Vector3(-4.4f, 0f, 48.8f);
 
-        bS2_TriggerLastAnimateAfterPhotoFrame = true;
+        GlobalDeclare.byCurrentDialogIndex = (byte)Lv1_Dialogue.Lv2_Boy_Sneaker;
+        bNeedShowDialog = true;
+
+        ShowHint(HintItemID.Lv2_Boy_Sneaker);
     }
 
     void S1_GrandmaDoorOpen()
@@ -455,8 +458,6 @@ public partial class GameManager : MonoBehaviour
         ShowObj(ObjItemID.S2_Photo_Frame_Floor);
 
         Lv2_BrotherShoe_Obj.transform.localPosition = new Vector3(-4.4f, 0f, 48.8f);
-
-        bS2_TriggerLastAnimateAfterPhotoFrame = true;
     }
 
     void Lv2_RuceFuneralPlate()
@@ -473,6 +474,18 @@ public partial class GameManager : MonoBehaviour
         ProcessAnimator("Lv2_Photo_Frame", "Lv2_PhotoFrameFall");
         ShowHint(HintItemID.S1_Photo_Frame);
         S1_Photo_Frame_Obj.transform.GetChild(1).GetComponent<MeshRenderer>().enabled = true;
+    }
+
+    void Lv2_BoySneaker()
+    {
+        Debug.Log("場景2 ==> 哥哥的鞋子 (Lv2_BoySneaker)");
+
+        playerCtrlr.m_bCanControl = false;
+
+        audManager.Play(1, "Crying_in_the_bathroom", false);
+
+        IvkS2_SlientAfterPhotoFrame();
+        //Invoke(nameof(IvkS2_SlientAfterPhotoFrame), 1f);
     }
     #endregion
 }
