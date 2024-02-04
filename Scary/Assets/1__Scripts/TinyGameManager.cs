@@ -82,19 +82,6 @@ public partial class GameManager : MonoBehaviour
         S2_Toilet_Door_GhostHead_Obj.GetComponent<Animator>().SetTrigger("S2_Toilet_Door_GhostHead_Scared");
     }
 
-    public void IvkS2_SlientAfterPhotoFrame()
-    {
-        audManager.Play(1, "At_the_end_it_is_found_that_Acuan_has_mostly_disappeared_and_Acuan_has_climbed_up", false);
-
-        videoPlayer.started += OnVideoPlayerStarted;
-
-        ProcessPlayerAnimator("Player_S2_Shocked_After_PhotoFrame");
-
-        Invoke(nameof(IvkS2_PlayGrandmaVideo), 8.2f);
-
-        Invoke(nameof(IvkS2_SlientAfterPhotoFrameForRecord), 18f);
-    }
-
     void OnVideoPlayerStarted(VideoPlayer vp)
     {
         RawImgGrandmaUI.enabled = true;

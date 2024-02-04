@@ -251,10 +251,6 @@ public partial class GameManager : MonoBehaviour
                 if (m_bSetPlayerViewLimit)
                     SetPlayerViewLimit(true, GlobalDeclare.PlayerCameraLimit.GetPlayerCameraLimit());
 
-                // 動畫
-                if (bS2_TriggerLastAnimateAfterPhotoFrame)
-                    LastAnimateAfterPhotoFrame();
-
                 if (bNeedShowDialog)
                 {
                     DialogueObjects[GlobalDeclare.byCurrentDialogIndex].CallAction();
@@ -792,15 +788,6 @@ public partial class GameManager : MonoBehaviour
         //    playerCtrlr.m_bCanControl = true;
         //    playerCtrlr.m_bLimitRotation = false;
         //}
-    }
-
-    void LastAnimateAfterPhotoFrame()   // 照片框動畫後的最後動畫
-    {
-        playerCtrlr.m_bCanControl = false;
-
-        audManager.Play(1, "Crying_in_the_bathroom", false);
-
-        Invoke(nameof(IvkS2_SlientAfterPhotoFrame), 1f);
     }
 
     void ShowQRCode()

@@ -484,8 +484,12 @@ public partial class GameManager : MonoBehaviour
 
         audManager.Play(1, "Crying_in_the_bathroom", false);
 
-        IvkS2_SlientAfterPhotoFrame();
-        //Invoke(nameof(IvkS2_SlientAfterPhotoFrame), 1f);
+        videoPlayer.started += OnVideoPlayerStarted;
+        IvkS2_PlayGrandmaVideo();
+
+        ProcessPlayerAnimator("Player_S2_Shocked_After_PhotoFrame");
+
+        Invoke(nameof(IvkS2_SlientAfterPhotoFrameForRecord), 4f);
     }
     #endregion
 }
