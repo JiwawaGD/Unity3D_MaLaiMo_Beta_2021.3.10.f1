@@ -159,6 +159,8 @@ public partial class GameManager : MonoBehaviour
     bool isUIOpen = false;
     bool bIsGameEnd = false;
     bool bNeedShowDialog = false;
+    bool bIsPlayingLotus = false;
+    bool bHasTriggerLotus = false;
 
     void Awake()
     {
@@ -195,6 +197,8 @@ public partial class GameManager : MonoBehaviour
         ExitBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.UI_Back));   // 返回
         EnterGameBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.Enter_Game));   // 進入蓮花遊戲
 
+        SetCrosshairEnable(true);
+
         // Lv1 預設開啟的 Hint
         ShowHint(HintItemID.S1_Desk_Drawer);
         ShowHint(HintItemID.S1_Flashlight);
@@ -206,9 +210,8 @@ public partial class GameManager : MonoBehaviour
         // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
         playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
 
-        SetCrosshairEnable(true);
-
-        S2_ToiletDoor();
+        // For Test
+        //S1_RiceFuneralSpilled();
     }
 
     void Update()
@@ -491,6 +494,7 @@ public partial class GameManager : MonoBehaviour
     {
         if (RO_OBJ[saveRotaObj] == null)
             return;
+
         Ro_Light.enabled = true;
         CameraVolume.enabled = true;
         isMoveingObject = true;  // 正在移動物件
@@ -627,12 +631,23 @@ public partial class GameManager : MonoBehaviour
             case ButtonEventID.Enter_Game:
                 if (isUIOpen)
                 {
-                    GlobalDeclare.bLotusGameComplete = true;
-                    RestoreItemLocation();
+                    if (bHasTriggerLotus)
+                    {
+                        LotusGameManager LotusCtrlr = GameObject.Find("LotusGameController").GetComponent<LotusGameManager>();
+                        LotusCtrlr.SendMessage("SetLotusCanvasEnable", true);
+
+                        LotusGameManager.bIsGamePause = false;
+                    }
+                    else
+                    {
+                        bHasTriggerLotus = true;
+                        SceneManager.LoadScene(3, LoadSceneMode.Additive);
+                    }
+
                     GameEvent(GameEventID.Close_UI);
+                    RestoreItemLocation();
+                    bIsPlayingLotus = true;
                     playerCtrlr.m_bCanControl = false;
-                    playerCtrlr.tfPlayerCamera.GetComponent<AudioListener>().enabled = false;
-                    SceneManager.LoadScene(3, LoadSceneMode.Additive);
                 }
                 break;
         }
@@ -652,12 +667,26 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
+    void QuitLotusGame()
+    {
+        bIsPlayingLotus = false;
+        playerCtrlr.m_bCanControl = true;
+        playerCtrlr.tfPlayerCamera.gameObject.SetActive(true);
+
+        LotusGameManager LotusCtrlr = GameObject.Find("LotusGameController").GetComponent<LotusGameManager>();
+        LotusCtrlr.SendMessage("SetLotusCanvasEnable", false);
+
+        LotusGameManager.bIsGamePause = true;
+
+        ShowHint(HintItemID.S1_Lotus_Paper);
+    }
+
     // 離開蓮花遊戲
     public void ExitLotusGame()
     {
         m_bPlayLotusEnable = false;
+        bIsPlayingLotus = false;
         playerCtrlr.m_bCanControl = true;
-        playerCtrlr.tfPlayerCamera.GetComponent<AudioListener>().enabled = true;
         playerCtrlr.tfPlayerCamera.gameObject.SetActive(true);
         SceneManager.UnloadSceneAsync(3);
 
@@ -689,6 +718,10 @@ public partial class GameManager : MonoBehaviour
                         Ro_Light.enabled = false;
                     }
                 }
+            }
+            else if (bIsPlayingLotus)
+            {
+                QuitLotusGame();
             }
             else
             {

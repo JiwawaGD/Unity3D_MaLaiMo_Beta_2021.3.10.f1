@@ -120,7 +120,6 @@ public class FunctionMenuCtrlr : MonoBehaviour
         {
             SettingView.SetActive(false);
             TeamView.SetActive(false);
-            print(Btn_EnterGame.gameObject.transform.parent.gameObject.name);
             Btn_EnterGame.gameObject.SetActive(true);
             Btn_GameSetting.gameObject.SetActive(true);
             Btn_Team.gameObject.SetActive(true);

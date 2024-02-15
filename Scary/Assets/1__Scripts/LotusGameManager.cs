@@ -13,6 +13,8 @@ public class LotusGameManager : MonoBehaviour
     [SerializeField] [Header("音效撥放器")] AudioSource lotusAudioSource;
     [SerializeField, Tooltip("金紙")] AudioClip[] goldPaper;
 
+    [Header("蓮花 Canvas")] public GameObject LotusCanvas;
+
     int iAllLotusCount;
     bool bIsAnimating;
 
@@ -20,6 +22,8 @@ public class LotusGameManager : MonoBehaviour
     RectTransform HintRectTf;
     Transform TfLotus;
     AnimatorStateInfo LotusState;
+
+    public static bool bIsGamePause = false;
 
     readonly string[] strLotusAniTriggerName = new string[30]
 {
@@ -82,6 +86,9 @@ public class LotusGameManager : MonoBehaviour
         }
 
         if (bIsAnimating)
+            return;
+
+        if (bIsGamePause)
             return;
 
         if (Input.GetKeyDown(KeyCode.W))
@@ -345,5 +352,10 @@ public class LotusGameManager : MonoBehaviour
             29 => new Vector2(-300, 300),  // Q
             _ => new Vector2(0, 0),
         };
+    }
+
+    void SetLotusCanvasEnable(bool bEnable)
+    {
+        LotusCanvas.SetActive(bEnable);
     }
 }
