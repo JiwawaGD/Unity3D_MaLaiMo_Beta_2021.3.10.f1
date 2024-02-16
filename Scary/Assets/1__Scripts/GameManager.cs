@@ -635,7 +635,6 @@ public partial class GameManager : MonoBehaviour
                     {
                         LotusGameManager LotusCtrlr = GameObject.Find("LotusGameController").GetComponent<LotusGameManager>();
                         LotusCtrlr.SendMessage("SetLotusCanvasEnable", true);
-
                         LotusGameManager.bIsGamePause = false;
                     }
                     else
@@ -648,6 +647,12 @@ public partial class GameManager : MonoBehaviour
                     RestoreItemLocation();
                     bIsPlayingLotus = true;
                     playerCtrlr.m_bCanControl = false;
+                    playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+                    playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = false;
+
+                    StartCoroutine(PlayerToAniPos(new Vector3(-4f, 0.45f, -0.6f), new Vector3(20f, 0f, 0f)));
+
+                    //PlayerToAniPos(new Vector3(-4f, 0.45f, -0.6f));
                 }
                 break;
         }
@@ -691,7 +696,7 @@ public partial class GameManager : MonoBehaviour
         SceneManager.UnloadSceneAsync(3);
 
         S1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-5.1f, -2f, -2f);
-        S1_Finished_Lotus_Paper_Obj.transform.localPosition = new Vector3(-5.1f, 0.6f, -2f);
+        S1_Finished_Lotus_Paper_Obj.transform.localPosition = new Vector3(-4.1f, 0.6f, -1.5f);
 
         ShowHint(HintItemID.S1_Finished_Lotus_Paper);
 
@@ -842,6 +847,46 @@ public partial class GameManager : MonoBehaviour
     void SetCrosshairEnable(bool bEnable)
     {
         CrosshairUI.SetActive(bEnable);
+    }
+
+    IEnumerator PlayerToAniPos(Vector3 v3MoveTargetPos, Vector3 v3ViewTargetPos)
+    {
+        Debug.Log("PlayerToAniPos");
+
+        float fTotalMoveTime = 1.0f;
+        float fCurrentMoveTime = 0.0f;
+
+        Quaternion ZeroQuaternion = Quaternion.Euler(new Vector3(0, 180, 0));
+
+        while (fCurrentMoveTime < fTotalMoveTime)
+        {
+            // 使用Lerp函數實現位置插值
+            playerCtrlr.transform.localPosition = Vector3.Lerp(playerCtrlr.transform.localPosition, v3MoveTargetPos, fCurrentMoveTime / (fTotalMoveTime * 2.5f));
+            playerCtrlr.transform.localRotation = Quaternion.Slerp(playerCtrlr.transform.localRotation, ZeroQuaternion, fCurrentMoveTime / (fTotalMoveTime * 2.5f));
+
+            // 更新已經經過的時間
+            fCurrentMoveTime += Time.deltaTime;
+
+            // 等待一幀
+            yield return null;
+        }
+
+        float fTotalViewTime = 1.0f;
+        float fCurrentViewTime = 0.0f;
+
+        Quaternion targetQuaternion = Quaternion.Euler(v3ViewTargetPos);
+
+        while (fCurrentViewTime < fTotalViewTime)
+        {
+            // 使用Lerp函數實現位置插值
+            playerCtrlr.tfPlayerCamera.localRotation = Quaternion.Slerp(playerCtrlr.tfPlayerCamera.localRotation, targetQuaternion, fCurrentViewTime / (fTotalViewTime * 2.5f));
+
+            // 更新已經經過的時間
+            fCurrentViewTime += Time.deltaTime;
+
+            // 等待一幀
+            yield return null;
+        }
     }
 
     public void GameQuit()

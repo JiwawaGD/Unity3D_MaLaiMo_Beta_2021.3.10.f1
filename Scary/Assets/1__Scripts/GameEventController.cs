@@ -213,8 +213,8 @@ public partial class GameManager : MonoBehaviour
         DialogueObjects[(byte)Lv1_Dialogue.CheckRiceFuneral_OnFloor_Lv1].CallAction();
 
         // 移動蓮花紙 & 蠟燭座標
-        S1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-5.1f, 0.6f, -2f);
-        S1_Lotus_Candle_Obj.transform.localPosition = new Vector3(8.15f, 2.23f, 8.9f);
+        S1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-4.1f, 0.6f, -1.5f);
+        S1_Lotus_Candle_Obj.transform.localPosition = new Vector3(8.7f, 2.23f, 9.4f);
     }
 
     void S1_RiceFuneral()
