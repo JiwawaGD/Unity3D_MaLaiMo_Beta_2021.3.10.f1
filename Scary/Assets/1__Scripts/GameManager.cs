@@ -650,9 +650,9 @@ public partial class GameManager : MonoBehaviour
                     playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = false;
                     playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = false;
 
-                    StartCoroutine(PlayerToAniPos(new Vector3(-4f, 0.45f, -0.6f), new Vector3(20f, 0f, 0f)));
-
-                    //PlayerToAniPos(new Vector3(-4f, 0.45f, -0.6f));
+                    Transform tfPlayingLotusPos = GameObject.Find("Playing Lotus Pos").GetComponent<Transform>();
+                    Transform tfCameraPos = tfPlayingLotusPos.GetChild(0);
+                    StartCoroutine(PlayerToAniPos(tfPlayingLotusPos.position, tfPlayingLotusPos.rotation, tfCameraPos.rotation));
                 }
                 break;
         }
@@ -693,13 +693,16 @@ public partial class GameManager : MonoBehaviour
         bIsPlayingLotus = false;
         playerCtrlr.m_bCanControl = true;
         playerCtrlr.tfPlayerCamera.gameObject.SetActive(true);
+
+        playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = true;
+        playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = true;
+
         SceneManager.UnloadSceneAsync(3);
 
         S1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-5.1f, -2f, -2f);
         S1_Finished_Lotus_Paper_Obj.transform.localPosition = new Vector3(-4.1f, 0.6f, -1.5f);
 
         ShowHint(HintItemID.S1_Finished_Lotus_Paper);
-
         DialogueObjects[(byte)Lv1_Dialogue.AfterPlayLotus_Lv1].CallAction();
     }
 
@@ -849,20 +852,17 @@ public partial class GameManager : MonoBehaviour
         CrosshairUI.SetActive(bEnable);
     }
 
-    IEnumerator PlayerToAniPos(Vector3 v3MoveTargetPos, Vector3 v3ViewTargetPos)
+    IEnumerator PlayerToAniPos(Vector3 v3PlayerTargetPos, Quaternion PlayerRotation, Quaternion CameraRotation)
     {
-        Debug.Log("PlayerToAniPos");
-
+        // 移動玩家
         float fTotalMoveTime = 1.0f;
         float fCurrentMoveTime = 0.0f;
-
-        Quaternion ZeroQuaternion = Quaternion.Euler(new Vector3(0, 180, 0));
 
         while (fCurrentMoveTime < fTotalMoveTime)
         {
             // 使用Lerp函數實現位置插值
-            playerCtrlr.transform.localPosition = Vector3.Lerp(playerCtrlr.transform.localPosition, v3MoveTargetPos, fCurrentMoveTime / (fTotalMoveTime * 2.5f));
-            playerCtrlr.transform.localRotation = Quaternion.Slerp(playerCtrlr.transform.localRotation, ZeroQuaternion, fCurrentMoveTime / (fTotalMoveTime * 2.5f));
+            playerCtrlr.transform.localPosition = Vector3.Lerp(playerCtrlr.transform.localPosition, v3PlayerTargetPos, fCurrentMoveTime / (fTotalMoveTime * 2.5f));
+            playerCtrlr.transform.localRotation = Quaternion.Slerp(playerCtrlr.transform.localRotation, PlayerRotation, fCurrentMoveTime / (fTotalMoveTime * 2.5f));
 
             // 更新已經經過的時間
             fCurrentMoveTime += Time.deltaTime;
@@ -871,15 +871,17 @@ public partial class GameManager : MonoBehaviour
             yield return null;
         }
 
+        playerCtrlr.transform.localPosition = v3PlayerTargetPos;
+        playerCtrlr.transform.localRotation = PlayerRotation;
+
+        // 移動玩家 Camera
         float fTotalViewTime = 1.0f;
         float fCurrentViewTime = 0.0f;
-
-        Quaternion targetQuaternion = Quaternion.Euler(v3ViewTargetPos);
 
         while (fCurrentViewTime < fTotalViewTime)
         {
             // 使用Lerp函數實現位置插值
-            playerCtrlr.tfPlayerCamera.localRotation = Quaternion.Slerp(playerCtrlr.tfPlayerCamera.localRotation, targetQuaternion, fCurrentViewTime / (fTotalViewTime * 2.5f));
+            playerCtrlr.tfPlayerCamera.localRotation = Quaternion.Slerp(playerCtrlr.tfPlayerCamera.localRotation, CameraRotation, fCurrentViewTime / (fTotalViewTime * 2.5f));
 
             // 更新已經經過的時間
             fCurrentViewTime += Time.deltaTime;
@@ -887,6 +889,8 @@ public partial class GameManager : MonoBehaviour
             // 等待一幀
             yield return null;
         }
+
+        playerCtrlr.tfPlayerCamera.localRotation = CameraRotation;
     }
 
     public void GameQuit()
