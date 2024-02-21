@@ -27,6 +27,7 @@
     S1_Grandma_Pass_Door_After_RiceFurnel,
     Lv1_CheckFilialPietyCurtain,
     Lv1_Faucet,
+    Lv1_Piano,
 
     // S2 : Scene_2
     S2_Light_Switch = 101,
@@ -68,6 +69,7 @@ public enum HintItemID
     S1_Finished_Lotus_Paper,
     S1_Lotus_Paper_Plate,
     Lv1_Faucet,
+    Lv1_Piano,
 
     // S2 : Scene_2
     S2_Light_Switch = 101,
@@ -121,6 +123,7 @@ public enum PlayerAnimateType
     Empty,
     Player_Wake_Up,
     Player_Turn_After_Photo_Frame,
+    Player_PlayPiano,
 }
 public enum IntelligenceLevel
 {

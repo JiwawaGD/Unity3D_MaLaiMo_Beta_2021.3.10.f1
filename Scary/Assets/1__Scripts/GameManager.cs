@@ -56,6 +56,7 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("阿嬤收尾嚇人影片 UI")] RawImage RawImgGrandmaUI;
 
     [SerializeField] [Header("洗手台的水")] GameObject WaterSurfaceObj;
+    [SerializeField] [Header("追蹤物件位置")] Transform[] Targers;
 
     int m_iGrandmaRushCount;
     Scene currentScene;
@@ -115,6 +116,7 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("Lv1_廁所門")] ItemController Lv1_Toilet_Door_Item;
     [SerializeField] [Header("Lv1_完整的相框")] ItemController Lv1_Photo_Frame_Item;
     [SerializeField] [Header("Lv1_破碎的相框")] ItemController Lv1_Photo_Frame_Broken_Item;
+    [SerializeField] [Header("Lv1_鋼琴")] ItemController Lv1_Piano_Item;
 
     [SerializeField] [Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
     [SerializeField] [Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
@@ -206,6 +208,7 @@ public partial class GameManager : MonoBehaviour
         ShowHint(HintItemID.S1_Grandma_Room_Door_Lock);
         ShowHint(HintItemID.S1_Toilet_Door);
         ShowHint(HintItemID.S1_Filial_Piety_Curtain);
+        ShowHint(HintItemID.Lv1_Piano);
 
         // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
         playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
@@ -333,6 +336,9 @@ public partial class GameManager : MonoBehaviour
                 break;
             case GameEventID.Lv1_Faucet:
                 Lv1_Faucet();
+                break;
+            case GameEventID.Lv1_Piano:
+                Lv1_CheckPiano();
                 break;
             case GameEventID.S2_Light_Switch:
                 S2_LightSwitch();
@@ -483,6 +489,9 @@ public partial class GameManager : MonoBehaviour
             case HintItemID.Lv2_Boy_Sneaker:
                 TempItem = Lv2_BrotherShoe_Item;
                 break;
+            case HintItemID.Lv1_Piano:
+                TempItem = Lv1_Piano_Item;
+                break;
         }
 
         TempItem.bActive = true;
@@ -595,6 +604,15 @@ public partial class GameManager : MonoBehaviour
         am.Play(r_sAnimationName);
         m_bShowPlayerAnimate = false;
         GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Empty);
+    }
+
+    // 執行玩家移動到指定區域
+    public void ProcessPlayerTraceTarget(int index)
+    {
+        playerCtrlr.Target = Targers[index];
+        playerCtrlr.StartMovingToTarget = true;
+        //m_bShowPlayerAnimate = false;
+        //GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Empty);
     }
 
     // 限制角色視角 (暫無使用)

@@ -115,6 +115,12 @@ public partial class GameManager : MonoBehaviour
         DialogueObjects[(byte)Lv1_Dialogue.CheckFilialPietyCurtain_Lv1].CallAction();
     }
 
+    void Lv1_CheckPiano()
+    {
+        Debug.Log("場景1 ==> 查看鋼琴 (Lv1_CheckPiano)");
+        ProcessPlayerTraceTarget(0);
+    }
+
     void S1_PhotoFrameLightOn()
     {
         Debug.Log("場景1 ==> 亮相框提示燈 (舊 Func 暫無使用) (S1_Photo_Frame_Light_On)");

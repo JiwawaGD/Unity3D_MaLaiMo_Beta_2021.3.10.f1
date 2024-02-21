@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
     ItemController last_Item;
     GameManager gameManager;
 
+    public bool StartMovingToTarget = false;
+    public Transform Target;
     void Awake()
     {
         // audioSource = GetComponent<AudioSource>();
@@ -105,6 +107,7 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
+        MoveToTarget();
         if (m_bCursorShow)  // 滑鼠顯示時不可控制
             return;
 
@@ -134,6 +137,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if(StartMovingToTarget) return;// 執行區域移動時不能控制
         Move();
         View();
     }
@@ -217,7 +221,6 @@ public class PlayerController : MonoBehaviour
     void Move() // 移動
     {
         v3_MoveValue = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-
         v3_MovePos.x = v3_MoveValue.x * Time.deltaTime * m_fMoveSpeed;
         v3_MovePos.z = v3_MoveValue.z * Time.deltaTime * m_fMoveSpeed;
 
@@ -233,6 +236,27 @@ public class PlayerController : MonoBehaviour
             rig.velocity = v3_zero;
             isWalking = false;
         }
+    }
+
+    public void MoveToTarget()
+    {
+        if (StartMovingToTarget == false || Target == null) return;
+        // 計算朝向目標的方向
+        Vector3 targetDirection = (Target.position - transform.position);
+        //tfPlayerCamera.LookAt(new Vector3(Target.GetChild(0).position.x, 0 ,0));
+        //transform.LookAt(new Vector3(0, transform.InverseTransformPoint(Target.GetChild(0).position).y , 0));
+        
+        transform.position += targetDirection * Time.deltaTime;
+        //if (Target.position == transform.position)
+        //{
+        //    // 計算目標旋轉角度
+        //    Quaternion targetRotationX = Quaternion.LookRotation(new Vector3(35.535f - transform.position.x, 0, 0));
+        //    Quaternion targetRotationY = Quaternion.LookRotation(new Vector3(0, 1.435f - transform.position.y, 0));
+        //    // 使用 Slerp 平滑旋轉到目標角度
+        //    tfPlayerCamera.rotation = Quaternion.Slerp(transform.rotation, targetRotationX, m_fMoveSpeed * Time.deltaTime);
+        //    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotationY, m_fMoveSpeed * Time.deltaTime);
+        //    if (tfPlayerCamera.rotation.x == 35.535f && transform.rotation.y == 1.435f) StartMovingToTarget = false;
+        //}
     }
 
     public void SetCursor() // 設定滑鼠
