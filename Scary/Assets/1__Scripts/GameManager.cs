@@ -62,6 +62,8 @@ public partial class GameManager : MonoBehaviour
 
     ItemController TempItem;
 
+    [SerializeField] [Header("電視 White noise 材質球")] Material Lv1_matTVWhiteNoise;
+
     #region Canvas Zone
     [SerializeField] GameObject goCanvas;
     [SerializeField] Image imgUIBackGround;
@@ -210,7 +212,7 @@ public partial class GameManager : MonoBehaviour
         ShowHint(HintItemID.Lv1_Piano);
 
         // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
-        //playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
+        playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
 
         // For Test
         //S1_RiceFuneralSpilled();
@@ -651,28 +653,15 @@ public partial class GameManager : MonoBehaviour
             case ButtonEventID.Enter_Game:
                 if (isUIOpen)
                 {
-                    if (bHasTriggerLotus)
-                    {
-                        LotusGameManager LotusCtrlr = GameObject.Find("LotusGameController").GetComponent<LotusGameManager>();
-                        LotusCtrlr.SendMessage("SetLotusCanvasEnable", true);
-                        LotusGameManager.bIsGamePause = false;
-                    }
-                    else
-                    {
-                        bHasTriggerLotus = true;
-                        SceneManager.LoadScene(3, LoadSceneMode.Additive);
-                    }
-
                     GameEvent(GameEventID.Close_UI);
                     RestoreItemLocation();
                     bIsPlayingLotus = true;
-                    playerCtrlr.m_bCanControl = false;
-                    playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = false;
-                    playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = false;
 
                     Transform tfPlayingLotusPos = GameObject.Find("Playing Lotus Pos").GetComponent<Transform>();
                     Transform tfCameraPos = tfPlayingLotusPos.GetChild(0);
                     StartCoroutine(PlayerToAniPos(tfPlayingLotusPos.position, tfPlayingLotusPos.rotation, tfCameraPos.rotation));
+
+                    Invoke(nameof(DelayEnterLotusGame), 2.2f);
                 }
                 break;
         }
@@ -695,8 +684,13 @@ public partial class GameManager : MonoBehaviour
     void QuitLotusGame()
     {
         bIsPlayingLotus = false;
-        playerCtrlr.m_bCanControl = true;
         playerCtrlr.tfPlayerCamera.gameObject.SetActive(true);
+        S1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, 0.6f, -2.4f);
+
+        playerCtrlr.m_bCanControl = true;
+        playerCtrlr.transform.localPosition = new Vector3(-3, 0.8f, -2.5f);
+        playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = true;
+        playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = true;
 
         LotusGameManager LotusCtrlr = GameObject.Find("LotusGameController").GetComponent<LotusGameManager>();
         LotusCtrlr.SendMessage("SetLotusCanvasEnable", false);
@@ -713,14 +707,15 @@ public partial class GameManager : MonoBehaviour
         bIsPlayingLotus = false;
         playerCtrlr.m_bCanControl = true;
         playerCtrlr.tfPlayerCamera.gameObject.SetActive(true);
+        playerCtrlr.transform.localPosition = new Vector3(-3, 0.8f, -2.5f);
 
         playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = true;
         playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = true;
 
         SceneManager.UnloadSceneAsync(3);
 
-        S1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-5.1f, -2f, -2f);
-        S1_Finished_Lotus_Paper_Obj.transform.localPosition = new Vector3(-4.1f, 0.6f, -1.5f);
+        S1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, -2f, -2.4f);
+        S1_Finished_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, 0.6f, -2.4f);
 
         ShowHint(HintItemID.S1_Finished_Lotus_Paper);
         DialogueObjects[(byte)Lv1_Dialogue.AfterPlayLotus_Lv1].CallAction();
@@ -874,20 +869,21 @@ public partial class GameManager : MonoBehaviour
 
     IEnumerator PlayerToAniPos(Vector3 v3PlayerTargetPos, Quaternion PlayerRotation, Quaternion CameraRotation)
     {
+        playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = false;
+        playerCtrlr.m_bCanControl = false;
+
         // 移動玩家
         float fTotalMoveTime = 1.0f;
         float fCurrentMoveTime = 0.0f;
-        playerCtrlr.m_bCanControl = false;
+
         while (fCurrentMoveTime < fTotalMoveTime)
         {
-            // 使用Lerp函數實現位置插值
-            playerCtrlr.transform.localPosition = Vector3.Lerp(playerCtrlr.transform.localPosition, v3PlayerTargetPos, fCurrentMoveTime / (fTotalMoveTime * 2.5f));
-            playerCtrlr.transform.localRotation = Quaternion.Slerp(playerCtrlr.transform.localRotation, PlayerRotation, fCurrentMoveTime / (fTotalMoveTime * 2.5f));
+            playerCtrlr.transform.localPosition = Vector3.Lerp(playerCtrlr.transform.localPosition, v3PlayerTargetPos, fCurrentMoveTime / (fTotalMoveTime * 5f));
+            playerCtrlr.transform.localRotation = Quaternion.Slerp(playerCtrlr.transform.localRotation, PlayerRotation, fCurrentMoveTime / (fTotalMoveTime * 5f));
 
-            // 更新已經經過的時間
             fCurrentMoveTime += Time.deltaTime;
 
-            // 等待一幀
             yield return null;
         }
 
@@ -900,13 +896,10 @@ public partial class GameManager : MonoBehaviour
 
         while (fCurrentViewTime < fTotalViewTime)
         {
-            // 使用Lerp函數實現位置插值
-            playerCtrlr.tfPlayerCamera.localRotation = Quaternion.Slerp(playerCtrlr.tfPlayerCamera.localRotation, CameraRotation, fCurrentViewTime / (fTotalViewTime * 2.5f));
+            playerCtrlr.tfPlayerCamera.localRotation = Quaternion.Slerp(playerCtrlr.tfPlayerCamera.localRotation, CameraRotation, fCurrentViewTime / (fTotalViewTime * 5f));
 
-            // 更新已經經過的時間
             fCurrentViewTime += Time.deltaTime;
 
-            // 等待一幀
             yield return null;
         }
 
@@ -917,6 +910,13 @@ public partial class GameManager : MonoBehaviour
     {
         Debug.Log("GameQuit");
         Application.Quit();
+    }
+
+    public void ShowTVWhiteNoise()
+    {
+        GameObject Lv1_TVObj = GameObject.Find("Lv1_TV");
+        Lv1_TVObj.transform.GetChild(1).GetComponent<MeshRenderer>().material = Lv1_matTVWhiteNoise;
+        Lv1_TVObj.transform.GetChild(2).GetComponent<Light>().enabled = true;
     }
 
     // 延遲動作

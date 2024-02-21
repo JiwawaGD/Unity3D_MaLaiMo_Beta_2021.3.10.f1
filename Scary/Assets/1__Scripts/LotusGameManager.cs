@@ -22,6 +22,7 @@ public class LotusGameManager : MonoBehaviour
     RectTransform HintRectTf;
     Transform TfLotus;
     AnimatorStateInfo LotusState;
+    GameManager GM;
 
     public static bool bIsGamePause = false;
 
@@ -67,6 +68,8 @@ public class LotusGameManager : MonoBehaviour
 
     void Start()
     {
+        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         iAllLotusCount = 30;
 
         for (int index = 0; index < iAllLotusCount; index++)
@@ -80,8 +83,7 @@ public class LotusGameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F7))
         {
-            GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-            gm.SendMessage("ExitLotusGame");
+            GM.ExitLotusGame();
             GlobalDeclare.bLotusGameComplete = true;
         }
 
@@ -127,6 +129,7 @@ public class LotusGameManager : MonoBehaviour
                 }
                 else if (bLotusState[3])
                 {
+                    GM.ShowTVWhiteNoise();
                     StartCoroutine(ProcessAnimator(HintSprite[2], LotusPaperAni[3], LotusPaperAniClip[3], strLotusAniTriggerName[3], 3));
                 }
                 else if (bLotusState[9])

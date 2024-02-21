@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Video;
+using UnityEngine.SceneManagement;
 
 public partial class GameManager : MonoBehaviour
 {
@@ -106,5 +107,22 @@ public partial class GameManager : MonoBehaviour
         ShowHint(HintItemID.S1_Photo_Frame);
         TempItem = S1_Photo_Frame_Obj.GetComponent<ItemController>();
         TempItem.eventID = GameEventID.S1_Photo_Frame_Has_Broken;
+    }
+
+    void DelayEnterLotusGame()
+    {
+        S1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, -5f, -2.4f);
+
+        if (bHasTriggerLotus)
+        {
+            LotusGameManager LotusCtrlr = GameObject.Find("LotusGameController").GetComponent<LotusGameManager>();
+            LotusCtrlr.SendMessage("SetLotusCanvasEnable", true);
+            LotusGameManager.bIsGamePause = false;
+        }
+        else
+        {
+            bHasTriggerLotus = true;
+            SceneManager.LoadScene(3, LoadSceneMode.Additive);
+        }
     }
 }
