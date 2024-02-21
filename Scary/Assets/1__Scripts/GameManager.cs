@@ -877,7 +877,7 @@ public partial class GameManager : MonoBehaviour
         // 移動玩家
         float fTotalMoveTime = 1.0f;
         float fCurrentMoveTime = 0.0f;
-
+        playerCtrlr.m_bCanControl = false;
         while (fCurrentMoveTime < fTotalMoveTime)
         {
             // 使用Lerp函數實現位置插值
