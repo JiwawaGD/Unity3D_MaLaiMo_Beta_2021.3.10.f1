@@ -241,22 +241,24 @@ public class PlayerController : MonoBehaviour
     public void MoveToTarget()
     {
         if (StartMovingToTarget == false || Target == null) return;
-        // 計算朝向目標的方向
-        Vector3 targetDirection = (Target.position - transform.position);
-        //tfPlayerCamera.LookAt(new Vector3(Target.GetChild(0).position.x, 0 ,0));
-        //transform.LookAt(new Vector3(0, transform.InverseTransformPoint(Target.GetChild(0).position).y , 0));
-        
-        transform.position += targetDirection * Time.deltaTime;
-        //if (Target.position == transform.position)
-        //{
-        //    // 計算目標旋轉角度
-        //    Quaternion targetRotationX = Quaternion.LookRotation(new Vector3(35.535f - transform.position.x, 0, 0));
-        //    Quaternion targetRotationY = Quaternion.LookRotation(new Vector3(0, 1.435f - transform.position.y, 0));
-        //    // 使用 Slerp 平滑旋轉到目標角度
-        //    tfPlayerCamera.rotation = Quaternion.Slerp(transform.rotation, targetRotationX, m_fMoveSpeed * Time.deltaTime);
-        //    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotationY, m_fMoveSpeed * Time.deltaTime);
-        //    if (tfPlayerCamera.rotation.x == 35.535f && transform.rotation.y == 1.435f) StartMovingToTarget = false;
-        //}
+
+        if (Target.position == transform.position)
+        {
+            //// 計算目標旋轉角度
+            //Quaternion targetRotationX = Quaternion.LookRotation(new Vector3(35.535f, 0, 0));
+            //// 使用 Slerp 平滑旋轉到目標角度
+            //tfPlayerCamera.rotation = Quaternion.Slerp(transform.rotation, targetRotationX, m_fMoveSpeed * Time.deltaTime);
+            if (tfPlayerCamera.rotation.x == 35.535f && transform.rotation.y == 1.435f) StartMovingToTarget = false;
+        }
+        else
+        {
+            // 計算朝向目標的方向
+            Vector3 targetDirection = (Target.position - transform.position);
+            //tfPlayerCamera.LookAt(new Vector3(Target.GetChild(0).position.x, 0 ,0));
+            transform.LookAt(Target.position);
+
+            transform.position += targetDirection * Time.deltaTime;
+        }
     }
 
     public void SetCursor() // 設定滑鼠

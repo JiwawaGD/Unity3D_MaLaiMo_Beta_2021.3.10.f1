@@ -57,7 +57,6 @@ public partial class GameManager : MonoBehaviour
 
     [SerializeField] [Header("洗手台的水")] GameObject WaterSurfaceObj;
     [SerializeField] [Header("追蹤物件位置")] Transform[] Targers;
-
     int m_iGrandmaRushCount;
     Scene currentScene;
 
@@ -211,7 +210,7 @@ public partial class GameManager : MonoBehaviour
         ShowHint(HintItemID.Lv1_Piano);
 
         // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
-        playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
+        //playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
 
         // For Test
         //S1_RiceFuneralSpilled();
@@ -609,10 +608,13 @@ public partial class GameManager : MonoBehaviour
     // 執行玩家移動到指定區域
     public void ProcessPlayerTraceTarget(int index)
     {
-        playerCtrlr.Target = Targers[index];
-        playerCtrlr.StartMovingToTarget = true;
+        //playerCtrlr.Target = Targers[index];
+        //playerCtrlr.StartMovingToTarget = true;
         //m_bShowPlayerAnimate = false;
         //GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Empty);
+        Transform tfPianoPos = GameObject.Find("PianoTarget").GetComponent<Transform>();
+        Transform tfCameraPos = tfPianoPos.GetChild(0);
+        StartCoroutine(PlayerToAniPos(Targers[index].position, tfPianoPos.rotation, tfCameraPos.rotation));
     }
 
     // 限制角色視角 (暫無使用)
