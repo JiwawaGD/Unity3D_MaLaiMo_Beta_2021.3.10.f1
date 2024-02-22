@@ -57,6 +57,7 @@ public partial class GameManager : MonoBehaviour
 
     [SerializeField] [Header("洗手台的水")] GameObject WaterSurfaceObj;
     [SerializeField] [Header("追蹤物件位置")] Transform[] Targers;
+    [SerializeField] [Header("鋼琴提示介面")] GameObject PianoUI;
     int m_iGrandmaRushCount;
     Scene currentScene;
 
@@ -163,6 +164,7 @@ public partial class GameManager : MonoBehaviour
     bool bIsGameEnd = false;
     bool bNeedShowDialog = false;
     bool bIsPlayingLotus = false;
+    bool bIsPlayingPiano = false;
     bool bHasTriggerLotus = false;
 
     void Awake()
@@ -212,7 +214,7 @@ public partial class GameManager : MonoBehaviour
         ShowHint(HintItemID.Lv1_Piano);
 
         // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
-        playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
+        //playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
 
         // For Test
         //S1_RiceFuneralSpilled();
@@ -608,15 +610,13 @@ public partial class GameManager : MonoBehaviour
     }
 
     // 執行玩家移動到指定區域
-    public void ProcessPlayerTraceTarget(int index)
+    public IEnumerator ProcessPlayerTraceTarget(int index)
     {
-        //playerCtrlr.Target = Targers[index];
-        //playerCtrlr.StartMovingToTarget = true;
-        //m_bShowPlayerAnimate = false;
-        //GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Empty);
+        bIsPlayingPiano = true;
         Transform tfPianoPos = GameObject.Find("PianoTarget").GetComponent<Transform>();
         Transform tfCameraPos = tfPianoPos.GetChild(0);
-        StartCoroutine(PlayerToAniPos(Targers[index].position, tfPianoPos.rotation, tfCameraPos.rotation));
+        yield return StartCoroutine(PlayerToAniPos(Targers[index].position, tfPianoPos.rotation, tfCameraPos.rotation));
+        if(bIsPlayingPiano == true) PianoUI.SetActive(true);
     }
 
     // 限制角色視角 (暫無使用)
@@ -700,6 +700,17 @@ public partial class GameManager : MonoBehaviour
         ShowHint(HintItemID.S1_Lotus_Paper);
     }
 
+
+    void QuitPiano()
+    {
+        bIsPlayingPiano = false;
+        PianoUI.SetActive(false);
+        playerCtrlr.m_bCanControl = true;
+        playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = true;
+        playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = true;
+        ShowHint(HintItemID.Lv1_Piano);
+    }
+
     // 離開蓮花遊戲
     public void ExitLotusGame()
     {
@@ -745,6 +756,10 @@ public partial class GameManager : MonoBehaviour
             else if (bIsPlayingLotus)
             {
                 QuitLotusGame();
+            }
+            else if (bIsPlayingPiano)
+            {
+                QuitPiano();
             }
             else
             {
@@ -869,9 +884,9 @@ public partial class GameManager : MonoBehaviour
 
     IEnumerator PlayerToAniPos(Vector3 v3PlayerTargetPos, Quaternion PlayerRotation, Quaternion CameraRotation)
     {
+        playerCtrlr.m_bCanControl = false;
         playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = false;
         playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = false;
-        playerCtrlr.m_bCanControl = false;
 
         // 移動玩家
         float fTotalMoveTime = 1.0f;

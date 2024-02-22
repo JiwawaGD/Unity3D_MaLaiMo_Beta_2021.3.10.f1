@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
     public Transform tfPlayerCamera;
     public Transform tfTransform;
-    Rigidbody rig;
+    public Rigidbody rig;
     RaycastHit hit;
     RaycastHit hit2;
     Animation ani;
@@ -51,9 +51,6 @@ public class PlayerController : MonoBehaviour
     ItemController current_Item;
     ItemController last_Item;
     GameManager gameManager;
-
-    public bool StartMovingToTarget = false;
-    public Transform Target;
     void Awake()
     {
         // audioSource = GetComponent<AudioSource>();
@@ -107,17 +104,17 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
-        MoveToTarget();
-        if (m_bCursorShow)  // 滑鼠顯示時不可控制
+        if (m_bCursorShow || !m_bCanControl)  // 滑鼠顯示時不可控制、無法控制時不可控制
+        {
+            rig.velocity = Vector3.zero;
             return;
-
-        if (!m_bCanControl) // 無法控制時不可控制
-            return;
+        }
 
         if (ani.isPlaying)  // 播放動畫時不可控制
         {
             m_fVerticalRotationValue = 0;
             m_fHorizantalRotationValue = 0;
+            rig.velocity = Vector3.zero;
             return;
         }
 
@@ -137,7 +134,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(StartMovingToTarget) return;// 執行區域移動時不能控制
         Move();
         View();
     }
@@ -235,29 +231,6 @@ public class PlayerController : MonoBehaviour
         {
             rig.velocity = v3_zero;
             isWalking = false;
-        }
-    }
-
-    public void MoveToTarget()
-    {
-        if (StartMovingToTarget == false || Target == null) return;
-
-        if (Target.position == transform.position)
-        {
-            //// 計算目標旋轉角度
-            //Quaternion targetRotationX = Quaternion.LookRotation(new Vector3(35.535f, 0, 0));
-            //// 使用 Slerp 平滑旋轉到目標角度
-            //tfPlayerCamera.rotation = Quaternion.Slerp(transform.rotation, targetRotationX, m_fMoveSpeed * Time.deltaTime);
-            if (tfPlayerCamera.rotation.x == 35.535f && transform.rotation.y == 1.435f) StartMovingToTarget = false;
-        }
-        else
-        {
-            // 計算朝向目標的方向
-            Vector3 targetDirection = (Target.position - transform.position);
-            //tfPlayerCamera.LookAt(new Vector3(Target.GetChild(0).position.x, 0 ,0));
-            transform.LookAt(Target.position);
-
-            transform.position += targetDirection * Time.deltaTime;
         }
     }
 
