@@ -29,5 +29,17 @@ public class PianoManger : MonoBehaviour
         {
             Aud.PlayOneShot(Sounds[4], 1f); ;
         }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            Aud.PlayOneShot(Sounds[5], 1f); ;
+        }
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            Aud.PlayOneShot(Sounds[6], 1f); ;
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Aud.PlayOneShot(Sounds[7], 1f); ;
+        }
     }
 }
