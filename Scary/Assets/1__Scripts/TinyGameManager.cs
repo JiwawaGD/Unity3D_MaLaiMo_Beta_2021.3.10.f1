@@ -28,13 +28,22 @@ public partial class GameManager : MonoBehaviour
 
     public void IvkProcessGhostHandPushAnimator()
     {
-        ProcessItemAnimator("Ghost_Hand", "Ghost_Hand_Push");
-        Invoke(nameof(IvkProcessPlayerWakeUpSecondTime), 3.5f);
+        ProcessPlayerAnimator("Player_Falling_In_Bathroom");
+        DialogueObjects[(byte)Lv1_Dialogue.WakeUp_Lv2].CallAction();
 
         ShowHint(HintItemID.S2_Room_Door);
         ShowHint(HintItemID.S2_Light_Switch);
         ShowHint(HintItemID.S2_FlashLight);
         ShowHint(HintItemID.S2_Side_Table);
+
+        Invoke(nameof(DelayGhostHandPush), 2.2f);
+    }
+
+    void DelayGhostHandPush()
+    {
+        ProcessItemAnimator("Ghost_Hand", "Ghost_Hand_Push");
+
+        Invoke(nameof(IvkProcessPlayerWakeUpSecondTime), 3.5f);
     }
 
     public void IvkProcessPlayerWakeUpSecondTime()
@@ -78,9 +87,26 @@ public partial class GameManager : MonoBehaviour
         audManager.Play(1, "grandma_StrangeVoice", false);
     }
 
-    public void IvkS2_Shocked_By_Toilet()
+    public void Lv2DelayChangeObjectPos()
+    {
+        ProcessPlayerAnimator("Player_S2_Shocked_By_Toilet_Ghost");
+        audManager.Play(1, "Crying_in_the_bathroom", false);
+        S2_Furniture_State_1_Obj.SetActive(false);
+        S2_Corridor_Door_Frame_Obj.SetActive(false);
+        S2_Furniture_State_2_Obj.SetActive(true);
+        S2_Wall_Replace_Door_Frame_Obj.SetActive(true);
+        ShowHint(HintItemID.S2_Rice_Funeral);
+
+        Invoke(nameof(DelayToiletGhostAni), 9.5f);
+    }
+
+    void DelayToiletGhostAni()
     {
         S2_Toilet_Door_GhostHead_Obj.GetComponent<Animator>().SetTrigger("S2_Toilet_Door_GhostHead_Scared");
+
+        playerCtrlr.m_bCanControl = true;
+        playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = true;
+        playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = true;
     }
 
     void OnVideoPlayerStarted(VideoPlayer vp)
@@ -92,6 +118,18 @@ public partial class GameManager : MonoBehaviour
     public void IvkS2_PlayGrandmaVideo()
     {
         videoPlayer.Play();
+    }
+
+    void DelayCheckBoySneaker()
+    {
+        audManager.Play(1, "Crying_in_the_bathroom", false);
+
+        videoPlayer.started += OnVideoPlayerStarted;
+        IvkS2_PlayGrandmaVideo();
+
+        ProcessPlayerAnimator("Player_S2_Shocked_After_PhotoFrame");
+
+        Invoke(nameof(IvkS2_SlientAfterPhotoFrameForRecord), 4f);
     }
 
     public void IvkS2_SlientAfterPhotoFrameForRecord()

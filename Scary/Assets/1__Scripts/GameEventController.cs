@@ -289,11 +289,11 @@ public partial class GameManager : MonoBehaviour
     {
         Debug.Log("場景1 ==> 廁所鬼手推玩家 (S1_Toilet_Ghost_Hand_Push)");
 
-        //audManager.Play(1, "Falling_To_Black_Screen_Sound_Part1", false);
+        Transform tfToiletPos = GameObject.Find("Lv1_Player_Toilet_Pos").GetComponent<Transform>();
+        Transform tfCameraPos = tfToiletPos.GetChild(0);
+        StartCoroutine(PlayerToAniPos(tfToiletPos.position, tfToiletPos.rotation, tfCameraPos.rotation));
 
-        ProcessPlayerAnimator("Player_Falling_In_Bathroom");
-        Invoke(nameof(IvkProcessGhostHandPushAnimator), 2.2f);
-        DialogueObjects[(byte)Lv1_Dialogue.WakeUp_Lv2].CallAction();
+        Invoke(nameof(IvkProcessGhostHandPushAnimator), 2f);
     }
 
     void Lv1_Faucet()
@@ -429,14 +429,11 @@ public partial class GameManager : MonoBehaviour
     {
         Debug.Log("場景2 ==> 看廁所鬼奶奶動畫 (S2_Toilet_Door)");
 
-        audManager.Play(1, "Crying_in_the_bathroom", false);
-        ProcessPlayerAnimator("Player_S2_Shocked_By_Toilet_Ghost");
-        S2_Furniture_State_1_Obj.SetActive(false);
-        S2_Corridor_Door_Frame_Obj.SetActive(false);
-        S2_Furniture_State_2_Obj.SetActive(true);
-        S2_Wall_Replace_Door_Frame_Obj.SetActive(true);
-        ShowHint(HintItemID.S2_Rice_Funeral);
-        Invoke(nameof(IvkS2_Shocked_By_Toilet), 9.5f);
+        Transform tfToiletPos = GameObject.Find("Lv2_Player_Toilet_Pos").GetComponent<Transform>();
+        Transform tfCameraPos = tfToiletPos.GetChild(0);
+        StartCoroutine(PlayerToAniPos(tfToiletPos.position, tfToiletPos.rotation, tfCameraPos.rotation));
+
+        Invoke(nameof(Lv2DelayChangeObjectPos), 2f);
     }
 
     void S2_Rice_Funeral()
@@ -486,16 +483,11 @@ public partial class GameManager : MonoBehaviour
     {
         Debug.Log("場景2 ==> 哥哥的鞋子 (Lv2_BoySneaker)");
 
-        playerCtrlr.m_bCanControl = false;
+        Transform tfPlayingLotusPos = GameObject.Find("Lv2_Player_CheckSneaker_Pos").GetComponent<Transform>();
+        Transform tfCameraPos = tfPlayingLotusPos.GetChild(0);
+        StartCoroutine(PlayerToAniPos(tfPlayingLotusPos.position, tfPlayingLotusPos.rotation, tfCameraPos.rotation));
 
-        audManager.Play(1, "Crying_in_the_bathroom", false);
-
-        videoPlayer.started += OnVideoPlayerStarted;
-        IvkS2_PlayGrandmaVideo();
-
-        ProcessPlayerAnimator("Player_S2_Shocked_After_PhotoFrame");
-
-        Invoke(nameof(IvkS2_SlientAfterPhotoFrameForRecord), 4f);
+        Invoke(nameof(DelayCheckBoySneaker), 2f);
     }
     #endregion
 }

@@ -214,10 +214,10 @@ public partial class GameManager : MonoBehaviour
         ShowHint(HintItemID.Lv1_Piano);
 
         // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
-        //playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
+        playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
 
         // For Test
-        //S1_RiceFuneralSpilled();
+        //S2_ToiletDoor();
     }
 
     void Update()
@@ -615,8 +615,11 @@ public partial class GameManager : MonoBehaviour
         bIsPlayingPiano = true;
         Transform tfPianoPos = GameObject.Find("PianoTarget").GetComponent<Transform>();
         Transform tfCameraPos = tfPianoPos.GetChild(0);
+
         yield return StartCoroutine(PlayerToAniPos(Targers[index].position, tfPianoPos.rotation, tfCameraPos.rotation));
-        if(bIsPlayingPiano == true) PianoUI.SetActive(true);
+
+        if (bIsPlayingPiano == true)
+            PianoUI.SetActive(true);
     }
 
     // 限制角色視角 (暫無使用)
