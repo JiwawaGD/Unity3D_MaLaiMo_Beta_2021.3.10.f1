@@ -48,6 +48,10 @@ public partial class GameManager : MonoBehaviour
 
     public void IvkProcessPlayerWakeUpSecondTime()
     {
+        playerCtrlr.m_bCanControl = true;
+        playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = true;
+        playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = true;
+
         Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
         playerFlashlight.enabled = false;
         audManager.Play(1, "Falling_To_Black_Screen_Sound_Part2", false);

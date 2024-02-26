@@ -690,8 +690,8 @@ public partial class GameManager : MonoBehaviour
         playerCtrlr.tfPlayerCamera.gameObject.SetActive(true);
         S1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, 0.6f, -2.4f);
 
-        playerCtrlr.m_bCanControl = true;
         playerCtrlr.transform.localPosition = new Vector3(-3, 0.8f, -2.5f);
+        playerCtrlr.m_bCanControl = true;
         playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = true;
         playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = true;
 
