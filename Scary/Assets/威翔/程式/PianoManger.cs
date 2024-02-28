@@ -5,17 +5,19 @@ public class PianoManger : MonoBehaviour
 
     public AudioClip[] Sounds;
     public AudioSource Aud;
-
+    public Animation PianoAnimation;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Aud.PlayOneShot(Sounds[0], 1f);
+            PianoAnimation.PlayQueued("piano_C");
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
             Aud.PlayOneShot(Sounds[1], 1f);
+            PianoAnimation.PlayQueued("piano_D");
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -40,6 +42,26 @@ public class PianoManger : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             Aud.PlayOneShot(Sounds[7], 1f); ;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Aud.PlayOneShot(Sounds[8], 1f); ;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Aud.PlayOneShot(Sounds[9], 1f); ;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            Aud.PlayOneShot(Sounds[10], 1f); ;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            Aud.PlayOneShot(Sounds[11], 1f); ;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            Aud.PlayOneShot(Sounds[12], 1f); ;
         }
     }
 }

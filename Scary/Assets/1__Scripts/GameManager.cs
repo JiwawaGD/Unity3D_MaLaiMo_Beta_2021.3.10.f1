@@ -214,10 +214,12 @@ public partial class GameManager : MonoBehaviour
         ShowHint(HintItemID.Lv1_Piano);
 
         // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
-        playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
-
+        //playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
+        Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
+        playerFlashlight.enabled = true;
         // For Test
-        //S2_ToiletDoor();
+        // S2_ToiletDoor();
+        S1_RiceFuneralSpilled();
     }
 
     void Update()
