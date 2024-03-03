@@ -119,6 +119,7 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("Lv1_完整的相框")] ItemController Lv1_Photo_Frame_Item;
     [SerializeField] [Header("Lv1_破碎的相框")] ItemController Lv1_Photo_Frame_Broken_Item;
     [SerializeField] [Header("Lv1_鋼琴")] ItemController Lv1_Piano_Item;
+    [SerializeField] [Header("Lv1_娃娃 Ani")] Animator Lv1_Doll_Ani;
 
     [SerializeField] [Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
     [SerializeField] [Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
@@ -663,7 +664,7 @@ public partial class GameManager : MonoBehaviour
                     RestoreItemLocation();
                     bIsPlayingLotus = true;
 
-                    Transform tfPlayingLotusPos = GameObject.Find("Playing Lotus Pos").GetComponent<Transform>();
+                    Transform tfPlayingLotusPos = GameObject.Find("Lv1_Playing_Lotus_Pos").GetComponent<Transform>();
                     Transform tfCameraPos = tfPlayingLotusPos.GetChild(0);
                     StartCoroutine(PlayerToAniPos(tfPlayingLotusPos.position, tfPlayingLotusPos.rotation, tfCameraPos.rotation));
 
@@ -931,13 +932,6 @@ public partial class GameManager : MonoBehaviour
     {
         Debug.Log("GameQuit");
         Application.Quit();
-    }
-
-    public void ShowTVWhiteNoise()
-    {
-        GameObject Lv1_TVObj = GameObject.Find("Lv1_TV");
-        Lv1_TVObj.transform.GetChild(1).GetComponent<MeshRenderer>().material = Lv1_matTVWhiteNoise;
-        Lv1_TVObj.transform.GetChild(2).GetComponent<Light>().enabled = true;
     }
 
     // 延遲動作

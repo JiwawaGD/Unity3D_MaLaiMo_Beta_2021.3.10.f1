@@ -129,7 +129,7 @@ public class LotusGameManager : MonoBehaviour
                 }
                 else if (bLotusState[3])
                 {
-                    GM.ShowTVWhiteNoise();
+                    GM.Lv1_ShowTVWhiteNoise();
                     StartCoroutine(ProcessAnimator(HintSprite[2], LotusPaperAni[3], LotusPaperAniClip[3], strLotusAniTriggerName[3], 3));
                 }
                 else if (bLotusState[9])
@@ -156,6 +156,7 @@ public class LotusGameManager : MonoBehaviour
                 }
                 else if (bLotusState[16])
                 {
+                    GM.Lv1_DollTurnAround();
                     StartCoroutine(ProcessAnimator(HintSprite[0], LotusPaperAni[6], LotusPaperAniClip[16], strLotusAniTriggerName[16], 16));
                 }
                 else if (bLotusState[24])

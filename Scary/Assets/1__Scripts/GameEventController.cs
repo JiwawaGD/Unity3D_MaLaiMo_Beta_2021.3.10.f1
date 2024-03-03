@@ -316,6 +316,18 @@ public partial class GameManager : MonoBehaviour
 
         Invoke(nameof(IvkS1_SetGhostHandPosition), 3f);
     }
+
+    public void Lv1_ShowTVWhiteNoise()
+    {
+        GameObject Lv1_TVObj = GameObject.Find("Lv1_TV");
+        Lv1_TVObj.transform.GetChild(1).GetComponent<MeshRenderer>().material = Lv1_matTVWhiteNoise;
+        Lv1_TVObj.transform.GetChild(2).GetComponent<Light>().enabled = true;
+    }
+
+    public void Lv1_DollTurnAround()
+    {
+        Lv1_Doll_Ani.SetBool("TurnHead", true);
+    }
     #endregion
 
     #region - 場景二 Event -
