@@ -328,6 +328,11 @@ public partial class GameManager : MonoBehaviour
     {
         Lv1_Doll_Ani.SetBool("TurnHead", true);
     }
+
+    public void Lv1_CandleFall()
+    {
+        ProcessAnimator("LV1_Lotus_Candles/Lv1_Falled_Candle", "Candle_Fall");
+    }
     #endregion
 
     #region - 場景二 Event -
