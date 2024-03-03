@@ -124,6 +124,11 @@ public partial class GameManager : MonoBehaviour
         videoPlayer.Play();
     }
 
+    void DelayBoySneakerDialog()
+    {
+        DialogueObjects[(byte)Lv1_Dialogue.Lv2_Boy_Sneaker].CallAction();
+    }
+
     void DelayCheckBoySneaker()
     {
         audManager.Play(1, "Crying_in_the_bathroom", false);

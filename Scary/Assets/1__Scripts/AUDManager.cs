@@ -21,8 +21,8 @@ public class AUDManager : MonoBehaviour
     [SerializeField, Tooltip("東西竄動的聲音")] AudioClip the_sound_of_something_moving;
     [SerializeField, Tooltip("小朋友笑聲")] AudioClip children_laughing;
     [SerializeField, Tooltip("小女孩笑聲")] AudioClip Girl_laughing;
-    [SerializeField, Tooltip("奶奶開始向前")] AudioClip grandma_Starts_Walking;
-    [SerializeField, Tooltip("奶奶詭異聲")] AudioClip grandma_StrangeVoice;
+    [SerializeField, Tooltip("阿嬤開始向前")] AudioClip grandma_Starts_Walking;
+    [SerializeField, Tooltip("阿嬤詭異聲")] AudioClip grandma_StrangeVoice;
     [SerializeField, Tooltip("扭動身體的音效")] AudioClip body_Twisting_Sound;
     [SerializeField, Tooltip("模糊不清的人聲音")] AudioClip muffled_Vocals;
     [SerializeField, Tooltip("緊張呼吸聲")] AudioClip nervous_Breathing;

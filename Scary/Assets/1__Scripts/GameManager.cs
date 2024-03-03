@@ -124,7 +124,7 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
     [SerializeField] [Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
     [SerializeField] [Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
-    [SerializeField] [Header("S1_奶奶房間抽屜")] GameObject S1_Desk_Drawer_Obj;
+    [SerializeField] [Header("S1_阿嬤房間抽屜")] GameObject S1_Desk_Drawer_Obj;
     [SerializeField] [Header("S1_還沒摺的蓮花紙")] GameObject S1_Lotus_Paper_Obj;
     [SerializeField] [Header("S1_蓮花紙旁的蠟燭")] GameObject S1_Lotus_Candle_Obj;
     [SerializeField] [Header("S1_摺好的紙蓮花")] GameObject S1_Finished_Lotus_Paper_Obj;
@@ -133,7 +133,7 @@ public partial class GameManager : MonoBehaviour
     [Header("場景二物件")]
     [SerializeField] [Header("Lv2_手電筒")] ItemController Lv2_FlashLight_Item;
     [SerializeField] [Header("Lv2_小邊桌")] ItemController Lv2_SideTable_Item;
-    [SerializeField] [Header("Lv2_奶奶房間門")] ItemController Lv2_Grandma_Room_Door_Item;
+    [SerializeField] [Header("Lv2_阿嬤房間門")] ItemController Lv2_Grandma_Room_Door_Item;
 
     [SerializeField] [Header("Lv2_腳尾飯_Item")] ItemController Lv2_Rice_Funeral_Item;
     [SerializeField] [Header("Lv2_腳尾飯_Obj")] GameObject Lv2_Rice_Funeral_Obj;
@@ -145,7 +145,7 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
     [SerializeField] [Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
     [SerializeField] [Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
-    [SerializeField] [Header("S2_躺在床上的奶奶屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
+    [SerializeField] [Header("S2_躺在床上的阿嬤屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
     [SerializeField] [Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
     [SerializeField] [Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj_floor;
     [SerializeField] [Header("S2_阿嬤哭聲撥放器")] GameObject S2_Grandma_Cry_Audio_Obj;
@@ -674,7 +674,7 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-    public void GrandMaRush()   // 奶奶衝撞
+    public void GrandMaRush()   // 阿嬤衝撞
     {
         m_iGrandmaRushCount++;
 
@@ -706,7 +706,6 @@ public partial class GameManager : MonoBehaviour
 
         ShowHint(HintItemID.S1_Lotus_Paper);
     }
-
 
     void QuitPiano()
     {
