@@ -68,8 +68,10 @@ public class AUDManager : MonoBehaviour
     [SerializeField, Tooltip("UI內文")] AudioClip ui_Context;
     [SerializeField] AudioClip At_the_end_it_is_found_that_Acuan_has_mostly_disappeared_and_Acuan_has_climbed_up;
     [SerializeField, Tooltip("沖水聲")] public AudioSource FlushSound;
-
-
+    [SerializeField, Tooltip("電視噪音")] public AudioClip TV_Noise;
+    [SerializeField, Tooltip("蠟燭倒下")] public AudioClip CandleFall;
+    [SerializeField, Tooltip("娃娃轉頭")] public AudioClip CandleFallDollTurnAround;
+    [SerializeField, Tooltip("水龍頭關閉")] public AudioClip CloseFaucet;
     public const string MUSIC_KEY = "musicVolume";
     public const string SFX_KEY = "sfxVolume";
 
@@ -199,7 +201,14 @@ public class AUDManager : MonoBehaviour
                 return enter_Scene_Sound;
             case "ui_Context":
                 return ui_Context;
-
+            case "TV_Noise":
+                return TV_Noise;
+            case "CandleFall":
+                return CandleFall;
+            case "CandleFallDollTurnAround":
+                return CandleFallDollTurnAround;
+            case "CloseFaucet":
+                return CloseFaucet;
         }
         return null;
     }

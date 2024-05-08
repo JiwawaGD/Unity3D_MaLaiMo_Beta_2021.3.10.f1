@@ -220,7 +220,7 @@ public partial class GameManager : MonoBehaviour
         // For Test
         //Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
         //playerFlashlight.enabled = true;
-        // S2_ToiletDoor();
+        //S2_ToiletDoor();
         //S1_RiceFuneralSpilled();
     }
 
